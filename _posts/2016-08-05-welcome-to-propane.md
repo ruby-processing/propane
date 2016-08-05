@@ -11,7 +11,6 @@ keywords: processing, jruby, propane
 Recently I have been experimenting with configuration free version of processing (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
 To install gem:-
 {% highlight bash %}
-gem install propane # simplest or safer
 jgem install propane # or belt and braces
 jruby -S gem install propane 
 {% endhighlight %}
