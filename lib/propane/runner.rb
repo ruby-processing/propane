@@ -51,7 +51,7 @@ module Propane
         end
 
         options[:watch] = false
-        opts.on('-w', '--watch', 'Watch the sketch') do
+        opts.on('-w', '--watch', 'Watch the sketch (WIP)') do
           options[:watch] = true
         end
 
