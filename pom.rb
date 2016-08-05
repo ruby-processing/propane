@@ -1,7 +1,7 @@
 require 'fileutils'
 project 'rp5extras', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:rp5extras', '0.9.0'
+  id 'propane:rp5extras', '1.0.0'
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
@@ -13,12 +13,12 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
   end
   license 'MIT', 'http://www.opensource.org/licenses/mit-license.php'
   license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'  
-  issue_management 'https://github.com/monkstone/propane/issues', 'Github'
+  issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
   
   source_control(
-    url: 'https://github.com/monkstone/propane',
-    connection: 'scm:git:git://github.com/monkstone/propane.git',
-    developer_connection: 'scm:git:git@github.com/monkstone/propane.git'
+    url: 'https://github.com/ruby-processing/propane',
+    connection: 'scm:git:git://github.com/ruby-processing/propane.git',
+    developer_connection: 'scm:git:git@github.com/ruby-processing/propane.git'
     )
   
   properties('source.directory' => 'src',

@@ -1,3 +1,4 @@
+**v1.0.0** Clean history version, now hosted as ruby-processing project
 
 **v0.9.0** Implements `data_path` in ruby, you should use this method to return the absolute path to the `data` folder (read and write).  Prefer JRubyArt methods, in the main.
 
