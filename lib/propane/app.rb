@@ -49,6 +49,7 @@ module Propane
     alias stroke_width stroke_weight
     alias rgb color
     alias gray color
+    field_reader :surface
     attr_reader :title, :arguments, :options
     # App should be instantiated with an optional list of options
     # and array of arguments.
@@ -111,6 +112,11 @@ module Propane
       import_opengl if /opengl/ =~ mode
       super(*args)
     end
+    
+    def sketch_title(title)
+      surface.set_title(title)
+    end
+
 
     def data_path(dat)
       dat_root = File.join(SKETCH_ROOT, 'data')

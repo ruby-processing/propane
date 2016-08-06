@@ -30,11 +30,11 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     'jruby.api' => 'http://jruby.org/apidocs/',
     'processing.api' => 'http://processing.github.io/processing-javadocs/core/',
     'jruby.api' => 'http://jruby.org/apidocs/',
-    'jogl.version' => '2.1.5-01'
+    'jogl.version' => '2.3.2'
     )
   
-  pom('org.jruby:jruby:9.1.2.0')
-  jar('org.processing:core:2.2.1')
+  pom 'org.jruby:jruby:9.1.2.0'
+  jar 'org.processing:core:3.1.1'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
   jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
   
@@ -44,7 +44,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
       execute_goals( id: 'default-cli',
         artifactItems: [ { groupId:  'org.processing',
           artifactId:  'core',
-          version:  '2.2.1',         
+          version:  '3.1.1',         
           type:  'jar',
           outputDirectory: '${propane.basedir}/lib'
         },

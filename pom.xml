@@ -55,7 +55,7 @@ DO NOT MODIFIY - GENERATED CODE
     <url>https://github.com/ruby-processing/propane/issues</url>
   </issueManagement>
   <properties>
-    <jogl.version>2.1.5-01</jogl.version>
+    <jogl.version>2.3.2</jogl.version>
     <jruby.api>http://jruby.org/apidocs/</jruby.api>
     <source.directory>src</source.directory>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -75,7 +75,7 @@ DO NOT MODIFIY - GENERATED CODE
     <dependency>
       <groupId>org.processing</groupId>
       <artifactId>core</artifactId>
-      <version>2.2.1</version>
+      <version>3.1.1</version>
     </dependency>
     <dependency>
       <groupId>org.jogamp.jogl</groupId>
@@ -109,7 +109,7 @@ DO NOT MODIFIY - GENERATED CODE
                   <artifactItem>
                     <groupId>org.processing</groupId>
                     <artifactId>core</artifactId>
-                    <version>2.2.1</version>
+                    <version>3.1.1</version>
                     <type>jar</type>
                     <outputDirectory>${propane.basedir}/lib</outputDirectory>
                   </artifactItem>
