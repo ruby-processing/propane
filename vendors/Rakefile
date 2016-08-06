@@ -1,78 +1,39 @@
-# encoding: utf-8
-# frozen_string_literal: false
+# frozen_string_literal: true
 require 'rake/clean'
 
 WARNING = <<-EOS
    WARNING: you may not have wget installed, you could just download
-   the correct version of jruby-complete to the vendors folder, and
-   re-run
+   the correct version of propane-examples (see EXAMPLES vendors directory)
 EOS
 
 EXAMPLES = '0.1'.freeze
-JRUBYC_VERSION = '9.1.2.0'.freeze
 HOME_DIR = ENV['HOME']
-MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os'] 
+MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os']
 
-CLOBBER.include("jruby-complete-#{JRUBYC_VERSION}.jar")
-
-desc 'download, and copy to propane'
-task default: [:download, :copy_ruby, :download_examples, :copy_examples]
-
-desc 'download JRuby upstream sources'
-task download: ["jruby-complete-#{JRUBYC_VERSION}.jar"]
-
-file "jruby-complete-#{JRUBYC_VERSION}.jar" do
-  begin
-    sh "wget https://s3.amazonaws.com/jruby.org/downloads/#{JRUBYC_VERSION}/jruby-complete-#{JRUBYC_VERSION}.jar"
-  rescue
-    warn(WARNING)
-  end
-  check_sha256("jruby-complete-#{JRUBYC_VERSION}.jar", "b9a6838ff7bbb0b3eda4eeba26017329572bc2fa014008a069b3848482275283")
-end
-
-directory '../lib/ruby'
-
-desc 'copy jruby-complete'
-task copy_ruby: ["../lib/ruby"] do
-  sh "cp -v jruby-complete-#{JRUBYC_VERSION}.jar ../lib/ruby/jruby-complete.jar"
-end
-
-def check_sha256(filename, expected_hash)
-  require 'digest'
-  sha256 = Digest::SHA256.new
-  File.open(filename, 'r') do |f|
-    while buf = f.read(4096)
-      sha256.update(buf)
-    end
-  end
-  if sha256.hexdigest != expected_hash
-    raise "bad sha256 checksum for #{filename} (expected #{expected_hash} got #{sha256.hexdigest})"
-  end
-end
+desc 'download, and copy propane examples'
+task default: [:download_examples, :copy_examples]
 
 desc 'download and copy examples to user home'
 task :download_examples
-file_name = (MAC_OR_LINUX.nil?) ? "#{EXAMPLES}.zip" : "#{EXAMPLES}.tar.gz"
+file_name = MAC_OR_LINUX.nil? ? "#{EXAMPLES}.zip" : "#{EXAMPLES}.tar.gz"
+wget_base = 'wget https://github.com/ruby-processing/propane-examples'
+wget_string = [wget_base, 'archive', file_name].join('/')
 file file_name do
   begin
-    if MAC_OR_LINUX.nil?
-      sh "wget https://github.com/ruby-processing/propane-examples/archive/#{EXAMPLES}.zip"
-    else
-      sh "wget https://github.com/ruby-processing/propane-examples/archive/#{EXAMPLES}.tar.gz"
-    end
+    sh wget_string
   rescue
     warn(WARNING)
   end
 end
 
-desc "copy examples"
+desc 'copy examples'
 task :copy_examples => file_name do
   if MAC_OR_LINUX.nil?
-    sh "unzip #{EXAMPLES},zip"
+    sh "unzip #{EXAMPLES}.zip"
   else
-    sh "tar xzvf #{EXAMPLES}.tar.gz" 
+    sh "tar xzvf #{EXAMPLES}.tar.gz"
   end
   sh "rm -r #{HOME_DIR}/k9_samples" if File.exist? "#{HOME_DIR}/propane_samples"
-  sh "cp -r propane-examples-#{EXAMPLES} #{HOME_DIR}/propane_samples"  
+  sh "cp -r propane-examples-#{EXAMPLES} #{HOME_DIR}/propane_samples"
   sh "rm -r propane-examples-#{EXAMPLES}"
 end
