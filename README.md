@@ -59,7 +59,7 @@ class RandomBackground
 
 end
 
-FlashingLightsSketch.new title: "Flashing Lights"
+FlashingLightsSketch.new
 ```
 
 To install the samples and jruby-complete. The samples get copied to `~/propane_samples`.
@@ -72,8 +72,7 @@ propane -c my_sketch 200 200 # for default renderer
 propane -c my_sketch 200 200 p2d # for opengl 2D renderer
 propane -c my_sketch 200 200 p3d # for opengl 3D renderer
 
-To run sketches using the installed jruby-complete, you can also use shortform `-r`
+To run sketches 
 ```bash
-propane --run my_sketch.rb          # or
 jruby -S propane --run my_sketch.rb # belt and braces version
 ```
