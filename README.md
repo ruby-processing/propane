@@ -71,8 +71,10 @@ There is a handy sketch creator tool
 propane -c my_sketch 200 200 # for default renderer
 propane -c my_sketch 200 200 p2d # for opengl 2D renderer
 propane -c my_sketch 200 200 p3d # for opengl 3D renderer
+```
 
-To run sketches 
+To run sketches
+
 ```bash
 jruby -S propane --run my_sketch.rb # belt and braces version
 ```
