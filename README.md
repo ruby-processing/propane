@@ -36,8 +36,12 @@ class FlashingLightsSketch < Propane::App
     super
   end
 
-  def setup
+  def settinngs
     size(800, 600)
+  end
+  
+  def setup
+    sketch_title 'Flashing Light Sketch'
   end
 
   def draw
