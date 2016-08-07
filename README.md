@@ -29,34 +29,17 @@ require 'propane'
 
 class FlashingLightsSketch < Propane::App
 
-  attr_reader :random_background
-
-  def initialize opts={}
-    @random_background = opts.fetch :random_background, RandomBackground.new(self)
-    super
-  end
-
-  def settinngs
+  def settings
     size(800, 600)
   end
-  
+
   def setup
     sketch_title 'Flashing Light Sketch'
   end
 
   def draw
-    random_background.generate
-  end
-
-end
-
-class RandomBackground
-  include Propane::Proxy
-
-  def generate
     background(rand(255), rand(255), rand(255))
   end
-
 end
 
 FlashingLightsSketch.new
