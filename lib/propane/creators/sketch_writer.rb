@@ -11,8 +11,9 @@ class SketchParameters
     name.split('_').collect(&:capitalize).join
   end
 
-  def title
-    name.split('_').collect(&:capitalize).join(' ')
+  def sketch_title
+    human = name.split('_').collect(&:capitalize).join(' ')
+    format("sketch_title '%s'", human)
   end
 
   def sketch_size
@@ -47,14 +48,15 @@ class ClassSketch
       ''
     ]
     lines << format('class %s < Propane::App', param.class_name)
-    lines.concat method_lines('setup', param.sketch_size)
+    lines.concat method_lines('settings', param.sketch_size)
+    lines.concat method_lines('setup', param.sketch_title)
     lines.concat method_lines('draw', '')
     lines << 'end'
     lines.concat new(param)
   end
-  
+
   private
-  
+
   def method_lines(name, content)
     one = format('%sdef %s', INDENT, name)
     two = content.empty? ? '' : format('  %s%s', INDENT, content)
@@ -64,7 +66,6 @@ class ClassSketch
   end
 
   def new(param)
-    ['', format("%s.new title: '%s'", param.class_name, param.title)]
+    ['', format('%s.new', param.class_name)]
   end
 end
-
