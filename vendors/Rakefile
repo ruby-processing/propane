@@ -5,20 +5,52 @@ WARNING = <<-EOS
    WARNING: you may not have wget installed, you could just download
    the correct version of propane-examples (see EXAMPLES vendors directory)
 EOS
-
+SOUND = 'sound.zip'.freeze 
+SOUND_VERSION = 'v1.3.2' # version 1.3.2
+VIDEO = 'video-2.zip'
+VIDEO_VERSION = '2' # version 1.0.1
 EXAMPLES = '0.1'.freeze
 HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os']
 
 desc 'download, and copy propane examples'
-task default: [:download_examples, :copy_examples]
-
+# task default: [:download_examples, :copy_examples]
+task default: [:download_sound]
 desc 'download and copy examples to user home'
 task :download_examples
 file_name = MAC_OR_LINUX.nil? ? "#{EXAMPLES}.zip" : "#{EXAMPLES}.tar.gz"
 wget_base = 'wget https://github.com/ruby-processing/propane-examples'
 wget_string = [wget_base, 'archive', file_name].join('/')
 file file_name do
+  begin
+    sh wget_string
+  rescue
+    warn(WARNING)
+  end
+end
+
+desc 'download and copy sound library to ~/.propane'
+task download_and_copy_sound: [:download_sound, :copy_sound]
+
+desc 'download and copy video library to ~/.propane'
+task download_and_copy_video: [:download_video, :copy_video]
+
+
+desc 'download sound library'
+task :download_sound do
+  wget_base = 'wget https://github.com/processing/processing-sound'
+  wget_string = [wget_base, 'releases/download', SOUND_VERSION, SOUND].join('/')
+  begin
+    sh wget_string
+  rescue
+    warn(WARNING)
+  end
+end
+
+desc 'download video library'
+task :download_video do  
+  wget_base = 'wget https://github.com/processing/processing-video'
+  wget_string = [wget_base, 'releases/download', VIDEO_VERSION, VIDEO].join('/')  
   begin
     sh wget_string
   rescue
@@ -36,4 +68,20 @@ task :copy_examples => file_name do
   sh "rm -r #{HOME_DIR}/k9_samples" if File.exist? "#{HOME_DIR}/propane_samples"
   sh "cp -r propane-examples-#{EXAMPLES} #{HOME_DIR}/propane_samples"
   sh "rm -r propane-examples-#{EXAMPLES}"
+end
+
+desc 'copy sound library'
+task :copy_sound => SOUND do
+  sh "unzip #{SOUND}"
+  sh "rm -r #{HOME_DIR}/.propane/sound" if File.exist? "#{HOME_DIR}/.propane/sound"
+  sh "cp -r sound #{HOME_DIR}/.propane/sound"
+  sh 'rm -r sound'
+end
+
+desc 'copy video library'
+task :copy_video => VIDEO do
+  sh "unzip #{VIDEO}"
+  sh "rm -r #{HOME_DIR}/.propane/video" if File.exist? "#{HOME_DIR}/.propane/video"
+  sh "cp -r video #{HOME_DIR}/.propane/video"
+  sh 'rm -r video'
 end

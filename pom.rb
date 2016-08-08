@@ -1,11 +1,11 @@
 require 'fileutils'
 project 'rp5extras', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:rp5extras', '1.0.0'
+  id 'propane:rp5extras', '2.0.0'
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
-  { 'monkstone' => 'Martin Prout', 'filib' => 'Phillip Cunningham' }.each do |key, value|
+  { 'monkstone' => 'Martin Prout' }.each do |key, value|
     developer key do
       name value
       roles 'developer'
