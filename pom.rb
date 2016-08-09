@@ -5,7 +5,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
-  { 'monkstone' => 'Martin Prout' }.each do |key, value|
+  { 'monkstone' => 'Martin Prout', 'filib' => 'Phillip Cunningham' }.each do |key, value|
     developer key do
       name value
       roles 'developer'
@@ -35,6 +35,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
   
   pom 'org.jruby:jruby:9.1.2.0'
   jar 'org.processing:core:3.1.1'
+  jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
   jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
   

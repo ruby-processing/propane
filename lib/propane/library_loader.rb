@@ -100,8 +100,8 @@ module Propane
         [
           "#{PROPANE_ROOT}/library/#{library_name}",
           "#{PROPANE_ROOT}/library/#{library_name}/library",
-          "#{PROPANE_ROOT}/library/#{library_name}"
-          "#{ENV['HOME']}/.propane/library/#{library_name}"
+          "#{PROPANE_ROOT}/library/#{library_name}",
+          "#{ENV['HOME']}/.propane/libraries/#{library_name}/library"
         ].each do |jpath|
           if File.exist?(jpath) && !Dir.glob(format('%s/*.%s', jpath, ext)).empty?
             return jpath
