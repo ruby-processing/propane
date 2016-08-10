@@ -1,6 +1,5 @@
 # frozen_string_literal: false
 # processing module wrapper
-require_relative '../propane'
 
 module Propane
   # Provides some convenience methods

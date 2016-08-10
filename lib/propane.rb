@@ -6,6 +6,4 @@ end
 Dir["#{PROPANE_ROOT}/lib/*.jar"].each do |jar|
   require jar
 end
-require 'propane/version'
-require 'propane/app'
-require 'propane/helpers/numeric'
+require_relative 'propane/app'

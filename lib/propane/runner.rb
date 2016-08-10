@@ -1,6 +1,4 @@
 # frozen_string_literal: false
-require "#{PROPANE_ROOT}/lib/propane"
-require "#{PROPANE_ROOT}/lib/propane/app"
 require 'optparse'
 
 module Propane
