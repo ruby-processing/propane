@@ -1,3 +1,3 @@
 class Propane::App
-    include Java::MonkstoneVideoevent::VideoInterface
+  include Java::MonkstoneVideoevent::VideoInterface
 end

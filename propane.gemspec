@@ -6,7 +6,7 @@ require 'propane/version'
 Gem::Specification.new do |gem|
   gem.name          = 'propane'
   gem.version       = Propane::VERSION
-  gem.authors       = ['filib', 'monkstone']
+  gem.authors       = ['monkstone']
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.license       = 'MIT'
   gem.description   = %q{A Standalone Ruby Processing implementation} 
