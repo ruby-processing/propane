@@ -1,4 +1,6 @@
 # frozen_string_literal: false
+require 'java'
+require_relative '../propane'
 require_relative 'helper_methods'
 require_relative 'library_loader'
 

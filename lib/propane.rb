@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: false
 unless defined? PROPANE_ROOT
   $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
