@@ -40,8 +40,6 @@ MySketch.new
 {% highlight bash %}
 # regular
 jruby my_sketch.rb # using an installed jruby
-# using propane, alternative (using jruby-complete)
-propane --run my_sketch.rb # installed jruby loads sketch, but it runs with vendored jruby-complete
 {% endhighlight %}
 ## Why Propane ##
 
