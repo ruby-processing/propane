@@ -42,7 +42,7 @@ module Propane
         end
 
         options[:install] = false
-        message = '<Samples><Video>/<Sound> Install samples or library'
+        message = '<Samples><Video><Sound> Install samples or library'
         opts.on('-i', '--install', message) do
           options[:install] = true
         end

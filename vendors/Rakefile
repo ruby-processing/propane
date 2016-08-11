@@ -64,7 +64,7 @@ task :copy_examples => file_name do
   else
     sh "tar xzvf #{EXAMPLES}.tar.gz"
   end
-  sh "rm -r #{HOME_DIR}/k9_samples" if File.exist? "#{HOME_DIR}/propane_samples"
+  sh "rm -r #{HOME_DIR}/propane_samples" if File.exist? "#{HOME_DIR}/propane_samples"
   sh "cp -r propane-examples-#{EXAMPLES} #{HOME_DIR}/propane_samples"
   sh "rm -r propane-examples-#{EXAMPLES}"
 end
