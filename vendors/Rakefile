@@ -14,8 +14,7 @@ HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os']
 
 desc 'download, and copy propane examples'
-# task default: [:download_examples, :copy_examples]
-task default: [:download_sound]
+task default: [:download_examples, :copy_examples]
 desc 'download and copy examples to user home'
 task :download_examples
 file_name = MAC_OR_LINUX.nil? ? "#{EXAMPLES}.zip" : "#{EXAMPLES}.tar.gz"
