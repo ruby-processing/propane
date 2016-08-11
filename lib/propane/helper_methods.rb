@@ -1,7 +1,6 @@
 # frozen_string_literal: false
 # processing module wrapper
-require_relative '../propane'
-
+require_relative 'helpers/numeric'
 module Propane
   # Provides some convenience methods
   module HelperMethods

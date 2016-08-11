@@ -1,4 +1,4 @@
-**v1.0.0** Clean history version, now hosted as ruby-processing project, pared back to a purely scriptable version (see other branches eg `watch` for anything more complicated).
+**v2.0.0** Refactored to work with processing-3.0, `--install` install samples plan is to enable post-install of at minimum `sound` and `video` libraries
 
 **v0.9.0** Implements `data_path` in ruby, you should use this method to return the absolute path to the `data` folder (read and write).  Prefer JRubyArt methods, in the main.
 

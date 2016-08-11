@@ -10,8 +10,12 @@ CLASS_SKETCH = <<~CODE
 require 'propane'
 
 class FredSketch < Propane::App
-  def setup
+  def settings
     size 200, 200, P2D
+  end
+
+  def setup
+    sketch_title 'Fred Sketch'
   end
 
   def draw
@@ -19,16 +23,19 @@ class FredSketch < Propane::App
   end
 end
 
+FredSketch.new
+
 CODE
 
 class SketchWriterTest < Minitest::Test
-  ParamMethods = Struct.new(:name, :class_name, :sketch_size)
+  ParamMethods = Struct.new(:name, :class_name, :sketch_size, :sketch_title)
   
   def setup
     @param = ParamMethods.new(
       'fred_sketch',
       'FredSketch',
-      'size 200, 200, P2D'
+      'size 200, 200, P2D',
+      "sketch_title 'Fred Sketch'"
     )
   end
 

@@ -1,0 +1,21 @@
+language: ruby
+sudo: false
+addons:
+  apt:
+    packages:
+      -oracle-java8-installer
+      -xvfb 
+      -libxrender1 
+      -libxtst6 
+      -libxi6 
+
+rvm: 
+  - jruby-9.1.2.0
+jdk:
+  - oraclejdk8
+os:
+  - linux
+env:
+  - Xvfb :1 -screen 0 1024x768x24
+  - export DISPLAY=":1"
+

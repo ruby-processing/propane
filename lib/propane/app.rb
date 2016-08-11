@@ -19,7 +19,8 @@ module Propane
   # their own sketch.
   #
   # i.e.
-  #
+  # require 'propane'
+  # 
   # class MySketch < Propane::App
   #
   #   def draw
@@ -27,6 +28,8 @@ module Propane
   #   end
   #
   # end
+  #
+  # MySketch.new
 
   # Watch the definition of these methods, to make sure
   # that Processing is able to call them during events.
@@ -49,15 +52,27 @@ module Propane
     alias stroke_width stroke_weight
     alias rgb color
     alias gray color
-    attr_reader :title, :arguments, :options
+    field_reader :surface
+    
+    def sketch_class
+      self.class.sketch_class
+    end
+
+    # Keep track of what inherits from the Processing::App, because we're
+    # going to want to instantiate one.
+    def self.inherited(subclass)
+      super(subclass)
+      @sketch_class = subclass
+    end
+    
     # App should be instantiated with an optional list of options
     # and array of arguments.
     #
-    # App.new(width: 500, height: 500, fullscreen: true)
+    # App.new
     #
     class << self
       # Handy getters and setters on the class go here:
-      attr_accessor :sketch_class, :library_loader
+      attr_accessor :sketch_class, :library_loader, :title, :arguments, :options
 
       def load_libraries(*args)
         library_loader ||= LibraryLoader.new
@@ -99,7 +114,6 @@ module Propane
       $app = self
       @arguments = arguments
       @options   = options
-      configure_sketch
       run_sketch
     end
 
@@ -111,17 +125,15 @@ module Propane
       import_opengl if /opengl/ =~ mode
       super(*args)
     end
+    
+    def sketch_title(title)
+      surface.set_title(title)
+    end
 
     def data_path(dat)
       dat_root = File.join(SKETCH_ROOT, 'data')
       Dir.mkdir(dat_root) unless File.exist?(dat_root)
       File.join(dat_root, dat)
-    end
-
-    # This method runs the processing sketch.
-    #
-    def run_sketch
-      PApplet.run_sketch(arguments, self)
     end
 
     private
@@ -133,26 +145,6 @@ module Propane
          PShapeOpenGL Texture).each do |klass|
         java_import "processing.opengl.#{klass}"
       end
-    end
-
-    # This method configures the sketch title and and presentation mode.
-    #
-    def configure_sketch
-      set_sketch_title
-      set_presentation_mode
-    end
-
-    # This method sets the sketch presentation mode.
-    #
-    def set_presentation_mode
-      arguments.concat ['--present'] if options[:fullscreen]
-    end
-
-    # This method sets the sketch title.
-    #
-    def set_sketch_title
-      title_string = options.fetch(:title, 'processing sketch')
-      arguments.concat [title_string]
     end
 
     def proxy_java_fields

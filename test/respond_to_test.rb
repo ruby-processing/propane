@@ -156,6 +156,7 @@ METHODS = %i(
   shear_x
   shear_y
   shininess
+  sketch_title
   size
   smooth
   specular
@@ -186,6 +187,14 @@ METHODS = %i(
 )
 
 class TestSketch < Propane::App
+  def settings
+    size 100, 100
+  end
+
+  def setup
+    sketch_title 'Sketch Test'
+  end
+
   def draw
     exit if frame_count > 30
   end
@@ -193,7 +202,7 @@ end
 
 class SpecTest < Minitest::Test  
   def setup
-    @processing_sketch = TestSketch.new title: 'sketch'
+    @processing_sketch = TestSketch.new
   end
   
   def test_respond
