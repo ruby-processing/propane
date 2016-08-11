@@ -8,7 +8,7 @@ categories: propane update
 keywords: processing, jruby, propane
 ---
 
-Recently I have been experimenting with configuration free version of processing (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
+Propane-2.0 is a configuration free version of processing-3.1+ (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
 To install gem:-
 {% highlight bash %}
 jgem install propane # or belt and braces
@@ -17,7 +17,9 @@ jruby -S gem install propane
 Post install:-
 
 {% highlight bash %}
-propane --install # requires wget install jruby-complete
+propane --install samples # requires wget installs samples
+propane --install sound # requires wget installs processing sound library
+propane --install video # requires wget installs processing video library
 {% endhighlight %}
 
 Create sketch from template
@@ -40,7 +42,7 @@ propane --run my_sketch.rb # requires wget install jruby-complete
 
 Example Sketch:-
 {% highlight ruby %}
-# encoding: utf-8
+#!/usr/bin/env jruby -v -W2
 # frozen_string_literal: true
 require 'propane'
 # Iconic ruby-processing example for Propane
@@ -48,22 +50,25 @@ class JWishy < Propane::App
   load_library :control_panel
 
   attr_reader :alpha, :back_color, :bluish, :hide, :magnitude, :panel
-  attr_reader :x_wiggle, :y_wiggle
-
+  attr_reader :x_wiggle, :y_wiggle, :go_big, :shape
+  
+  def settings
+    size 600, 600  
+  end
+  
   def setup
-    size 600, 600
+    sketch_title 'Wishy Worm'
     control_panel do |c|
       c.title = 'Control Panel'
       c.look_feel 'Nimbus'
       c.slider :bluish, 0.0..1.0, 0.5
       c.slider :alpha,  0.0..1.0, 0.5
-      c.checkbox :go_big
+      c.checkbox :go_big, false
       c.button :reset
-      c.menu :shape, %w(oval square triangle)
+      c.menu :shape, %w(oval square triangle), 'oval'
       @panel = c
     end
     @hide = false
-    @shape = 'oval'
     @x_wiggle, @y_wiggle = 10.0, 0
     @magnitude = 8.15
     @back_color = [0.06, 0.03, 0.18]
@@ -92,7 +97,7 @@ class JWishy < Propane::App
     # Seed the random numbers for consistent placement from frame to frame
     srand(0)
     horiz, vert, mag = x_wiggle, y_wiggle, magnitude
-    if @go_big
+    if go_big
       mag *= 2
       vert /= 2
     end
@@ -139,7 +144,7 @@ class JWishy < Propane::App
   end
 end
 
-JWishy.new title: 'Wishy Worm'
+JWishy.new
 {% endhighlight %}
 
 [propane]:https://github.com/ruby-processing/propane
