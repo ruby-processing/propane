@@ -22,12 +22,12 @@ class MySketch < Propane::App
    def settings
      size 200, 200 # size, mode, smooth etc here
    end
-   
+
    def setup
      sketch_title 'My Sketch'
      # do initialize stuff here
    end
-   
+
 
    def draw
      # do fancy stuff here in draw loop
@@ -38,14 +38,14 @@ MySketch.new
 {% endhighlight %}
 
 {% highlight bash %}
-# regular 
+# regular
 jruby my_sketch.rb # using an installed jruby
 # using propane, alternative (using jruby-complete)
-propane --run my_sketch.rb # installed jruby loads sketch, but it runs with vendored jruby-complete 
+propane --run my_sketch.rb # installed jruby loads sketch, but it runs with vendored jruby-complete
 {% endhighlight %}
 ## Why Propane ##
 
 - It is a gas (C<sub>3</sub>H<sub>8</sub>), used for cooking _al fresco_ what could be cooler
 - Starts with `pro` _p5_ is shunned (_well apart from p5.js which is considered cool_), over used
 - Ends with `pane` an allusion to `window`
-- Watch mode is entirely experimental and currently does not work!!! A more conservative version, based on JRubyArt or ruby-processing should work but that would not be very interesting...
+- Watch mode is to be implemented.
