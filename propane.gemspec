@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
   gem.description   = %q{A Standalone Ruby Processing implementation} 
   gem.summary       = %q{A really slim layer between Ruby and Processing-3.1.1.}
-  gem.homepage      = 'https://github.com/ruby-processing/propane'
+  gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/propane.jar'
   gem.files << 'lib/core-3.1.1.jar'
