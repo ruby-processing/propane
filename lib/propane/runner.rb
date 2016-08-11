@@ -41,10 +41,11 @@ module Propane
         end
 
         options[:install] = false
-        opts.on('-i', '--install', 'Installs propane samples') do
+        message = '<Samples><Video>/<Sound> Install samples or library'
+        opts.on('-i', '--install', message) do
           options[:install] = true
         end
-        
+
         options[:create] = false
         opts.on('-c', '--create', 'Create new sketch outline') do
           options[:create] = true
@@ -60,7 +61,7 @@ module Propane
       @argc = opt_parser.parse(args)
       @filename = argc.shift
     end
-    
+
     def create
       require_relative 'creators/sketch_writer'
       sketch = ClassSketch.new
@@ -73,7 +74,13 @@ module Propane
     end
 
     def install
-      system "cd #{PROPANE_ROOT}/vendors && rake"
+      choice = filename.downcase
+      samples = "cd #{PROPANE_ROOT}/vendors && rake"
+      sound = "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_sound"
+      video = "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_video"
+      system samples if /samples/ =~ choice
+      system video if /video/ =~ choice
+      system sound if /sound/ =~ choice
     end
   end # class Runner
 end # module Propane
