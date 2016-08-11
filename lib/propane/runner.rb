@@ -22,8 +22,6 @@ module Propane
     def execute!
       show_help if options.empty?
       show_version if options[:version]
-      run_sketch if options[:run]
-      watch_sketch if options[:watch]
       create if options[:create]
       install if options[:install]
     end
