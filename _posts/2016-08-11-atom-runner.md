@@ -51,7 +51,7 @@ To explore propane samples open `~/propane_samples/regular` or `~/propane_sample
 
 ### What's it look like ###
 
-<img src="/assets/atom-runner.png" />
+<img src="{{site.baseurl}}/assets/atom-runner.png" />
 
 [runner]:https://github.com/lsegal/atom-runner
 [atom]:https://atom.io/
