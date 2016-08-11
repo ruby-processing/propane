@@ -6,7 +6,7 @@ permalink: /about/
 
 ## What is Propane? ##
 
-It is ruby wrapper around processing-2.2.1, that includes the core.jar (also includes appropriate jogl jars for linux64 and mac), and so is independent from any vanilla processing installation.  Someone might like to try including Windows or raspberry-pi binaries?
+It is ruby wrapper around processing-3.1+, that includes the core.jar (also includes appropriate jogl jars for linux64 and mac), and so is independent from any vanilla processing installation.  Someone might like to try including Windows or raspberry-pi binaries?
 
 ## System requirements ##
 
@@ -14,22 +14,27 @@ Depends on jdk8+ (Oracle stopped supporting jdk7+ ages ago, unless you pay for i
 
 ## Usage ##
 
-Sketches should `require 'propane'` and currently should be class wrapped, with sketch class inheriting from `Propane::App`. Creating a new instance, is the regular way to get you sketch to run:-
+Sketches should `require 'propane'` and should be class wrapped, with sketch class inheriting from `Propane::App`. Creating a new instance, is the regular way to get you sketch to run:-
 {% highlight ruby %}
 require 'propane'
 
 class MySketch < Propane::App
-   def setup
-     size 200, 200 # make first entry in setup like regular processing
-     # make sense to initialize stuff here
+   def settings
+     size 200, 200 # size, mode, smooth etc here
    end
+   
+   def setup
+     sketch_title 'My Sketch'
+     # do initialize stuff here
+   end
+   
 
    def draw
      # do fancy stuff here in draw loop
    end
 end
 
-MySketch.new title: 'My Sketch'
+MySketch.new
 {% endhighlight %}
 
 {% highlight bash %}
