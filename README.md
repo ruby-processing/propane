@@ -45,9 +45,9 @@ end
 FlashingLightsSketch.new
 ```
 
-To install the samples and jruby-complete. The samples get copied to `~/propane_samples`.
+To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
 ```bash
-propane --install
+propane --install samples
 ```
 There is a handy sketch creator tool
 ```bash
@@ -60,4 +60,9 @@ To run sketches
 
 ```bash
 jruby -S propane --run my_sketch.rb # belt and braces version
+```
+To install the sound and video libraries `~/.propane/libraries`. Depends on wget.
+```bash
+propane --install sound
+propane --install video
 ```
