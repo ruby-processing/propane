@@ -34,11 +34,7 @@ Run sketches
 jruby my_sketch.rb
 {% endhighlight %}
 
-For shader sketches etc.
-
-{% highlight bash %}
-propane --run my_sketch.rb # requires wget install jruby-complete
-{% endhighlight %}
+NB: `propane --run` currently not supported (or required, just use absolute data paths or `data_path` wrapper).
 
 Example Sketch:-
 {% highlight ruby %}
