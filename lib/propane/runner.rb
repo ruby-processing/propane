@@ -1,5 +1,6 @@
 # frozen_string_literal: false
 require 'optparse'
+require_relative 'version'	    
 
 module Propane
   # Utility class to handle the different commands that the 'propane' offers
