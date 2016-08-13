@@ -34,8 +34,6 @@ Run sketches
 jruby my_sketch.rb
 {% endhighlight %}
 
-NB: `propane --run` currently not supported (or required, just use absolute data paths or `data_path` wrapper).
-
 Example Sketch:-
 {% highlight ruby %}
 #!/usr/bin/env jruby -v -W2

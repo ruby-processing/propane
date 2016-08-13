@@ -23,15 +23,15 @@ Tough luck if you want the 32 bit version on linux
 
 ### Install Packages ###
 
-From the atom editor install the `project-runner` and `script` packages.
+From the atom editor install the `project-runner` and `atom-runner` packages.
 
-To explore propne examples open `k9_samples` folder, select `project-runner` from the menu, then choose the run from the sub-menu, launches sketches in a random order per folder.
+To explore propsne samples open `propane_samples` folder, select `project-runner` from the menu, then choose the run from the sub-menu, launches sketches in a random order per folder.
 
 ### What's it look like ###
 
 <img src="/assets/rakefile.png" />
 
-Individual sketches will run directly with the `script` package.
+Individual sketches can be run directly with either the `atom_runner` or `script` packages.
 
 [atom]:https://atom.io/
 [releases]:https://github.com/atom/atom/releases/tag/v1.9.0
