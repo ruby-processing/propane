@@ -7,7 +7,10 @@ date: 2016-08-05 06:40:00
 categories: propane update
 keywords: processing, jruby, propane
 ---
+### Requirements ###
+[jruby-9.1.2.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
 
+### Installing ###
 Propane-2.0 is a configuration free version of processing-3.1+ (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
 To install gem:-
 {% highlight bash %}
@@ -21,6 +24,8 @@ propane --install samples # requires wget installs samples
 propane --install sound # requires wget installs processing sound library
 propane --install video # requires wget installs processing video library
 {% endhighlight %}
+
+### Using ###
 
 Create sketch from template
 
@@ -142,4 +147,6 @@ JWishy.new
 {% endhighlight %}
 
 [propane]:https://github.com/ruby-processing/propane
-
+[jruby]:http://jruby.org/download
+[openjvm]:http://openjdk.java.net/install/
+[oraclejvm]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
