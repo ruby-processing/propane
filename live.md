@@ -49,7 +49,7 @@ Screen shot on `:wq` from vim
 
 Or if you just wanted to edit the draw loop
 
-`edit FredSketch#draw`
+`edit -p FredSketch#draw`
 
 [prywiki]:https://github.com/pry/pry/wiki/Customization-and-configuration
 
