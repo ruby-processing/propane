@@ -25,7 +25,7 @@ Then firing up pry with jruby is as simple as
 ```bash
 jpry
 ```
-For live editting with vim (there is is an emacs alternative see [pry wiki][prywiki])
+For live editing with vim (there is is an emacs alternative see [pry wiki][prywiki])
 
 You should also create or edit `~/.pryrc` to set the live editor
 
