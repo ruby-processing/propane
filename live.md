@@ -21,6 +21,7 @@ Easy use configuration in your `~/.bashrc` or `~/.profile` etc include
 alias jpry="jruby -e \"require 'pry'; binding.pry\""
 ```
 Then firing up pry with jruby is as simple as
+
 ```bash
 jpry
 ```
