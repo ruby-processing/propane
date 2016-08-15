@@ -46,4 +46,6 @@ jruby my_sketch.rb # using an installed jruby
 - It is a gas (C<sub>3</sub>H<sub>8</sub>), used for cooking _al fresco_ what could be cooler
 - Starts with `pro` _p5_ is shunned (_well apart from p5.js which is considered cool_), over used
 - Ends with `pane` an allusion to `window`
-- Watch mode is to be implemented (Use JRubyArt).
+- Watch mode is to be implemented (Use [JRubyArt][jruby_art]) or you could try the [live]({{ site.github.url }}/live) mode.
+
+[jruby_art]:https://github.com/ruby-processing/JRubyArt
