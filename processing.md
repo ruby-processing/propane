@@ -23,6 +23,10 @@ Processing.org maintains a list of books on [processing][books] that could be us
 
 In addition to the [samples][propane-examples] included with processing you should look at the [JRubyArt-examples][jrub] and [Nature of Code Examples][noc] which need only slight modification to run with propane (ie mainly a class wrapper see [samples][propane-examples]).
 
+### Licence ###
+
+The core library of processing is covered by the [LGPL2][licence] licence.
+
 [processing]:https://processing.org/
 [foundation]:https://processingfoundation.org/
 [support]:https://www.processing.org/download/
@@ -30,3 +34,4 @@ In addition to the [samples][propane-examples] included with processing you shou
 [jrub]:https://github.com/ruby-processing/JRubyArt-examples
 [propane-examples]:https://github.com/ruby-processing/propane-examples
 [noc]:https://github.com/ruby-processing/The-Nature-of-Code-for-JRubyArt
+[licence]:https://github.com/processing/processing/blob/master/license.txt
