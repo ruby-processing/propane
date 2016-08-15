@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = Propane::VERSION
   gem.authors       = ['monkstone']
   gem.email         = ['mamba2928@yahoo.co.uk']
-  gem.license       = 'MIT'
+  gem.license       = ['GPL-3.0', 'LGPL-2.0']
   gem.description   = %q{A Standalone Ruby Processing implementation} 
   gem.summary       = %q{A really slim layer between Ruby and Processing-3.1.1.}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
