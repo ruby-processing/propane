@@ -5,13 +5,12 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
-  { 'monkstone' => 'Martin Prout', 'filib' => 'Phillip Cunningham' }.each do |key, value|
+  { 'monkstone' => 'Martin Prout' }.each do |key, value|
     developer key do
       name value
       roles 'developer'
     end
   end
-  license 'MIT', 'http://www.opensource.org/licenses/mit-license.php'
   license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'  
   issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
   
