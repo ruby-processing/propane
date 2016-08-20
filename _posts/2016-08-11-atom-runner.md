@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Using script to run propane sketches"
+title: "Run propane sketches from atom with script package"
 date: 2016-08-11 10:00:00
 categories: propane update
 keywords: atom, processing, propane, jruby
