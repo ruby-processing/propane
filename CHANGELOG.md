@@ -1,3 +1,8 @@
+
+**v2.0.2** Refactor install to either install `samples\sound\video` or warn (update to use a local processing-3.2.1 core, this is why travis fails), fix some examples, hence `0.3`
+
+**v2.0.1** Support processing-3.2.0
+
 **v2.0.0** Refactored to work with processing-3.0, `--install samples` and/or vanilla processing `sound` and `video` libraries
 
 **v0.9.0** Implements `data_path` in ruby, you should use this method to return the absolute path to the `data` folder (read and write).  Prefer JRubyArt methods, in the main.

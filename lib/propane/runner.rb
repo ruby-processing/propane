@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 require 'optparse'
-require_relative 'version'	    
+require_relative 'version'
 
 module Propane
   # Utility class to handle the different commands that the 'propane' offers
@@ -23,7 +23,7 @@ module Propane
       show_help if options.empty?
       show_version if options[:version]
       create if options[:create]
-      install if options[:install]
+      install(filename) if options[:install]
     end
 
     # Parse the command-line options. Keep it simple.
@@ -63,8 +63,7 @@ module Propane
 
     def create
       require_relative 'creators/sketch_writer'
-      sketch = ClassSketch.new
-      SketchWriter.new(File.basename(filename, '.rb'), argc).write(sketch)
+      SketchWriter.new(File.basename(filename, '.rb'), argc).write
     end
 
     def show_version
@@ -72,14 +71,11 @@ module Propane
       puts format(v_format, Propane::VERSION, JRUBY_VERSION)
     end
 
-    def install
-      choice = filename.downcase
-      samples = "cd #{PROPANE_ROOT}/vendors && rake"
-      sound = "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_sound"
-      video = "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_video"
-      system samples if /samples/ =~ choice
-      system video if /video/ =~ choice
-      system sound if /sound/ =~ choice
+    def install(library)
+      choice = library.downcase
+      valid = Regexp.union('samples', 'sound', 'video')
+      return warn format('No installer for %s', choice) unless valid =~ choice
+      system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_#{choice}"
     end
   end # class Runner
 end # module Propane

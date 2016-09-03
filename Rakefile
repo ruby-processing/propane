@@ -7,7 +7,7 @@ def create_manifest
   File.open('MANIFEST.MF', 'w') do |f|
     f.puts(title)
     f.puts(version)
-    f.puts('Class-Path: core-3.2.0.jar gluegen-rt-2.3.2.jar jog-all-2.3.2.jar')
+    f.puts('Class-Path: core-3.2.1.jar gluegen-rt-2.3.2.jar jog-all-2.3.2.jar')
   end
 end
 
