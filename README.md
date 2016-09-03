@@ -1,11 +1,11 @@
 # Propane
 [![Gem Version](https://badge.fury.io/rb/propane.svg)](https://badge.fury.io/rb/propane)
 
-A slim layer to communicate with Processing from JRuby, features a polyglot maven build, this started out as a non serious project by Phillip Cunningam called ribiprocessing.  It has now morphed into an experimental project for ruby-processing so we can now "Cook with Gas". We have created a configuration free version of ruby processing, for processing-3.1+, where we get processing core from maven central (and opengl currently testing on linux64/mac). These jars are small enough to include in the gem distribution, and hence we should not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode).
+A slim layer to communicate with Processing from JRuby, features a polyglot maven build, this started out as a non serious project by Phillip Cunningam called ribiprocessing.  It has now morphed into an experimental project for ruby-processing so we can now "Cook with Gas". We have created a configuration free version of ruby processing, for processing-3.2.1+, where we get processing core from maven central (and opengl currently testing on linux64/mac). These jars are small enough to include in the gem distribution, and hence we should not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode).
 ## Requirements
 
 - jdk8+ since version 0.6.0
-- jruby-9.1.2.0+
+- jruby-9.1.4.0+
 - mvn-3.3.1+ (development only)
 
 ## Building and testing
