@@ -8,14 +8,14 @@ categories: propane update
 keywords: processing, jruby, propane
 ---
 ### Requirements ###
-[jruby-9.1.2.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
+[jruby-9.1.4.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
 
 ### Installing ###
-Propane-2.0 is a configuration free version of processing-3.1+ (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
+Propane-2.0 is a configuration free version of processing-3.2.1+ (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
 To install gem:-
 {% highlight bash %}
 jgem install propane # or belt and braces
-jruby -S gem install propane 
+jruby -S gem install propane
 {% endhighlight %}
 Post install:-
 
@@ -50,11 +50,11 @@ class JWishy < Propane::App
 
   attr_reader :alpha, :back_color, :bluish, :hide, :magnitude, :panel
   attr_reader :x_wiggle, :y_wiggle, :go_big, :shape
-  
+
   def settings
     size 600, 600  
   end
-  
+
   def setup
     sketch_title 'Wishy Worm'
     control_panel do |c|
