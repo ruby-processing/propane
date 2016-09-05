@@ -7,9 +7,11 @@ keywords: propane, wget, java, libraries, contributed
 permalink: contributed
 ---
 ### Listing Libraries and their urls ###
+
 ```bash
 wget http://download.processing.org/contribs/contribs.txt
 ```
+
 Note toxiclibs, pbox2d  and generative libraries are available as rubygems, further the libraries in the contributed list only contains libraries curated (_filtered_) by Prisoner John.
 
 An example library listing in contribs.txt:-
@@ -45,6 +47,7 @@ cd gicenter_utils/library
 mv gicentreUtils.jar gicenter_utils.jar
 ```
 Here is an example sketch translated to propane, main differences are how we load libraries and access package namespace in propane. Also note the use of the data_path wrapper to access sketch data folder. Another twist is the need to cast array of ruby Numbers to java float.
+
 ```ruby
 require 'propane'
 # Sketch to demonstrate the use of the BarChart class to draw simple bar charts.
