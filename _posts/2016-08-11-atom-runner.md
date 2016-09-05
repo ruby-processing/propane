@@ -28,8 +28,10 @@ From the atom editor install the `script` package by [Kyle Kelley (rgbkrk)][scri
 
 ### Running Sketches ###
 
-__Important__ To pick up the local environment you should start atom from a console.
-To run sketches with a `data` folder you should initially open the immediate folder eg:
+_Important_
+
+To pick up the local environment you should start atom from a terminal.
+
 
 To explore propane samples open `~/propane_samples/regular` or `~/propane_samples/data_path` folder, select a file to view then from Packages/Script select `Run Script`
 
