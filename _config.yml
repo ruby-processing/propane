@@ -3,7 +3,7 @@ port: 4000
 title: propane a standalone version of ruby-processing
 email: mamba2928@yahoo.co.uk
 description: > # this means to ignore newlines until "baseurl:"
-   A ruby wrapper for processing-3.1.1, includes core.jar and opengl jars for macosx 
+   A ruby wrapper for processing-3.2.1, includes core.jar and opengl jars for macosx 
    and linux64 (could be extended for windows, possibly android and raspberry-pi)
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ruby-processing.github.io/propane"
