@@ -1,7 +1,7 @@
 ---
 layout: page
 title:  "Libraries"
-permalink: /libraries
+permalink: /libraries/
 ---
 
 ### Installing vanilla processing libraries ###
