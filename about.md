@@ -10,7 +10,7 @@ It is ruby wrapper around processing-3.1+, that includes the core.jar (also incl
 
 ## System requirements ##
 
-Depends on jdk8+ (Oracle stopped supporting jdk7+ ages ago, unless you pay for it). Expects an installed jruby runtime (_cf_ ruby-processing where it is optional), jruby-9.1.2.0 or a later release preferred to run.
+Depends on jdk8+ (Oracle stopped supporting jdk7+ ages ago, unless you pay for it). Expects an installed jruby runtime (_cf_ ruby-processing where it is optional), jruby-9.1.5.0 or a later release preferred to run.
 
 ## Usage ##
 
