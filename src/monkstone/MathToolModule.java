@@ -1,5 +1,5 @@
 /**
- * The purpose of this tool is to allow JRubyArt users to use an alternative
+ * The purpose of this tool is to allow propane users to use an alternative
  * to processing.org map, lerp and norm methods in their sketches
  * Copyright (c) 2015-16 Martin Prout. This tool is free software; you can
  * redistribute it and/or modify it under the terms of the GNU Lesser General
@@ -45,7 +45,7 @@ public class MathToolModule {
      */
     @JRubyMethod(name = "map1d", rest = true, module = true)
     public static IRubyObject mapOneD(ThreadContext context, IRubyObject recv, IRubyObject[] args) {
-        double value = (args[0] instanceof RubyFloat) 
+        double value = (args[0] instanceof RubyFloat)
                 ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
         RubyRange r1 = (RubyRange) args[1];
         RubyRange r2 = (RubyRange) args[2];
@@ -164,15 +164,17 @@ public class MathToolModule {
         double value = (args[0] instanceof RubyFloat) ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
         double start = (args[1] instanceof RubyFloat) ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
         double stop = (args[2] instanceof RubyFloat) ? ((RubyFloat) args[2]).getValue() : ((RubyFixnum) args[2]).getDoubleValue();
-        if (value <= start) {
-            return new RubyFloat(ruby, 0);
-        } else if (value >= stop) {
-            return new RubyFloat(ruby, 1.0);
-        } else {
-            return mapMt(context, value, start, stop, 0, 1.0);
+        double max = Math.max(start, stop);
+        double min = Math.min(start, stop);
+        if (value < min) {
+            value = min;
         }
+        if (value > max) {
+            value = max;
+        }
+        return mapMt(context, value, start, stop, 0, 1.0);
     }
-
+     // start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     static final RubyFloat mapMt(ThreadContext context, double value, double first1, double last1, double first2, double last2) {
         double result = first2 + (last2 - first2) * ((value - first1) / (last1 - first1));
         return context.runtime.newFloat(result);
