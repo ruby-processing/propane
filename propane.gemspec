@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ['monkstone']
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.licenses     = %w(GPL-3.0 LGPL-2.0)
-  gem.description   = %q{A Standalone Ruby Processing implementation} 
-  gem.summary       = %q{A really slim layer between Ruby and Processing-3.2.1.}
+  gem.description   = %q{A batteries included version of processing in ruby} 
+  gem.summary       = %q{A jruby wrapper for processing-3.2.1}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/propane.jar'
