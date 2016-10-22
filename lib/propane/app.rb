@@ -7,12 +7,6 @@ module Propane
   include_package 'processing.core' # imports the processing jar.
   # Load vecmath, fastmath and mathtool modules
   Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
-  # We may change this
-  module Render
-    java_import 'monkstone.vecmath.AppRender'
-    java_import 'monkstone.vecmath.ShapeRender'
-  end
-
   SKETCH_ROOT = File.absolute_path('.')
 
   # This class is the base class the user should inherit from when making
