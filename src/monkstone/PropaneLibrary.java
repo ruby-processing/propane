@@ -12,6 +12,7 @@ package monkstone;
 
 import java.io.IOException;
 import monkstone.fastmath.Deglut;
+import monkstone.fastmath.Radlut;
 import monkstone.vecmath.vec2.Vec2;
 import monkstone.vecmath.vec3.Vec3;
 import org.jruby.Ruby;
@@ -30,6 +31,7 @@ public class PropaneLibrary implements Library{
     public static void load(final Ruby runtime) {
         MathToolModule.createMathToolModule(runtime);
         Deglut.createDeglut(runtime);
+        Radlut.createRadlut(runtime);
         Vec2.createVec2(runtime);
         Vec3.createVec3(runtime);
     } 
