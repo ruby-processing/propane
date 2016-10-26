@@ -49,6 +49,7 @@ task :test do
   sh 'jruby test/respond_to_test.rb'
   sh 'jruby test/create_test.rb'
   sh 'jruby test/math_tool_test.rb'
+  sh 'jruby test/deglut_spec_test.rb'
 end
 
 desc 'clean'
