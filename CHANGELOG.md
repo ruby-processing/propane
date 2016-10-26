@@ -1,4 +1,4 @@
-**v2.0.4** Correct `norm_strict`, add `math_tool_test`
+**v2.0.4** Correct `norm_strict`, add `math_tool_test` add `simplex_noise` expand samples
 **v2.0.3** Suggest use of jruby-9.1.4.0, more about loading vanilla libraries
 **v2.0.2** Refactor install to either install `samples\sound\video` or warn (update to use a local processing-3.2.1 core, this is why travis fails), fix some examples, hence `0.3`
 
