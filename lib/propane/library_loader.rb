@@ -98,6 +98,7 @@ module Propane
       extensions = extension ? [extension] : %w(jar rb)
       extensions.each do |ext|
         [
+          "#{SKETCH_ROOT}/library/#{library_name}",
           "#{PROPANE_ROOT}/library/#{library_name}",
           "#{PROPANE_ROOT}/library/#{library_name}/library",
           "#{PROPANE_ROOT}/library/#{library_name}",
