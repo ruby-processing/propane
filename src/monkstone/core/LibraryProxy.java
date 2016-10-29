@@ -1,5 +1,6 @@
 package monkstone.core;
 
+import processing.core.PApplet;
 import static processing.core.PConstants.*;
 
 /**
@@ -10,9 +11,9 @@ import static processing.core.PConstants.*;
  * PConstants should also be available from static import
  * @author Martin Prout
  */
-public abstract class AbstractLibrary {
+public abstract class LibraryProxy {
 
-    private final processing.core.PApplet app;
+    private final PApplet app;
 
     /**
      * Useful accessors
@@ -23,7 +24,7 @@ public abstract class AbstractLibrary {
      *
      * @param app PApplet
      */
-    public AbstractLibrary(processing.core.PApplet app) {
+    public LibraryProxy(PApplet app) {
         this.app = app;
         this.width = app.width;
         this.height = app.height;
@@ -48,7 +49,11 @@ public abstract class AbstractLibrary {
      */
     public abstract void post();
 
-    private void setActive(boolean active) {
+    /**
+     * Register or unregister reflection methods
+     * @param active
+     */
+    final void setActive(boolean active) {
         if (active) {
             this.app.registerMethod("pre", this);
             this.app.registerMethod("draw", this);
@@ -63,7 +68,7 @@ public abstract class AbstractLibrary {
 
     /**
      * Simple signature for background hides need to call app
-     * @param col
+     * @param col int
      */
     public void background(int col) {
         this.app.background(col);
@@ -71,7 +76,7 @@ public abstract class AbstractLibrary {
 
     /**
      * Simple signature for fill hides need to call app
-     * @param col
+     * @param col int
      */
     public void fill(int col) {
         this.app.fill(col);
@@ -79,7 +84,7 @@ public abstract class AbstractLibrary {
 
     /**
      * Simple signature for stroke hides need to call app
-     * @param col
+     * @param col int
      */
     public void stroke(int col) {
         this.app.stroke(col);
@@ -87,9 +92,9 @@ public abstract class AbstractLibrary {
 
     /**
      * Access applet if we must
-     * @return app PApplet
+     * @return applet PApplet
      */
-    public processing.core.PApplet app() {
+    public PApplet app() {
         return this.app;
     }
 
