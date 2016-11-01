@@ -11,15 +11,15 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
       roles 'developer'
     end
   end
-  license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'  
+  license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'
   issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
-  
+
   source_control(
     url: 'https://github.com/ruby-processing/propane',
     connection: 'scm:git:git://github.com/ruby-processing/propane.git',
     developer_connection: 'scm:git:git@github.com/ruby-processing/propane.git'
     )
-  
+
   properties('source.directory' => 'src',
     'propane.basedir' => '${project.basedir}',
     'polyglot.dump.pom' => 'pom.xml',
@@ -31,20 +31,20 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     'jruby.api' => 'http://jruby.org/apidocs/',
     'jogl.version' => '2.3.2'
     )
-  
+
   pom 'org.jruby:jruby:9.1.5.0'
-  jar 'org.processing:core:3.2.1'
+  jar 'org.processing:core:3.2.2'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
   jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
-  
+
   overrides do
     plugin :resources, '2.6'
     plugin :dependency, '2.10' do
       execute_goals( id: 'default-cli',
         artifactItems: [ { groupId:  'org.processing',
           artifactId:  'core',
-          version:  '3.2.1',         
+          version:  '3.2.2',
           type:  'jar',
           outputDirectory: '${propane.basedir}/lib'
         },
@@ -91,8 +91,8 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
         ]
       )
     end
-      
-    plugin( :compiler, '3.5.1',
+
+    plugin( :compiler, '3.6.0',
       source: '${maven.compiler.source}',
       target: '${maven.compiler.target}'
     )
