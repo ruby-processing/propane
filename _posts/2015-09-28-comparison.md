@@ -2,6 +2,7 @@
 layout: post
 title:  "Comparison with ruby-processing"
 date:   2015-09-28 06:24:13
+permalink: /comparison/
 ---
 
 <style>
