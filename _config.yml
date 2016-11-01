@@ -1,10 +1,10 @@
 # Site settings
 port: 4000
-title: propane a standalone version of ruby-processing
+title: propane (Code as Art)
 email: mamba2928@yahoo.co.uk
 description: > # this means to ignore newlines until "baseurl:"
-   A ruby wrapper for processing-3.2.1, includes core.jar and opengl jars for macosx 
-   and linux64 (could be extended for windows, possibly android and raspberry-pi)
+   propane is a ruby wrapper for processing-3.2.2 For processing-2.2.1, use
+   ruby-processing.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ruby-processing.github.io/propane"
 urls:
@@ -12,11 +12,40 @@ urls:
   github: http://github.com/ruby-processing/propane/
 twitter_username: monkstoneT
 github_username:  monkstone
+include: [collections]
+collections:
+  blocks:
+    output: true
+    permalink: /blocks/:path
+  classes:
+    output: true
+    permalink: /classes/:path
+  editors:
+    output: true
+    permalink: /editors/:path
+  propane_methods:
+    output: true
+    permalink: /methods/:path
+  gems:
+    output: true
+    permalink: /gems/:path
+  libraries:
+    output: true
+    permalink: /libraries/:path
+  modules:
+    output: true
+    permalink: /modules/:path
+  magic:
+    output: true
+    permalink: /magic/:path
+  objects:
+    output: true
+    permalink: /objects/:path
 
 syntax-highlighting:
   enabled: true
+
 # Build settings
 markdown: kramdown
 gems:
-  - jekyll-sitemap  
-
+  - jekyll-sitemap

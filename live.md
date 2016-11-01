@@ -52,5 +52,3 @@ Or if you just wanted to edit the draw loop
 `edit -p FredSketch#draw`
 
 [prywiki]:https://github.com/pry/pry/wiki/Customization-and-configuration
-
-

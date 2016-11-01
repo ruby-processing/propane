@@ -2,7 +2,6 @@
 layout: post
 title: "Installing Contributed Java Libraries for Propane"
 date: 2016-09-05 06:00:00
-categories: propane update
 keywords: propane, wget, java, libraries, contributed
 permalink: contributed
 ---

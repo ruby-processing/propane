@@ -1,17 +1,14 @@
 ---
 layout: post
 title: "Welcome to propane"
-
-date: 2016-08-05 06:40:00
-
-categories: propane update
+date: 2016-10-30 06:40:00
 keywords: processing, jruby, propane
 ---
 ### Requirements ###
-[jruby-9.1.4.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
+[jruby-9.1.5.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
 
 ### Installing ###
-Propane-2.0 is a configuration free version of processing-3.2.1+ (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
+Propane-2.0 is a configuration free version of processing-3.2.2 (in a ruby environment) [Propane][propane] and it has just been released for testing (full version Mac / Linux, only Java2D on Windows).
 To install gem:-
 {% highlight bash %}
 jgem install propane # or belt and braces
