@@ -15,7 +15,7 @@ th{
 </style>
 Here is a list of ruby alternatives to some 'processing' convenience methods; which with the exception of `color`, `map1d`, `p5map`, `degrees` and `radians` are just regular ruby methods.
 
-|function       |processing            |JRubyArt           |
+|function       |processing            |propane           |
 |----------     |-------------       |------               |
 |camera         |`camera(args)`      |`kamera(hash_args)`  |
 |color string   |`color(#cc6600)`      |`color('#cc6600')` |

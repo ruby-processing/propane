@@ -2,7 +2,7 @@
 layout: post
 title:  "key_pressed"
 ---
-In vanilla processing [keyPressed][keyPressed] is both a variable and a method, for jruby_art the boolean variable is available as `key_pressed?`, whereas you can create events/operations that occur on key pressed by adding a `key_pressed` method as below:-
+In vanilla processing [keyPressed][keyPressed] is both a variable and a method, for propane the boolean variable is available as `key_pressed?`, whereas you can create events/operations that occur on key pressed by adding a `key_pressed` method as below:-
 
 {% highlight ruby %}
 def key_pressed  
@@ -19,7 +19,7 @@ See also:-
 
 [key_released][keyReleased]
 
-[key_pressed?]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/processing_app/basics/input/keyboard.rb
+[key_pressed?]:https://github.com/ruby-processing/propane-examples/blob/master/processing_app/basics/input/keyboard.rb
 [keyPressed]:https://processing.org/reference/keyPressed_.html
 [keyReleased]:https://processing.org/reference/keyReleased_.html
-[raining]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/contributed/raining.rb
+[raining]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/raining.rb

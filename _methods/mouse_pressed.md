@@ -2,7 +2,7 @@
 layout: post
 title:  "mouse_pressed"
 ---
-In vanilla processing [mousePressed][mousePressed] is both a variable and a method, for jruby_art the boolean variable is available as `mouse_pressed?`, whereas you can create events/operations that occur on mouse pressed by adding a [mouse_pressed][mouse_pressed] method as below:-
+In vanilla processing [mousePressed][mousePressed] is both a variable and a method, for propane the boolean variable is available as `mouse_pressed?`, whereas you can create events/operations that occur on mouse pressed by adding a [mouse_pressed][mouse_pressed] method as below:-
 
 {% highlight ruby %}
 def mouse_pressed  
