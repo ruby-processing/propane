@@ -24,7 +24,7 @@ collections:
   editors:
     output: true
     permalink: /editors/:path
-  propane_methods:
+  methods:
     output: true
     permalink: /methods/:path
   gems:
