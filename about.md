@@ -15,6 +15,6 @@ See also my [blog][blog] for more code ideas.
 [processing]: https://processing.org
 
 [propane]: https://ruby-processing.github.io/index.html
-[color]: https://github.com/ruby-processing/propane-examples/blob/master/processing_app/basics/color/creating.rb
+[color]: https://github.com/ruby-processing/propane-examples/blob/master/processing_app/basics/color/creating_colors.rb
 [map1d]: https://github.com/ruby-processing/propane-examples/blob/master/processing_app/basics/arrays/array.rb
 [blog]:https://monkstone.github.io/

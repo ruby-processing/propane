@@ -4,11 +4,11 @@ title:  "color explained"
 ---
 to be expanded...
 
-For propne we enable a convenience method color (based on processing PGraphics color), and for the most part this method behaves as the processing color method (but it is implemented differently under the hood to work with ruby Numeric/Fixnum). Basically the input can be an Array of Fixnum (approximating to a processing int) an Array of Float (approximating to processing float) or a special hexadecimal string or a hexadecimal number. See/try example sketch.
+For propane we enable a convenience method color (based on processing PGraphics color), and for the most part this method behaves as the processing color method (but it is implemented differently under the hood to work with ruby Numeric/Fixnum). Basically the input can be an Array of Fixnum (approximating to a processing int) an Array of Float (approximating to processing float) or a special hexadecimal string or a hexadecimal number. See/try example sketch.
 
 {% highlight ruby %}
 
-#!/usr/bin/env jruby -v -w
+#!/usr/bin/env jruby -w
 # frozen_string_literal: true
 # Creating Colors (Homage to Albers).
 #
