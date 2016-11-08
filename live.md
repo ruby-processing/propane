@@ -52,3 +52,38 @@ Or if you just wanted to edit the draw loop
 `edit -p FredSketch#draw`
 
 [prywiki]:https://github.com/pry/pry/wiki/Customization-and-configuration
+
+But there's much more you can use the pry console for, like regular ruby you con look up methods constants etc:-
+
+```ruby
+require 'propane'
+# => true
+Java::ProcessingCore::PConstants.constants
+# => [:PATH,
+# :DISABLE_TEXTURE_MIPMAPS,
+# :POLYGON,
+# :POSTERIZE,
+# :ENABLE_DEPTH_TEST,
+# :TEXT,
+# :BOTTOM,
+# :CLOSE,
+# :MIN_INT,
+# ...]
+Java::ProcessingCore::PConstants::P3D
+# => "processing.opengl.PGraphics3D"
+Java::ProcessingCore::PApplet.methods
+# [:create_reader,
+# :year,
+# :java_method,
+# :degrees,
+# :blend_color,
+# :show_variation_warning,
+# :runSketch,
+# :lerpColor,
+# :shorten,
+# :trim,
+# :sqrt,
+# :calcSketchPath,
+# ...]
+# Note snake case methods, also not all the methods will be useful in `propane`
+```
