@@ -1,5 +1,6 @@
-**v2.0.5** Update to processing-3.2.2, fix local library load, add proxy_library expand samples
+**v2.0.6** Update to processing-3.2.3
 
+**v2.0.5** Update to processing-3.2.2, fix local library load, add proxy_library expand samples
 **v2.0.4** Correct `norm_strict`, add `math_tool_test` add `simplex_noise` expand samples
 
 **v2.0.3** Suggest use of jruby-9.1.4.0, more about loading vanilla libraries

@@ -1,7 +1,7 @@
 require 'fileutils'
 project 'rp5extras', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane', '2.0.5'
+  id 'propane:propane', '2.0.6'
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
@@ -33,7 +33,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     )
 
   pom 'org.jruby:jruby:9.1.5.0'
-  jar 'org.processing:core:3.2.2'
+  jar 'org.processing:core:3.2.3'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
   jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
@@ -44,7 +44,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
       execute_goals( id: 'default-cli',
         artifactItems: [ { groupId:  'org.processing',
           artifactId:  'core',
-          version:  '3.2.2',
+          version:  '3.2.3',
           type:  'jar',
           outputDirectory: '${propane.basedir}/lib'
         },
