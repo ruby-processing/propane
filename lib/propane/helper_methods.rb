@@ -180,13 +180,13 @@ module Propane
 
     private
 
-    FIXNUM_COL = -> (x) { x.is_a?(Fixnum) }
+    INTEGER_COL = -> (x) { x.is_a?(Integer) }
     STRING_COL = -> (x) { x.is_a?(String) }
     FLOAT_COL = -> (x) { x.is_a?(Float) }
     # parse single argument color int/double/String
     def hex_color(a)
       case a
-      when FIXNUM_COL
+      when INTEGER_COL
         Java::Monkstone::ColorUtil.colorLong(a)
       when STRING_COL
         return Java::Monkstone::ColorUtil.colorString(a) if a =~ /#\h+/
