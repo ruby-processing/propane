@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Getting Started on Linux"
+title:  "Getting Started on ArchLinux"
 date:   2015-11-21 06:24:13
 permalink: /linux_started/
 ---
 
-### Getting Started With propane (stolen from [Ben Lewis][ben]) ###
+### Getting Started With propane ArchLinux ###
 
 If you love to code because it is a creative process, then you should give propane a try because it can be used to [create music][sound], art, animations, [videos][video] and much more. Also since it is based on the latest [Processing][processing] you can access a vast range of libraries to make the difficult things easier.
 
@@ -19,11 +19,11 @@ Since the project began in 2001, it's been helping teach people to program in a 
 
 In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
 
-In 2015, Martin Prout (aka monkstone) published the [propane gem][jrubyart], loosely based on the original ruby-processing, but updated to use processing-3.0+ and jruby-9.1.5.0+ (ruby-2.2 syntax)
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.0+ and jruby-9.1.5.0+ (ruby-2.2 syntax)
 
 ### Why propane? ###
 
-Since Processing already comes wrapped in an easy-to-use package, you may ask: "why should I bother with propane?"
+You can dabble with the latest `processing framework` (in ruby) without even needing to install `vanilla processing` (and its embded jdk).
 
 The answer: if you know how to write Ruby, you can use Processing as a visual presentation layer of a much more complex program. Games, interactive art exhibits, innovative music projects, anything you can imagine; it's all at your fingertips.
 
@@ -41,18 +41,10 @@ Install Software as required:-
 sudo pacman -S jdk8-openjdk # installs openjdk
 sudo pacman -S java-openjfx # installs openjfx
 sudo pacman -S jruby # installs jruby
-sudo pacman -S processing # installs processing-3.2.2  (community)
-{% endhighlight %}
-
-Configure in `~/.propane/config.yml`:-
-{% highlight bash %}
-PROCESSING_ROOT: "/usr/share/processing"
-sketchbook_path: "/home/tux/sketchbook"
-MAX_WATCH: 30
-JRUBY: true
 {% endhighlight %}
 
 Install propane
+
 {% highlight bash %}
 jruby -S gem install propane
 jruby -S gem install toxiclibs # optional
@@ -60,85 +52,35 @@ jruby -S gem install pbox2d # optional
 jruby -S gem install geomerative # optional
 {% endhighlight %}
 
-Install vanilla processing libraries from processing-3.2.2 ide (recomended audio, video)
-
-### Pure JRuby Setup Debian (Mint, Ubuntu) ###
-
-The simplest way to install oracle java (but with less control over version etc)
+Install Samples
 
 {% highlight bash %}
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
+propane --install Samples
 {% endhighlight %}
 
-Alternative method (that puts you in control), download and install latest Oracle jdk (in the `/opt` folder makes sense)
+Install Sound library
 
-Use `update-alternatives` to install and maintain configuration eg for java:-
 {% highlight bash %}
-sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_92/bin/java 100
-sudo update-alternatives --config java # to configure if required
+propane --install Sound
 {% endhighlight %}
 
-Download and install latest jruby (in the `/opt` folder makes sense)
+Install Video library
 
-Use `update-alternatives` to install and maintain configuration eg for java:-
+
 {% highlight bash %}
-sudo update-alternatives --install /usr/bin/jruby jruby /opt/jruby-9.1.5.0/bin/jruby 100
-sudo update-alternatives --config jruby # to configure if required
+propane --install Video
+# requires gstreamer
 {% endhighlight %}
-
-Configure in `~/.propane/config.yml`:-
-{% highlight bash %}
-PROCESSING_ROOT: "/home/tux/processing-3.2.2" # `substitute` user for `tux`
-sketchbook_path: "/home/tux/sketchbook"
-MAX_WATCH: 30
-JRUBY: true
-template: bare
-{% endhighlight %}
-
-Otherwise you can check to see what platforms are officially supported [here][platforms].
-
-Download Processing-3.2.2 from the [official website][official] and install, prefer to install in say `~/processing-3.2.2`, that way you can keep processing-2.2.1 (or earlier version of processing), which you may find useful.  When you're done, make sure to take note of the directory you installed the app to complete the configuration.
-
-Complete the install as for Archlinux (make sure `k9` is on your path or use `jruby -S k9`)
-
-### Alternative JRuby-Complete Setup Debian (Mint, Ubuntu) ###
-
-Download and install latest Oracle jdk as above.
-
-Install MRI ruby (must be at least ruby-2.2)
-
-https://www.ruby-lang.org/en/documentation/installation/ (NB: most distros are hopelessly out of data)
-
-Download Processing-3.2.2 from the [official website][official] and install, prefer to install in say `~/processing-3.2.2`.  When you're done, make sure to take note of the directory you installed the app to complete the configuration see below.
-
-Configure in `~/.propane/config.yml`:-
-{% highlight bash %}
-PROCESSING_ROOT: "/home/tux/processing-3.2.2" # `substitute` user for `tux`
-sketchbook_path: "/home/tux/sketchbook"
-MAX_WATCH: 30
-JRUBY: false
-template: bare
-{% endhighlight %}
-
-If using `rvm` or `rbenv` make sure you are using ruby2.2+
-{% highlight bash %}
-gem install propane
-k9 --install # installs jruby-complete, and examples
-{% endhighlight %}
-
-NB: you may find that you are unable to use gems in your sketches unless you have used jruby to install them.
 
 ### Running examples
 
 To run a bunch of the samples as a demo:-
 
 {% highlight bash %}
-cd ~/k9_samples/contributed # for example
+cd ~/propane_samples/contributed # for example
 rake # autoruns files in contributed folder
 k9 --run jwishy.rb # run the JWishy sketch, using an installed jruby
-cd ~/k9_samples/processing_app/topics/shaders
+cd ~/propane_samples/processing_app/topics/shaders
 rake # autoruns shader sketches
 k9 --run monjori.rb # run the Monjori sketch with jruby-complete
 {% endhighlight %}
@@ -172,13 +114,27 @@ end
 
 PS: `k9 -c fred` also works with a bare template defaults, to `size 200 200`
 
-Read more about using the [processing api here][api]
+
+### Running examples
+
+To run a bunch of the samples as a demo:-
+
+{% highlight bash %}
+cd ~/propane_samples
+rake # autoruns a bunch of files as a demo
+cd ~/propane_samples/contributed # for example
+rake # autoruns files in contributed folder
+jruby jwishy.rb # run the JWishy sketch, using an installed jruby
+cd ~/propane_samples/processing_app/topics/shaders
+rake # autoruns shader sketches
+jruby monjori.rb # run single shader sketch
+{% endhighlight %}
 
 [api]: {{site.github.url}}/methods/processing_api.html
 [ben]:https://blog.engineyard.com/2015/getting-started-with-ruby-processing
 [processing]:https://processing.org/
 [gem]:https://rubygems.org/gems/ruby-processing
-[jrubyart]:https://rubygems.org/gems/propane
+[propane]:https://rubygems.org/gems/propane
 [changes]:https://github.com/processing/processing/wiki/Changes-in-3.0
 [official]:https://processing.org/download/?processing
 [platforms]:https://github.com/processing/processing/wiki/Supported-Platforms
