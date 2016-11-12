@@ -92,7 +92,7 @@ All we ask is that you obey the ruby filename convention (ie snakecase) and we c
 {% highlight bash %}
 propane --create fred_sketch 200 200 # creates a bare sketch fred_sketch.rb (see below)
 vim fred_sketch.rb # other editors are available
-:!jruby -r % # from vim runs the sketch
+:!jruby % # from vim runs the sketch
 {% endhighlight %}
 
 You may want to try other [development environments][editor] eg atom, emacs or even netbeans. Needless to say your distro can install these for you, but they need a bit of post install love get the best out of them (vim in the main just works, and is super light weight).
