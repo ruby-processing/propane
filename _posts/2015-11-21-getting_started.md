@@ -46,7 +46,7 @@ sudo pacman -S jruby # installs jruby
 Install propane
 
 {% highlight bash %}
-jruby -S gem install propane
+jruby -S gem install propane # or jgem install propane
 jruby -S gem install toxiclibs # optional
 jruby -S gem install pbox2d # optional
 jruby -S gem install geomerative # optional
@@ -79,10 +79,10 @@ To run a bunch of the samples as a demo:-
 {% highlight bash %}
 cd ~/propane_samples/contributed # for example
 rake # autoruns files in contributed folder
-k9 --run jwishy.rb # run the JWishy sketch, using an installed jruby
+jruby jwishy.rb # run the JWishy sketch, using an installed jruby
 cd ~/propane_samples/processing_app/topics/shaders
 rake # autoruns shader sketches
-k9 --run monjori.rb # run the Monjori sketch with jruby-complete
+jruby monjori.rb # run the Monjori sketch with jruby-complete
 {% endhighlight %}
 
 ### Creating your own sketch
@@ -90,9 +90,9 @@ k9 --run monjori.rb # run the Monjori sketch with jruby-complete
 All we ask is that you obey the ruby filename convention (ie snakecase) and we can create a template sketch for you as follows:-
 
 {% highlight bash %}
-k9 --create fred_sketch 200 200 # creates a bare sketch fred_sketch.rb (see below)
+propane --create fred_sketch 200 200 # creates a bare sketch fred_sketch.rb (see below)
 vim fred_sketch.rb # other editors are available
-:!k9 -r % # from vim runs the sketch
+:!jruby -r % # from vim runs the sketch
 {% endhighlight %}
 
 You may want to try other [development environments][editor] eg atom, emacs or even netbeans. Needless to say your distro can install these for you, but they need a bit of post install love get the best out of them (vim in the main just works, and is super light weight).
@@ -112,7 +112,7 @@ def settings
 end
 {% endhighlight %}
 
-PS: `k9 -c fred` also works with a bare template defaults, to `size 200 200`
+PS: `propane -c fred` also works with a bare template defaults, to `size 0, 0`
 
 
 ### Running examples
