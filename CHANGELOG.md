@@ -1,3 +1,5 @@
+**v2.0.7** Add missing method to ColorUtil.java
+
 **v2.0.6** Update to core processing-3.2.3
 
 **v2.0.5** Update to processing-3.2.2, fix local library load, add proxy_library expand samples
