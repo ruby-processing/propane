@@ -4,7 +4,7 @@ title:  "Hype Library Examples<sup>5</sup>"
 keywords: library, java, framework, hype, processing
 
 ---
-<sup>5</sup><i>A vanilla processing library you can install from the processing ide</i>
+<sup>5</sup><i>A vanilla processing library</i> that you may need to [compile and install][build] yourself.  You could even use a [polyglot maven][polyglot] (see pom.rb) to build the jar, use a local processing core.jar if you want the latest version. I've put SNAPSHOT in version because library claims to be under heavy development (the commit history would argue otherwise). Install as for [contributed][contributed] library.
 
 Here is an index of my blogposts about using the [Hype processing framework][] by Joshua Davis in propane. The code [examples][] are included with the propane examples.
 
@@ -47,4 +47,6 @@ Here is an index of my blogposts about using the [Hype processing framework][] b
 
 [examples]:https://github.com/ruby-processing/propane-examples/blob/master/external_library/java/hype
 [Hype processing framework]:http://www.hypeframework.org/
-[color]: {{ site.url }}/alternatives/
+[color]: {{ site.github.url }}/contributed/
+[build]:http://ruby-processing.github.io/building/hype/
+[color]: {{ site.github.url }}/alternatives/

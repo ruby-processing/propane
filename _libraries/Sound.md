@@ -7,7 +7,7 @@ keywords: library, java, sound, processing. reflection
 
 <sup>5</sup><i>A vanilla processing (java) library</i>
 
-First load the sound library (assumes it was installed using the processing3 ide)
+First load the sound library (assumes it was installed using `propane --install Sound`)
 
 You might just as well `include_package` to get namespace access to the `processing.sound` package.
 
@@ -19,13 +19,13 @@ require 'propane'
 class PinkNoiseApp < Propane::App
   load_library :sound
   include_package 'processing.sound'
-  
+
   attr_reader :amp, :noise
-  
+
   def settings
     size(640, 360)
   end
-  
+
   def setup
     sketch_title 'Pink Noise'
     background(255)
@@ -34,7 +34,7 @@ class PinkNoiseApp < Propane::App
     @noise = PinkNoise.new(self)
     noise.play(amp)
   end      
-  
+
   def draw
     # Map mouseX from 0.0 to 1.0 for amplitude
     noise.amp(map1d(mouse_x, (0..width), (0.0..1.0)))

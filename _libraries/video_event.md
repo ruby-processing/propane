@@ -6,6 +6,7 @@ keywords: library, java, video, video_event, processing. reflection
 ---
 
 <sup>2</sup><i>A built in hybrid ruby/java library</i>
+The video library should be installed using `propane --install video`
 
 The purpose of the `video_event` library is to allow you to use the vanilla processing reflection methods `captureEvent` and `movieEvent` from the processing `video` library. _It is almost impossible to use vanilla processing reflection methods without this sort of wrapper_.
 
