@@ -6,7 +6,8 @@ keywords: processing, jruby, propane
 ---
 ### Requirements ###
 [jruby-9.1.6.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
-
+### Alternative ###
+[JRubyArt][JRubyArt] is more similar to ruby-processing, requires a vanilla processing install.
 ### Installing ###
 Propane-2.0.6 is a configuration free version of processing-3.2.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
 To install gem:-
@@ -147,3 +148,4 @@ JWishy.new
 [jruby]:http://jruby.org/download
 [openjvm]:http://openjdk.java.net/install/
 [oraclejvm]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[JRubyArt]:{{ site.github.url }}/JRubyArt/
