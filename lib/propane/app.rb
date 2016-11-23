@@ -14,7 +14,7 @@ module Propane
   #
   # i.e.
   # require 'propane'
-  # 
+  #
   # class MySketch < Propane::App
   #
   #   def draw
@@ -47,7 +47,7 @@ module Propane
     alias rgb color
     alias gray color
     field_reader :surface
-    
+
     def sketch_class
       self.class.sketch_class
     end
@@ -58,7 +58,7 @@ module Propane
       super(subclass)
       @sketch_class = subclass
     end
-    
+
     # App should be instantiated with an optional list of options
     # and array of arguments.
     #
@@ -119,7 +119,7 @@ module Propane
       import_opengl if /opengl/ =~ mode
       super(*args)
     end
-    
+
     def sketch_title(title)
       surface.set_title(title)
     end
@@ -155,15 +155,15 @@ module Propane
     end
   end
 
-  # Importing PConstants to access to processing constants,
-  # to keep namespace clean use PConstants::TRIANGLE (for example)
-  # or to use bare TRIANGLE also 'include PConstants'
+  # Importing PConstants to access processing constants, we also need to
+  # 'include PConstants' to avoid requiring the `PConstants::` prefix
+  # `include Math etc because we expect to use them`
   # Using :method_missing to mimic inner class methods
   # @HACK you should consider using 'forwardable' to avoid this
   # egregious hack...
   module Proxy
     java_import 'processing.core.PConstants'
-
+    include Math, MathTool, HelperMethods, PConstants
     def respond_to_missing?(name, include_private = false)
       $app.respond_to?(name) || super
     end
