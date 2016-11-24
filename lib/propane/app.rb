@@ -9,6 +9,11 @@ module Propane
   Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
   SKETCH_ROOT = File.absolute_path('.')
 
+  module Render
+    java_import 'monkstone.vecmath.AppRender'
+    java_import 'monkstone.vecmath.ShapeRender'
+  end
+
   # This class is the base class the user should inherit from when making
   # their own sketch.
   #
@@ -40,7 +45,7 @@ module Propane
 
   # All sketches extend this class
   class App < PApplet
-    include Math, MathTool, HelperMethods
+    include Math, MathTool, HelperMethods, Render
     # Alias some methods for familiarity for Shoes coders.
     alias oval ellipse
     alias stroke_width stroke_weight
