@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/core-3.2.3.jar'
   gem.files << 'lib/gluegen-rt-2.3.2.jar'
   gem.files << 'lib/jogl-all-2.3.2.jar'
-  gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-armv6f.jar'
-  gem.files << 'lib/jogl-all-2.3.2-natives-linux-armv6f.jar'
+  gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-armv6hf.jar'
+  gem.files << 'lib/jogl-all-2.3.2-natives-linux-armv6hf.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.add_runtime_dependency 'arcball', '~> 0.0.3'  
