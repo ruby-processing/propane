@@ -1,7 +1,7 @@
 # Propane
 [![Gem Version](https://badge.fury.io/rb/propane.svg)](https://badge.fury.io/rb/propane)
 
-Experimental version for Raspberry-Pi probably needs jruby-9.1.7.0 (Expected soon)
+Experimental propane.gem for raspberry-pi https://drive.google.com/file/d/0B77H6-1_Km4weGk1cVhkWUlQaGs/view?usp=sharing which possibly only @headius can test.
 
 A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.2.3, where we include processing core (from a local maven repository and opengl etc from maven central). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). NB: for linux64 and macOS opengl binaries use latest relaease. See guide to [building ruby-processing projects][building].
 
