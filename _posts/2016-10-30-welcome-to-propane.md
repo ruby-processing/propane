@@ -8,6 +8,12 @@ keywords: processing, jruby, propane
 
 [jruby-9.1.6.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
 
+If you arrive here from rubygems `math_demo` you may well have installed `propane` as a requirement
+
+```bash
+math_demo # is the executable to run from the command line for the demo, but there's much more
+```
+
 ### Alternative ###
 
 [JRubyArt][JRubyArt] is more similar to ruby-processing, requires a vanilla processing install.
