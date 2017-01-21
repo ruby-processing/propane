@@ -16,14 +16,14 @@ math_demo # is the executable to run from the command line for the demo, but the
 
 ### Alternative ###
 
-[JRubyArt][JRubyArt] is more similar to ruby-processing, requires a vanilla processing install.
+If you are familiar with the original ruby-processing (deprecasted since January 2017) you may prefer to use [JRubyArt][JRubyArt] instead.  However like ruby-processing it depends on a vanilla processing install (currently and for foreseable future, this is the only option for Windows users).
 
 ### Installing ###
 
 Propane-2.0.6 is a configuration free version of processing-3.2.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
 To install gem:-
 {% highlight bash %}
-jgem install propane # or belt and braces
+jgem install propane # or alternatively
 jruby -S gem install propane
 {% endhighlight %}
 Post install:-
