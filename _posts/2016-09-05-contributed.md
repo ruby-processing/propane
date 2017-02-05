@@ -11,7 +11,7 @@ permalink: contributed
 wget http://download.processing.org/contribs/contribs.txt
 ```
 
-Note toxiclibs, pbox2d  and generative libraries are available as rubygems, further the libraries in the contributed list only contains libraries curated (_filtered_) by Prisoner John.
+NB `toxiclibs`, `pbox2d`, `joonsrenderer`  and `generative libraries` are available as rubygems, further the libraries in the contributed list only contains libraries curated (_filtered_) by Prisoner John, there are many more that are available out there eg Joshua Davis `hype`.
 
 An example library listing in contribs.txt:-
 
@@ -33,9 +33,14 @@ id=004
 
 ### Installing a library ###
 
-Install libraries to your `~/.propane/libraries` folder that was created for you if you installed the `video` or `sound` libraries.
+Install libraries to your `~/.propane/libraries` folder.  NB: this created for you if you when you install the `video` or `sound` libraries.
 
-It can make sense to convert from `camelcase` to `snakecase`, you just need to be consistent, see below
+```bash
+propane -i Sound
+propane - Video
+```
+
+It can make sense to convert the library names and jars from `camelcase` to `snakecase`, (_ie when library creators have messed up_) you just need to be consistent, see below
 
 ```bash
 cd ~/.propane/libraries
