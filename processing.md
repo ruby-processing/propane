@@ -7,7 +7,7 @@ permalink: /processing/
 
 [Processing][processing] is a simple language, based on Java, that you can use to create digital graphics. It's easy to learn, fun to use, and has an amazing online community comprised of programmers, visual artists, musicians, and interdisciplinary artists of all kinds.
 
-Processing was built by Casey Reas and Benjamin Fry, two protegés of interdisciplinary digital art guru John Maeda at the MIT Media Lab.
+Processing was built by [Casey Reas][casey] and Benjamin Fry, two protegés of interdisciplinary digital art guru John Maeda at the MIT Media Lab.
 
 Since the project began in 2001, it's been helping teach people to program in a visual art context using a simplified version of Java. It comes packaged as an IDE that can be downloaded and used to create and save digital art “sketches”.
 
@@ -35,3 +35,4 @@ The core library of processing is covered by the [LGPL2][licence] licence.
 [propane-examples]:https://github.com/ruby-processing/propane-examples
 [noc]:https://github.com/ruby-processing/The-Nature-of-Code-for-JRubyArt
 [licence]:https://github.com/processing/processing/blob/master/license.txt
+[casey]:https://medium.com/@ProcessingOrg/thoughts-on-software-a8a82c95e1ad#.yawwplxzz

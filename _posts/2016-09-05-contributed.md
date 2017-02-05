@@ -33,7 +33,7 @@ id=004
 
 ### Installing a library ###
 
-Install libraries to your `~/.propane/libraries` folder.  NB: this created for you if you when you install the `video` or `sound` libraries.
+Install libraries to your `~/.propane/libraries` folder.  NB: this created for you when you install the `video` or `sound` libraries.
 
 ```bash
 propane -i Sound
