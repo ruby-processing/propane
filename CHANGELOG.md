@@ -1,3 +1,5 @@
+**v2.3.0** Update to core processing-3.3 `grid` method now implemented in java, bump examples to include WOVNS 
+
 **v2.1.1** Update to core processing-3.2.4 and JRuby-9.1.7.0 
 
 **v2.1.0** Add missing method to ColorUtil.java, `include HelperMethods, PConstants, Math, MathTool` in `Propane::Proxy`, it is just simpler that way. Mixin Renderer for AppRender and ShapeRender. Changes to `Propane::Proxy` are significant enough to warrant versioning bump, samples making use of new code will not be runable by earlier versions.

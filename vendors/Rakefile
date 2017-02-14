@@ -5,11 +5,11 @@ WARNING = <<-EOS
    WARNING: you may not have wget installed, you could just download
    the correct version of propane-examples (see EXAMPLES vendors directory)
 EOS
-SOUND = 'sound.zip'.freeze 
+SOUND = 'sound.zip'.freeze
 SOUND_VERSION = 'v1.3.2' # version 1.3.2
 VIDEO = 'video-2.zip'
 VIDEO_VERSION = '2' # version 1.0.1
-EXAMPLES = '0.9'.freeze
+EXAMPLES = '1.0'.freeze
 HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os']
 
@@ -50,9 +50,9 @@ task :download_sound do
 end
 
 desc 'download video library'
-task :download_video do  
+task :download_video do
   wget_base = 'wget https://github.com/processing/processing-video'
-  wget_string = [wget_base, 'releases/download', VIDEO_VERSION, VIDEO].join('/')  
+  wget_string = [wget_base, 'releases/download', VIDEO_VERSION, VIDEO].join('/')
   begin
     sh wget_string
   rescue
