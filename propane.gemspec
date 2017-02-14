@@ -9,19 +9,21 @@ Gem::Specification.new do |gem|
   gem.authors       = ['monkstone']
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.licenses     = %w(GPL-3.0 LGPL-2.0)
-  gem.description   = %q{A batteries included version of processing in ruby, MacOS and linux64} 
-  gem.summary       = %q{ruby wrapper for processing-3.2.4 on MacOS and linux64 bit only for opengl}
+  gem.description   = %q{A batteries included version of processing in ruby, MacOS and linux64}
+  gem.summary       = %q{ruby wrapper for processing-3.3 on MacOS and linux64 bit only for opengl}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/propane.jar'
-  gem.files << 'lib/core-3.2.4.jar'
+  gem.files << 'lib/core-3.3.0.jar'
   gem.files << 'lib/gluegen-rt-2.3.2.jar'
   gem.files << 'lib/jogl-all-2.3.2.jar'
-  gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-armv6hf.jar'
-  gem.files << 'lib/jogl-all-2.3.2-natives-linux-armv6hf.jar'
+  gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-amd64.jar'
+  gem.files << 'lib/gluegen-rt-2.3.2-natives-macosx-universal.jar'
+  gem.files << 'lib/jogl-all-2.3.2-natives-linux-amd64.jar'
+  gem.files << 'lib/jogl-all-2.3.2-natives-macosx-universal.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.add_runtime_dependency 'arcball', '~> 0.0.3'  
+  gem.add_runtime_dependency 'arcball', '~> 0.0.3'
   gem.require_paths = ['lib']
   gem.platform      = 'java'
 end

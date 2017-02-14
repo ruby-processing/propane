@@ -17,6 +17,7 @@ import org.jruby.RubyModule;
 import org.jruby.RubyRange;
 import org.jruby.anno.JRubyMethod;
 import org.jruby.anno.JRubyModule;
+import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
@@ -200,5 +201,36 @@ public class MathToolModule {
         } else {
             return args[1];
         }
+    }
+
+    /**
+     * Provides propane grid method as a ruby module method
+     *
+     * @param context ThreadContext
+     * @param recv IRubyObject
+     * @param args array of args should be Fixnum
+     * @param block { |x, y| `do something` }
+     * @return nil
+     */
+    @JRubyMethod(name = "grid", rest = true, module = true)
+    public static IRubyObject createGrid(ThreadContext context, IRubyObject recv, IRubyObject[] args, Block block) {
+        int row = (Integer) args[0].toJava(Integer.class);
+        int column = (Integer) args[1].toJava(Integer.class);
+        int rowStep = 1;
+        int colStep = 1;
+        if (args.length == 4){
+        rowStep = (Integer) args[2].toJava(Integer.class);
+        colStep = (Integer) args[3].toJava(Integer.class);
+        }
+        if (block.isGiven()) {
+              int tempRow = row / rowStep;
+              for (int z = 0; z < (tempRow * (column / colStep)); z++){
+                  int x = z % tempRow;
+                  int y = z / tempRow;
+                  block.yieldSpecific(context, context.runtime.newFixnum(x * rowStep), context.runtime.newFixnum(y * colStep));
+              }
+        }
+        return context.nil;
+
     }
 }
