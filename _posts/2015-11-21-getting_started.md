@@ -19,7 +19,7 @@ Since the project began in 2001, it's been helping teach people to program in a 
 
 In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
 
-In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.0+ and jruby-9.1.5.0+ (ruby-2.2 syntax)
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.0+ and jruby-9.1.7.0+ (ruby-2.2 syntax)
 
 ### Why propane? ###
 
@@ -31,7 +31,7 @@ Additionally, you don't have to declare types, voids, or understand the differen
 
 Although there are some drawbacks to using the Ruby version Processing (slower start up time, and sometimes performance), having Ruby's API available to translate your ideas into sketches more than makes up for them.
 
-Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0+ from the outset, it makes use of the more literate ruby-2.3 syntax (although the original ruby-processing will run with jruby-9.1.5.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
+Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0+ from the outset, it makes use of the more literate ruby-2.3 syntax (although the original ruby-processing will run with jruby-9.1.7.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
 
 ### Pure JRuby Setup Archlinux ###
 

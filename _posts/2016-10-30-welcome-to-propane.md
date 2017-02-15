@@ -6,7 +6,7 @@ keywords: processing, jruby, propane
 ---
 ### Requirements ###
 
-[jruby-9.1.6.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
+[jruby-9.1.7.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
 
 If you arrive here from rubygems `math_demo` you may well have installed `propane` as a requirement
 
@@ -20,7 +20,7 @@ If you are familiar with the original ruby-processing (deprecasted since January
 
 ### Installing ###
 
-Propane-2.0.6 is a configuration free version of processing-3.2.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
+Propane-2.3.0 is a configuration free version of processing-3.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
 To install gem:-
 {% highlight bash %}
 jgem install propane # or alternatively
