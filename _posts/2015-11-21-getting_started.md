@@ -33,6 +33,10 @@ Although there are some drawbacks to using the Ruby version Processing (slower s
 
 Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0+ from the outset, it makes use of the more literate ruby-2.3 syntax (although the original ruby-processing will run with jruby-9.1.7.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
 
+### JRuby
+
+Unlike `JRubyArt` and `ruby-processing` it is not possible to run `propane` without a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, it is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables).
+
 ### Pure JRuby Setup Archlinux ###
 
 Install Software as required:-
