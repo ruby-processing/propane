@@ -75,16 +75,19 @@ module Propane
 
     # explicitly provide 'processing.org' min instance method
     # to return a float:- a, b and c need to be floats
+    # you might choose to use ruby method directly and then
+    # provide a block to alter comparator eg
+    # args.min(&block) # { |a, b| a.value <=> b.value }
 
     def min(*args)
-      args.min # { |a,b| a <=> b } optional block not reqd
+      args.min
     end
 
     # explicitly provide 'processing.org' max instance method
-    # to return a float:- a, b and c need to be floats
+    # to return a float:- a, b and c need to be floats see above
 
     def max(*args)
-      args.max # { |a, b| a <=> b } optional block not reqd
+      args.max
     end
 
     # explicitly provide 'processing.org' dist instance method

@@ -46,6 +46,7 @@ end
 
 desc 'Test'
 task :test do
+  sh 'jruby test/helper_methods_test.rb'
   sh 'jruby test/respond_to_test.rb'
   sh 'jruby test/create_test.rb'
   sh 'jruby test/math_tool_test.rb'
