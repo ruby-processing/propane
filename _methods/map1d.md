@@ -9,7 +9,7 @@ title:  "map1d in detail"
 
 ### Examples ###
 
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env jruby -w
 require 'propane'
 class UsingMap1D < Propane::App
@@ -32,7 +32,7 @@ class UsingMap1D < Propane::App
 end
 
 UsingMap1D.new
-{% endhighlight %}
+```
 
 ### Description	###
 
@@ -42,9 +42,9 @@ As shown in the example, numbers outside of the range are not clamped to the min
 
 ### Syntax ###
 
-{% highlight ruby %}
+```ruby
 map1d(value, (start1..stop1), (start2..stop2))
-{% endhighlight %}
+```
 
 ### Parameters ###
 

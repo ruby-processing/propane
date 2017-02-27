@@ -10,7 +10,8 @@ The purpose of the `data_path` wrapper is to provide the absolute data path to a
 It should be used to get around the need to provide an absolute data path on macosx to run sketches that contain `load_image`, `load_shader` etc that otherwise could not find the data. However it should also be used on Windows and Linux to avoid the need to use jruby-complete when running such sketches.
 
 ### Simple usage ###
-{% highlight ruby %}
+
+```ruby
 #!/usr/bin/env jruby -w
 require 'propane'
 class LoadImage < Propane::App
@@ -33,12 +34,12 @@ class LoadImage < Propane::App
 end
 
 LoadImage.new
-{% endhighlight %}
+```
 
 ### More sophisticated usage ###
 You can use your ruby knowledge to 'dry up' vanilla processing sketches and to remove the need to type `data_path` many times in a sketch. Please note that we cannot rely on JRuby to convert an array of ruby-string to an array of java-string, this is why we need `glsl_files.to_java(:string)`. However the array of images does not require such an explicit conversion, _JRuby generally just does the right thing_.
 
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env jruby -w
 require 'propane'
 # Earth model with bump mapping, specular texture and dynamic cloud layer.
@@ -103,4 +104,4 @@ class BlueMarble < Propane::App
 end
 
 BlueMarble.new
-{% endhighlight %}
+```
