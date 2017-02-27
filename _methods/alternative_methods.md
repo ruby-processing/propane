@@ -25,8 +25,10 @@ Here is a list of ruby alternatives to some 'processing' convenience methods; wh
 |               |`minute`                |`t.minute`           |
 |               |`second`                |`t.second`           |
 |               |`year`                  |`t.year`             |
-|               |`map(x, b0, eo, b1, e1)`|`map1d(x, (b0..e0), (b1..e1))`|
+|custom math    |`map(x, b0, eo, b1, e1)`|`map1d(x, (b0..e0), (b1..e1))`|
 |               |`map(x, b0, eo, b1, e1)`|`p5map(x, b0, e0, b1, e1)`|
+|               |`max(array)            `|`array.max`        |
+|               |`min(array)            `|`array.min`        |
 |conversion     |`degrees(theta)`        |`theta.degrees`    |
 |conversion     |`radians(theta)`        |`theta.radians`    |
 |conversion     |`hex(string)`           |`string.hex`       |
@@ -50,7 +52,7 @@ Here is a list of ruby alternatives to some 'processing' convenience methods; wh
 
 For examples of using time in sketches see [learning JRubyArt blog][time], [timestamp][timestamp] and this [clock sketch][clock].
 
-For example of `kamera` usage see [kamera][kamera]. To use `selectInput` see link to `File Chooser` in page header.
+For example of `kamera` usage see [kamera][kamera]. To use `selectInput` see link to `File Chooser` in page header. We actually use the ruby Enumerable methods `max` and `min` methods to make `max(*array)` and `min(*methods)` available in propane, so you could use the processing form providing you splat the array, but it is simpler to use the ruby method directly further you have the option with ruby of changing the [comparator via a block][comparator].
 
 [time]:https://monkstone.github.io/time
 [timestamp]:https://monkstone.github.io/timestamp/
