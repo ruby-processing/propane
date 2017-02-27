@@ -13,6 +13,7 @@ th{
     border:2px solid #0000FF;
 }
 </style>
+You can use most [processing methods][processing] in propane, but where possible you should prefer these ruby alternatives (you should also prefer Vec2D and Vec3D to PVector).
 Here is a list of ruby alternatives to some 'processing' convenience methods; which with the exception of `color`, `map1d`, `p5map`, `degrees` and `radians` are just regular ruby methods.
 
 |function       |processing            |propane           |
@@ -58,3 +59,4 @@ For example of `kamera` usage see [kamera][kamera]. To use `selectInput` see lin
 [timestamp]:https://monkstone.github.io/timestamp/
 [clock]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/processing_app/library/fastmath/clock.rb
 [kamera]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/processing_app/basics/camera/kmove_eye.rb
+[processing]:https://processing.org/reference/
