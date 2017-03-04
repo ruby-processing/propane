@@ -37,7 +37,7 @@ Also prefer [`Vec2D`][vec2] and [`Vec3D`][vec3] to [`PVector`][pvector] follow l
 [api]:https://processing.org/reference/index.html
 [vec2]:{{site.github.url}}/classes/vec2d/
 [vec3]:{{site.github.url}}/classes/vec3d/
-[alternatives]:{{site.github.url}}/alternatives/
+[alternatives]:{{site.github.url}}/methods/alternative_methods/
 [pvector]:https://processing.org/reference/PVector.html
 [Math]:https://ruby-doc.org/core-2.2.3/Math.html
 [core]:https://ruby-doc.org/core-2.2.3/
