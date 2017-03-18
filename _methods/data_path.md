@@ -36,6 +36,8 @@ end
 LoadImage.new
 ```
 
+NB: it is equally valid to use `data_path` to provide an absolute path to the data folder on save (even when the data folder needs to be created on save).
+
 ### More sophisticated usage ###
 You can use your ruby knowledge to 'dry up' vanilla processing sketches and to remove the need to type `data_path` many times in a sketch. Please note that we cannot rely on JRuby to convert an array of ruby-string to an array of java-string, this is why we need `glsl_files.to_java(:string)`. However the array of images does not require such an explicit conversion, _JRuby generally just does the right thing_.
 

@@ -56,6 +56,9 @@ For examples of using time in sketches see [learning JRubyArt blog][time], [time
 
 For example of `kamera` usage see [kamera][kamera]. To use `selectInput` see link to `File Chooser` in page header. We actually use the ruby Enumerable methods `max` and `min` methods to make `max(*array)` and `min(*methods)` available in propane, so you could use the processing form providing you splat the array, but it is simpler to use the ruby method directly further you have the option with ruby of changing the [comparator via a block][comparator].
 
+NB: if you have any trouble with `save` or `save_frame` then use the option of providing an absolute path.  You can easily do this using the `data_path` wrapper that does it for you see [data_path method][data_path].
+
+[data_path]:{{site.github.url}}/data_path/
 [time]:https://monkstone.github.io/time
 [timestamp]:https://monkstone.github.io/timestamp/
 [clock]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/processing_app/library/fastmath/clock.rb
