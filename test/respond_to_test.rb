@@ -1,8 +1,6 @@
-gem 'minitest' # don't use bundled minitest
+# frozen_string_literal: true
 require 'java'
-require 'minitest/autorun'
-require 'minitest/pride'
-
+require_relative 'test_helper'
 require_relative '../lib/propane'
 
 METHODS = %i(
@@ -200,18 +198,18 @@ class TestSketch < Propane::App
   end
 end
 
-class SpecTest < Minitest::Test  
+class SpecTest < Minitest::Test
   def setup
-    @processing_sketch = TestSketch.new
+    @propane_sketch = TestSketch.new
   end
-  
+
   def test_respond
     METHODS.each do |method_string|
-      assert_respond_to @processing_sketch, method_string
+      assert_respond_to @propane_sketch, method_string
     end
   end
-  
+
   def tear_down
-    @processing_sketch = nil?
+    @propane_sketch = nil?
   end
 end

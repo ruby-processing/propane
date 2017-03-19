@@ -1,11 +1,6 @@
-gem 'minitest' # don't use bundled minitest
+require_relative 'test_helper'
 require 'java'
-require 'minitest/autorun'
-require 'minitest/pride'
-
 require_relative '../lib/propane'
-
-Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
 
 Dir.chdir(File.dirname(__FILE__))
 

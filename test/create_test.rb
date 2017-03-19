@@ -1,11 +1,10 @@
-gem 'minitest'      # don't use bundled minitest
-require 'minitest/autorun'
-require 'minitest/pride'
-
-
+require_relative 'test_helper'
 require_relative '../lib/propane/creators/sketch_class'
+require_relative '../lib/propane/creators/sketch_writer'
 
 CLASS_SKETCH = <<~CODE
+
+#!/usr/bin/env jruby
 # frozen_string_literal: false
 require 'propane'
 
@@ -27,28 +26,13 @@ FredSketch.new
 
 CODE
 
-BARE_SKETCH = <<~CODE
-def settings
-  size 200, 200, P2D
-end
-
-def setup
-  sketch_title 'Fred Sketch'
-end
-
-def draw
-
-end
-  
-CODE
-
 class SketchClassTest < Minitest::Test
-  
+
   def setup
     @basic = SketchClass.new(name: 'fred_sketch', width: 200, height: 200)
     @sketch = SketchClass.new(name: 'fred_sketch', width: 200, height: 200, mode: 'p2d')
   end
-  
+
   def test_class
     result = CLASS_SKETCH.split(/\n/, -1)
     class_lines = @sketch.lines
@@ -77,14 +61,6 @@ class SketchClassTest < Minitest::Test
   def test_class_new
     assert_equal "FredSketch.new", @sketch.sketch_new
   end
-
-  def test_method_lines
-    result = CLASS_SKETCH.split(/\n/, -1)
-    @basic.method_lines('settings', @basic.size).each_with_index do |line, i|
-      assert_equal result[i + 4], line
-    end
-  end
-
 
   def test_sketch_class
     assert_equal "class FredSketch < Propane::App", @basic.class_sketch

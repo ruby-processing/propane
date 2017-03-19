@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+require 'java'
 unless defined? PROPANE_ROOT
   $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
   PROPANE_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')

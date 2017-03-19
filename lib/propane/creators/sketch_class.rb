@@ -1,4 +1,4 @@
-# frozen_string_literal: false
+#frozen_string_literal: false
 # the sketch class
 class SketchClass
   attr_reader :name, :width, :height, :mode
@@ -40,6 +40,7 @@ class SketchClass
 
   def lines
     lines = [
+      '#!/usr/bin/env jruby',
       '# frozen_string_literal: false',
       "require 'propane'",
       '',
