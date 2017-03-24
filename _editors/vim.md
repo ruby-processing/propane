@@ -12,9 +12,46 @@ Is an excellent choice for linux and mac users, it is lighweight (runs from the 
 
 ### Live coding with Pry ###
 
-To do live [live editing with pry][pry] you should install either [emacs][emacs] or vim, but vim is probably the best.
-
+```bash
+jgem install pry
+# or jruby -S gem install pry
+# or if you must use rvm or rbenv not recommended
+```
 Do `echo "Pry.config.editor = 'vim'" > ~/.pryrc` to set vim as the pry editor.
+
+Fire up pry using
+
+```bash
+jruby -e "require 'pry'; binding.pry"
+```
+
+Or more conveniently create a shortcut by using `jpry` alias in your `.bashrc` or equivalent eg `.profile` debian linux:-
+
+```bash
+alias jpry="jruby -e \"require 'pry'; binding.pry\""
+```
+
+At the pry prompt:-
+
+```ruby
+load 'my_sketch'
+```
+
+Creating `my_sketch` is a easy as `propane -c my_sketch 300 300`
+
+To get full listing of sketch in pry enter `$` at the prompt, to edit the `draw` method at the prompt do:-
+
+```bash
+edit -p MySketch#draw
+```
+
+On finished save and quit `:wqa` sketch will redraw reflecting changes, but you can repeat:-
+
+```bash
+edit -p MySketch#draw
+```
+
+this allows you to edit your changes which are saved in a `.tmp` file. Read more about vim / emacs integration [here][pry-wiki]
 
 ### Other advantages of vim ###
 
@@ -22,6 +59,5 @@ Also because vim is run from the console it is so easy to run old friends like `
 
 If you are millenial and allergic to the command line install [atom][atom], emacs is only for hardcore geeks. As yet I don't think pry supports `atom` as a editor.
 
-[emacs]:{{ site.github.url }}/emacs/
 [atom]:{{ site.github.url }}/atom/
-[pry]:{{ site.github.url }}/live/
+[pry-wiki]:https://github.com/pry/pry/wiki/Editor-integration/
