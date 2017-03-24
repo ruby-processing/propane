@@ -45,7 +45,7 @@ To get full listing of sketch in pry enter `$` at the prompt, to edit the `draw`
 edit -p MySketch#draw
 ```
 
-On finished save and quit `:wqa` sketch will redraw reflecting changes, but you can repeat:-
+On finished save and quit `:wq` (or `:wqa` to save all changed buffers) sketch will redraw reflecting changes, but you can repeat:-
 
 ```bash
 edit -p MySketch#draw
