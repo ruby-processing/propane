@@ -45,6 +45,8 @@ If you wish to run sketches using local environmental variables with [script][sc
 atom . # or atom sketch.rb
 ```
 
+NB: Sketches will not run properly `Ruby on Rails` mode make sure you are in `Ruby` or `JRuby Art` mode to run sketches from atom (it is unfortunate that atom by default recognizes sketches as `Ruby on Rails` artifacts).
+
 It is also possible to run sketches with a custom profile (ie for jruby) but I have found just regular run script (to run `ruby`) works ok with `#!/usr/bin/env jruby` at start of sketch (`rvm`, `rbenv` user might not need this?).  To run a different sketch, navigate to the sketch (file) and use either `script` menu, or `shift+alt+b` _linux/windows_ or `cmd+i` _macOS_. _If you change directories (and your sketches need data folder etc) you may need to restart atom from the new folder._
 
 ### What's it look like ###
