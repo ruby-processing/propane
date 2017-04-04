@@ -29,11 +29,23 @@ hsb_color(hue, sat, bright) # where args are ruby float
 
 ### web_to_color_array method
 A convenience method that converts an array of web color strings to an array of 'color' int. Particularly useful when working with the Joshua Davis Processing-HYPE library.
-
 ```ruby
 WEB = %w(#CC6600 #CC9900 #FFFFFF).freeze
 web_to_color_array(WEB)
 # output = [-3381760, -3368704, -1]
+```
+see usage in a [Wordcram sketch][wordcram]
+
+### p52ruby
+
+A convenience method that converts an array of 'color' int to a ruby string that you can use in your Wordcram or Hype sketches (say from a ColorHarmony sketch)
+
+```ruby
+p52ruby([-3381760, -3368704, -1])
+# output = "%w(#CC6600 #CC9900 #FFFFFF)\n"
+```
+For toxiclibs we have created a new method `to_ruby_string` for the `ColorList` class that does the same thing for a collection of `TColor`
+See this [toxiclibs sketch][palette] where we use color theory to generate a sketch palette.
 ```
 
 ### map1d method
@@ -80,6 +92,8 @@ map1d
 p5map
 ```
 
+[palette]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/external_library/gem/toxiclibs/color_utils/palette_generator.rb
+[wordcram]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/external_library/gem/ruby_wordcram/fruits.rb
 [bezier]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/processing_app/basics/form/bezier_ellipse.rb
 [brick_tower]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/processing_app/basics/form/brick_tower.rb
 [mandelbrot]:https://github.com/ruby-processing/JRubyArt-examples/blob/master/contributed/mandelbrot.rb
