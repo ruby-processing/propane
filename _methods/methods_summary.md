@@ -46,7 +46,6 @@ p52ruby([-3381760, -3368704, -1])
 ```
 For toxiclibs we have created a new method `to_ruby_string` for the `ColorList` class that does the same thing for a collection of `TColor`
 See this [toxiclibs sketch][palette] where we use color theory to generate a sketch palette.
-```
 
 ### map1d method
 A replacement for processings map function, maps val (range1) to range2 using a linear transform.
