@@ -15,7 +15,7 @@ Fire up the jirb console then at irb prompt:-
 
 First you will need to `jgem install pry`
 
-Easy use configuration in your `~/.bashrc` or `~/.profile` etc include
+Easy use configuration in your `~/.bashrc` (many linux distros) or `~/.profile` (MacOS, ubuntu, mint) etc include
 
 ```bash
 alias jpry="jruby -e \"require 'pry'; binding.pry\""
