@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+require_relative 'config'
 # The processing wrapper module
 module Propane
   # Encapsulate library loader functionality as a class
@@ -44,8 +45,8 @@ module Propane
     def load_java_library(library_name)
       library_name = library_name.to_sym
       return true if @loaded_libraries.include?(library_name)
-      jpath = get_library_directory_path(library_name, 'jar')
-      jars = get_library_paths(library_name, 'jar')
+      jpath = get_library_directory_path(library_name)
+      jars = get_library_paths(library_name)
       return false if jars.empty?
       jars.each { |jar| require jar }
       platform_specific_library_paths = get_platform_specific_library_paths(jpath)
@@ -77,33 +78,31 @@ module Propane
     def get_platform_specific_library_paths(basename)
       # for MacOSX, but does this even work, or does Mac return '64'?
       bits = 'universal'
-      if java.lang.System.getProperty('sun.arch.data.model') == '32' ||
-         java.lang.System.getProperty('java.vm.name').index('32')
+      if get_property('sun.arch.data.model') == '32' ||
+        get_property('java.vm.name').index('32')
         bits = '32'
-      elsif java.lang.System.getProperty('sun.arch.data.model') == '64' ||
-            java.lang.System.getProperty('java.vm.name').index('64')
+      elsif get_property('sun.arch.data.model') == '64' ||
+        get_property('java.vm.name').index('64')
         bits = '64' unless platform =~ /macosx/
       end
       [platform, platform + bits].map { |p| File.join(basename, p) }
     end
 
-    def get_library_paths(library_name, extension = nil)
+    def get_library_paths(library_name, extension = 'jar')
       dir = get_library_directory_path(library_name, extension)
       Dir.glob("#{dir}/*.{rb,jar}")
     end
 
     protected
 
-    def get_library_directory_path(library_name, extension = nil)
+    def get_property(prop)
+      java.lang.System.getProperty(prop)
+    end
+
+    def get_library_directory_path(library_name, extension = 'jar')
       extensions = extension ? [extension] : %w(jar rb)
       extensions.each do |ext|
-        [
-          "#{SKETCH_ROOT}/library/#{library_name}",
-          "#{PROPANE_ROOT}/library/#{library_name}",
-          "#{PROPANE_ROOT}/library/#{library_name}/library",
-          "#{PROPANE_ROOT}/library/#{library_name}",
-          "#{ENV['HOME']}/.propane/libraries/#{library_name}/library"
-        ].each do |jpath|
+        ProcessingPath.list(library_name) do |jpath|
           if File.exist?(jpath) && !Dir.glob(format('%s/*.%s', jpath, ext)).empty?
             return jpath
           end
