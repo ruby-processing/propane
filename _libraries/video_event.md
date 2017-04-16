@@ -10,7 +10,7 @@ The video library should be installed using `propane --install video`
 
 The purpose of the `video_event` library is to allow you to use the vanilla processing reflection methods `captureEvent` and `movieEvent` from the processing `video` library. _It is almost impossible to use vanilla processing reflection methods without this sort of wrapper_.
 
-If MacOS users experience difficulty with the video library they should probably rename the binary folder from `macosx64` to `macosx`.  However it seems as though the binaries get dynamically loaded from the video library, and this may not be necessary see [Line 178][178] Gottfreid Haider but this is pure conjecture in case of propane.
+If MacOS users experience difficulty with the video library they should probably rename the binary folder from `macosx64` to `macosx`.  However it seems as though the binaries get dynamically loaded from the video library, and this may not be necessary see [Line 178][178] (personal communication Gottfreid Haider) but this is pure conjecture in case of propane.
 
 A movie example:-
 
