@@ -54,6 +54,13 @@ task :test do
   sh 'jruby test/vecmath_spec_test.rb'
 end
 
+desc 'Test Loader'
+task :test_loader do
+  # NB: need to cd to find the local libraries
+  # sh 'cd test && jruby load_ruby_library_test.rb'
+  sh 'cd test && jruby load_java_library_test.rb'
+end
+
 desc 'clean'
 task :clean do
   Dir['./**/*.%w{jar gem}'].each do |path|
