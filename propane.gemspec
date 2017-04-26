@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/propane.jar'
-  gem.files << 'lib/core-3.3.1.jar'
+  gem.files << 'lib/core-3.3.2.jar'
   gem.files << 'lib/gluegen-rt-2.3.2.jar'
   gem.files << 'lib/jogl-all-2.3.2.jar'
   gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-amd64.jar'
@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/jogl-all-2.3.2-natives-macosx-universal.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.add_runtime_dependency 'arcball', '~> 0.0.3'
+  gem.add_runtime_dependency 'arcball', '~> 1.0', '>= 1.0.0' 
   gem.require_paths = ['lib']
   gem.platform      = 'java'
 end
