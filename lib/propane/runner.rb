@@ -4,7 +4,6 @@ require_relative 'version'
 
 module Propane
   # Utility class to handle the different commands that the 'propane' offers
-
   class Runner
     attr_reader :options, :argc, :filename
 
@@ -13,7 +12,7 @@ module Propane
     end
 
     # Start running a propane command from the passed-in arguments
-    def self.execute      
+    def self.execute
       runner = new
       runner.parse_options(ARGV)
       runner.execute!
