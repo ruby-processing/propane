@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 require_relative 'helper_methods'
-require_relative 'library_loader'
+require_relative 'new_loader'
 
 # A wrapper module for the processing App
 module Propane
