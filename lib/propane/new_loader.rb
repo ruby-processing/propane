@@ -2,6 +2,7 @@
 # The processing wrapper module
 module Propane
   # Encapsulate library loader functionality as a class
+  require_relative 'local_ruby_library'
   class LibraryLoader
     def initialize
       @loaded_libraries = Hash.new(false)
@@ -32,8 +33,9 @@ module Propane
     def load_ruby_library(library_name)
       library_name = library_name.to_sym
       return true if @loaded_libraries.include?(library_name)
-      path = get_library_paths(library_name, 'rb').first
-      return false unless path
+      loader = LocalRubyLibrary.new(library_name)
+      return false unless loader.exist?
+      path = loader.path
       @loaded_libraries[library_name] = (require path)
     end
 
