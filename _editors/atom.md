@@ -8,11 +8,11 @@ keywords: ide, ruby, propane, atom
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
 
-For linux ignore any distro version and download latest version (at least 1.14.3) and:-
+For linux ignore any distro version and download latest version (at least 1.16.0) and:-
 
 ```bash
 sudo dpkg --install atom-amd64.deb # debian, mint, ubuntu
-sudo pacman -S atom # Archlinux currently installs 1.14.3
+sudo pacman -S atom # Archlinux currently installs 1.16.0
 ```
 
 MacOS/Windows users could just download direct (or homebrew on MacOS)

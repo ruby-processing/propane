@@ -9,7 +9,7 @@ keywords: gem, library, propane
 
 ### Processing libraries ported as ruby-gems
 
-[arcball][arcball], [toxiclibs][tox], [geomerative][geom]
+[arcball][arcball], [toxiclibs][tox], [geomerative][geom], [wordcram][wordcram]
 
 NB: the arcball gem is installed as a propane dependency
 
@@ -26,3 +26,4 @@ jbox2d ([pbox2d][jbox2d])
 [geom]:https://ruby-processing.github.io/geomerativegem/
 [jbox2d]:https://github.com/ruby-processing/jbox2d/
 [cf3]:https://github.com/monkstone/cf3ruby/
+[wordcram]:https://ruby-processing.github.io/WordCram/
