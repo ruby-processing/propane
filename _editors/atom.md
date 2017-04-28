@@ -57,6 +57,10 @@ It is also possible to run sketches with a custom profile (ie for jruby) but I h
 
 Navigate to ~/.atom/packages/language-jruby-art/snippets and edit `language-jruby-art.cson`
 
+### Linter Ruby Leek package etc
+
+Fans of Sandi Metz will probably want to install linter-ruby-reek and rubocop packages, the latter v. useful for detecting stupid coding errors.
+
 [language]:https://atom.io/packages/language-jruby-art
 [script]:https://atom.io/packages/script
 [atom]:https://atom.io/
