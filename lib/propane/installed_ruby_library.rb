@@ -1,10 +1,9 @@
 # The LibraryLoader class
-class LocalRubyLibrary
-
+class InstalledRubyLibrary
   attr_reader :path
 
   def initialize(name)
-    @path = File.absolute_path(File.join(Propane::SKETCH_ROOT, 'library', name, "#{name}.rb"))
+    @path = File.join(PROPANE_ROOT, 'library', name, "#{name}.rb")
   end
 
   def exist?

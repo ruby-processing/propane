@@ -2,7 +2,7 @@
 # The processing wrapper module
 module Propane
   # Encapsulate library loader functionality as a class
-  require_relative 'local_ruby_library'
+  require_relative 'installed_ruby_library'
   class LibraryLoader
     def initialize
       @loaded_libraries = Hash.new(false)
@@ -21,7 +21,7 @@ module Propane
     def load_libraries(*args)
       message = 'no such file to load -- %s'
       args.each do |lib|
-        loaded = load_ruby_library(lib) || load_java_library(lib)
+        loaded = load_ruby_library(lib.to_s) || load_java_library(lib.to_s)
         fail(LoadError.new, format(message, lib)) unless loaded
       end
     end
@@ -30,10 +30,10 @@ module Propane
     # For pure ruby libraries.
     # The library should have an initialization ruby file
     # of the same name as the library folder.
-    def load_ruby_library(library_name)
-      library_name = library_name.to_sym
+    def load_ruby_library(name)
+      library_name = name.to_sym
       return true if @loaded_libraries.include?(library_name)
-      loader = LocalRubyLibrary.new(library_name)
+      loader = InstalledRubyLibrary.new(name)
       return false unless loader.exist?
       path = loader.path
       @loaded_libraries[library_name] = (require path)
@@ -76,15 +76,11 @@ module Propane
       'macosx'
     end
 
-    def get_platform_specific_library_paths(basename)
-      # for MacOSX, but does this even work, or does Mac return '64'?
-      bits = 'universal'
+     def get_platform_specific_library_paths(basename)
+      bits = '64'
       if java.lang.System.getProperty('sun.arch.data.model') == '32' ||
          java.lang.System.getProperty('java.vm.name').index('32')
-        bits = '32'
-      elsif java.lang.System.getProperty('sun.arch.data.model') == '64' ||
-            java.lang.System.getProperty('java.vm.name').index('64')
-        bits = '64' unless platform =~ /macosx/
+        bits = '32' unless platform =~ /macosx/
       end
       [platform, platform + bits].map { |p| File.join(basename, p) }
     end
