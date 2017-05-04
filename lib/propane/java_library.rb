@@ -40,6 +40,7 @@ class LocalJavaLibrary < JavaLibrary
   def initialize(name)
     super
     @dir = File.join(Propane::SKETCH_ROOT, 'library', name)
+    @path = File.join(dir, "#{name}.jar")
   end
 end
 
@@ -48,5 +49,6 @@ class InstalledJavaLibrary < JavaLibrary
   def initialize(name)
     super
     @dir = File.join(ENV['HOME'], '.propane', 'libraries', name, 'library')
+    @path = File.join(dir, "#{name}.jar")
   end
 end
