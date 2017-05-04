@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative 'native_folder'
+# require_relative 'native_folder'
 
 # The InstalledJavaLibrary class
 class InstalledJavaLibrary

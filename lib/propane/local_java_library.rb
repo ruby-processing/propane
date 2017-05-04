@@ -1,4 +1,4 @@
-require_relative 'native_folder'
+# require_relative 'native_folder'
 
 # The LocalJavaLibrary class
 class LocalJavaLibrary

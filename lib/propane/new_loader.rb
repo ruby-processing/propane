@@ -6,7 +6,11 @@ module Propane
   require_relative 'installed_ruby_library'
   require_relative 'local_java_library'
   require_relative 'installed_java_library'
+
+
   class LibraryLoader
+    attr_reader :library
+
     def initialize
       @loaded_libraries = Hash.new(false)
     end
@@ -50,7 +54,7 @@ module Propane
     end
 
     def require_library(lib)
-      @loaded_libraries[name] = require lib.path
+      @loaded_libraries[lib.name.to_sym] = require lib.path
     end
 
     # For pure ruby libraries.
