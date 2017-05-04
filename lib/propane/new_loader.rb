@@ -44,10 +44,14 @@ module Propane
         return require_library(library)
       end
       if (@library = LocalJavaLibrary.new(fname)).exist?
-        return require_library(library.path)
+        library.load_jars
+        library.add_binaries_to_classpath if library.native_binaries?
+        return @loaded_libraries[name] = true
       end
       if (@library = InstalledJavaLibrary.new(fname)).exist?
-        return require_library(library)
+        library.load_jars
+        library.add_binaries_to_classpath if library.native_binaries?
+        return @loaded_libraries[name] = true
       end
       false
     end

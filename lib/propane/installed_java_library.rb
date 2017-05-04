@@ -1,12 +1,13 @@
 # frozen_string_literal: true
-# require_relative 'native_folder'
+require_relative 'native_folder'
 
 # The InstalledJavaLibrary class
 class InstalledJavaLibrary
 
-  attr_reader :dir, :path
+  attr_reader :dir, :path, :name
 
   def initialize(name)
+    @name = name
     @dir = File.join(ENV['HOME'], '.propane', 'libraries', name, 'library')
     @path = File.join(dir, "#{name}.jar")
   end

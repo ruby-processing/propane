@@ -20,7 +20,7 @@ class NativeFolder
     @bit = java.lang.System.get_property('os.arch') =~ /64/ ? 64 : 32
   end
 
-  def folder_name
+  def name
     return 'macosx' if os =~ /darwin/ || os =~ /mac/
     # return format(WIN_FORMAT, bit) if WIN_PATTERNS.include? os
     return format(LINUX_FORMAT, bit) if os =~ /linux/

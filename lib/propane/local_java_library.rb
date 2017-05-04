@@ -1,12 +1,13 @@
-# require_relative 'native_folder'
+require_relative 'native_folder'
 
 # The LocalJavaLibrary class
 class LocalJavaLibrary
 
-  attr_reader :dir, :path, :native
+  attr_reader :dir, :path, :name
 
   def initialize(name)
-    @dir = File.join(SKETCH_ROOT, 'library', name)
+    @name = name
+    @dir = File.join(Propane::SKETCH_ROOT, 'library', name)
     @path = File.join(dir, "#{name}.jar")
   end
 
