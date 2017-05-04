@@ -22,7 +22,7 @@ class LocalRubyLibrary < RubyLibrary
 end
 
 # The InstalledLibraryLoader class
-class InstalledRubyLibrary
+class InstalledRubyLibrary < RubyLibrary
 
   def initialize(name)
     super
