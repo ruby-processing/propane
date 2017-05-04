@@ -3,7 +3,6 @@ require_relative 'native_loader'
 
 # The JavaLibrary class
 class JavaLibrary
-
   attr_reader :dir, :path, :name, :ppath
 
   def initialize(name)
@@ -26,7 +25,8 @@ class JavaLibrary
     native_folder = NativeFolder.new
     native = native_folder.name
     @ppath = File.join(dir, native)
-    File.directory?(ppath) && !Dir.glob(File.join(ppath, native_folder.extension)).empty?
+    File.directory?(ppath) &&
+      !Dir.glob(File.join(ppath, native_folder.extension)).empty?
   end
 
   def add_binaries_to_classpath
