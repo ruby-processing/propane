@@ -2,8 +2,7 @@
 # The processing wrapper module
 module Propane
   require_relative 'ruby_library'
-  require_relative 'local_java_library'
-  require_relative 'installed_java_library'
+  require_relative 'java_library'
 
   # Encapsulate library loader functionality as a class
   class LibraryLoader
