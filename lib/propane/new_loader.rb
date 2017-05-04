@@ -2,7 +2,10 @@
 # The processing wrapper module
 module Propane
   # Encapsulate library loader functionality as a class
+  require_relative 'local_ruby_library'
   require_relative 'installed_ruby_library'
+  require_relative 'local_java_library'
+  require_relative 'installed_java_library'
   class LibraryLoader
     def initialize
       @loaded_libraries = Hash.new(false)
@@ -21,23 +24,46 @@ module Propane
     def load_libraries(*args)
       message = 'no such file to load -- %s'
       args.each do |lib|
-        loaded = load_ruby_library(lib.to_s) || load_java_library(lib.to_s)
+        loaded = loader(lib)
         fail(LoadError.new, format(message, lib)) unless loaded
       end
     end
     alias_method :load_library, :load_libraries
 
+
+    def loader(name)
+      return true if @loaded_libraries.include?(name)
+      fname = name.to_s
+      if (@library = LocalRubyLibrary.new(fname)).exist?
+        return require_library(library)
+      end
+      if (@library = InstalledRubyLibrary.new(fname)).exist?
+        return require_library(library)
+      end
+      if (@library = LocalJavaLibrary.new(fname)).exist?
+        return require_library(library.path)
+      end
+      if (@library = InstalledJavaLibrary.new(fname)).exist?
+        return require_library(library)
+      end
+      false
+    end
+
+    def require_library(lib)
+      @loaded_libraries[name] = require lib.path
+    end
+
     # For pure ruby libraries.
     # The library should have an initialization ruby file
     # of the same name as the library folder.
-    def load_ruby_library(name)
-      library_name = name.to_sym
-      return true if @loaded_libraries.include?(library_name)
-      loader = InstalledRubyLibrary.new(name)
-      return false unless loader.exist?
-      path = loader.path
-      @loaded_libraries[library_name] = (require path)
-    end
+    # def load_ruby_library(name)
+    #   library_name = name.to_sym
+    #   return true if @loaded_libraries.include?(library_name)
+    #   loader = InstalledRubyLibrary.new(name)
+    #   return false unless loader.exist?
+    #   path = loader.path
+    #   @loaded_libraries[library_name] = (require path)
+    # end
 
     # HACK: For pure java libraries, such as the ones that are available
     # on this page: http://processing.org/reference/libraries/index.html
