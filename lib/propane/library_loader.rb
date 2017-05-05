@@ -51,7 +51,7 @@ module Propane
 
     def load_jars(lib, name)
       lib.load_jars
-      return @loaded_libraries[name] = true
+      @loaded_libraries[name] = true
     end
 
     def require_library(lib, name)
