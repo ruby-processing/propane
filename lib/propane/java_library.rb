@@ -18,6 +18,8 @@ class JavaLibrary
     Dir["#{dir}/*.jar"].each do |jar|
       require jar
     end
+    return unless native_binaries?
+    add_binaries_to_classpath
   end
 
   def native_binaries?

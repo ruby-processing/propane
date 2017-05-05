@@ -51,7 +51,6 @@ module Propane
 
     def load_jars(lib, name)
       lib.load_jars
-      lib.add_binaries_to_classpath if lib.native_binaries?
       return @loaded_libraries[name] = true
     end
 
