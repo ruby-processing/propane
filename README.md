@@ -70,4 +70,7 @@ propane --install video
 ```
 Other java libraries can be manually installed to the same folder (no need for processing ide)
 
+See [gh-pages][gh-pages] for more detailed instructions and much more.
+
 [building]:http://ruby-processing.github.io/building/building/
+[gh-pages]:https://ruby-processing.github.io/propane/
