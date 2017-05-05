@@ -3,10 +3,9 @@ require_relative 'native_loader'
 
 # The JavaLibrary class
 class JavaLibrary
-  attr_reader :dir, :path, :name, :ppath
+  attr_reader :dir, :path, :ppath
 
   def initialize(name)
-    @name = name
     @dir = '.'
     @path = File.join(dir, "#{name}.jar")
   end

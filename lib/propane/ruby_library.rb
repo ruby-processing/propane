@@ -1,9 +1,8 @@
 # The abstract RubyLibrary class
 class RubyLibrary
-  attr_reader :path, :name
+  attr_reader :path
 
   def initialize(name)
-    @name = name
     @path = nil
   end
 
