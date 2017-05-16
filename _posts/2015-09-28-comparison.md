@@ -21,7 +21,7 @@ th{
 |----------    |---------------    |-----------      |
 |binary        |rp5                |jruby            |
 |java          |jdk-7              |jdk-8            |
-|version       |processing-2.2.1   |processing-3.3.2 |
+|version       |processing-2.2.1   |processing-3.3.3 |
 |ruby          |1.9.3              |2.3+             |
 |ArcBall       |library            |gem              |
 |Vec2D         |library            |built-in         |

@@ -20,7 +20,7 @@ If you are familiar with the original ruby-processing (deprecasted since January
 
 ### Installing ###
 
-Propane-2.3.2 is a configuration free version of processing-3.3.2 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
+Propane-2.3.2 is a configuration free version of processing-3.3.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
 To install gem:-
 {% highlight bash %}
 jgem install propane # or alternatively
