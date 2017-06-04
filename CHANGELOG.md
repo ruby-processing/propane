@@ -1,3 +1,5 @@
+**v2.3.2** Update to processing-3.3.4, Update samples which now include `#!/usr/bin/env jruby` to assist running sketches from atom, add Rakefile for automatic sketch running for many samples, expected upgrade jruby-9.1.10.0 last in 9.1 series?
+
 **v2.3.1** Update to processing-3.3.1, Update samples which now include `#!/usr/bin/env jruby` to assist running sketches from atom, add Rakefile for automatic sketch running for many samples, expected upgrade to final jruby-9.1.x.x
 
 **v2.3.0** Update to core processing-3.3 `grid` method now implemented in java, bump examples to include WOVNS
