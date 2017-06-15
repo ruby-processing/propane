@@ -6,9 +6,9 @@ A slim layer to communicate with Processing from JRuby, features a polyglot mave
 ## Requirements
 
 - jdk8+
-- jruby-9.1.8.0+
-- mvn-3.3.1+ (development only)
-- core.jar processing-3.3.1 (development only until processing.org is available at maven central)
+- jruby-9.1.12.0
+- mvn-3.5.0+
+- core.jar processing-3.3.4
 
 ## Building and testing
 
@@ -21,7 +21,7 @@ rake javadoc
 ## Installation
 ```bash
 jgem install propane # from rubygems
-jgem install propane-2.3.1-java.gem # for local install
+jgem install propane-2.3.3-java.gem # for local install
 ```
 
 ## Usage

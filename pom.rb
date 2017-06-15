@@ -32,7 +32,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     'jogl.version' => '2.3.2'
     )
 
-  pom 'org.jruby:jruby:9.1.10.0'
+  pom 'org.jruby:jruby:9.1.12.0'
   jar 'org.processing:core:3.3.4'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
