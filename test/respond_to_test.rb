@@ -204,7 +204,6 @@ class SpecTest < Minitest::Test
   end
 
   def test_respond
-    skip(msg = "Headless fail on Travis")
     METHODS.each do |method_string|
       assert_respond_to @propane_sketch, method_string
     end
