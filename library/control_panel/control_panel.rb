@@ -151,10 +151,10 @@ module ControlPanel
 
     def set_feel(lf = 'metal')
       lafinfo = javax.swing.UIManager.getInstalledLookAndFeels
-      laf = lafinfo.select do |info|
-        info.getName.eql? lf.capitalize
+      laf = lafinfo.to_ary.select do |info|
+        info.name =~ Regexp.new(Regexp.escape(lf), Regexp::IGNORECASE)
       end
-      javax.swing.UIManager.setLookAndFeel(laf[0].getClassName)
+      javax.swing.UIManager.setLookAndFeel(laf[0].class_name)
     end
   end
 
@@ -169,4 +169,4 @@ module ControlPanel
   end
 end
 
-Propane::App.send :include, ControlPanel::InstanceMethods
+Propane::App.include(ControlPanel::InstanceMethods)
