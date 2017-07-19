@@ -8,7 +8,7 @@ NB: The main reason for build failing is when the `core.jar` is not available fr
 
 mvn install:install-file /home/tux/processing-3.3.5/core/library/core.jar -DgroupId=org.processing -DartifactId=core -Dversion=3.3.5
 ```
-adjust for your OS/distro.
+adjust above for your OS/distro setup.
 
 ## Requirements
 
