@@ -3,7 +3,7 @@
 
 A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.5, where we include processing core (from a local maven repository and opengl etc from maven central). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building].
 
-NB: The main reason for build failing is when the `core.jar` is bot available form maven central, to install a local jar:-
+NB: The main reason for build failing is when the `core.jar` is not available from maven central, to install a local jar:-
 ```bash
 
 mvn install:install-file /home/tux/processing-3.3.5/core/library/core.jar -DgroupId=org.processing -DartifactId=core -Dversion=3.3.5
