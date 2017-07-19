@@ -96,7 +96,7 @@ It is an unfortunate truth that [java reflection methods][reflection] are popula
 ### VideoInterface.java ###
 
 See [javadoc here][video]
-{% highlight java %}
+```java
 package monkstone.videoevent;
 import processing.video.Movie;
 import processing.video.Capture;
@@ -174,8 +174,7 @@ Now where this knowledge becomes really useful, is when you want to use another 
 
 ### CarnivoreListener.java ###
 
-{% highlight java %}
-
+```java
 package monkstone;
 
 /*
@@ -211,38 +210,42 @@ Here is an example sketch:-
 # + Mac:      first open a Terminal and execute this commmand: sudo chmod 777 /dev/bpf*
 #             you need to do this each time you reboot Mac
 # + Linux:    run with difficulty (run with sudo rights arghh!!!) also install libpcap
+require 'propane'
 
-load_library :carnivore
-include_package 'org.rsg.carnivore'
-java_import 'org.rsg.lib.Log'
-require_relative 'carnivore_listener'
+class CarnivoreListener < Propane::App
+  load_library :carnivore
+  include_package 'org.rsg.carnivore'
+  java_import 'org.rsg.lib.Log'
+  require_relative 'carnivore_listener'
+  include Java::Monkstone::CarnivoreListener
 
-include Java::Monkstone::CarnivoreListener
+  attr_reader :c
 
-attr_reader :c
+  def settings
+    size(600, 400)
+  end
 
-def settings
-  size(600, 400)
+  def setup
+    sketch_title 'Carnivore Example'
+    background(255)  
+    @c = CarnivoreP5.new(self)
+    Log.setDebug(true) # comment out for quiet mode
+    # c.setVolumeLimit(4) #limit the output volume (optional)
+    # c.setShouldSkipUDP(true) #tcp packets only (optional)
+  end
+
+  def draw
+  end
+
+  # Called each time a new packet arrives
+  def packetEvent(p)
+    puts(format('(%s packet) %s > %s', p.strTransportProtocol, p.senderSocket, p.receiverSocket))
+    # puts(format('Payload: %s', p.ascii))
+    # puts("---------------------------\n")
+  end
 end
 
-def setup
-  sketch_title 'Carnivore Example'
-  background(255)  
-  @c = CarnivoreP5.new(self)
-  Log.setDebug(true) # comment out for quiet mode
-  # c.setVolumeLimit(4) #limit the output volume (optional)
-  # c.setShouldSkipUDP(true) #tcp packets only (optional)
-end
-
-def draw
-end
-
-# Called each time a new packet arrives
-def packetEvent(p)
-  puts(format('(%s packet) %s > %s', p.strTransportProtocol, p.senderSocket, p.receiverSocket))
-  # puts(format('Payload: %s', p.ascii))
-  # puts("---------------------------\n")
-end
+CarnivoreListener.new
 ```
 
 
