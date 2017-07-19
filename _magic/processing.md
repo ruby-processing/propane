@@ -135,39 +135,45 @@ See below a sketch which using this VideoEvent interface, see the version using 
 ### black_white_capture.rb ###
 
 ```ruby
+require 'propane'
 require_relative 'video_event'
-load_libraries :video
-include_package 'processing.video'
 
-include Java::MonkstoneVideoevent::VideoInterface
+class BlackAndWhiteCapture < Propane::App
+  load_libraries :video
+  include_package 'processing.video'
 
-attr_reader :cam, :my_shader
+  include Java::MonkstoneVideoevent::VideoInterface
 
-def setup
-  sketch_title 'Black & White Capture'
-  @my_shader = load_shader('bwfrag.glsl')
-  start_capture(width, height)
+  attr_reader :cam, :my_shader
+
+  def setup
+    sketch_title 'Black & White Capture'
+    @my_shader = load_shader('bwfrag.glsl')
+    start_capture(width, height)
+  end
+
+  def start_capture(w, h)
+    @cam = Capture.new(self, w, h)
+    cam.start
+  end
+
+  def draw
+    image(cam, 0, 0)
+    return if mouse_pressed?
+    filter(my_shader)
+  end
+
+  # using snake case to match java reflection method
+  def captureEvent(c)
+    c.read
+  end
+
+  def settings
+    size(960, 544, P2D)
+  end
 end
 
-def start_capture(w, h)
-  @cam = Capture.new(self, w, h)
-  cam.start
-end
-
-def draw
-  image(cam, 0, 0)
-  return if mouse_pressed?
-  filter(my_shader)
-end
-
-# using snake case to match java reflection method
-def captureEvent(c)
-  c.read
-end
-
-def settings
-  size(960, 544, P2D)
-end
+BlackAndWhiteCapture.new
 ```
 
 Now where this knowledge becomes really useful, is when you want to use another library, say the vanilla processing carnivore library whose `packetEvent` method also depends on java relection. Here is a suitable CarnivoreListener class.
