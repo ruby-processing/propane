@@ -6,9 +6,9 @@ keywords: editor, ide, ruby, propane, vim, emacs, jedit
 ---
 
 Is an excellent choice for linux and mac users, it is lighweight (runs from the console) commands available from vim:-
-{% highlight bash %}
+```bash
 :!jruby %   # will run the sketch
-{% endhighlight %}
+```
 
 ### Live coding with Pry ###
 

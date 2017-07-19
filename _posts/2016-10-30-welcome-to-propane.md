@@ -22,34 +22,34 @@ If you are familiar with the original ruby-processing (deprecasted since January
 
 Propane-2.3.2 is a configuration free version of processing-3.3.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
 To install gem:-
-{% highlight bash %}
+```bash
 jgem install propane # or alternatively
 jruby -S gem install propane
-{% endhighlight %}
+```
 Post install:-
 
-{% highlight bash %}
+```bash
 propane --install samples # requires wget installs samples
 propane --install sound # requires wget installs processing sound library
 propane --install video # requires wget installs processing video library
-{% endhighlight %}
+```
 
 ### Using ###
 
 Create sketch from template
 
-{% highlight bash %}
+```bash
 propane -c my_sketch 200 200 # creates `my_sketch.rb` with class `MySketch`
-{% endhighlight %}
+```
 
 Run sketches
 
-{% highlight bash %}
+```bash
 jruby my_sketch.rb
-{% endhighlight %}
+```
 
 Example Sketch:-
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env jruby -v -W2
 # frozen_string_literal: true
 require 'propane'
@@ -153,7 +153,7 @@ class JWishy < Propane::App
 end
 
 JWishy.new
-{% endhighlight %}
+```
 
 [propane]:https://github.com/ruby-processing/propane
 [jruby]:http://jruby.org/download

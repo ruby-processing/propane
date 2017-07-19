@@ -10,7 +10,7 @@ The [original boids library][original] was created by Jeremy Ashkenas to demonst
 
 See the full library code below:-
 
-{% highlight ruby %}
+```ruby
 # frozen_string_literal: true
 # Boids -- after Tom de Smedt.
 # See his Python version: http://nodebox.net/code/index.php/Boids
@@ -221,10 +221,10 @@ class Boids
   end
 end
 
-{% endhighlight %}
+```
 
 Here is the re-factored Flight Patterns Sketch:-
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env jruby -v -w
 # Description:
 # Flight Patterns is that ol' Euruko 2008 demo.
@@ -294,7 +294,7 @@ end
 
 FlightPatterns.new
 
-{% endhighlight %}
+```
 
 [original]:https://github.com/jashkenas/ruby-processing/blob/8865c934318e05e62cbfa2603e661275b1cffd31/library/boids/boids.rb
 [vec3d]:https://ruby-processing.github.io/classes/vec3d/

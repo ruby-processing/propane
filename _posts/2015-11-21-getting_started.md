@@ -19,101 +19,108 @@ Since the project began in 2001, it's been helping teach people to program in a 
 
 In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
 
-In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.0+ and jruby-9.1.7.0+ (ruby-2.2 syntax)
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], a stand alone version of ruby-processing, since using the core.jar from processing (recently using the processing-3.3.5 version see changelog) and jruby-9.1.12.0+ (ruby-2.2 syntax)
 
 ### Why propane? ###
 
-You can dabble with the latest `processing framework` (in ruby) without even needing to install `vanilla processing` (and its embded jdk).
-
-The answer: if you know how to write Ruby, you can use Processing as a visual presentation layer of a much more complex program. Games, interactive art exhibits, innovative music projects, anything you can imagine; it's all at your fingertips.
+__The answers:__ You can dabble with the latest `processing framework` (in ruby) without even needing to install `vanilla processing` (and its embded jdk).  If you know how to write Ruby, you can use Processing as a visual presentation layer of a much more complex program. Games, interactive art exhibits, innovative music projects, anything you can imagine; it's all at your fingertips.
 
 Additionally, you don't have to declare types, voids, or understand the differences between floats and ints to get started, as you do in pure Processing.
 
 Although there are some drawbacks to using the Ruby version Processing (slower start up time, and sometimes performance), having Ruby's API available to translate your ideas into sketches more than makes up for them.
 
-Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0+ from the outset, it makes use of the more literate ruby-2.3 syntax (although the original ruby-processing will run with jruby-9.1.7.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
+Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0+ from the outset, it makes use of the more literate ruby-2.3 syntax (although the original ruby-processing will run with jruby-9.1.12.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
 
 ### JRuby
 
-Unlike `JRubyArt` and `ruby-processing` it is not possible to run `propane` without a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, it is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables).
+Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` sketches without doing a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, this is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables).
 
 ### Pure JRuby Setup Archlinux ###
 
 Install Software as required:-
 
-{% highlight bash %}
+```bash
 sudo pacman -S jdk8-openjdk # installs openjdk
 sudo pacman -S java-openjfx # installs openjfx
 sudo pacman -S jruby # installs jruby
-{% endhighlight %}
+```
 
 Install propane
 
-{% highlight bash %}
+```bash
 jruby -S gem install propane # or jgem install propane
 jruby -S gem install toxiclibs # optional
 jruby -S gem install pbox2d # optional
 jruby -S gem install geomerative # optional
-{% endhighlight %}
+```
 
 Install Samples
 
-{% highlight bash %}
+```bash
 propane --install Samples
-{% endhighlight %}
+```
 
 Install Sound library
 
-{% highlight bash %}
+```bash
 propane --install Sound
-{% endhighlight %}
+```
 
 Install Video library
 
-{% highlight bash %}
+```bash
 propane --install Video
-# requires gstreamer-0.10 and does not work on Archlinux, install instead glvideo library that supports gstreamer-1.0 and hence hardware acceleration, unfortunately this library still need some work 
-{% endhighlight %}
+# requires gstreamer-0.10 and does not work on Archlinux, install instead glvideo library that supports gstreamer-1.0 and hence hardware acceleration, unfortunately this library still need some work
+```
 
 ### Running examples
 
 To run a bunch of the samples as a demo:-
 
-{% highlight bash %}
-cd ~/propane_samples/contributed # for example
-rake # autoruns files in contributed folder
+```bash
+cd ~/propane_samples
+rake # autoruns files
+cd ~/propane_samples/contributed # navigate to say contributed folder
 jruby jwishy.rb # run the JWishy sketch, using an installed jruby
 cd ~/propane_samples/processing_app/topics/shaders
 rake # autoruns shader sketches
 jruby monjori.rb # run the Monjori sketch with jruby-complete
-{% endhighlight %}
+```
 
 ### Creating your own sketch
 
 All we ask is that you obey the ruby filename convention (ie snakecase) and we can create a template sketch for you as follows:-
 
-{% highlight bash %}
+```bash
 propane --create fred_sketch 200 200 # creates a bare sketch fred_sketch.rb (see below)
 vim fred_sketch.rb # other editors are available
 :!jruby % # from vim runs the sketch
-{% endhighlight %}
+```
 
 You may want to try other [development environments][editor] eg atom, emacs or even netbeans. Needless to say your distro can install these for you, but they need a bit of post install love get the best out of them (vim in the main just works, and is super light weight).
 
-{% highlight ruby %}
-def setup
-  sketch_title 'Fred Sketch'
+```ruby
+#!/usr/bin/env jruby
+# frozen_string_literal: false
+require 'propane'
+
+class FredSketch < Propane::App
+  def setup
+    sketch_title 'Fred Sketch'
+  end
+
+  def draw
+
+  end
+
+  def settings
+    size 200, 200
+    # smooth # here
+  end
 end
 
-def draw
-
-end
-
-def settings
-  size 200, 200
-  # smooth # here
-end
-{% endhighlight %}
+FredSketch.new
+```
 
 PS: `propane -c fred` also works with a bare template defaults, to `size 0, 0`
 
@@ -122,7 +129,7 @@ PS: `propane -c fred` also works with a bare template defaults, to `size 0, 0`
 
 To run a bunch of the samples as a demo:-
 
-{% highlight bash %}
+```bash
 cd ~/propane_samples
 rake # autoruns a bunch of files as a demo
 cd ~/propane_samples/contributed # for example
@@ -131,7 +138,7 @@ jruby jwishy.rb # run the JWishy sketch, using an installed jruby
 cd ~/propane_samples/processing_app/topics/shaders
 rake # autoruns shader sketches
 jruby monjori.rb # run single shader sketch
-{% endhighlight %}
+```
 
 [api]: {{site.github.url}}/methods/processing_api.html
 [ben]:https://blog.engineyard.com/2015/getting-started-with-ruby-processing
