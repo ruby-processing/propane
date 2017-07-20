@@ -1,4 +1,5 @@
-#frozen_string_literal: false
+# frozen_string_literal: false
+
 # the sketch class
 class SketchClass
   attr_reader :name, :width, :height, :mode
@@ -24,7 +25,7 @@ class SketchClass
   end
 
   def size
-    return format('    size %d, %d', width.to_i, height.to_i) if mode.nil?
+    return format('    size %d, %d', width.to_i, height.to_i) unless mode
     format('    size %d, %d, %s', width.to_i, height.to_i, mode.upcase)
   end
 
@@ -33,8 +34,8 @@ class SketchClass
     format("    sketch_title '%s'", human)
   end
 
-  def method_lines(name, content = '')
-    return [format('  def %s', name), content, '  end'] if content.empty?
+  def method_lines(name, content = nil)
+    return [format('  def %s', name), '', '  end'] unless content
     [format('  def %s', name), content, '  end', '']
   end
 
@@ -50,6 +51,7 @@ class SketchClass
     lines.concat method_lines('setup', sketch_title)
     lines.concat method_lines('draw')
     lines << 'end'
+    lines << ''
     lines << sketch_new
   end
 end
