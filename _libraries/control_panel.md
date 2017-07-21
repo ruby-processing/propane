@@ -26,7 +26,7 @@ class JWishy < Propane::App
   def setup
     sketch_title 'Wishy Worm'
     control_panel do |c|
-      c.title = 'Control Panel'
+      c.title'Control Panel'
       c.look_feel 'Nimbus'
       c.slider :bluish, 0.0..1.0, 0.5
       c.slider :alpha,  0.0..1.0, 0.5

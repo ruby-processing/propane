@@ -3,7 +3,7 @@ port: 4000
 title: propane (Code as Art)
 email: mamba2928@yahoo.co.uk
 description: > # this means to ignore newlines until "baseurl:"
-   propane is a ruby wrapper for processing-3.3.3. For windows user install
+   propane is a ruby wrapper for processing-3.3.5. For windows user install
    JRubyArt.
 baseurl: "" # the subpath of your site, e.g. /blog
 regenerate: true

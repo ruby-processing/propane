@@ -20,7 +20,7 @@ If you are familiar with the original ruby-processing (deprecasted since January
 
 ### Installing ###
 
-Propane-2.3.2 is a configuration free version of processing-3.3.3 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
+propane-2.3.4 is a configuration free version of processing-3.3.5 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows.
 To install gem:-
 ```bash
 jgem install propane # or alternatively
@@ -67,7 +67,7 @@ class JWishy < Propane::App
   def setup
     sketch_title 'Wishy Worm'
     control_panel do |c|
-      c.title = 'Control Panel'
+      c.title'Control Panel'
       c.look_feel 'Nimbus'
       c.slider :bluish, 0.0..1.0, 0.5
       c.slider :alpha,  0.0..1.0, 0.5

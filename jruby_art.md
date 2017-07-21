@@ -4,7 +4,7 @@ title: JRubyArt
 permalink: /JRubyArt/
 ---
 ### JRubyArt ###
-[JRubyArt][jruby_art] is a ruby wrapper for [processing-3.2.4][processing]. That requires you install vanilla [processing-3.2.4][processing] (cf propane). It also supports `bare` sketches (similar to vanilla processing where the bare sketch gets wrapped into a class under the hood) also the `watch` mode is also supported, neither feature is currently supported with propane.
+[JRubyArt][jruby_art] is a ruby wrapper for [processing-3.3.5][processing]. That requires you install vanilla [processing-3.3.5][processing] (cf propane). It also supports `bare` sketches (similar to vanilla processing where the bare sketch gets wrapped into a class under the hood) also the `watch` mode is also supported, neither feature is currently supported with propane.
 
 ### JRubyArt and propane ###
 
