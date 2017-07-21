@@ -6,7 +6,7 @@ permalink: /windows/
 ---
 ### Install linux ###
 
-If you've got a Windows machine it is probably much easier than you think to install linux OS, for most people the sensible choice would be [Mint][mint] / [Ubuntu][ubuntu]. You should do this because Microsoft Windows has never been [OSS friendly][oss], you will learn a lot (MacOS is not very OSS friendly either, and just too expensive but it is somewhat more [posix][posix] compliant). Unless you have an Intel graphics card, you should probably use the closed source drivers (but free as in free beer from manufacturers). On Mint you should use the `Adminstration/Driver Manager` to check/install such drivers (eg NVidia-375.10). In general you should prefer to use the graphical tools to install software on Debian, but sometimes versions will be out of date see [Install Debian][debian]
+If you've got a Windows machine it is probably much easier than you think to install linux OS, for most people the sensible choice would be [Mint][mint] / [Ubuntu][ubuntu]. You should do this because Microsoft Windows has never been [OSS friendly][oss], you will learn a lot (MacOS is not very OSS friendly either, and just too expensive but it is somewhat more [posix][posix] compliant). Unless you have an Intel graphics card, you should probably use the closed source drivers (but free as in free beer from manufacturers). On Mint you should use the `Adminstration/Driver Manager` to check/install such drivers (eg Nvidia-375.66). In general you should prefer to use the graphical tools to install software on Debian, but sometimes versions will be out of date see [Install Debian][debian]
 
 ### Or stick with what you know ###
 
