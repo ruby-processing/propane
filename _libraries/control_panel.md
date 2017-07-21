@@ -18,21 +18,21 @@ class JWishy < Propane::App
 
   attr_reader :alpha, :back_color, :bluish, :hide, :magnitude, :panel
   attr_reader :x_wiggle, :y_wiggle, :go_big, :shape
-  
+
   def settings
     size 600, 600  
   end
-  
+
   def setup
     sketch_title 'Wishy Worm'
     control_panel do |c|
-      c.title'Control Panel'
+      c.title 'Control Panel'
       c.look_feel 'Nimbus'
       c.slider :bluish, 0.0..1.0, 0.5
       c.slider :alpha,  0.0..1.0, 0.5
       c.checkbox :go_big, false
       c.button :reset
-      c.menu :shape, %w(oval square triangle), 'oval'
+      c.menu :shape, %w[oval square triangle], 'oval'
       @panel = c
     end
     @hide = false
