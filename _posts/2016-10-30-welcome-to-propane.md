@@ -13,6 +13,7 @@ If you arrive here from rubygems `math_demo` you may well have installed `propan
 ```bash
 math_demo # is the executable to run from the command line for the demo, but there's much more
 ```
+See also [math_demo documentation][math_demo]
 
 ### Alternative ###
 
@@ -160,3 +161,4 @@ JWishy.new
 [openjvm]:http://openjdk.java.net/install/
 [oraclejvm]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 [JRubyArt]:{{ site.github.url }}/JRubyArt/
+[math_demo]:https://ruby-processing.github.io/math_demo
