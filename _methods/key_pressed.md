@@ -13,7 +13,7 @@ def key_pressed
 end
 ```
 
-For sketch with `key_pressed` method see [raining][raining], follow link for a sketch using [key_pressed?][key_pressed?].
+For sketch with `key_pressed` method see [raining][raining], follow link for a sketch using [key_pressed?][key_pressed?] or this [alternative][alternative].
 
 See also:-
 
@@ -23,3 +23,4 @@ See also:-
 [keyPressed]:https://processing.org/reference/keyPressed_.html
 [keyReleased]:https://processing.org/reference/keyReleased_.html
 [raining]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/raining.rb
+[alternative]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/25_squares.rb
