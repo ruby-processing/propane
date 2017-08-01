@@ -19,7 +19,7 @@ See also:-
 
 [key_released][keyReleased]
 
-[key_pressed?]:https://github.com/ruby-processing/propane-examples/blob/master/processing_app/basics/input/keyboard.rb
+[key_pressed?]:https://github.com/ruby-processing/propane-examples/blob/master/processing_app/basics/typography/letters.rb
 [keyPressed]:https://processing.org/reference/keyPressed_.html
 [keyReleased]:https://processing.org/reference/keyReleased_.html
 [raining]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/raining.rb
