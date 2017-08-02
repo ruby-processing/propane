@@ -1,6 +1,7 @@
 package monkstone.core;
 
 import processing.core.PApplet;
+import processing.event.KeyEvent;
 import static processing.core.PConstants.*;
 
 /**
@@ -91,7 +92,7 @@ private final PApplet app;
      *
      * @param e KeyEvent
      */
-    public abstract void keyEvent(processing.event.KeyEvent e);
+    public abstract void keyEvent(KeyEvent e);
 
     /**
      * required for processing
