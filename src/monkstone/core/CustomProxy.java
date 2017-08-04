@@ -2,6 +2,7 @@ package monkstone.core;
 
 import processing.core.PApplet;
 import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 import static processing.core.PConstants.*;
 
 /**
@@ -40,10 +41,12 @@ private final PApplet app;
         if (active) {
             this.app.registerMethod("dispose", this);
             this.app.registerMethod("keyEvent", this);
+            this.app.registerMethod("mouseEvent", this);
             this.app.registerMethod("draw", this);
         } else {
             this.app.unregisterMethod("draw", this);
             this.app.unregisterMethod("keyEvent", this);
+            this.app.unregisterMethod("mouseEvent", this);
         }
     }
 
@@ -83,7 +86,15 @@ private final PApplet app;
      * Extending classes must implement this gives access to processing PApplet
      * draw loop
      */
-    public abstract void draw();
+    public void draw(){}
+
+    /**
+     * Extending classes must implement this gives access to processing PApplet
+     * mouseEvent (more general than required for mousePressed)
+     *
+     * @param e mouseEvent
+     */
+    public void mouseEvent(MouseEvent e){}
 
 
     /**

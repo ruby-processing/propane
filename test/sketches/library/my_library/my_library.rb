@@ -10,13 +10,23 @@ class MyLibrary < CustomProxy
     @app = parent
   end
 
-  def draw # required but empty method is fine
-    app.fill(200, 100)
-    app.ellipse(150, 100, 200, 60)
+  def draw # optional
+    fill app.color(200, 0, 0, 100)
+    app.rect 100, 100, 60, 90
   end
 
-  def keyEvent(e) # keep camel case for reflection to work
+  # favor guard clause no_op unless key pressed
+  # and no_op unless ascii key
+  def keyEvent(e) # NB: need camel case for reflection to work
     return unless e.get_action == KeyEvent::PRESS
-    puts e.key_code
+    return if e.get_key > 122 # else we can't use :chr
+    case e.get_key.chr.upcase
+    when 'S'
+      app.send :hide, false
+    when 'H'
+      app.send :hide, true
+    else
+      puts e.get_key.chr
+    end
   end
 end
