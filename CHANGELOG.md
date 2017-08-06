@@ -1,3 +1,5 @@
+**v2.4.0** Extend LibraryProxy to include mouseEvent and keyEvent.
+
 **v2.3.4** Simplify control_panel library (replacing `c.title = 'PaneTitle'` with `c.title('PaneTitle')`) also enable use of `block` with `button's`.
 
 **v2.3.3** Update to processing-3.3.4, and upgrade jruby-9.1.12.0 last in 9.1 series?
