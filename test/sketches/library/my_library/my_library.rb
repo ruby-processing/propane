@@ -1,7 +1,7 @@
-# This class demonstrates how by inheriting from the abstract class CustomProxy
+# This class demonstrates how by inheriting from the abstract class LibraryProxy
 # we can access 'keyEvent' and 'draw'  (Note we need a draw method even
 # though can be empty)
-class MyLibrary < CustomProxy
+class MyLibrary < LibraryProxy
   java_import 'processing.event.KeyEvent'
 
   attr_reader :app

@@ -6,7 +6,7 @@ class CustomProxySketch < Propane::App
 
   # A simple demonstration of vanilla processing 'reflection' methods using
   # propane :library_proxy. See my_library.rb code for the guts.
-  load_libraries :custom_proxy, :my_library
+  load_libraries :library_proxy, :my_library
 
   attr_reader :visible
 
