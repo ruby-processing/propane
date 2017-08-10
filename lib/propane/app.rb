@@ -110,6 +110,7 @@ module Propane
       raise TypeError unless arguments.is_a? Array
       # Set up the sketch.
       super()
+      post_initialize(options)
       $app = self
       @arguments = arguments
       @options   = options
@@ -123,6 +124,9 @@ module Propane
       @render_mode ||= mode
       import_opengl if /opengl/ =~ mode
       super(*args)
+    end
+    
+    def post_initialize(_args)
     end
 
     def sketch_title(title)
