@@ -43,6 +43,10 @@ module Propane
     key_typed: :keyTyped
   }.freeze
 
+  class << self
+    attr_accessor :app
+  end
+
   # All sketches extend this class
   class App < PApplet
     include Math, MathTool, HelperMethods, Render
@@ -125,7 +129,7 @@ module Propane
       import_opengl if /opengl/ =~ mode
       super(*args)
     end
-    
+
     def post_initialize(_args)
     end
 
