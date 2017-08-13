@@ -115,7 +115,7 @@ module Propane
       # Set up the sketch.
       super()
       post_initialize(options)
-      $app = self
+      Propane.app = self
       @arguments = arguments
       @options   = options
       run_sketch
@@ -176,11 +176,11 @@ module Propane
     include Java::ProcessingCore::PConstants
 
     def respond_to_missing?(symbol, include_priv = false)
-      $app.respond_to?(symbol, include_priv) || super
+      Propane.app.respond_to?(symbol, include_priv) || super
     end
 
     def method_missing(name, *args, &block)
-      return $app.send(name, *args) if $app.respond_to? name
+      return Propane.app.send(name, *args) if Propane.app.respond_to? name
       super
     end
   end # Processing::Proxy
