@@ -66,11 +66,11 @@ module ControlPanel
       set_horizontal_alignment javax.swing.SwingConstants::CENTER
       control_panel.add_element(self, name, false)
       add_action_listener do
-        $app.instance_variable_set("@#{name}", value) unless value.nil?
+        $app.instance_variable_set("@#{name}", value)
         proc.call(value) if proc
       end
     end
-
+    # define value as checkbox state
     def value
       is_selected
     end
@@ -83,7 +83,7 @@ module ControlPanel
       set_preferred_size(java.awt.Dimension.new(170, 64))
       control_panel.add_element(self, name, false, true)
       add_action_listener do
-        $app.send(name.to_s)
+        $app.send(name)
         proc.call(value) if proc
       end
     end
@@ -126,6 +126,10 @@ module ControlPanel
       dispose
     end
 
+    def title(name)
+      set_title(name)
+    end
+
     def slider(name, range = 0..100, initial_value = nil, &block)
       Slider.new(self, name, range, initial_value, block || nil)
     end
@@ -134,7 +138,7 @@ module ControlPanel
       Menu.new(self, name, elements, initial_value, block || nil)
     end
 
-    def checkbox(name, initial_value = nil, &block)
+    def checkbox(name, initial_value = false, &block)
       checkbox = Checkbox.new(self, name, block || nil)
       checkbox.do_click if initial_value == true
     end
@@ -151,10 +155,10 @@ module ControlPanel
 
     def set_feel(lf = 'metal')
       lafinfo = javax.swing.UIManager.getInstalledLookAndFeels
-      laf = lafinfo.select do |info|
-        info.getName.eql? lf.capitalize
+      laf = lafinfo.to_ary.select do |info|
+        info.name =~ Regexp.new(Regexp.escape(lf), Regexp::IGNORECASE)
       end
-      javax.swing.UIManager.setLookAndFeel(laf[0].getClassName)
+      javax.swing.UIManager.setLookAndFeel(laf[0].class_name)
     end
   end
 
@@ -169,4 +173,4 @@ module ControlPanel
   end
 end
 
-Propane::App.send :include, ControlPanel::InstanceMethods
+Propane::App.include(ControlPanel::InstanceMethods)
