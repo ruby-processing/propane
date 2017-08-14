@@ -1,3 +1,7 @@
+**v2.5.0** No need for `$app` we can replace with `Propane.app`
+
+**v2.4.1** Add post_initialize hoop to app.rb.
+
 **v2.4.0** Extend LibraryProxy to include mouseEvent and keyEvent.
 
 **v2.3.4** Simplify control_panel library (replacing `c.title = 'PaneTitle'` with `c.title('PaneTitle')`) also enable use of `block` with `button's`.

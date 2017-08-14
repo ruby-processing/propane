@@ -21,7 +21,7 @@ module ControlPanel
       label = control_panel.add_element(self, name)
       add_change_listener do
         update_label(label, name, value)
-        $app.instance_variable_set("@#{name}", value) unless value.nil?
+        Propane.app.instance_variable_set("@#{name}", value) unless value.nil?
         proc.call(value) if proc
       end
       set_value(initial_value ? initial_value * 100 : min)
@@ -46,7 +46,7 @@ module ControlPanel
       set_preferred_size(java.awt.Dimension.new(190, 30))
       control_panel.add_element(self, name)
       add_action_listener do
-        $app.instance_variable_set("@#{name}", value) unless value.nil?
+        Propane.app.instance_variable_set("@#{name}", value) unless value.nil?
         proc.call(value) if proc
       end
       set_selected_index(initial_value ? elements.index(initial_value) : 0)
@@ -66,7 +66,7 @@ module ControlPanel
       set_horizontal_alignment javax.swing.SwingConstants::CENTER
       control_panel.add_element(self, name, false)
       add_action_listener do
-        $app.instance_variable_set("@#{name}", value)
+        Propane.app.instance_variable_set("@#{name}", value)
         proc.call(value) if proc
       end
     end
@@ -83,7 +83,7 @@ module ControlPanel
       set_preferred_size(java.awt.Dimension.new(170, 64))
       control_panel.add_element(self, name, false, true)
       add_action_listener do
-        $app.send(name)
+        Propane.app.send(name)
         proc.call(value) if proc
       end
     end
@@ -107,7 +107,7 @@ module ControlPanel
       set_size 200, 30 + (64 * elements.size)
       set_default_close_operation javax.swing.JFrame::HIDE_ON_CLOSE
       set_resizable false
-      set_location($app.width + 10, 0) unless $app.width + 10 > $app.displayWidth
+      set_location(Propane.app.width + 10, 0) unless Propane.app.width + 10 > Propane.app.displayWidth
       panel.visible = true
     end
 
