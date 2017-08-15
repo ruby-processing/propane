@@ -9,7 +9,7 @@ SOUND = 'sound.zip'.freeze
 SOUND_VERSION = 'v1.3.2' # version 1.3.2
 VIDEO = 'video-2.zip'
 VIDEO_VERSION = '2' # version 1.0.1
-EXAMPLES = '1.4'.freeze
+EXAMPLES = '1.5'.freeze
 HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os']
 
