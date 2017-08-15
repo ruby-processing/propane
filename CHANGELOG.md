@@ -1,4 +1,4 @@
-**v2.5.0** No need for `$app` we can replace with `Propane.app`
+**v2.5.0master** No need for `$app` we can replace with `Propane.app`
 
 **v2.4.1** Add post_initialize hoop to app.rb.
 
