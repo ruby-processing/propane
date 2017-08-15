@@ -21,7 +21,7 @@ Now we know this is not `kosher` and as you get more comfortable with propane yo
 
 The hair shirted brigade might want to take a look at `forwardable` and make their classes `extend Forwardable` instead. There are some examples include with the samples see the [revolute_joint][joint] pbox2d example with the [Windmill][Windmill] and [ParticleSystem][ParticleSystem] classes for example.
 
-[joint]:https://github.com/ruby-processing/propane-examples/blob/master/external_library/gem/pbox2d/revolute_joint/revolute_joint.rb
-[Windmill]:https://github.com/ruby-processing/propane-examples/blob/master/external_library/gem/pbox2d/revolute_joint/windmill.rb
-[ParticleSystem]:https://github.com/ruby-processing/propane-examples/blob/master/external_library/gem/pbox2d/revolute_joint/particle_system.rb
+[joint]:https://github.com/ruby-processing/propane-examples/blob/master/examples/forwardable_module_examples/pbox2d/revolute_joint/revolute_joint.rb
+[Windmill]:https://github.com/ruby-processing/propane-examples/blob/master/examples/forwardable_module_examples/pbox2d/revolute_joint/library/revolute_joint/lib/windmill.rb
+[ParticleSystem]:https://github.com/ruby-processing/propane-examples/blob/master/examples/forwardable_module_examples/pbox2d/revolute_joint/library/revolute_joint/lib/particle_system.rb
 [inner]: {{ site.github.url }}/magic/java

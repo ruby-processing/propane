@@ -17,11 +17,11 @@ module Proxy
   include Java::ProcessingCore::PConstants
 
   def respond_to_missing?(symbol, include_private = false)
-    $app.respond_to?(symbol, include_private) || super
+    Propane.app.respond_to?(symbol, include_private) || super
   end
 
   def method_missing(name, *args, &block)
-    return $app.send(name, *args) if $app.respond_to? name
+    return Propane.app.send(name, *args) if Propane.app.respond_to? name
     super
   end
 end # Propane::Proxy
