@@ -1,8 +1,8 @@
 ### Using the LibraryProxy in your sketches
 LibraryProxy is a [abstract java class](https://github.com/ruby-processing/JRubyArt/blob/master/src/monkstone/core/LibraryProxy.java) so that you can acccess vanilla processing library reflection methods in your sketches using ruby.
 
-In the sketch you should `load_library :library_proxy` and your library class should inherit 
-from LibraryProxy and implement pre(), draw() and post() methods (can be empty method if not 
+In the sketch you should `load_library :library_proxy` and your library class should inherit
+from LibraryProxy and implement the draw() method (can be empty method if not 
 required). For simplicity initialize your `processing library` in the sketch `setup`.
 
 ### Example library

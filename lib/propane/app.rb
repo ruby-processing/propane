@@ -43,6 +43,10 @@ module Propane
     key_typed: :keyTyped
   }.freeze
 
+  class << self
+    attr_accessor :app
+  end
+
   # All sketches extend this class
   class App < PApplet
     include Math, MathTool, HelperMethods, Render
@@ -110,7 +114,8 @@ module Propane
       raise TypeError unless arguments.is_a? Array
       # Set up the sketch.
       super()
-      $app = self
+      post_initialize(options)
+      Propane.app = self
       @arguments = arguments
       @options   = options
       run_sketch
@@ -123,6 +128,9 @@ module Propane
       @render_mode ||= mode
       import_opengl if /opengl/ =~ mode
       super(*args)
+    end
+
+    def post_initialize(_args)
     end
 
     def sketch_title(title)
@@ -139,15 +147,15 @@ module Propane
 
     def import_opengl
       # Include processing opengl classes that we'd like to use:
-      %w(FontTexture FrameBuffer LinePath LineStroker PGL
+      %w[FontTexture FrameBuffer LinePath LineStroker PGL
          PGraphics2D PGraphics3D PGraphicsOpenGL PShader
-         PShapeOpenGL Texture).each do |klass|
+         PShapeOpenGL Texture].each do |klass|
         java_import "processing.opengl.#{klass}"
       end
     end
 
     def proxy_java_fields
-      fields = %w(sketchPath key frameRate mousePressed keyPressed)
+      fields = %w[sketchPath key frameRate mousePressed keyPressed]
       methods = fields.map { |field| java_class.declared_field(field) }
       @declared_fields = Hash[fields.zip(methods)]
     end
@@ -160,22 +168,20 @@ module Propane
     end
   end
 
-  # Importing PConstants to access processing constants, we also need to
-  # 'include PConstants' to avoid requiring the `PConstants::` prefix
-  # `include Math etc because we expect to use them`
-  # Using :method_missing to mimic inner class methods
-  # @HACK you should consider using 'forwardable' to avoid this
-  # egregious hack...
+  # @HACK purists may prefer 'forwardable' to the use of Proxy
+  # Importing PConstants here to access the processing constants
   module Proxy
-    java_import 'processing.core.PConstants'
-    include Math, MathTool, HelperMethods, PConstants
-    def respond_to_missing?(name, include_private = false)
-      $app.respond_to?(name) || super
+    include Math
+    include HelperMethods
+    include Java::ProcessingCore::PConstants
+
+    def respond_to_missing?(symbol, include_priv = false)
+      Propane.app.respond_to?(symbol, include_priv) || super
     end
 
-    def method_missing(name, *args)
-      return $app.send(name, *args) if $app && $app.respond_to?(name)
+    def method_missing(name, *args, &block)
+      return Propane.app.send(name, *args) if Propane.app.respond_to? name
       super
     end
-  end
-end
+  end # Processing::Proxy
+end # Propane
