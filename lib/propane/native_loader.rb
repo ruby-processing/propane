@@ -3,6 +3,7 @@
 class NativeLoader
   attr_reader :separator, :current_path
 
+  # This module wraps java_import with namespace JC
   module JC
     java_import 'java.lang.Class'
     java_import 'java.lang.System'
