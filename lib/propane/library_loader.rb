@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 # The processing wrapper module
 module Propane
   require_relative 'ruby_library'
