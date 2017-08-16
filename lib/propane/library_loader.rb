@@ -36,15 +36,11 @@ module Propane
       return true if @loaded_libraries.include?(name)
       fname = name.to_s
       if (@library = LocalRubyLibrary.new(fname)).exist?
-        return require_library(library, name)
-      end
-      if (@library = InstalledRubyLibrary.new(fname)).exist?
+      elsif (@library = InstalledRubyLibrary.new(fname)).exist?
         return require_library(library, name)
       end
       if (@library = LocalJavaLibrary.new(fname)).exist?
-        return load_jars(library, name)
-      end
-      if (@library = InstalledJavaLibrary.new(fname)).exist?
+      elsif (@library = InstalledJavaLibrary.new(fname)).exist?
         return load_jars(library, name)
       end
       false
