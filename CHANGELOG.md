@@ -1,12 +1,12 @@
-**v2.6.0** Completely refactored library loader
+**v2.5.5** Intermediate `refactored_library` loader, can be release if required but still not there as regards refactor goals.
 
 **v2.5.0** No need for `$app` we can replace with `Propane.app`
 
-**v2.4.1** Add post_initialize hoop to app.rb.
+**v2.4.1** Add `post_initialize` hook to `app.rb`.
 
 **v2.4.0** Extend LibraryProxy to include mouseEvent and keyEvent.
 
-**v2.3.4** Simplify control_panel library (replacing `c.title = 'PaneTitle'` with `c.title('PaneTitle')`) also enable use of `block` with `button's`.
+**v2.3.4** Simplify `control_panel` library (replacing `c.title = 'PaneTitle'` with `c.title('PaneTitle')`) also enable use of `block` with `button's`.
 
 **v2.3.3** Update to processing-3.3.4, and upgrade jruby-9.1.12.0 last in 9.1 series?
 

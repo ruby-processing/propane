@@ -35,14 +35,14 @@ module Propane
     def loader(name)
       return true if @loaded_libraries.include?(name)
       fname = name.to_s
-      if (@library = LocalRubyLibrary.new(fname)).exist?
-      elsif (@library = InstalledRubyLibrary.new(fname)).exist?
-        return require_library(library, name)
-      end
-      if (@library = LocalJavaLibrary.new(fname)).exist?
-      elsif (@library = InstalledJavaLibrary.new(fname)).exist?
-        return load_jars(library, name)
-      end
+      @library = LocalRubyLibrary.new(fname)
+      return require_library(library, name) if library.exist?
+      @library = InstalledRubyLibrary.new(fname)
+      return require_library(library, name) if library.exist?
+      @library = LocalJavaLibrary.new(fname)
+      return load_jars(library, name) if library.exist?
+      @library = InstalledJavaLibrary.new(fname)
+      return load_jars(library, name) if library.exist?
       false
     end
 
