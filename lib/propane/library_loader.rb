@@ -21,7 +21,7 @@ module Propane
     # Usage: load_libraries :video, :video_event
     #
     # If a library is put into a 'library' folder next to the sketch it will
-    # be used instead of the library that ships with Propane.
+    # be used instead of an installed propane library.
     def load_libraries(*args)
       message = 'no such file to load -- %s'
       args.each do |lib|
@@ -37,7 +37,7 @@ module Propane
       library = Library.new(fname)
       library.locate
       return require_library(library, name) if library.ruby?
-      return false if library.path.empty?
+      warn("Not found library: #{fname}") unless library.exist?
       load_jars(library, name)
     end
 

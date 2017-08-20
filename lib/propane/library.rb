@@ -1,5 +1,6 @@
 require_relative 'native_folder'
 require_relative 'native_loader'
+require 'pathname'
 
 # This class knows where to find propane libraries
 class Library
@@ -11,30 +12,37 @@ class Library
   end
 
   def locate
-    @path = File.absolute_path(
+    return if (@path = Pathname.new(
       File.join(Propane::SKETCH_ROOT, 'library', name, "#{name}.rb")
-    )
-    return path if File.exist? path
-    @path = File.join(PROPANE_ROOT, 'library', name, "#{name}.rb")
-    return path if File.exist? path
+    )).exist?
+    return if (@path = Pathname.new(
+      File.join(PROPANE_ROOT, 'library', name, "#{name}.rb")
+    )).exist?
     locate_java
   end
 
   def locate_java
-    @dir = File.join(Propane::SKETCH_ROOT, 'library', name)
-    @path = File.join(dir, "#{name}.jar")
-    return path if File.exist? path
+    @dir = Pathname.new(
+      File.join(Propane::SKETCH_ROOT, 'library', name)
+    )
     locate_installed_java
   end
 
   def locate_installed_java
-    @dir = File.join(ENV['HOME'], '.propane', 'libraries', name, 'library')
-    @path = File.join(dir, "#{name}.jar")
-    warn "Library '#{name}' not found" unless File.exist? path
+    unless dir.directory?
+      @dir = Pathname.new(
+        File.join(ENV['HOME'], '.propane', 'libraries', name, 'library')
+      )
+    end
+    @path = dir.join(Pathname.new("#{name}.jar"))
   end
 
   def ruby?
-    path.end_with? '.rb'
+    path.extname == '.rb'
+  end
+
+  def exist?
+    path.exist?
   end
 
   def load_jars
