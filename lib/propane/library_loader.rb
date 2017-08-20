@@ -2,8 +2,7 @@
 
 # The processing wrapper module
 module Propane
-  require_relative 'ruby_library'
-  require_relative 'java_library'
+  require_relative 'library'
 
   # Encapsulate library loader functionality as a class
   class LibraryLoader
@@ -22,7 +21,7 @@ module Propane
     # Usage: load_libraries :video, :video_event
     #
     # If a library is put into a 'library' folder next to the sketch it will
-    # be used instead of the library that ships with Propane.
+    # be used instead of an installed propane library.
     def load_libraries(*args)
       message = 'no such file to load -- %s'
       args.each do |lib|
@@ -35,15 +34,11 @@ module Propane
     def loader(name)
       return true if @loaded_libraries.include?(name)
       fname = name.to_s
-      @library = LocalRubyLibrary.new(fname)
-      return require_library(library, name) if library.exist?
-      @library = InstalledRubyLibrary.new(fname)
-      return require_library(library, name) if library.exist?
-      @library = LocalJavaLibrary.new(fname)
-      return load_jars(library, name) if library.exist?
-      @library = InstalledJavaLibrary.new(fname)
-      return load_jars(library, name) if library.exist?
-      false
+      library = Library.new(fname)
+      library.locate
+      return require_library(library, name) if library.ruby?
+      warn("Not found library: #{fname}") unless library.exist?
+      load_jars(library, name)
     end
 
     def load_jars(lib, name)
