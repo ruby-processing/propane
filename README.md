@@ -28,7 +28,7 @@ rake javadoc
 ## Installation
 ```bash
 jgem install propane # from rubygems
-jgem install propane-2.5.0-java.gem # for local install
+jgem install propane-2.6.0-java.gem # for local install
 ```
 
 ## Usage

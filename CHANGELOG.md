@@ -1,3 +1,5 @@
+**v2.6.0** Reafactored `LibraryLoader` knows less about `Library` class.  The library class _knows_ about paths, and checks that they exist.
+
 **v2.5.5** Intermediate `refactored_library` loader, can be release if required but still not there as regards refactor goals.
 
 **v2.5.0** No need for `$app` we can replace with `Propane.app`
