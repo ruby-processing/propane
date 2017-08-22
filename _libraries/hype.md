@@ -46,6 +46,8 @@ Here is an index of my blogposts about using the [Hype processing framework][] b
     Using hype utilities to pixellate an image.
 
 [examples]:https://github.com/ruby-processing/propane-examples/blob/master/external_library/java/hype
+[contributed]:https://ruby-processing.github.io/propane/contributed
+[polyglot]:https://github.com/takari/polyglot-maven
 [Hype processing framework]:http://www.hypeframework.org/
 [color]: {{ site.github.url }}/contributed/
 [build]:http://ruby-processing.github.io/building/hype/
