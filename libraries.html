@@ -2,7 +2,7 @@
 layout: page
 title: Guide to libraries in propane
 ---
-It is possible to use vanilla [processing libraries][processing] with propane, but we also provide pure ruby libraries eg `boids`.  Most libraries can be loaded using the [load_library][load_library] method, the exception being those that can be loaded as [gems][gems]. It is also possible use the [load_library][load_library] method to load local libraries for your sketches see [raining.rb][raining], if you stick with propane library conventions. For more advanced sketches it is good idea to create your own [libraries][libraries].
+It is possible to use vanilla <a href="https://www.processing.org/reference/libraries/">processing libraries<?a> with propane, but we also provide pure ruby libraries eg `boids`.  Most libraries can be loaded using the <a href="https://ruby-processing.github.io/propane/load_library">load_library</a> method, the exception being those that can be loaded as <a href="https://ruby-processing.github.io/propane/gems.html">gems</a>. It is also possible use the <a href="https://ruby-processing.github.io/propane/load_library">load_library</a> method to load local libraries for your sketches see <a href="https://github.com/ruby-processing/propane-examples/blob/master/contributed/raining.rb">raining.rb</a>, if you stick with propane library conventions. For more advanced sketches it is often a good idea to create your own <a href="https://en.wikipedia.org/wiki/Library_%28computing%29">libraries</a>.
 
 {% for library in site.libraries %}
 	<div class="library">
@@ -18,8 +18,3 @@ It is possible to use vanilla [processing libraries][processing] with propane, b
 <li>Custom java (see also pbox2d gem)</li>
 <li>Regular processing libraries (see also gems for toxiclibs etc)</li>
 </ol>
-
-[processing]:https://www.processing.org/reference/libraries/
-[libraries]:https://en.wikipedia.org/wiki/Library_%28computing%29
-[load_library]:https://ruby-processing.github.io/propane/load_library
-[gems]:https://ruby-processing.github.io/propane/gems.html
