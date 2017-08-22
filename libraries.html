@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Guide to [libraries][libraries] in propane
+title: Guide to libraries in propane
 ---
-It is possible to use vanilla [processing libraries][processing] with propane, but we also provide pure ruby libraries eg `boids`.  Most libraries can be loaded using the [load_library][load_library] method, the exception being those that can be loaded as [gems][gems]. It is also possible use the [load_library][load_library] method to load local libraries for your sketches see [raining.rb][raining], if you stick with propane library conventions.
+It is possible to use vanilla [processing libraries][processing] with propane, but we also provide pure ruby libraries eg `boids`.  Most libraries can be loaded using the [load_library][load_library] method, the exception being those that can be loaded as [gems][gems]. It is also possible use the [load_library][load_library] method to load local libraries for your sketches see [raining.rb][raining], if you stick with propane library conventions. For more advanced sketches it is good idea to create your own [libraries][libraries].
 
 {% for library in site.libraries %}
 	<div class="library">
@@ -22,3 +22,4 @@ It is possible to use vanilla [processing libraries][processing] with propane, b
 [processing]:https://www.processing.org/reference/libraries/
 [libraries]:https://en.wikipedia.org/wiki/Library_%28computing%29
 [load_library]:https://ruby-processing.github.io/propane/load_library
+[gems]:https://ruby-processing.github.io/propane/gems.html
