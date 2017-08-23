@@ -40,7 +40,7 @@ module Propane
         end
 
         options[:install] = false
-        message = '<Samples><Video><Sound> Install samples or library'
+        message = '<Samples><GLVideo><Video><Sound> Install samples or library'
         opts.on('-i', '--install', message) do
           options[:install] = true
         end
@@ -73,7 +73,7 @@ module Propane
 
     def install(library)
       choice = library.downcase
-      valid = Regexp.union('samples', 'sound', 'video')
+      valid = Regexp.union('samples', 'sound', 'video', 'glvideo')
       return warn format('No installer for %s', choice) unless valid =~ choice
       system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_#{choice}"
     end

@@ -49,7 +49,7 @@ class Library
     Dir.glob("#{dir}/*.jar").each do |jar|
       require jar
     end
-    return unless native_binaries?
+    return true unless native_binaries?
     add_binaries_to_classpath
   end
 
@@ -64,5 +64,6 @@ class Library
   def add_binaries_to_classpath
     native_loader = NativeLoader.new
     native_loader.add_native_path(ppath)
+    true
   end
 end

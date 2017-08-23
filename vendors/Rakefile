@@ -7,6 +7,7 @@ WARNING = <<-EOS
 EOS
 SOUND = 'sound.zip'.freeze
 SOUND_VERSION = 'v1.3.2' # version 1.3.2
+GLVIDEO = 'processing-glvideo.zip'
 VIDEO = 'video-2.zip'
 VIDEO_VERSION = '2' # version 1.0.1
 EXAMPLES = '1.5'.freeze
@@ -37,11 +38,25 @@ task download_and_copy_sound: [:download_sound, :copy_sound]
 desc 'download and copy video library to ~/.propane'
 task download_and_copy_video: [:download_video, :copy_video]
 
+desc 'download and copy glvideo library to ~/.propane'
+task download_and_copy_glvideo: [:download_glvideo, :copy_glvideo]
+
 
 desc 'download sound library'
 task :download_sound do
   wget_base = 'wget https://github.com/processing/processing-sound'
   wget_string = [wget_base, 'releases/download', SOUND_VERSION, SOUND].join('/')
+  begin
+    sh wget_string
+  rescue
+    warn(WARNING)
+  end
+end
+
+desc 'download glvideo library'
+task :download_glvideo do
+  wget_base = 'wget https://github.com/gohai/processing-glvideo'
+  wget_string = [wget_base, 'releases/download/latest', GLVIDEO].join('/')
   begin
     sh wget_string
   rescue
@@ -86,4 +101,12 @@ task :copy_video => VIDEO do
   sh "rm -r #{HOME_DIR}/.propane/libraries/video" if File.exist? "#{HOME_DIR}/.propane/libraries/video"
   sh "cp -r video #{HOME_DIR}/.propane/libraries/video"
   sh 'rm -r video'
+end
+
+desc 'copy glvideo library'
+task :copy_glvideo => GLVIDEO do
+  sh "unzip #{GLVIDEO}"
+  sh "rm -r #{HOME_DIR}/.propane/libraries/glvideo" if File.exist? "#{HOME_DIR}/.propane/libraries/glvideo"
+  sh "cp -r glvideo #{HOME_DIR}/.propane/libraries/glvideo"
+  sh 'rm -r glvideo'
 end
