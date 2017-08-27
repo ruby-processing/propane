@@ -8,7 +8,7 @@ keywords: ide, ruby, propane, atom
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
 
-For linux ignore any distro version and download latest version (at least 1.18.0) and:-
+For linux ignore any distro version and download latest version (preferably 1.19.3+) and:-
 
 ```bash
 sudo dpkg --install atom-amd64.deb # debian, mint, ubuntu

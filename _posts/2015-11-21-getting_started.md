@@ -66,11 +66,18 @@ Install Sound library
 propane --install Sound
 ```
 
-Install Video library
+Install Video library _the past but stable?_
 
 ```bash
 propane --install Video
-# requires gstreamer-0.10 and does not work on Archlinux, install instead glvideo library that supports gstreamer-1.0 and hence hardware acceleration, unfortunately this library still need some work
+# requires gstreamer-0.10 and does not work on Archlinux distro which no longer supports gstreamer-0.10
+```
+
+Install GLVideo library _the future but unstable_
+
+```bash
+propane --install glvideo
+# uses gstreamer-1.0 still does not work on Archlinux (version issue), expected to work on Raspberry-Pi debian-linux and MacOS
 ```
 
 ### Running examples
