@@ -80,6 +80,8 @@ propane --install glvideo
 # uses gstreamer-1.0 still does not work on Archlinux (version issue), expected to work on Raspberry-Pi debian-linux and MacOS
 ```
 
+Might be hackable (ie re-compile native binary)
+
 ### Running examples
 
 To run a bunch of the samples as a demo:-
