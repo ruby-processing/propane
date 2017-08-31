@@ -1,9 +1,13 @@
 ---
 layout: post
-title:  "Boids<sup>1</sup>"
-keywords: library, framework, boids, processing
+title:  "propane<sup>2</sup>"
+keywords: library, boids, control_panel
 
 ---
+Propane provides a number of libraries that you can use _out of the box_, but which still need to be loaded to use them in you sketches see examples below:-
+
+
+### Boids library ###
 <sup>1</sup><i>A built in pure ruby library</i>
 
 The [original boids library][original] was created by Jeremy Ashkenas to demonstrate a pure 'ruby' library for ruby processing, this updated version has the same goal. However it is updated to make use of [Vec3D][vec3d] and [Vec2D][vec2d] classes (propane features) and keyword arguments (ruby-2.1). It also use [forwardable][forwardable]. To see usage of now correctly implemented `angle` (heading) see [simple example][example].
@@ -295,6 +299,210 @@ end
 FlightPatterns.new
 
 ```
+
+
+### Control Panel library
+
+<sup>2</sup><i>A built in hybrid ruby/java library</i>
+
+Start by loading in the control_panel library, and then define your panel in setup like so:
+
+```ruby
+#!/usr/bin/env jruby -v -W2
+# frozen_string_literal: true
+require 'propane'
+# Iconic ruby-processing example for Propane
+class JWishy < Propane::App
+  load_library :control_panel
+
+  attr_reader :alpha, :back_color, :bluish, :hide, :magnitude, :panel
+  attr_reader :x_wiggle, :y_wiggle, :go_big, :shape
+
+  def settings
+    size 600, 600  
+  end
+
+  def setup
+    sketch_title 'Wishy Worm'
+    control_panel do |c|
+      c.title 'Control Panel'
+      c.look_feel 'Nimbus'
+      c.slider :bluish, 0.0..1.0, 0.5
+      c.slider :alpha,  0.0..1.0, 0.5
+      c.checkbox :go_big, false
+      c.button :reset
+      c.menu :shape, %w[oval square triangle], 'oval'
+      @panel = c
+    end
+    @hide = false
+    @x_wiggle, @y_wiggle = 10.0, 0
+    @magnitude = 8.15
+    @back_color = [0.06, 0.03, 0.18]
+    color_mode RGB, 1
+    ellipse_mode CORNER
+    smooth
+  end
+
+#....rest of code
+
+
+  def draw
+    # only make control_panel visible once, or again when hide is false
+    unless hide
+      @hide = true
+      panel.set_visible(hide)
+    end
+#.... rest of draw   
+
+JWishy.new
+
+
+```
+![JWishy]({{site.github.url}}/assets/jwishy.png)
+
+See also [penrose](https://github.com/ruby-processing/propane-examples/blob/master/processing_app/library/vecmath/vec2d/penrose.rb) and [bezier playground](https://github.com/ruby-processing/propane-examples/blob/master/contributed/bezier_playground.rb) sketches. See ruby code [here](https://github.com/ruby-processing/propane/blob/master/library/control_panel/control_panel.rb).
+
+### Video Event Library ###
+
+<sup>2</sup><i>A built in hybrid ruby/java library</i>
+The video library should be installed using `propane --install video`
+
+The purpose of the `video_event` library is to allow you to use the vanilla processing reflection methods `captureEvent` and `movieEvent` from the processing `video` library. _It is almost impossible to use vanilla processing reflection methods without this sort of wrapper_.
+
+If MacOS users experience difficulty with the video library they should probably rename the binary folder from `macosx64` to `macosx`.  However it seems as though the binaries get dynamically loaded from the video library, and this may not be necessary see [Line 178][178] (personal communication Gottfreid Haider) but this is pure conjecture in case of propane.
+
+A movie example:-
+
+```ruby
+#!/usr/bin/env jruby -w
+require 'propane'
+# Loop.
+#
+# Shows how to load and play a QuickTime movie file.
+class Loop < Propane::App
+  load_libraries :video, :video_event
+  include_package 'processing.video'
+
+  attr_reader :movie
+
+  def setup
+    sketch_title 'Loop'
+    background(0)
+    # Load and play the video in a loop
+    @movie = Movie.new(self, data_path('transit.mov'))
+    movie.loop
+  end
+
+  def draw
+    image(movie, 0, 0, width, height)
+  end
+
+  # use camel case to match java reflect method
+  def movieEvent(m)
+    m.read
+  end
+
+  def settings
+    size 640, 360
+  end
+end
+
+Loop.new
+```
+
+A capture example-
+
+```ruby
+#!/usr/bin/env jruby -w
+require 'propane'
+class TestCapture < Propane::App
+  load_libraries :video, :video_event
+
+  include_package 'processing.video'
+
+  attr_reader :cam
+
+  def setup
+    sketch_title 'Test Capture'
+    cameras = Capture.list
+    fail 'There are no cameras available for capture.' if (cameras.length == 0)
+    p 'Matching cameras available:'
+    size_pattern = Regexp.new(format('%dx%d', width, height))
+    select = cameras.grep size_pattern # filter available cameras
+    select.uniq.map { |cam| p cam.strip }
+    fail 'There are no matching cameras.' if (select.length == 0)
+    start_capture(select[0])
+  end
+
+  def start_capture(cam_string)
+    # The camera can be initialized directly using an
+    # element from the array returned by list:
+    @cam = Capture.new(self, cam_string)
+    p format('Using camera %s', cam_string)
+    cam.start
+  end
+
+  def draw
+    image(cam, 0, 0, width, height)
+    # The following does the same, and is faster when just drawing the image
+    # without any additional resizing, transformations, or tint.
+    # set(0, 0, cam)
+  end
+
+  def captureEvent(c)
+    c.read
+  end
+
+  def settings
+    size 1280, 720, P2D
+  end
+end
+
+TestCapture.new
+```
+
+### File Chooser Library ###
+
+<sup>2</sup><i>A built in hybrid ruby/java library</i>
+
+Start by loading in the chooser library, the purpose of this library is to allow you to use the vanilla processing interface to the `native file chooser` (it is almost impossible to use vanilla processing reflection methods without this sort of wrapper)
+
+```ruby
+#!/usr/bin/env jruby -v -W2
+
+require 'propane'
+###########
+# Example Native File Chooser using vanilla processing
+# select_input, and file_selected
+###########
+class SelectFile < Propane::App
+
+  load_library :file_chooser
+
+
+  def settings
+    size 200, 100
+  end
+
+  def setup
+    sketch_title 'Select File, native chooser'
+    # java_signature 'void selectInput(String, String)'
+    select_input('Select a File', 'file_selected')
+  end
+
+  #  signature 'void file_selected(java.io.File file)'
+  def file_selected(file)
+    puts file.get_absolute_path unless file.nil?
+  end
+end
+
+SelectFile.new
+```
+
+See also [these examples](https://github.com/ruby-processing/propane-examples/tree/master/processing_app/library/file_chooser)
+
+[178]:https://github.com/processing/processing-video/blob/master/src/processing/video/Video.java
+
 
 [original]:https://github.com/jashkenas/ruby-processing/blob/8865c934318e05e62cbfa2603e661275b1cffd31/library/boids/boids.rb
 [vec3d]:https://ruby-processing.github.io/classes/vec3d/
