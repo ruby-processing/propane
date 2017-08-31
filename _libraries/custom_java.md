@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Custom Java Library<sup>4</sup>"
+title:  "custom java library<sup>4</sup>"
 keywords: library, ruby, custom
 
 ---

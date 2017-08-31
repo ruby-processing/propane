@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Gems<sup>4</sup>"
+title:  "gems<sup>4</sup>"
 keywords: library, gem
 
 ---
