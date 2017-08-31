@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "propane<sup>2</sup>"
+title:  "propane<sup>1, 2</sup>"
 keywords: library, boids, control_panel
 
 ---
