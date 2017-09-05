@@ -1,12 +1,12 @@
 # Propane
 [![Gem Version](https://badge.fury.io/rb/propane.svg)](https://badge.fury.io/rb/propane) [![Travis CI](https://travis-ci.org/ruby-processing/propane.svg)](https://travis-ci.org/ruby-processing/propane)
 
-A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.5, where we include processing core (from a local maven repository and opengl etc from maven central). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building].
+A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.6, where we include processing core (from a local maven repository and opengl etc from maven central). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building].
 
 NB: The main reason for build failing is when the `core.jar` is not available from maven central, to install a local jar (_example for linux mint_):-
 ```bash
 
-mvn install:install-file /home/tux/processing-3.3.5/core/library/core.jar -DgroupId=org.processing -DartifactId=core -Dversion=3.3.5
+mvn install:install-file /home/tux/processing-3.3.6/core/library/core.jar -DgroupId=org.processing -DartifactId=core -Dversion=3.3.6
 ```
 adjust above for your OS/distro setup.
 
@@ -15,7 +15,7 @@ adjust above for your OS/distro setup.
 - jdk8+
 - jruby-9.1.12.0
 - mvn-3.5.0+
-- core.jar processing-3.3.5 (_build only_)
+- core.jar processing-3.3.6 (_build only_)
 
 ## Building and testing
 
