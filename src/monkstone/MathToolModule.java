@@ -1,7 +1,7 @@
 /**
  * The purpose of this tool is to allow propane users to use an alternative
  * to processing.org map, lerp and norm methods in their sketches
- * Copyright (c) 2015-16 Martin Prout. This tool is free software; you can
+ * Copyright (c) 2015-17 Martin Prout. This tool is free software; you can
  * redistribute it and/or modify it under the terms of the GNU Lesser General
  * Public License as published by the Free Software Foundation; either version
  * 2.1 of the License, or (at your option) any later version.
