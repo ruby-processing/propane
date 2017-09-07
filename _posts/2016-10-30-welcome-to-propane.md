@@ -6,7 +6,7 @@ keywords: processing, jruby, propane
 ---
 ### Requirements ###
 
-[jruby-9.1.12.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
+[jruby-9.1.13.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
 
 If you arrive here from rubygems `math_demo` you may well have installed `propane` as a requirement
 
