@@ -1,4 +1,4 @@
-**v2.6.1** Bump processing version.
+**v2.6.1** Bump processing version, bump recommended jruby version.
 
 **v2.6.0** Refactored `LibraryLoader` knows less about `Library` class.  The library class _knows_ about paths, and checks that they exist. Features ability to load GLVideo library, that will surely be the future for video (supports gstreamer-1.0 instead of gstreamer-0.1.0 that has already been dropped by some linux distros).
 
