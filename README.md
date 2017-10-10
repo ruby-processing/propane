@@ -54,10 +54,7 @@ end
 FlashingLightsSketch.new
 ```
 
-To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
-```bash
-propane --install samples
-```
+
 There is a handy sketch creator tool
 ```bash
 propane -c my_sketch 200 200 # for default renderer
@@ -68,7 +65,7 @@ propane -c my_sketch 200 200 p3d # for opengl 3D renderer
 To run sketches
 
 ```bash
-jruby -S propane --run my_sketch.rb # belt and braces version
+jruby my_sketch.rb # or use script to run sketches from atom
 ```
 To install the sound and video libraries `~/.propane/libraries`. Depends on wget.
 ```bash
@@ -78,6 +75,14 @@ propane --install video
 Other java libraries can be manually installed to the same folder (no need for processing ide)
 
 See [gh-pages][gh-pages] for more detailed instructions and much more.
+
+## Examples
+
+[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.2+ syntax now we can. To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
+```bash
+propane --install samples
+```
+ please move existing `propane_samples` if you wish to keep them. The current release features several PixelFlow glsl library examples, including a few shadertoy demos as sketches.
 
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/

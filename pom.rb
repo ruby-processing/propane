@@ -1,7 +1,7 @@
 require 'fileutils'
 project 'rp5extras', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane', '2.6.1'
+  id 'propane:propane', '2.6.2'
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
@@ -32,7 +32,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     'jogl.version' => '2.3.2'
     )
 
-  pom 'org.jruby:jruby:9.1.12.0'
+  pom 'org.jruby:jruby:9.1.13.0'
   jar 'org.processing:core:3.3.6'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')

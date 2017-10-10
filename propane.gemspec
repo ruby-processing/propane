@@ -9,7 +9,11 @@ Gem::Specification.new do |gem|
   gem.authors       = ['monkstone']
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.licenses     = %w(GPL-3.0 LGPL-2.0)
-  gem.description   = %q{A batteries included version of processing in ruby, MacOS and linux64}
+  gem.description  = <<-EOS
+  A batteries included version of processing in ruby, for MacOS and linux64. The
+  current release features several PixelFlow glsl library examples, including a
+  few shadertoy demos as sketches.
+  EOS
   gem.summary       = %q{ruby wrapper for processing-3.3.6 on MacOS and linux64 bit only for opengl}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
