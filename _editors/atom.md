@@ -4,6 +4,8 @@ title:  "Atom"
 permalink: /editors/atom/
 keywords: ide, ruby, propane, atom
 ---
+Unless you are a vim aficionado you should probably prefer to use atom.
+
 ### Install Atom ###
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
