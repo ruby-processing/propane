@@ -92,7 +92,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
       )
     end
 
-    plugin( :compiler, '3.6.0',
+    plugin( :compiler, '3.7.0',
       source: '${maven.compiler.source}',
       target: '${maven.compiler.target}'
     )
