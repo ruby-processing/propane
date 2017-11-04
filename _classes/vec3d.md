@@ -27,7 +27,7 @@ a.set_mag(b) # where a is instance of Vec3D and b is a scalar
 a.set_mag(b) &block # a conditional variant where &block evaluates to a boolean
 a.to_a returns array [x, y, z] # where a is an instance of Vec3D
 a.to_normal(b) # where b is a instance of Render sends vector a to PApplet.normal
-a.to_s # where a is instance of Vec3D 
+a.to_s # where a is instance of Vec3D
 a.to_vertex(b) # where b is a instance of Render sends vector a to PApplet.vertex
 a.to_vertex_uv(b, u, v) # where b is a instance of Render sends vector a to PApplet.vertex, with float u and v (texture)
 a.x # returns x as a float where a is instance of Vec2D
@@ -39,10 +39,10 @@ a.z = b # sets the z value of Vec3D a to the float b
 ```
 ### Constructors:-
 ```ruby
-Vec3D.new(a, b, c) # where a, b, and c are all floats 
+Vec3D.new(a, b, c) # where a, b, and c are all floats
+Vec3D.random # returns a new random Vec3D object # with mag 1.0
 ```
 
 Example Usages: [Examples][Vec3D]
 
 [Vec3D]: https://github.com/ruby-processing/propane-examples/blob/master/processing_app/library/vecmath/vec3d/
-
