@@ -1,4 +1,4 @@
-**v2.6.2** Features example sketches using the PixelFlow library by Thomas Diewald
+**v2.6.2** Bump recommended upgrade to jruby-9.1.14.0 last in 9.1 series?
 
 **v2.6.1** Bump processing version, bump recommended jruby version.
 
