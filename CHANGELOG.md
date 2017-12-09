@@ -1,8 +1,10 @@
-**v2.6.2** Bump recommended upgrade to jruby-9.1.15.0 last in 9.1 series?
+**v2.6.3** Bump recommended upgrade to jruby-9.1.15.0, possibly the last in 9.1 series?
+
+**v2.6.2** Features example sketches using the PixelFlow library by Thomas Diewald
 
 **v2.6.1** Bump processing version, bump recommended jruby version.
 
-**v2.6.0** Refactored `LibraryLoader` knows less about `Library` class.  The library class _knows_ about paths, and checks that they exist. Features ability to load GLVideo library, that will surely be the future for video (supports gstreamer-1.0 instead of gstreamer-0.1.0 that has already been dropped by some linux distros).
+**v2.6.0** Refactored `LibraryLoader` knows less about `Library` class.  The library class _knows_ about paths, and checks that they exist. Currently has ability to load `GLVideo` library, that will eventually become the new video libary (supports gstreamer-1.0 instead of gstreamer-0.1.0 that has already been dropped by some linux distros).
 
 **v2.5.5** Intermediate `refactored_library` loader, can be release if required but still not there as regards refactor goals.
 
@@ -52,4 +54,4 @@
 
 **v0.4.0.pre** Inclusion of jogl-all.jar should fix 3D if install fails try getting rid of previous versions of gem (especially if you had done local installs, foxed me first) 3D still only for linux64 and macosx, any Windows developers are welcome to extend to windows (should be easy).
 
-**v0.3.0.pre** First pre-release of propane.gem turns out 3D was not working because of missing jar in gem (3D was only going to work on macosx and linux64 OS anyways.
+**v0.3.0.pre** First pre-release of propane.gem turns out 3D was not working because of missing jar in gem (3D was only going to work on macosx and linux64 OS anyways).
