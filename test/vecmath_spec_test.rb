@@ -9,6 +9,10 @@ Dir.chdir(File.dirname(__FILE__))
 
 class VecmathTest < Minitest::Test
 
+  # duck for Vec2D constructor
+  Vector = Struct.new(:x, :y)
+    # duck for Vec3D constructor
+  Vector3 = Struct.new(:x, :y, :z)
 
   def setup
 
@@ -31,6 +35,18 @@ class VecmathTest < Minitest::Test
     a = Vec2D.new(x, y)
     b = a.copy
     assert_equal(a.to_a, b.to_a, 'Failed deep copy')
+  end
+
+  def test_constructor_float
+    val = Vector.new(1.0, 8.0) # duck type
+    expected = Vec2D.new(val)
+    assert_equal(expected, Vec2D.new(1.0, 8.0), 'Failed duck type constructor floats')
+  end
+
+  def test_constructor_fixnum
+    val = Vector.new(1, 8) # duck type fixnum
+    expected = Vec2D.new(val)
+    assert_equal(expected, Vec2D.new(1.0, 8.0), 'Failed duck type constructor fixnum')
   end
 
   def test_copy_not_equals
@@ -257,6 +273,18 @@ class VecmathTest < Minitest::Test
     x, y, z = 1.0000001, 1.01, 0.0
     a = Vec3D.new(x, y)
     assert_equal(a.to_a, [x, y, z], 'Failed to return Vec3D as and Array')
+  end
+
+  def test_constructor_float
+    val = Vector3.new(1.0, 8.0, 7.0) # duck type
+    expected = Vec3D.new(val)
+    assert_equal(expected, Vec3D.new(1.0, 8.0, 7.0), 'Failed duck type constructor floats')
+  end
+
+  def test_constructor_fixnum
+    val = Vector3.new(1, 8, 7) # duck type fixnum
+    expected = Vec3D.new(val)
+    assert_equal(expected, Vec3D.new(1.0, 8.0, 7.0), 'Failed duck type constructor fixnum')
   end
 
   def test_not_equals

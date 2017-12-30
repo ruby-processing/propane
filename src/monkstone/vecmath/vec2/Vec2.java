@@ -1,20 +1,20 @@
 package monkstone.vecmath.vec2;
 
-/* 
+/*
 * Copyright (c) 2015-17 Martin Prout
-* 
+*
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
 * License as published by the Free Software Foundation; either
 * version 2.1 of the License, or (at your option) any later version.
-* 
+*
 * http://creativecommons.org/licenses/LGPL/2.1/
-* 
+*
 * This library is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 * Lesser General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU Lesser General Public
 * License along with this library; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -88,11 +88,16 @@ public class Vec2 extends RubyObject {
     }
 
     void init(ThreadContext context, IRubyObject[] args) {
-        if (Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 2) == 2) {
-            jx = (args[0] instanceof RubyFloat)
-                    ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
-            jy = (args[1] instanceof RubyFloat)
-                    ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+        int count = Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 2);
+        if (count == 2) {
+            jx = (args[0] instanceof RubyFloat) ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
+            jy = (args[1] instanceof RubyFloat) ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+        }   // allow ruby ducktyping in constructor
+        if (count == 1) {
+            jx = ((args[0].callMethod(context, "x")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
+            jy = ((args[0].callMethod(context, "y")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "y")).getValue() : ((RubyFixnum) args[0].callMethod(context, "y")).getDoubleValue();
         }
     }
 

@@ -92,6 +92,14 @@ public final class Vec3 extends RubyObject {
         if (count == 3) {
             jz = (args[2] instanceof RubyFloat)
                     ? ((RubyFloat) args[2]).getValue() : ((RubyFixnum) args[2]).getDoubleValue();
+        } // allow ruby ducktyping in constructor
+        if (count == 1) {
+            jx = ((args[0].callMethod(context, "x")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
+            jy = ((args[0].callMethod(context, "y")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "y")).getValue() : ((RubyFixnum) args[0].callMethod(context, "y")).getDoubleValue();
+            jz = ((args[0].callMethod(context, "z")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "z")).getValue() : ((RubyFixnum) args[0].callMethod(context, "z")).getDoubleValue();
         }
     }
 
