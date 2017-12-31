@@ -222,7 +222,7 @@ class VecmathTest < Minitest::Test
     x, y = 20, 10
     b = Vec2D.new(x, y)
     a = b.rotate(Math::PI / 2)
-    assert_equal(a, Vec2D.new(-10, 20), 'Failed to rotate Point by scalar radians')
+    assert_equal(a, Vec2D.new(-10, 20), 'Failed to rotate vector by scalar radians')
   end
 
   def test_hash_index
