@@ -159,9 +159,11 @@ public class Vec2 extends RubyObject {
         Ruby runtime = context.runtime;
         if (key instanceof RubySymbol) {
             if (key == RubySymbol.newSymbol(runtime, "x")) {
-                return runtime.newFloat(jx);
+                jx = (value instanceof RubyFloat)
+                        ? ((RubyFloat) value).getValue() : ((RubyFixnum) value).getDoubleValue();
             } else if (key == RubySymbol.newSymbol(runtime, "y")) {
-                return runtime.newFloat(jy);
+                jy = (value instanceof RubyFloat)
+                        ? ((RubyFloat) value).getValue() : ((RubyFixnum) value).getDoubleValue();
             }
         } else {
             throw runtime.newIndexError("invalid key");
