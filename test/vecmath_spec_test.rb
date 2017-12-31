@@ -77,14 +77,14 @@ class VecmathTest < Minitest::Test
     a = Vec2D.new(3, 5)
     b = Vec2D.new(6, 7)
     c = Vec2D.new(9, 12)
-    assert_equal(a + b, c, 'Failed to sum Points')
+    assert_equal(a + b, c, 'Failed to sum vectors')
   end
 
   def test_subtract
     a = Vec2D.new(3, 5)
     b = Vec2D.new(6, 7)
     c = Vec2D.new(-3, -2)
-    assert_equal(a - b, c, 'Failed to subtract Points')
+    assert_equal(a - b, c, 'Failed to subtract vectors')
   end
 
   def test_multiply
@@ -92,7 +92,7 @@ class VecmathTest < Minitest::Test
     b = 2
     c = a * b
     d = Vec2D.new(6, 10)
-    assert_equal(c, d, 'Failed to multiply Point by scalar')
+    assert_equal(c, d, 'Failed to multiply vector by scalar')
   end
 
   def test_divide
@@ -100,7 +100,7 @@ class VecmathTest < Minitest::Test
     b = 2
     c = Vec2D.new(1.5, 2.5)
     d = a / b
-    assert_equal(c, d, 'Failed to divide Point by scalar')
+    assert_equal(c, d, 'Failed to divide vector by scalar')
   end
 
   def test_dot
@@ -116,7 +116,7 @@ class VecmathTest < Minitest::Test
 
   def test_from_angle
     a = Vec2D.from_angle(Math::PI * 0.75)
-    assert_equal(a, Vec2D.new(-1 * Math.sqrt(0.5), Math.sqrt(0.5)), 'Failed to create Point from angle')
+    assert_equal(a, Vec2D.new(-1 * Math.sqrt(0.5), Math.sqrt(0.5)), 'Failed to create vector from angle')
   end
 
   def test_random
@@ -133,65 +133,65 @@ class VecmathTest < Minitest::Test
 
   def test_mag
     a = Vec2D.new(-3, -4)
-    assert_in_epsilon(a.mag, 5, 0.001,'Failed to return magnitude of Point')
+    assert_in_epsilon(a.mag, 5, 0.001,'Failed to return magnitude of vector')
   end
 
   def test_mag_variant
     a = Vec2D.new(3.0, 2)
     b = Math.sqrt(3.0**2 + 2**2)
-    assert_in_epsilon(a.mag, b, 0.001, 'Failed to return magnitude of Point')
+    assert_in_epsilon(a.mag, b, 0.001, 'Failed to return magnitude of vector')
   end
 
   def test_mag_zero_one
     a = Vec2D.new(-1, 0)
-    assert_in_epsilon(a.mag, 1, 0.001, 'Failed to return magnitude of Point')
+    assert_in_epsilon(a.mag, 1, 0.001, 'Failed to return magnitude of vector')
   end
 
   def test_dist
     a = Vec2D.new(3, 5)
     b = Vec2D.new(6, 7)
-    assert_in_epsilon(a.dist(b), Math.sqrt(3.0**2 + 2**2), 'Failed to return distance between two Points')
+    assert_in_epsilon(a.dist(b), Math.sqrt(3.0**2 + 2**2), 'Failed to return distance between two vectors')
   end
 
   def test_lerp
     a = Vec2D.new(1, 1)
     b = Vec2D.new(3, 3)
-    assert_equal(a.lerp(b, 0.5), Vec2D.new(2, 2), 'Failed to return lerp between two Points')
+    assert_equal(a.lerp(b, 0.5), Vec2D.new(2, 2), 'Failed to return lerp between two vectors')
   end
 
   def test_lerp_unclamped
     a = Vec2D.new(1, 1)
     b = Vec2D.new(3, 3)
-    assert_equal(a.lerp(b, 5), Vec2D.new(11, 11), 'Failed to return lerp between two Points')
+    assert_equal(a.lerp(b, 5), Vec2D.new(11, 11), 'Failed to return lerp between two vectors')
   end
 
     def test_lerp!
     a = Vec2D.new(1, 1)
     b = Vec2D.new(3, 3)
     a.lerp!(b, 0.5)
-    assert_equal(a, Vec2D.new(2, 2), 'Failed to return lerp! between two Points')
+    assert_equal(a, Vec2D.new(2, 2), 'Failed to return lerp! between two vectors')
   end
 
   def test_lerp_unclamped!
     a = Vec2D.new(1, 1)
     b = Vec2D.new(3, 3)
     a.lerp!(b, 5)
-    assert_equal(a, Vec2D.new(11, 11), 'Failed to return lerp! between two Points')
+    assert_equal(a, Vec2D.new(11, 11), 'Failed to return lerp! between two vectors')
   end
 
   def test_set_mag
     a = Vec2D.new(1, 1)
-    assert_equal(a.set_mag(Math.sqrt(32)), Vec2D.new(4, 4), 'Failed to set_mag Point')
+    assert_equal(a.set_mag(Math.sqrt(32)), Vec2D.new(4, 4), 'Failed to set_mag vector')
   end
 
   def test_set_mag_block
     a = Vec2D.new(1, 1)
-    assert_equal(a.set_mag(Math.sqrt(32)) { true }, Vec2D.new(4, 4), 'Failed to set_mag_block true Point')
+    assert_equal(a.set_mag(Math.sqrt(32)) { true }, Vec2D.new(4, 4), 'Failed to set_mag_block true vector')
   end
 
   def test_set_mag_block_false
     a = Vec2D.new(1, 1)
-    assert_equal(a.set_mag(Math.sqrt(32)) { false }, Vec2D.new(1, 1), 'Failed to set_mag_block true Point')
+    assert_equal(a.set_mag(Math.sqrt(32)) { false }, Vec2D.new(1, 1), 'Failed to set_mag_block true vector')
   end
 
   def test_plus_assign
@@ -204,13 +204,13 @@ class VecmathTest < Minitest::Test
   def test_normalize
     a = Vec2D.new(3, 5)
     b = a.normalize
-    assert_in_epsilon(b.mag, 1, 0.001, 'Failed to return a normalized Point')
+    assert_in_epsilon(b.mag, 1, 0.001, 'Failed to return a normalized vector')
   end
 
   def test_normalize!
     a = Vec2D.new(3, 5)
     a.normalize!
-    assert_in_epsilon(a.mag, 1, 0.001, 'Failed to return a normalized! Point')
+    assert_in_epsilon(a.mag, 1, 0.001, 'Failed to return a normalized! vector')
   end
 
   def test_heading
@@ -260,15 +260,15 @@ class VecmathTest < Minitest::Test
   def test_cross_area # NB: the sign might be negative
     a = Vec2D.new(200, 0)
     b = Vec2D.new(0, 200)
-    # Expected result is an area, twice that of the triangle created by the Points
-    assert_equal((a).cross(b).abs, 40_000.0, 'Failed area test using 2D Point cross product')
+    # Expected result is an area, twice that of the triangle created by the vectors
+    assert_equal((a).cross(b).abs, 40_000.0, 'Failed area test using 2D vector cross product')
   end
 
   def test_cross_non_zero # Could be used to calculate area of triangle
     a = Vec2D.new(40, 40)
     b = Vec2D.new(40, 140)
     c = Vec2D.new(140, 40)
-    assert_equal((a - b).cross(b - c).abs / 2, 5_000.0, 'Failed area calculation using 2D Point cross product')
+    assert_equal((a - b).cross(b - c).abs / 2, 5_000.0, 'Failed area calculation using 2D vector cross product')
   end
 
   def test_cross_zero # where a, b, c are collinear area == 0
@@ -276,7 +276,7 @@ class VecmathTest < Minitest::Test
     b = Vec2D.new(100, 100)
     c = Vec2D.new(200, 200)
     # see http://mathworld.wolfram.com/Collinear.html for details
-    assert((a - b).cross(b - c).zero?, 'Failed collinearity test using 2D Point cross product')
+    assert((a - b).cross(b - c).zero?, 'Failed collinearity test using 2D vector cross product')
   end
 
   def test_equals
@@ -335,14 +335,14 @@ class VecmathTest < Minitest::Test
     a = Vec3D.new(3, 5, 1)
     b = Vec3D.new(6, 7, 1)
     c = Vec3D.new(9, 12, 2)
-    assert_equal(a + b, c, 'Failed to sum Points')
+    assert_equal(a + b, c, 'Failed to sum vectors')
   end
 
   def test_subtract
     a = Vec3D.new(3, 5, 0)
     b = Vec3D.new(6, 7, 1)
     c = Vec3D.new(-3, -2, -1)
-    assert_equal(a - b, c, 'Failed to subtract Points')
+    assert_equal(a - b, c, 'Failed to subtract vectors')
   end
 
   def test_multiply
@@ -350,7 +350,7 @@ class VecmathTest < Minitest::Test
     b = 2
     c = a * b
     d = Vec3D.new(6, 10, 2)
-    assert_equal(c, d, 'Failed to multiply Point by scalar')
+    assert_equal(c, d, 'Failed to multiply vector by scalar')
   end
 
   def test_divide
@@ -358,7 +358,7 @@ class VecmathTest < Minitest::Test
     b = 2
     c = Vec3D.new(1.5, 2.5, 2)
     d = a / b
-    assert_equal(c, d, 'Failed to divide Point by scalar')
+    assert_equal(c, d, 'Failed to divide vector by scalar')
   end
 
   def test_random
@@ -375,31 +375,31 @@ class VecmathTest < Minitest::Test
 
   def test_mag
     a = Vec3D.new(-3, -4)
-    assert_equal(a.mag, 5, 'Failed to return magnitude of Point')
+    assert_equal(a.mag, 5, 'Failed to return magnitude of vector')
   end
 
   def test_mag_variant
     a = Vec3D.new(3.0, 2)
     b = Math.sqrt(3.0**2 + 2**2)
-    assert_in_epsilon(a.mag, b, 0.001, 'Failed to return magnitude of Point')
+    assert_in_epsilon(a.mag, b, 0.001, 'Failed to return magnitude of vector')
   end
 
   def test_mag_zero_one
     a = Vec3D.new(-1, 0)
-    assert_equal(a.mag, 1, 'Failed to return magnitude of Point')
+    assert_equal(a.mag, 1, 'Failed to return magnitude of vector')
   end
 
   def test_dist
     a = Vec3D.new(3, 5, 2)
     b = Vec3D.new(6, 7, 1)
-    message = 'Failed to return distance between two Points'
+    message = 'Failed to return distance between two vectors'
     assert_equal(a.dist(b), Math.sqrt(3.0**2 + 2**2 + 1), message)
   end
 
   def test_dist_squared
     a = Vec3D.new(3, 5, 2)
     b = Vec3D.new(6, 7, 1)
-    message = 'Failed to return distance squared between two Points'
+    message = 'Failed to return distance squared between two vectors'
     assert_equal(a.dist_squared(b), 3.0**2 + 2**2 + 1, message)
   end
 
@@ -423,17 +423,17 @@ class VecmathTest < Minitest::Test
 
   def test_set_mag
     a = Vec3D.new(1, 1)
-    assert_equal(a.set_mag(Math.sqrt(32)), Vec3D.new(4, 4), 'Failed to set_mag Point')
+    assert_equal(a.set_mag(Math.sqrt(32)), Vec3D.new(4, 4), 'Failed to set_mag vector')
   end
 
   def test_set_mag_block
     a = Vec3D.new(1, 1)
-    assert_equal(a.set_mag(Math.sqrt(32)) { true }, Vec3D.new(4, 4), 'Failed to set_mag_block true Point')
+    assert_equal(a.set_mag(Math.sqrt(32)) { true }, Vec3D.new(4, 4), 'Failed to set_mag_block true vector')
   end
 
   def test_set_mag_block_false
     a = Vec3D.new(1, 1)
-    assert_equal(a.set_mag(Math.sqrt(32)) { false }, Vec3D.new(1, 1), 'Failed to set_mag_block true Point')
+    assert_equal(a.set_mag(Math.sqrt(32)) { false }, Vec3D.new(1, 1), 'Failed to set_mag_block true vector')
   end
 
   def test_plus_assign
@@ -446,13 +446,13 @@ class VecmathTest < Minitest::Test
   def test_normalize
     a = Vec3D.new(3, 5)
     b = a.normalize
-    assert_in_epsilon(b.mag, 1, 0.001, 'Failed to return a normalized Point')
+    assert_in_epsilon(b.mag, 1, 0.001, 'Failed to return a normalized vector')
   end
 
   def test_normalize!
     a = Vec3D.new(3, 5)
     a.normalize!
-    assert_in_epsilon(a.mag, 1, 0.001, 'Failed to return a normalized! Point')
+    assert_in_epsilon(a.mag, 1, 0.001, 'Failed to return a normalized! vector')
   end
 
   def test_inspect
