@@ -43,6 +43,10 @@ module Propane
     key_typed: :keyTyped
   }.freeze
 
+  class << self
+    attr_accessor :app
+  end
+
   # All sketches extend this class
   class App < PApplet
     include Math, MathTool, HelperMethods, Render
@@ -110,7 +114,8 @@ module Propane
       raise TypeError unless arguments.is_a? Array
       # Set up the sketch.
       super()
-      $app = self
+      post_initialize(options)
+      Propane.app = self
       @arguments = arguments
       @options   = options
       run_sketch
@@ -123,6 +128,9 @@ module Propane
       @render_mode ||= mode
       import_opengl if /opengl/ =~ mode
       super(*args)
+    end
+
+    def post_initialize(_args)
     end
 
     def sketch_title(title)
@@ -168,11 +176,11 @@ module Propane
     include Java::ProcessingCore::PConstants
 
     def respond_to_missing?(symbol, include_priv = false)
-      $app.respond_to?(symbol, include_priv) || super
+      Propane.app.respond_to?(symbol, include_priv) || super
     end
 
     def method_missing(name, *args, &block)
-      return $app.send(name, *args) if $app.respond_to? name
+      return Propane.app.send(name, *args) if Propane.app.respond_to? name
       super
     end
   end # Processing::Proxy
