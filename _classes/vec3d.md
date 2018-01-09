@@ -39,8 +39,11 @@ a.z = b # sets the z value of Vec3D a to the float b
 ```
 ### Constructors:-
 ```ruby
-Vec3D.new(a, b, c) # where a, b, and c are all floats
 Vec3D.random # returns a new random Vec3D object # with mag 1.0
+Vec3D.new # returns new instance where x, y, z are all zero.
+Vec3D.new(a, b, c) # where a, b & c are float or numeric (NB: stored as float)
+Vec3D.new(vec) # where vec has methods `:x` and `:y` that return float or numeric
+               # if vec has no method `:z` then z is set to zero.
 ```
 
 Example Usages: [Examples][Vec3D]
