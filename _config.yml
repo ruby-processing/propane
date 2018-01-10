@@ -48,7 +48,5 @@ syntax-highlighting:
 
 # Build settings
 markdown: kramdown
-gems:
-  - jekyll-sitemap
-  - jekyll-seo-tag
+plugins:
   - jekyll-feed
