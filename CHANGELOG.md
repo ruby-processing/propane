@@ -1,4 +1,4 @@
-**v2.6.3** Bump recommended upgrade to jruby-9.1.15.0, possibly the last in 9.1 series?
+**v2.6.4** Vec3D and Vec2D get duck-type copy constructors, added `vector_utils` library
 
 **v2.6.2** Features example sketches using the PixelFlow library by Thomas Diewald
 

@@ -10,9 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.licenses     = %w(GPL-3.0 LGPL-2.0)
   gem.description  = <<-EOS
-  A batteries included version of processing in ruby, for MacOS and linux64. The
-  current release features several PixelFlow glsl library examples, including a
-  few shadertoy demos as sketches.
+  A batteries included version of processing in ruby, for MacOS and linux64.
   EOS
   gem.summary       = %q{ruby wrapper for processing-3.3.6 on MacOS and linux64 bit only for opengl}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
@@ -27,9 +25,10 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/jogl-all-2.3.2-natives-macosx-universal.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.add_development_dependency 'rake', '~> 12'
+  gem.add_development_dependency 'rake', '~> 12.3'
   gem.add_development_dependency 'minitest', '~> 5.10'
   gem.add_runtime_dependency 'arcball', '~> 1.0', '>= 1.0.0'
   gem.require_paths = ['lib']
   gem.platform      = 'java'
+  gem.requirements << 'java runtime >= 1.8.0_151+'
 end
