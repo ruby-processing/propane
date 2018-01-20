@@ -36,6 +36,8 @@ end
 
 MySketch.new
 ```
+`#!/usr/bin/env jruby` allows the sketch to be run from atom with [script plugin][script] or `chmod +x my_sketch.rb` to conver into an executable script.
+
 ### Caveats
 
 Here are some the main differences moving from vanilla processing to ruby-processing:-
@@ -74,6 +76,7 @@ Other ruby methods to prefer are:-
 
 To avoid confusion use with ruby `map` use `map1d` for processing `map` function see [example][map1d].
 
+[script]:https://atom.io/packages/script
 [about]:https://www.ruby-lang.org/en/about/
 [vec]:https://ruby-processing.github.io/propane/classes.html
 [ball]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/circle_collision.rb
