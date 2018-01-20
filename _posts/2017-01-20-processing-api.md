@@ -36,7 +36,7 @@ end
 
 MySketch.new
 ```
-`#!/usr/bin/env jruby` allows the sketch to be run from atom with [script plugin][script] or `chmod +x my_sketch.rb` to conver into an executable script.
+`#!/usr/bin/env jruby` allows the sketch to be run from atom with [script plugin][script] or `chmod +x my_sketch.rb` to create an executable script.
 
 ### Caveats
 
