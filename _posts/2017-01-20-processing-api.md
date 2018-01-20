@@ -44,8 +44,7 @@ Here are some the main differences moving from vanilla processing to ruby-proces
 
 2. There are no void methods (what's evaluated gets returned without needing an explicit return)
 
-3. Everything is an object (this includes primitive types float, integer etc cf. java) [see more][]
-
+3. Everything is an object (this includes primitive types float, integer etc cf. java) [see more][about]
 4. Confusing for beginners and especially pythonistas there is often more than one way to do it
 
 5. Processing makes heavy use of java `inner` classes (to make methods and values somewhat globally available) ruby-processing provides the `Propane::Proxy` mixin to somewhat mimic this behaviour see [Ball][ball]. An alternative to consider is to use delegator methods using `extend Forwardable`, requires `require 'forwardable'` see JRubyArt [example][].
@@ -75,6 +74,7 @@ Other ruby methods to prefer are:-
 
 To avoid confusion use with ruby `map` use `map1d` for processing `map` function see [example][map1d].
 
+[about]:https://www.ruby-lang.org/en/about/
 [vec]:https://ruby-processing.github.io/propane/classes.html
 [ball]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/circle_collision.rb
 [example]:https://github.com/ruby-processing/propane-examples/blob/master/external_library/gem/toxiclibs/soft_body/library/blanket/lib/particle.rb
