@@ -9,7 +9,7 @@ Unlike ruby-processing and JRubyArt, propane does not support `bare` sketches, a
 
 ### The processing-api
 
-Most of the processing methods, as explained in the [Processing Language API][processing], are available as instance methods on your Propane::App. (frame_rate, ellipse, and the 158 others.) This makes it easy as pie to use them within your sketch, but you should prefer snake case to camel case and there are some caveats.
+Most of the processing methods, as explained in the [Processing Language API][processing], are available as instance methods on your Propane::App. (frame_rate, ellipse, and the 158 others.) This makes it easy as pie to use them within your sketch, but you should prefer snake case to camel case and there are some caveats. NB: you do need to explicitly create a [settings][settings] method in propane. 
 
 ``` ruby
 #!/usr/bin/env jruby
@@ -84,3 +84,4 @@ To avoid confusion use with ruby `map` use `map1d` for processing `map` function
 [processing]:https://processing.org/reference/
 [map1d]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/circles.rb
 [mouse_pressed?]:https://github.com/ruby-processing/propane-examples/blob/master/contributed/re_sample.rb
+[settings]:https://processing.org/reference/settings_.html
