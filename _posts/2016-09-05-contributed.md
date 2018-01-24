@@ -11,7 +11,7 @@ permalink: contributed
 wget http://download.processing.org/contribs/contribs.txt
 ```
 
-NB `toxiclibs`, `pbox2d`, `joonsrenderer`, `wordcram`  and `generative libraries` are available as rubygems, further the libraries in the contributed list only contains libraries curated (_filtered_) by Prisoner John, there are many more that are available out there eg Joshua Davis `hype`.
+NB `toxiclibs`, `pbox2d`, `joonsrenderer`, `wordcram`  and `geomerative libraries` are available as rubygems, further the libraries in the contributed list only contains libraries curated (_filtered_) by Prisoner John, there are many more that are available out there eg Joshua Davis `hype`.
 
 An example library listing in contribs.txt:-
 
