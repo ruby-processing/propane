@@ -53,7 +53,7 @@ Or if you just wanted to edit the draw loop
 
 [prywiki]:https://github.com/pry/pry/wiki/Customization-and-configuration
 
-But there's much more you can use the pry console for, like regular ruby you con look up methods constants etc:-
+But there's much more you can use the pry console for, like regular ruby you can look up methods constants etc:-
 
 ```ruby
 require 'propane'
