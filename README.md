@@ -13,7 +13,7 @@ adjust above for your OS/distro setup.
 ## Requirements
 
 - jdk8+
-- jruby-9.1.15.0
+- jruby-9.1.16.0
 - mvn-3.5.0+
 - core.jar processing-3.3.6 (_build only_)
 
