@@ -72,7 +72,7 @@ public class Vec2 extends RubyObject {
      * @return new Vec2 object (ruby)
      */
     @JRubyMethod(name = "new", meta = true, rest = true)
-    public static final IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
+    public static final IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject... args) {
         Vec2 vec2 = (Vec2) ((RubyClass) klazz).allocate();
         vec2.init(context, args);
         return vec2;
@@ -87,8 +87,8 @@ public class Vec2 extends RubyObject {
         super(runtime, klass);
     }
 
-    void init(ThreadContext context, IRubyObject[] args) {
-        int count = Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 2);
+    void init(ThreadContext context, IRubyObject... args) {
+        int count = args.length;
         if (count == 2) {
             jx = (args[0] instanceof RubyFloat) ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
             jy = (args[1] instanceof RubyFloat) ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();

@@ -28,7 +28,6 @@ import org.jruby.RubyObject;
 import org.jruby.RubySymbol;
 import org.jruby.anno.JRubyClass;
 import org.jruby.anno.JRubyMethod;
-import org.jruby.runtime.Arity;
 import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
@@ -66,7 +65,7 @@ public final class Vec3 extends RubyObject {
      * @return new Vec3 object (ruby)
      */
     @JRubyMethod(name = "new", meta = true, rest = true)
-    public final static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
+    public final static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject... args) {
         Vec3 vec = (Vec3) ((RubyClass) klazz).allocate();
         vec.init(context, args);
         return vec;
@@ -81,8 +80,8 @@ public final class Vec3 extends RubyObject {
         super(runtime, klass);
     }
 
-    void init(ThreadContext context, IRubyObject[] args) {
-        int count = Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 3);
+    void init(ThreadContext context, IRubyObject... args) {
+        int count = args.length;
         if (count >= 2) {
             jx = (args[0] instanceof RubyFloat)
                     ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
@@ -594,8 +593,8 @@ public final class Vec3 extends RubyObject {
      * @param args IRubyObject[]
      */
     @JRubyMethod(name = "to_vertex_uv", rest = true)
-    public void toVertexUV(ThreadContext context, IRubyObject[] args) {
-        int count = Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 3);
+    public void toVertexUV(ThreadContext context, IRubyObject... args) {
+        int count = args.length;
         double u = 0;
         double v = 0;
         if (count == 3) {
