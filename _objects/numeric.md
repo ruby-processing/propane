@@ -16,7 +16,7 @@ Holds Integer values that can be represented in a native machine word (minus 1 b
 
 #### constants ###
 * __DIG__ The minimum number of significant decimal digits in a double-precision floating point. Usually defaults to 15.
-* __EPSILON__ The difference between 1 and the smallest double-precision floating point number.  Usually defaults to 2.2204460492503131e-16.
+* __EPSILON__ The difference between 1 and the smallest double-precision floating point number.  Usually defaults to 2.2204460492503151e-16.
 
 ### Bignum ###
 
