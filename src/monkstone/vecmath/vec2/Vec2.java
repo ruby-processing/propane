@@ -94,7 +94,9 @@ public class Vec2 extends RubyObject {
             jy = (args[1] instanceof RubyFloat) ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
         }   // allow ruby ducktyping in constructor
         if (count == 1) {
-            if (!(args[0].respondsTo("x"))) {throw context.runtime.newTypeError(args[0].getType() + " doesn't respond_to :x & :y");}
+            if (!(args[0].respondsTo("x"))) {
+                throw context.runtime.newTypeError(args[0].getType() + " doesn't respond_to :x & :y");
+            }
             jx = ((args[0].callMethod(context, "x")) instanceof RubyFloat)
                     ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
             jy = ((args[0].callMethod(context, "y")) instanceof RubyFloat)
@@ -542,7 +544,9 @@ public class Vec2 extends RubyObject {
     @JRubyMethod(name = "lerp", rest = true)
     public IRubyObject lerp(ThreadContext context, IRubyObject[] args) {
         Ruby runtime = context.runtime;
-        Arity.checkArgumentCount(runtime, args, 2, 2);
+        if (args.length != 2) {
+            throw runtime.newSyntaxError("Check syntax");
+        }
         Vec2 vec = (Vec2) args[0].toJava(Vec2.class);
         double scalar = (args[1] instanceof RubyFloat)
                 ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
@@ -561,7 +565,10 @@ public class Vec2 extends RubyObject {
      */
     @JRubyMethod(name = "lerp!", rest = true)
     public IRubyObject lerp_bang(ThreadContext context, IRubyObject[] args) {
-        Arity.checkArgumentCount(context.runtime, args, 2, 2);
+        Ruby runtime = context.runtime;
+        if (args.length != 2) {
+            throw runtime.newSyntaxError("Check syntax");
+        }
         Vec2 vec = (Vec2) args[0].toJava(Vec2.class);
         double scalar = (args[1] instanceof RubyFloat)
                 ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();

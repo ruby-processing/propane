@@ -159,13 +159,21 @@ class VecmathTest < Minitest::Test
     assert_equal(a.lerp(b, 0.5), Vec2D.new(2, 2), 'Failed to return lerp between two vectors')
   end
 
+  def test_lerp_exception
+    a = Vec2D.new(1, 1)
+    b = Vec2D.new(3, 3)
+    assert_raises SyntaxError do
+      a.lerp(b, 0.5, 0.5)
+    end
+  end
+
   def test_lerp_unclamped
     a = Vec2D.new(1, 1)
     b = Vec2D.new(3, 3)
     assert_equal(a.lerp(b, 5), Vec2D.new(11, 11), 'Failed to return lerp between two vectors')
   end
 
-    def test_lerp!
+  def test_lerp!
     a = Vec2D.new(1, 1)
     b = Vec2D.new(3, 3)
     a.lerp!(b, 0.5)
