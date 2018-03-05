@@ -10,11 +10,11 @@ Unless you are a vim aficionado you should probably prefer to use atom.
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
 
-For linux ignore any distro version and download latest version (preferably 1.19.7+) and:-
+For linux ignore any distro version and download latest version (preferably 1.24.0+) and:-
 
 ```bash
 sudo dpkg --install atom-amd64.deb # debian, mint, ubuntu
-sudo pacman -S atom # Archlinux currently installs 1.20.0
+sudo pacman -S atom # Archlinux currently installs 1.24.0
 ```
 
 MacOS/Windows users could just download direct (or homebrew on MacOS)
