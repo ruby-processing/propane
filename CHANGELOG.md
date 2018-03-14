@@ -1,3 +1,5 @@
+**v2.6.5** bump for processing-3.3.7
+
 **v2.6.4** Vec2D and Vec3D now support `copy` constructor where the original can be a duck-type. Further the only requirement is that the duck-type responds to `:x`, and `:y` by returning a `float` or `fixnum` thus Vec2D can be promoted to Vec3D (where `z = 0`), or more usually some other Vector or Point class can be used as the original. A VectorUtils library has been implemented, see examples for usage.
 
 **v2.6.3** Bump recommended upgrade to jruby-9.1.16.0, possibly the last in 9.1 series?
