@@ -42,13 +42,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     plugin :resources, '2.6'
     plugin :dependency, '2.10' do
       execute_goals( id: 'default-cli',
-        artifactItems: [ { groupId:  'org.processing',
-          artifactId:  'core',
-          version:  '3.3.7',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.jogl',
+        artifactItems: [ { groupId:  'org.jogamp.jogl',
           artifactId:  'jogl-all',
           version:  '${jogl.version}',
           type:  'jar',
