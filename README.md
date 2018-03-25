@@ -7,10 +7,10 @@ adjust above for your OS/distro setup.
 
 ## Requirements
 
-- jdk8+
+- jdk8+ (jdk9 works but is noisy)
 - jruby-9.1.16.0
 - mvn-3.5.0+
-- core.jar processing-3.3.7 (_build only_)
+- processing-core.jar (_build only_) not generally available
 
 ## Building and testing
 
@@ -23,7 +23,7 @@ rake javadoc
 ## Installation
 ```bash
 jgem install propane # from rubygems
-jgem install propane-2.6.4-java.gem # for local install
+jgem install propane-2.6.5.pre-java.gem # local install, NB: not currently possible
 ```
 
 ## Usage
