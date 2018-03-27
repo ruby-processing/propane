@@ -81,3 +81,5 @@ propane --install samples
 
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
+[processing-core]:https://github.com/ruby-processing/processing-core
+
