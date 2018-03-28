@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 module Propane
-  VERSION = '2.6.5.pre'.freeze
+  VERSION = '2.6.6'.freeze
 end
