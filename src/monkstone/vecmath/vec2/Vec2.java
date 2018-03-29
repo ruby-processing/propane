@@ -1,20 +1,20 @@
 package monkstone.vecmath.vec2;
 
-/* 
-* Copyright (c) 2015-17 Martin Prout
-* 
+/*
+* Copyright (c) 2015-18 Martin Prout
+*
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
 * License as published by the Free Software Foundation; either
 * version 2.1 of the License, or (at your option) any later version.
-* 
+*
 * http://creativecommons.org/licenses/LGPL/2.1/
-* 
+*
 * This library is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 * Lesser General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU Lesser General Public
 * License along with this library; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -72,7 +72,7 @@ public class Vec2 extends RubyObject {
      * @return new Vec2 object (ruby)
      */
     @JRubyMethod(name = "new", meta = true, rest = true)
-    public static final IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
+    public static final IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject... args) {
         Vec2 vec2 = (Vec2) ((RubyClass) klazz).allocate();
         vec2.init(context, args);
         return vec2;
@@ -87,12 +87,20 @@ public class Vec2 extends RubyObject {
         super(runtime, klass);
     }
 
-    void init(ThreadContext context, IRubyObject[] args) {
-        if (Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 2) == 2) {
-            jx = (args[0] instanceof RubyFloat)
-                    ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
-            jy = (args[1] instanceof RubyFloat)
-                    ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+    void init(ThreadContext context, IRubyObject... args) {
+        int count = args.length;
+        if (count == 2) {
+            jx = (args[0] instanceof RubyFloat) ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
+            jy = (args[1] instanceof RubyFloat) ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+        }   // allow ruby ducktyping in constructor
+        if (count == 1) {
+            if (!(args[0].respondsTo("x"))) {
+                throw context.runtime.newTypeError(args[0].getType() + " doesn't respond_to :x & :y");
+            }
+            jx = ((args[0].callMethod(context, "x")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
+            jy = ((args[0].callMethod(context, "y")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "y")).getValue() : ((RubyFixnum) args[0].callMethod(context, "y")).getDoubleValue();
         }
     }
 
@@ -153,9 +161,11 @@ public class Vec2 extends RubyObject {
         Ruby runtime = context.runtime;
         if (key instanceof RubySymbol) {
             if (key == RubySymbol.newSymbol(runtime, "x")) {
-                return runtime.newFloat(jx);
+                jx = (value instanceof RubyFloat)
+                        ? ((RubyFloat) value).getValue() : ((RubyFixnum) value).getDoubleValue();
             } else if (key == RubySymbol.newSymbol(runtime, "y")) {
-                return runtime.newFloat(jy);
+                jy = (value instanceof RubyFloat)
+                        ? ((RubyFloat) value).getValue() : ((RubyFixnum) value).getDoubleValue();
             }
         } else {
             throw runtime.newIndexError("invalid key");
@@ -534,7 +544,9 @@ public class Vec2 extends RubyObject {
     @JRubyMethod(name = "lerp", rest = true)
     public IRubyObject lerp(ThreadContext context, IRubyObject[] args) {
         Ruby runtime = context.runtime;
-        Arity.checkArgumentCount(runtime, args, 2, 2);
+        if (args.length != 2) {
+            throw runtime.newSyntaxError("Check syntax");
+        }
         Vec2 vec = (Vec2) args[0].toJava(Vec2.class);
         double scalar = (args[1] instanceof RubyFloat)
                 ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
@@ -553,7 +565,10 @@ public class Vec2 extends RubyObject {
      */
     @JRubyMethod(name = "lerp!", rest = true)
     public IRubyObject lerp_bang(ThreadContext context, IRubyObject[] args) {
-        Arity.checkArgumentCount(context.runtime, args, 2, 2);
+        Ruby runtime = context.runtime;
+        if (args.length != 2) {
+            throw runtime.newSyntaxError("Check syntax");
+        }
         Vec2 vec = (Vec2) args[0].toJava(Vec2.class);
         double scalar = (args[1] instanceof RubyFloat)
                 ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();

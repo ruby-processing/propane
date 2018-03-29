@@ -1,7 +1,7 @@
 package monkstone.vecmath.vec3;
 
 /*
-* Copyright (c) 2015-17 Martin Prout
+* Copyright (c) 2015-18 Martin Prout
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,6 @@ import org.jruby.RubyObject;
 import org.jruby.RubySymbol;
 import org.jruby.anno.JRubyClass;
 import org.jruby.anno.JRubyMethod;
-import org.jruby.runtime.Arity;
 import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
@@ -66,7 +65,7 @@ public final class Vec3 extends RubyObject {
      * @return new Vec3 object (ruby)
      */
     @JRubyMethod(name = "new", meta = true, rest = true)
-    public final static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
+    public final static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject... args) {
         Vec3 vec = (Vec3) ((RubyClass) klazz).allocate();
         vec.init(context, args);
         return vec;
@@ -81,8 +80,8 @@ public final class Vec3 extends RubyObject {
         super(runtime, klass);
     }
 
-    void init(ThreadContext context, IRubyObject[] args) {
-        int count = Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 3);
+    void init(ThreadContext context, IRubyObject... args) {
+        int count = args.length;
         if (count >= 2) {
             jx = (args[0] instanceof RubyFloat)
                     ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
@@ -92,6 +91,19 @@ public final class Vec3 extends RubyObject {
         if (count == 3) {
             jz = (args[2] instanceof RubyFloat)
                     ? ((RubyFloat) args[2]).getValue() : ((RubyFixnum) args[2]).getDoubleValue();
+        } // allow ruby ducktyping in constructor
+        if (count == 1) {
+            if (!(args[0].respondsTo("x"))) {
+                throw context.runtime.newTypeError(args[0].getType() + " doesn't respond_to :x & :y");
+            }
+            jx = ((args[0].callMethod(context, "x")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
+            jy = ((args[0].callMethod(context, "y")) instanceof RubyFloat)
+                    ? ((RubyFloat) args[0].callMethod(context, "y")).getValue() : ((RubyFixnum) args[0].callMethod(context, "y")).getDoubleValue();
+            if (!(args[0].respondsTo("z"))) {
+                return;
+            } // allow promotion from 2D to 3D, sets jz = 0
+            jz = ((args[0].callMethod(context, "z")) instanceof RubyFloat) ? ((RubyFloat) args[0].callMethod(context, "z")).getValue() : ((RubyFixnum) args[0].callMethod(context, "z")).getDoubleValue();
         }
     }
 
@@ -112,7 +124,6 @@ public final class Vec3 extends RubyObject {
      * @return y IRubyObject
      */
     @JRubyMethod(name = "y")
-
     public IRubyObject getY(ThreadContext context) {
         return context.runtime.newFloat(jy);
     }
@@ -123,7 +134,8 @@ public final class Vec3 extends RubyObject {
      * @return z IRubyObject
      */
     @JRubyMethod(name = "z")
-    public IRubyObject getZ(ThreadContext context) {
+    public IRubyObject getZ(ThreadContext context
+    ) {
         return context.runtime.newFloat(jz);
     }
 
@@ -134,7 +146,6 @@ public final class Vec3 extends RubyObject {
      * @return x IRubyObject
      */
     @JRubyMethod(name = "x=")
-
     public IRubyObject setX(ThreadContext context, IRubyObject other) {
         if (other instanceof RubyFloat) {
             jx = ((RubyFloat) other).getValue();
@@ -151,7 +162,6 @@ public final class Vec3 extends RubyObject {
      * @return y IRubyObject
      */
     @JRubyMethod(name = "y=")
-
     public IRubyObject setY(ThreadContext context, IRubyObject other) {
         if (other instanceof RubyFloat) {
             jy = ((RubyFloat) other).getValue();
@@ -184,7 +194,6 @@ public final class Vec3 extends RubyObject {
      * @return value float
      */
     @JRubyMethod(name = "[]", required = 1)
-
     public IRubyObject aref(ThreadContext context, IRubyObject key) {
         Ruby runtime = context.runtime;
         if (key instanceof RubySymbol) {
@@ -209,7 +218,6 @@ public final class Vec3 extends RubyObject {
      * @return value float
      */
     @JRubyMethod(name = "[]=")
-
     public IRubyObject aset(ThreadContext context, IRubyObject key, IRubyObject value) {
         Ruby runtime = context.runtime;
         if (key instanceof RubySymbol) {
@@ -337,7 +345,6 @@ public final class Vec3 extends RubyObject {
      * @return new Vec3 object (ruby)
      */
     @JRubyMethod(name = "-")
-
     public IRubyObject op_sub(ThreadContext context, IRubyObject other) {
         Ruby runtime = context.runtime;
         Vec3 b = null;
@@ -359,7 +366,6 @@ public final class Vec3 extends RubyObject {
      * @return new Vec3 object (ruby)
      */
     @JRubyMethod(name = "*", required = 1)
-
     public IRubyObject op_mul(ThreadContext context, IRubyObject scalar) {
         Ruby runtime = context.runtime;
         double multi = (scalar instanceof RubyFloat)
@@ -377,7 +383,6 @@ public final class Vec3 extends RubyObject {
      * @return new Vec3 object (ruby)
      */
     @JRubyMethod(name = "/", required = 1)
-
     public IRubyObject op_div(ThreadContext context, IRubyObject scalar) {
         Ruby runtime = context.runtime;
         double divisor = (scalar instanceof RubyFloat)
@@ -397,7 +402,6 @@ public final class Vec3 extends RubyObject {
      * @return magnitude squared IRubyObject
      */
     @JRubyMethod(name = "mag_squared")
-
     public IRubyObject mag_squared(ThreadContext context) {
         return context.runtime.newFloat(jx * jx + jy * jy + jz * jz);
     }
@@ -408,7 +412,6 @@ public final class Vec3 extends RubyObject {
      * @return magnitude IRubyObject
      */
     @JRubyMethod(name = "mag")
-
     public IRubyObject mag(ThreadContext context) {
         return context.runtime.newFloat(Math.sqrt(jx * jx + jy * jy + jz * jz));
     }
@@ -423,7 +426,6 @@ public final class Vec3 extends RubyObject {
      * @return magnitude IRubyObject
      */
     @JRubyMethod(name = "set_mag")
-
     public IRubyObject set_mag(ThreadContext context, IRubyObject scalar, Block block) {
         if (block.isGiven()) {
             if (!(boolean) block.yield(context, scalar).toJava(Boolean.class)) {
@@ -447,7 +449,6 @@ public final class Vec3 extends RubyObject {
      * @return this as a ruby object
      */
     @JRubyMethod(name = "normalize!")
-
     public IRubyObject normalize_bang(ThreadContext context) {
         if (Math.abs(jx) < EPSILON && Math.abs(jy) < EPSILON && Math.abs(jz) < EPSILON) {
             return this;
@@ -465,7 +466,6 @@ public final class Vec3 extends RubyObject {
      * @return new normalized Vec3D object (ruby)
      */
     @JRubyMethod(name = "normalize")
-
     public IRubyObject normalize(ThreadContext context) {
         Ruby runtime = context.runtime;
         double mag = Math.sqrt(jx * jx + jy * jy + jz * jz);
@@ -489,7 +489,6 @@ public final class Vec3 extends RubyObject {
      * @return new random Vec3D object (ruby)
      */
     @JRubyMethod(name = "random", meta = true)
-
     public static IRubyObject random_direction(ThreadContext context, IRubyObject klazz) {
         Ruby runtime = context.runtime;
         double angle = Math.random() * Math.PI * 2;
@@ -510,7 +509,6 @@ public final class Vec3 extends RubyObject {
      * @return angle IRubyObject in radians
      */
     @JRubyMethod(name = "angle_between")
-
     public IRubyObject angleBetween(ThreadContext context, IRubyObject other) {
         Ruby runtime = context.runtime;
         Vec3 vec = (Vec3) other.toJava(Vec3.class);
@@ -542,7 +540,6 @@ public final class Vec3 extends RubyObject {
      * @return IRubyObject copy
      */
     @JRubyMethod(name = {"copy", "dup"})
-
     public IRubyObject copy(ThreadContext context) {
         Ruby runtime = context.runtime;
         return Vec3.rbNew(context, this.getMetaClass(), new IRubyObject[]{
@@ -557,7 +554,6 @@ public final class Vec3 extends RubyObject {
      * @return IRubyObject array of float
      */
     @JRubyMethod(name = "to_a")
-
     public IRubyObject toArray(ThreadContext context) {
         Ruby runtime = context.runtime;
         return RubyArray.newArray(context.runtime, new IRubyObject[]{
@@ -573,7 +569,6 @@ public final class Vec3 extends RubyObject {
      * @param object IRubyObject vertex renderer
      */
     @JRubyMethod(name = "to_vertex")
-
     public void toVertex(ThreadContext context, IRubyObject object) {
         JRender renderer = (JRender) object.toJava(JRender.class);
         renderer.vertex(jx, jy, jz);
@@ -586,7 +581,6 @@ public final class Vec3 extends RubyObject {
      * @param object IRubyObject vertex renderer
      */
     @JRubyMethod(name = "to_curve_vertex")
-
     public void toCurveVertex(ThreadContext context, IRubyObject object) {
         JRender renderer = (JRender) object.toJava(JRender.class);
         renderer.curveVertex(jx, jy, jz);
@@ -599,9 +593,8 @@ public final class Vec3 extends RubyObject {
      * @param args IRubyObject[]
      */
     @JRubyMethod(name = "to_vertex_uv", rest = true)
-
-    public void toVertexUV(ThreadContext context, IRubyObject[] args) {
-        int count = Arity.checkArgumentCount(context.runtime, args, Arity.OPTIONAL.getValue(), 3);
+    public void toVertexUV(ThreadContext context, IRubyObject... args) {
+        int count = args.length;
         double u = 0;
         double v = 0;
         if (count == 3) {
@@ -626,7 +619,6 @@ public final class Vec3 extends RubyObject {
      * @param object IRubyObject vertex renderer
      */
     @JRubyMethod(name = "to_normal")
-
     public void toNormal(ThreadContext context, IRubyObject object) {
         JRender renderer = (JRender) object.toJava(JRender.class);
         renderer.normal(jx, jy, jz);
@@ -639,7 +631,6 @@ public final class Vec3 extends RubyObject {
      * @return IRubyObject to_s
      */
     @JRubyMethod(name = {"to_s", "inspect"})
-
     public IRubyObject to_s(ThreadContext context) {
         return context.runtime.newString(String.format("Vec3D(x = %4.4f, y = %4.4f, z = %4.4f)", jx, jy, jz));
     }
@@ -688,7 +679,6 @@ public final class Vec3 extends RubyObject {
      * @return result IRubyObject as boolean
      */
     @JRubyMethod(name = "eql?", required = 1)
-
     public IRubyObject eql_p(ThreadContext context, IRubyObject other) {
         Ruby runtime = context.runtime;
         if (other == this) {
@@ -713,7 +703,6 @@ public final class Vec3 extends RubyObject {
      * @return result IRubyObject as boolean
      */
     @JRubyMethod(name = "==", required = 1)
-
     @Override
     public IRubyObject op_equal(ThreadContext context, IRubyObject other) {
         Ruby runtime = context.runtime;

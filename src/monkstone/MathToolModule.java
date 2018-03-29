@@ -1,7 +1,7 @@
 /**
  * The purpose of this tool is to allow propane users to use an alternative
  * to processing.org map, lerp and norm methods in their sketches
- * Copyright (c) 2015-17 Martin Prout. This tool is free software; you can
+ * Copyright (c) 2015-18 Martin Prout. This tool is free software; you can
  * redistribute it and/or modify it under the terms of the GNU Lesser General
  * Public License as published by the Free Software Foundation; either version
  * 2.1 of the License, or (at your option) any later version.
@@ -214,13 +214,13 @@ public class MathToolModule {
      */
     @JRubyMethod(name = "grid", rest = true, module = true)
     public static IRubyObject createGrid(ThreadContext context, IRubyObject recv, IRubyObject[] args, Block block) {
-        int row = (Integer) args[0].toJava(Integer.class);
-        int column = (Integer) args[1].toJava(Integer.class);
+        int row = (int) args[0].toJava(Integer.class);
+        int column = (int) args[1].toJava(Integer.class);
         int rowStep = 1;
         int colStep = 1;
         if (args.length == 4){
-        rowStep = (Integer) args[2].toJava(Integer.class);
-        colStep = (Integer) args[3].toJava(Integer.class);
+        rowStep = (int) args[2].toJava(Integer.class);
+        colStep = (int) args[3].toJava(Integer.class);
         }
         if (block.isGiven()) {
               int tempRow = row / rowStep;
