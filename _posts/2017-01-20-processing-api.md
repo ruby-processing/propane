@@ -9,7 +9,7 @@ Unlike ruby-processing and JRubyArt, propane does not support `bare` sketches, a
 
 ### The processing-api
 
-Most of the processing methods, as explained in the [Processing Language API][processing], are available as instance methods on your Propane::App. (frame_rate, ellipse, and the 158 others.) This makes it easy as pie to use them within your sketch, but you should prefer snake case to camel case and there are some caveats. NB: you do need to explicitly create a [settings][settings] method in propane. 
+Most of the processing methods, as explained in the [Processing Language API][processing], are available as instance methods on your Propane::App. (frame_rate, ellipse, and the 158 others.) This makes it easy as pie to use them within your sketch, but you should prefer snake case to camel case and there are some caveats. NB: you do need to explicitly create a [settings][settings] method in propane.
 
 ``` ruby
 #!/usr/bin/env jruby
@@ -40,9 +40,27 @@ MySketch.new
 
 ### Caveats
 
+We do not directly support use of many processing `PApplet` static methods, since there are better `ruby` or `propane` alternatives. If you absolutely must use these methods, define a constant eg `Core` to stand for `PApplet` as follows:-
+
+```ruby
+Core = Java::ProcessingCore::PApplet
+# allows you to use
+val = Core.map(mouse_x, 0, width, 0, 10) # don't do it though
+# use instead our custom propane method, that is more ruby like
+val = map1d(mouse_x, 0..width, 0..10)
+```
+also if you absolutely must use `PVector` say a library demands it, define a const eg `Vect` as follows (avoid `Vector`):-
+
+```ruby
+Vect = Java::ProcessingCore::PVector
+# allows you to create an instance
+pvector = Vect.new
+# but in general you should prefer Vec2D or Vec3D as more ruby like alternatives to PVector
+```
+
 Here are some the main differences moving from vanilla processing to ruby-processing:-
 
-1. You do not declare types in ruby `vec = PVector.new` instead of `PVector vec = new PVector()` for example, however in this case you should use [Vec2D and Vec3D][vec], which are alternatives to PVector (but with methods that are much more ruby-like, and have extended functionality).
+1. You do not declare types in ruby, eg use `vec = Vect.new` instead of `PVector vec = new PVector()` for example, however in this case you should use [Vec2D and Vec3D][vec], which are alternatives to `PVector` (but with methods that are much more ruby-like, and have extended functionality).
 
 2. There are no void methods (what's evaluated gets returned without needing an explicit return)
 
