@@ -101,13 +101,6 @@ DO NOT MODIFIY - GENERATED CODE
               <configuration>
                 <artifactItems>
                   <artifactItem>
-                    <groupId>org.processing</groupId>
-                    <artifactId>core</artifactId>
-                    <version>3.3.7</version>
-                    <type>jar</type>
-                    <outputDirectory>${propane.basedir}/lib</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
                     <groupId>org.jogamp.jogl</groupId>
                     <artifactId>jogl-all</artifactId>
                     <version>${jogl.version}</version>
