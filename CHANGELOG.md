@@ -1,3 +1,5 @@
+**v2.7.0** Now using custom icons, nice blue ruby image
+
 **v2.6.6** Using a modified processing-core to support jdk9 (NB FX2D and sketches with control_panel using sliders are still expected to fail with jdk9). Jdk8 users should not notice any change.
 
 **v2.6.5** bump for processing-3.3.7

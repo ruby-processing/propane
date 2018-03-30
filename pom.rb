@@ -1,7 +1,7 @@
 require 'fileutils'
 project 'rp5extras', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane', '2.6.6'
+  id 'propane:propane', '2.7.0'
   packaging 'jar'
   description 'rp5extras for propane'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
