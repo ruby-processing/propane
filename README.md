@@ -10,7 +10,7 @@ adjust above for your OS/distro setup.
 - jdk8+ (jdk9 mostly works, see changelog, but is noisy)
 - jruby-9.1.16.0
 - mvn-3.5.0+
-- processing-core.jar (_build only_) not generally available
+- processing-core.jar (_build only_) see [propane-core](https://github.com/ruby-processing/processing-core)
 
 ## Building and testing
 
@@ -82,4 +82,3 @@ propane --install samples
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
 [processing-core]:https://github.com/ruby-processing/processing-core
-
