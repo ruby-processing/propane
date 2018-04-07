@@ -6,15 +6,21 @@ project 'propane', 'http://maven.apache.org' do
 
   description 'Processing core is the engine that drives processing, this is a hacked version for propane (a ruby version).'
 
-  organization 'processing.org', 'https://processing.org'
+  organization 'ruby-processing', 'https://ruby-processing.github.io'
 
-  ['Ben Fry', 'Casey Reas', 'Andres Colubri', 'Florian Jenett', 'Gottfried Haider', 'Manindra Moharana'].each do |name|
-    developer name do
-      name name
+  {
+    'monkstone' => 'Martin Prout', 'benfry' => 'Ben Fry',
+    'REAS' => 'Casey Reas', 'codeanticode' => 'Andres Colubri'
+  }.each do |key, value|
+    developer key do
+      name value
       roles 'developer'
     end
   end
+  license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'
   license 'LGPL 2', 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
+
+  issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
 
   properties( 'jogl.version' => '2.3.2',
     'jruby.api' => 'http://jruby.org/apidocs/',

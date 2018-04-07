@@ -16,10 +16,14 @@ DO NOT MODIFIY - GENERATED CODE
   <description>Processing core is the engine that drives processing, this is a hacked version for propane (a ruby version).</description>
   <url>http://maven.apache.org</url>
   <organization>
-    <name>processing.org</name>
-    <url>https://processing.org</url>
+    <name>ruby-processing</name>
+    <url>https://ruby-processing.github.io</url>
   </organization>
   <licenses>
+    <license>
+      <name>GPL 3</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+    </license>
     <license>
       <name>LGPL 2</name>
       <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</url>
@@ -27,48 +31,38 @@ DO NOT MODIFIY - GENERATED CODE
   </licenses>
   <developers>
     <developer>
-      <id>Ben Fry</id>
+      <id>monkstone</id>
+      <name>Martin Prout</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>benfry</id>
       <name>Ben Fry</name>
       <roles>
         <role>developer</role>
       </roles>
     </developer>
     <developer>
-      <id>Casey Reas</id>
+      <id>REAS</id>
       <name>Casey Reas</name>
       <roles>
         <role>developer</role>
       </roles>
     </developer>
     <developer>
-      <id>Andres Colubri</id>
+      <id>codeanticode</id>
       <name>Andres Colubri</name>
       <roles>
         <role>developer</role>
       </roles>
     </developer>
-    <developer>
-      <id>Florian Jenett</id>
-      <name>Florian Jenett</name>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <id>Gottfried Haider</id>
-      <name>Gottfried Haider</name>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <id>Manindra Moharana</id>
-      <name>Manindra Moharana</name>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
   </developers>
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/ruby-processing/propane/issues</url>
+  </issueManagement>
   <properties>
     <jogl.version>2.3.2</jogl.version>
     <jruby.api>http://jruby.org/apidocs/</jruby.api>
