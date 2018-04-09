@@ -46,6 +46,8 @@ Vec2D.new(a, b) # where a and b are both float or numeric (NB: stored as float)
 Vec2D.new(vec) # where vec has methods `:x` and `:y` that return float or numeric
 ```
 
+Note: normalize on zero vector returns a zero vector for simplicities sake (like PVector)
+
 Example Usages: [Examples][Vec2D]
 
 [Vec2D]: https://github.com/ruby-processing/propane-examples/blob/master/processing_app/library/vecmath/vec2d/
