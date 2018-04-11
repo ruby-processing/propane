@@ -33,7 +33,7 @@ Why was ruby-processing not updated to use processing3.0+? The [major changes][c
 
 ### Java
 
-You can use either Oracle or openjdk, but preferably jdk8, there are unresolved issues with both JRuby and processing with jdk9 but it mainly works (since propane-2.7.0).
+You can use either Oracle or openjdk, but preferably jdk8, there are unresolved issues with both JRuby and [processing][wiki] with jdk9 but it mainly works (since propane-2.7.0).
 
 ### JRuby
 
@@ -160,6 +160,7 @@ jruby monjori.rb # run single shader sketch
 [propane]:https://rubygems.org/gems/propane
 [changes]:https://github.com/processing/processing/wiki/Changes-in-3.0
 [official]:https://processing.org/download/?processing
+[wiki]:https://github.com/processing/processing/wiki/Supported-Platforms#java-9
 [platforms]:https://github.com/processing/processing/wiki/Supported-Platforms
 [editor]:{{site.github.url}}/editors/
 [sound]:https://monkstone.github.io/_posts/minim
