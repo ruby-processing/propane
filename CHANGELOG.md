@@ -1,3 +1,5 @@
+**v2.8.0** Integrated processing core, fix for control panel, drop set initial value for slider (default to mid range)
+
 **v2.7.0** Now using custom icons, nice blue ruby image
 
 **v2.6.6** Using a modified processing-core to support jdk9 (NB FX2D and sketches with control_panel using sliders are still expected to fail with jdk9). Jdk8 users should not notice any change.

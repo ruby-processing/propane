@@ -8,7 +8,7 @@
 module ControlPanel
   # class used to create slider elements for control_panel
   class Slider < javax.swing.JSlider
-    def initialize(control_panel, name, range, initial_value, proc = nil)
+    def initialize(control_panel, name, range, proc = nil)
       min = range.begin * 100
       max = (
         (range.exclude_end? && range.begin.respond_to?(:succ)) ?
@@ -21,11 +21,15 @@ module ControlPanel
       label = control_panel.add_element(self, name)
       add_change_listener do
         update_label(label, name, value)
-        Propane.app.instance_variable_set("@#{name}", value) unless value.nil?
+        app_value(name, value)
         proc.call(value) if proc
       end
-      set_value(initial_value ? initial_value * 100 : min)
-      fire_state_changed
+      val = (range.first + range.last) / 2
+      app_value(name, val * 100)
+    end
+
+    def app_value(name, val)
+      Propane.app.instance_variable_set("@#{name}", val)
     end
 
     def value
@@ -130,8 +134,8 @@ module ControlPanel
       set_title(name)
     end
 
-    def slider(name, range = 0..100, initial_value = nil, &block)
-      Slider.new(self, name, range, initial_value, block || nil)
+    def slider(name, range = 0..100, &block)
+      Slider.new(self, name, range, block || nil)
     end
 
     def menu(name, elements, initial_value = nil, &block)
