@@ -1,18 +1,20 @@
 # Here's a little library for quickly hooking up controls to sketches.
 # For messing with the parameters and such.
 # These controls will set instance variables on the sketches.
-
 # You can make sliders, checkboxes, buttons, and drop-down menus.
-# (optionally) pass the range and default value.
-
+# Optionally pass range and a default value to sliders.
 module ControlPanel
+  def self.app_value(name, val)
+    Propane.app.instance_variable_set("@#{name}", val)
+  end
+
   # class used to create slider elements for control_panel
   class Slider < javax.swing.JSlider
-    def initialize(control_panel, name, range, initial_value, proc = nil)
+    def initialize(control_panel, name, range, initial, proc = nil)
       min = range.begin * 100
-      max = (
-        (range.exclude_end? && range.begin.respond_to?(:succ)) ?
-          range.max : range.end) * 100
+      mx = range.end
+      mx = range.max if range.exclude_end? && range.begin.respond_to?(:succ)
+      max = mx * 100
       super(min, max)
       set_minor_tick_spacing((max - min).abs / 10)
       set_paint_ticks true
@@ -21,11 +23,12 @@ module ControlPanel
       label = control_panel.add_element(self, name)
       add_change_listener do
         update_label(label, name, value)
-        Propane.app.instance_variable_set("@#{name}", value) unless value.nil?
+        ControlPanel.app_value(name, value)
         proc.call(value) if proc
       end
-      set_value(initial_value ? initial_value * 100 : min)
-      fire_state_changed
+      val = initial.nil? ? (range.first + range.last) * 50 : initial * 100
+      set_value(val)
+      ControlPanel.app_value(name, val)
     end
 
     def value
@@ -46,7 +49,7 @@ module ControlPanel
       set_preferred_size(java.awt.Dimension.new(190, 30))
       control_panel.add_element(self, name)
       add_action_listener do
-        Propane.app.instance_variable_set("@#{name}", value) unless value.nil?
+        ControlPanel.app_value(name, value) unless value.nil?
         proc.call(value) if proc
       end
       set_selected_index(initial_value ? elements.index(initial_value) : 0)
@@ -66,10 +69,11 @@ module ControlPanel
       set_horizontal_alignment javax.swing.SwingConstants::CENTER
       control_panel.add_element(self, name, false)
       add_action_listener do
-        Propane.app.instance_variable_set("@#{name}", value)
+        ControlPanel.app_value(name, value)
         proc.call(value) if proc
       end
     end
+
     # define value as checkbox state
     def value
       is_selected
@@ -99,7 +103,7 @@ module ControlPanel
       super()
       @elements = []
       @panel = javax.swing.JPanel.new(java.awt.FlowLayout.new(1, 0, 0))
-      set_feel
+      feel
     end
 
     def display
@@ -107,7 +111,8 @@ module ControlPanel
       set_size 200, 30 + (64 * elements.size)
       set_default_close_operation javax.swing.JFrame::HIDE_ON_CLOSE
       set_resizable false
-      set_location(Propane.app.width + 10, 0) unless Propane.app.width + 10 > Propane.app.displayWidth
+      xoffset = Propane.app.width + 10
+      set_location(xoffset, 0) unless xoffset > Propane.app.displayWidth
       panel.visible = true
     end
 
@@ -130,8 +135,8 @@ module ControlPanel
       set_title(name)
     end
 
-    def slider(name, range = 0..100, initial_value = nil, &block)
-      Slider.new(self, name, range, initial_value, block || nil)
+    def slider(name, range = 0..100, initial = nil, &block)
+      Slider.new(self, name, range, initial, block || nil)
     end
 
     def menu(name, elements, initial_value = nil, &block)
@@ -148,17 +153,17 @@ module ControlPanel
     end
 
     def look_feel(lf)
-      set_feel(lf)
+      feel(lf)
     end
 
     private
 
-    def set_feel(lf = 'metal')
+    def feel(lf = 'metal')
       lafinfo = javax.swing.UIManager.getInstalledLookAndFeels
-      laf = lafinfo.to_ary.select do |info|
+      laf = lafinfo.to_ary.find do |info|
         info.name =~ Regexp.new(Regexp.escape(lf), Regexp::IGNORECASE)
       end
-      javax.swing.UIManager.setLookAndFeel(laf[0].class_name)
+      javax.swing.UIManager.setLookAndFeel(laf.class_name)
     end
   end
 
@@ -169,6 +174,8 @@ module ControlPanel
       return @control_panel unless block_given?
       yield(@control_panel)
       @control_panel.display
+      @control_panel.set_visible true
+      @control_panel # for legacy compat
     end
   end
 end
