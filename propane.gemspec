@@ -15,8 +15,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{ruby wrapper for processing-3.3.7 on MacOS and linux64 bit only for opengl}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
-  gem.files << 'lib/propane.jar'
-  gem.files << 'lib/processing-core.jar'
+  gem.files << 'lib/propane-2.8.0.jar'
   gem.files << 'lib/gluegen-rt-2.3.2.jar'
   gem.files << 'lib/jogl-all-2.3.2.jar'
   gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-amd64.jar'
