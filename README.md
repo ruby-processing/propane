@@ -1,21 +1,16 @@
 # Propane
-[![Gem Version](https://badge.fury.io/rb/propane.svg)](https://badge.fury.io/rb/propane) [![Travis CI](https://travis-ci.org/ruby-processing/propane.svg)](https://travis-ci.org/ruby-processing/propane)
+To build custom core see [processing-core][processing-core]
 
-A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.7, where we include processing core (from a local maven repository and opengl etc from maven central). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building].
+A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.7, where we include a modified processing core (`public runPropane()` replaces `protected runSketch()`, not currently useable with jruby and jdk 9). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building]. NB: this is a far from perfect solution and some sketches still fail to run with jdk9, but a least I get to diagnose those errors too.
 
-NB: The main reason for build failing is when the `core.jar` is not available from maven central, to install a local jar (_example for linux mint_):-
-```bash
-
-mvn install:install-file /home/tux/processing-3.3.7/core/library/core.jar -DgroupId=org.processing -DartifactId=core -Dversion=3.3.7
-```
 adjust above for your OS/distro setup.
 
 ## Requirements
 
-- jdk8+
+- jdk8+ (jdk9 mostly works, see changelog, but is noisy)
 - jruby-9.1.16.0
 - mvn-3.5.0+
-- core.jar processing-3.3.7 (_build only_)
+- processing-core.jar (_build only_) see [propane-core](https://github.com/ruby-processing/processing-core)
 
 ## Building and testing
 
@@ -28,7 +23,7 @@ rake javadoc
 ## Installation
 ```bash
 jgem install propane # from rubygems
-jgem install propane-2.6.4-java.gem # for local install
+jgem install propane-2.6.6-java.gem # local install requires a custom processing-core
 ```
 
 ## Usage
@@ -86,3 +81,4 @@ propane --install samples
 
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
+[processing-core]:https://github.com/ruby-processing/processing-core

@@ -118,7 +118,7 @@ module Propane
       Propane.app = self
       @arguments = arguments
       @options   = options
-      run_sketch
+      run_propane
     end
 
     def size(*args)
