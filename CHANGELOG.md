@@ -1,4 +1,4 @@
-**v2.8.0** Integrated processing core, fix for control panel, drop set initial value for slider (default to mid range)
+**v2.7.1** Avoid calling protected method in control_panel (ready for jdk9)
 
 **v2.7.0** Now using custom icons, nice blue ruby image
 
