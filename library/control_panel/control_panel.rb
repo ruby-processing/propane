@@ -9,6 +9,7 @@ module ControlPanel
   end
 
   # class used to create slider elements for control_panel
+  class Slider < javax.swing.JSlider
     def initialize(control_panel, name, range, initial, proc = nil)
       min = range.begin * 100
       mx = range.end

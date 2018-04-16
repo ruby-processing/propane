@@ -9,12 +9,12 @@ DO NOT MODIFIY - GENERATED CODE
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ruby-processing</groupId>
+  <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>2.8.0</version>
-  <name>propane</name>
-  <description>Processing core is the engine that drives processing, this is a hacked version for propane (a ruby version).</description>
-  <url>http://maven.apache.org</url>
+  <version>2.7.0</version>
+  <name>rp5extras</name>
+  <description>rp5extras for propane</description>
+  <url>https://github.com/monkstone/propane</url>
   <organization>
     <name>ruby-processing</name>
     <url>https://ruby-processing.github.io</url>
@@ -23,10 +23,6 @@ DO NOT MODIFIY - GENERATED CODE
     <license>
       <name>GPL 3</name>
       <url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
-    </license>
-    <license>
-      <name>LGPL 2</name>
-      <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</url>
     </license>
   </licenses>
   <developers>
@@ -37,28 +33,12 @@ DO NOT MODIFIY - GENERATED CODE
         <role>developer</role>
       </roles>
     </developer>
-    <developer>
-      <id>benfry</id>
-      <name>Ben Fry</name>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <id>REAS</id>
-      <name>Casey Reas</name>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <id>codeanticode</id>
-      <name>Andres Colubri</name>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
   </developers>
+  <scm>
+    <connection>scm:git:git://github.com/ruby-processing/propane.git</connection>
+    <developerConnection>scm:git:git@github.com/ruby-processing/propane.git</developerConnection>
+    <url>https://github.com/ruby-processing/propane</url>
+  </scm>
   <issueManagement>
     <system>Github</system>
     <url>https://github.com/ruby-processing/propane/issues</url>
@@ -83,13 +63,13 @@ DO NOT MODIFIY - GENERATED CODE
     </dependency>
     <dependency>
       <groupId>org.processing</groupId>
-      <artifactId>video</artifactId>
-      <version>3.0.2</version>
+      <artifactId>core</artifactId>
+      <version>3.3.7</version>
     </dependency>
     <dependency>
-      <groupId>com.apple.eawt</groupId>
-      <artifactId>apple</artifactId>
-      <version>1.0</version>
+      <groupId>org.processing</groupId>
+      <artifactId>video</artifactId>
+      <version>3.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.jogamp.jogl</groupId>
@@ -103,25 +83,9 @@ DO NOT MODIFIY - GENERATED CODE
     </dependency>
   </dependencies>
   <build>
-    <resources>
-      <resource>
-        <directory>${source.directory}/main/java</directory>
-        <includes>
-          <include>**/**/*.glsl</include>
-          <include>**/*.jnilib</include>
-        </includes>
-        <excludes>
-          <exclude>**/**/*.java</exclude>
-        </excludes>
-      </resource>
-      <resource>
-        <directory>${source.directory}/main/resources</directory>
-        <includes>
-          <include>**/*.png</include>
-          <include>*.txt</include>
-        </includes>
-      </resource>
-    </resources>
+    <sourceDirectory>src</sourceDirectory>
+    <defaultGoal>package</defaultGoal>
+    <finalName>propane</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -187,33 +151,35 @@ DO NOT MODIFIY - GENERATED CODE
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.10.4</version>
+          <configuration>
+            <detectOfflineLinks>false</detectOfflineLinks>
+            <links>
+              <link>${jruby.api}</link>
+              <link>${processing.api}</link>
+            </links>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifestFile>MANIFEST.MF</manifestFile>
+            </archive>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <sourceEncoding>utf-8</sourceEncoding>
-          <minimumTokens>100</minimumTokens>
-          <targetJdk>${compileSource}</targetJdk>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 </project>
