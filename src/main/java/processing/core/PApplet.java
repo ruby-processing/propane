@@ -169,8 +169,8 @@ public class PApplet implements PConstants {
    * example, if the current screen resolution is 1024x768,
    * <b>displayWidth</b> is 1024 and <b>displayHeight</b> is 768. These
    * dimensions are useful when exporting full-screen applications.
-   * 
-   * 
+   *
+   *
    * To ensure that the sketch takes over the entire screen, use "Present"
    * instead of "Run". Otherwise the window will still have a frame border
    * around it and not be placed in the upper corner of the screen. On Mac OS
@@ -3701,15 +3701,15 @@ public class PApplet implements PConstants {
       handleMethods("dispose");
     }
 
-    if (platform == MACOSX) {
-      try {
-        final String td = "processing.core.ThinkDifferent";
-        final Class<?> thinkDifferent = getClass().getClassLoader().loadClass(td);
-        thinkDifferent.getMethod("cleanup").invoke(null);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
+    // if (platform == MACOSX) {
+    //   try {
+    //     final String td = "processing.core.ThinkDifferent";
+    //     final Class<?> thinkDifferent = getClass().getClassLoader().loadClass(td);
+    //     thinkDifferent.getMethod("cleanup").invoke(null);
+    //   } catch (Exception e) {
+    //     e.printStackTrace();
+    //   }
+    // }
 
   }
 
@@ -10699,18 +10699,18 @@ public class PApplet implements PConstants {
       }
     }
 
-    if (platform == MACOSX) {
-      try {
-        final String td = "processing.core.ThinkDifferent";
-        Class<?> thinkDifferent =
-          Thread.currentThread().getContextClassLoader().loadClass(td);
-        Method method =
-          thinkDifferent.getMethod("init", new Class[] { PApplet.class });
-        method.invoke(null, new Object[] { sketch });
-      } catch (Exception e) {
-        e.printStackTrace();  // That's unfortunate
-      }
-    }
+    // if (platform == MACOSX) {
+    //   try {
+    //     final String td = "processing.core.ThinkDifferent";
+    //     Class<?> thinkDifferent =
+    //       Thread.currentThread().getContextClassLoader().loadClass(td);
+    //     Method method =
+    //       thinkDifferent.getMethod("init", new Class[] { PApplet.class });
+    //     method.invoke(null, new Object[] { sketch });
+    //   } catch (Exception e) {
+    //     e.printStackTrace();  // That's unfortunate
+    //   }
+    // }
 
     // Set the suggested display that's coming from the command line
     // (and most likely, from the PDE's preference setting).
