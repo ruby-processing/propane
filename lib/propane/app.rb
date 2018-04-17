@@ -9,6 +9,7 @@ module Propane
   Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
   SKETCH_ROOT = File.absolute_path('.')
 
+  # A utility to facillitate rendering of Vec2D and Vec3D as vertex
   module Render
     java_import 'monkstone.vecmath.AppRender'
     java_import 'monkstone.vecmath.ShapeRender'
@@ -110,8 +111,7 @@ module Propane
     def initialize(options = {}, arguments = [])
       # Guard against invalid input.
       proxy_java_fields
-      raise TypeError unless options.is_a? Hash
-      raise TypeError unless arguments.is_a? Array
+      raise TypeError unless options.is_a?(Hash) && arguments.is_a?(Array)
       # Set up the sketch.
       super()
       post_initialize(options)
