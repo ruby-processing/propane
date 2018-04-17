@@ -183,5 +183,5 @@ module Propane
       return Propane.app.send(name, *args) if Propane.app.respond_to? name
       super
     end
-  end # Processing::Proxy
+  end # Propane::Proxy
 end # Propane

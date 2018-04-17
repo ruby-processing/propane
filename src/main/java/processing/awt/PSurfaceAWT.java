@@ -587,22 +587,22 @@ public class PSurfaceAWT extends PSurfaceNone {
   @Override
   public void setIcon(PImage image) {
     Image awtImage = (Image) image.getNative();
-
-    if (PApplet.platform != PConstants.MACOSX) {
-      frame.setIconImage(awtImage);
-
-    } else {
-      try {
-        final String td = "processing.core.ThinkDifferent";
-        Class<?> thinkDifferent =
-          Thread.currentThread().getContextClassLoader().loadClass(td);
-        Method method =
-          thinkDifferent.getMethod("setIconImage", new Class[] { java.awt.Image.class });
-        method.invoke(null, new Object[] { awtImage });
-      } catch (Exception e) {
-        e.printStackTrace();  // That's unfortunate
-      }
-    }
+    frame.setIconImage(awtImage);
+    // if (PApplet.platform != PConstants.MACOSX) {
+    //   frame.setIconImage(awtImage);
+    //
+    // } else {
+    //   try {
+    //     final String td = "processing.core.ThinkDifferent";
+    //     Class<?> thinkDifferent =
+    //       Thread.currentThread().getContextClassLoader().loadClass(td);
+    //     Method method =
+    //       thinkDifferent.getMethod("setIconImage", new Class[] { java.awt.Image.class });
+    //     method.invoke(null, new Object[] { awtImage });
+    //   } catch (Exception e) {
+    //     e.printStackTrace();  // That's unfortunate
+    //   }
+    // }
   }
 
 
@@ -623,7 +623,7 @@ public class PSurfaceAWT extends PSurfaceNone {
   protected void setProcessingIcon(Frame frame) {
     // On OS X, this only affects what shows up in the dock when minimized.
     // So replacing it is actually a step backwards. Brilliant.
-    if (PApplet.platform != PConstants.MACOSX) {
+    // if (PApplet.platform != PConstants.MACOSX) {
       //Image image = Toolkit.getDefaultToolkit().createImage(ICON_IMAGE);
       //frame.setIconImage(image);
       try {
@@ -643,25 +643,25 @@ public class PSurfaceAWT extends PSurfaceNone {
 
       } catch (Exception e) { }  // harmless; keep this to ourselves
 
-    } else {  // handle OS X differently
-      if (!dockIconSpecified()) {  // don't override existing -Xdock param
-        // On OS X, set this for AWT surfaces, which handles the dock image
-        // as well as the cmd-tab image that's shown. Just one size, I guess.
-        URL url = PApplet.class.getResource("/icon/icon-512.png");
-        // Seems dangerous to have this in code instead of using reflection, no?
-        //ThinkDifferent.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
-        try {
-          final String td = "processing.core.ThinkDifferent";
-          Class<?> thinkDifferent =
-            Thread.currentThread().getContextClassLoader().loadClass(td);
-          Method method =
-            thinkDifferent.getMethod("setIconImage", new Class[] { java.awt.Image.class });
-          method.invoke(null, new Object[] { Toolkit.getDefaultToolkit().getImage(url) });
-        } catch (Exception e) {
-          e.printStackTrace();  // That's unfortunate
-        }
-      }
-    }
+    // } else {  // handle OS X differently
+    //   if (!dockIconSpecified()) {  // don't override existing -Xdock param
+    //     // On OS X, set this for AWT surfaces, which handles the dock image
+    //     // as well as the cmd-tab image that's shown. Just one size, I guess.
+    //     URL url = PApplet.class.getResource("/icon/icon-512.png");
+    //     // Seems dangerous to have this in code instead of using reflection, no?
+    //     //ThinkDifferent.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
+    //     try {
+    //       final String td = "processing.core.ThinkDifferent";
+    //       Class<?> thinkDifferent =
+    //         Thread.currentThread().getContextClassLoader().loadClass(td);
+    //       Method method =
+    //         thinkDifferent.getMethod("setIconImage", new Class[] { java.awt.Image.class });
+    //       method.invoke(null, new Object[] { Toolkit.getDefaultToolkit().getImage(url) });
+    //     } catch (Exception e) {
+    //       e.printStackTrace();  // That's unfortunate
+    //     }
+    //   }
+    // }
   }
 
 
