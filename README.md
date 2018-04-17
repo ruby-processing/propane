@@ -1,6 +1,6 @@
 # Propane
 
-[![Build Status](https://travis-ci.org/ruby-processing/propane.svg?branch=master)](https://travis-ci.org/ruby-processing/propane)
+[![Build Status](https://travis-ci.org/ruby-processing/propane.svg?branch=think_open)](https://travis-ci.org/ruby-processing/propane)
 
 Features an integrated [processing-core][processing-core] but removing troubling proprietary code (ThinkOpen as in free not asinine ThinkDifferent as proprietary) such as `com.apple.eawt.Application` apple.jar and `com.sun.javafx.geom.Path2D` from `javafx`
 
