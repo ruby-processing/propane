@@ -21,7 +21,7 @@ end
 desc 'Install'
 task :install do
   sh 'mvn dependency:copy'
-  sh 'mv target/propane.jar lib'
+  sh 'mv target/propane-2.8.0.jar lib'
 end
 
 desc 'Gem'

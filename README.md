@@ -1,16 +1,14 @@
 # Propane
-To build custom core see [processing-core][processing-core]
+Features an integrated [processing-core][processing-core] but removing troubling proprietary code (ThinkOpen as in free not asinine ThinkDifferent as proprietary) such as `com.apple.eawt.Application` apple.jar and `com.sun.javafx.geom.Path2D` from `javafx`
 
-A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.7, where we include a modified processing core (`public runPropane()` replaces `protected runSketch()`, not currently useable with jruby and jdk 9). These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building]. NB: this is a far from perfect solution and some sketches still fail to run with jdk9, but a least I get to diagnose those errors too.
 
-adjust above for your OS/distro setup.
+A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.3.7, where we integrate a modified processing core. This jar is small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building]. It is entirely possible that this version will have degraded performance on Mac (lacking support for retina display?), but if it works passably well it could be the future on MacOS else this branch could be re-purposed as pure linux and hence herald possible raspberryPI support.
 
 ## Requirements
 
-- jdk8+ (jdk9 mostly works, see changelog, but is noisy)
+- jdk8+
 - jruby-9.1.16.0
-- mvn-3.5.0+
-- processing-core.jar (_build only_) see [propane-core](https://github.com/ruby-processing/processing-core)
+- mvn-3.5.0+ (_build only_)
 
 ## Building and testing
 
@@ -22,8 +20,9 @@ rake javadoc
 
 ## Installation
 ```bash
-jgem install propane # from rubygems
-jgem install propane-2.6.6-java.gem # local install requires a custom processing-core
+jgem install propane --pre # from rubygems
+jgem install propane-2.8.0.pre-java.gem # local install
+
 ```
 
 ## Usage

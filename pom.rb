@@ -1,107 +1,108 @@
-require 'fileutils'
-project 'rp5extras', 'https://github.com/monkstone/propane' do
+project 'propane', 'http://maven.apache.org' do
+
   model_version '4.0.0'
-  id 'propane:propane', '2.7.1'
+  id 'ruby-processing:propane:2.8.0'
   packaging 'jar'
-  description 'rp5extras for propane'
+
+  description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
+
   organization 'ruby-processing', 'https://ruby-processing.github.io'
-  { 'monkstone' => 'Martin Prout' }.each do |key, value|
+
+  {
+    'monkstone' => 'Martin Prout', 'benfry' => 'Ben Fry',
+    'REAS' => 'Casey Reas', 'codeanticode' => 'Andres Colubri'
+  }.each do |key, value|
     developer key do
       name value
       roles 'developer'
     end
   end
   license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'
+  license 'LGPL 2', 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
+
   issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
 
-  source_control(
-    url: 'https://github.com/ruby-processing/propane',
-    connection: 'scm:git:git://github.com/ruby-processing/propane.git',
-    developer_connection: 'scm:git:git@github.com/ruby-processing/propane.git'
-    )
-
-  properties('source.directory' => 'src',
-    'propane.basedir' => '${project.basedir}',
-    'polyglot.dump.pom' => 'pom.xml',
-    'maven.compiler.source' => '1.8',
-    'project.build.sourceEncoding' => 'utf-8',
+  properties( 'jogl.version' => '2.3.2',
+    'jruby.api' => 'http://jruby.org/apidocs/',
+    'source.directory' => 'src',
     'maven.compiler.target' => '1.8',
-    'jruby.api' => 'http://jruby.org/apidocs/',
     'processing.api' => 'http://processing.github.io/processing-javadocs/core/',
-    'jruby.api' => 'http://jruby.org/apidocs/',
-    'jogl.version' => '2.3.2'
-    )
+    'propane.basedir' => '${project.basedir}',
+    'project.build.sourceEncoding' => 'utf-8',
+    'polyglot.dump.pom' => 'pom.xml',
+    'maven.compiler.source' => '1.8' )
+    pom 'org.jruby:jruby:9.1.16.0'
+    jar 'org.processing:video:3.0.2'
+    jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
+    jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
 
-  pom 'org.jruby:jruby:9.1.16.0'
-  jar 'org.processing:core:3.3.7'
-  jar 'org.processing:video:3.0.2'
-  jar('org.jogamp.jogl:jogl-all:${jogl.version}')
-  jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
-
-  overrides do
-    plugin :resources, '2.6'
-    plugin :dependency, '2.10' do
-      execute_goals( id: 'default-cli',
-        artifactItems: [ { groupId:  'org.jogamp.jogl',
-          artifactId:  'jogl-all',
-          version:  '${jogl.version}',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.gluegen',
-          artifactId:  'gluegen-rt',
-          version:  '${jogl.version}',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.jogl',
-          artifactId:  'jogl-all',
-          version:  '${jogl.version}',
-          classifier: 'natives-linux-amd64',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.gluegen',
-          artifactId:  'gluegen-rt',
-          version:  '${jogl.version}',
-          type:  'jar',
-          classifier: 'natives-linux-amd64',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.jogl',
-          artifactId:  'jogl-all',
-          version:  '${jogl.version}',
-          classifier: 'natives-macosx-universal',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.gluegen',
-          artifactId:  'gluegen-rt',
-          version:  '${jogl.version}',
-          type:  'jar',
-          classifier: 'natives-macosx-universal',
-          outputDirectory: '${propane.basedir}/lib'
-        }
+    overrides do
+      plugin :resources, '2.6'
+      plugin :dependency, '2.10' do
+        execute_goals( id: 'default-cli',
+          artifactItems: [ { groupId:  'org.jogamp.jogl',
+            artifactId:  'jogl-all',
+            version:  '${jogl.version}',
+            type:  'jar',
+            outputDirectory: '${propane.basedir}/lib'
+          },
+          { groupId:  'org.jogamp.gluegen',
+            artifactId:  'gluegen-rt',
+            version:  '${jogl.version}',
+            type:  'jar',
+            outputDirectory: '${propane.basedir}/lib'
+          },
+          { groupId:  'org.jogamp.jogl',
+            artifactId:  'jogl-all',
+            version:  '${jogl.version}',
+            classifier: 'natives-linux-amd64',
+            type:  'jar',
+            outputDirectory: '${propane.basedir}/lib'
+          },
+          { groupId:  'org.jogamp.gluegen',
+            artifactId:  'gluegen-rt',
+            version:  '${jogl.version}',
+            type:  'jar',
+            classifier: 'natives-linux-amd64',
+            outputDirectory: '${propane.basedir}/lib'
+          },
+          { groupId:  'org.jogamp.jogl',
+            artifactId:  'jogl-all',
+            version:  '${jogl.version}',
+            classifier: 'natives-macosx-universal',
+            type:  'jar',
+            outputDirectory: '${propane.basedir}/lib'
+          },
+          { groupId:  'org.jogamp.gluegen',
+            artifactId:  'gluegen-rt',
+            version:  '${jogl.version}',
+            type:  'jar',
+            classifier: 'natives-macosx-universal',
+            outputDirectory: '${propane.basedir}/lib'
+          }
         ]
       )
     end
+  end
 
+  plugin( :resources, '2.7',
+    'encoding' =>  'UTF-8' )
     plugin( :compiler, '3.7.0',
-      source: '${maven.compiler.source}',
-      target: '${maven.compiler.target}'
-    )
-    plugin( :javadoc, '2.10.4',
-      detect_offline_links:  'false',
-      links: ['${jruby.api}', '${processing.api}']
-    )
-    plugin( :jar, '3.0.2',
-      archive: { manifestFile: 'MANIFEST.MF' }
-    )
-  end
-
-  build do
-    default_goal 'package'
-    source_directory 'src'
-    final_name 'propane'
-  end
-end
+      'source' =>  '1.8',
+      'target' =>  '1.8' )
+      plugin( :pmd, '3.3',
+        'sourceEncoding' =>  'utf-8',
+        'minimumTokens' =>  '100',
+        'targetJdk' =>  '${compileSource}' )
+        build do
+          resource do
+            directory '${source.directory}/main/java'
+            includes ['**/**/*.glsl', '**/*.jnilib']
+            excludes '**/**/*.java'
+          end
+          resource do
+            directory '${source.directory}/main/resources'
+            includes ['**/*.png', '*.txt']
+          end
+        end
+      end

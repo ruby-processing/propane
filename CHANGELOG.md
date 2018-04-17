@@ -1,3 +1,5 @@
+**v2.8.0** Integrate processing-core, but think free (as in non-proprietary instead of Apple think different). If it doesn't then work on Mac could re-purpose for raspberryPI.
+
 **v2.7.1** Avoid calling protected method in control_panel (ready for jdk9)
 
 **v2.7.0** Now using custom icons, nice blue ruby image
