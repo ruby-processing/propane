@@ -32,7 +32,8 @@ file file_name do
   end
 end
 
-directory "~/.propane/library"
+directory "~/.propane/libraries/sound"
+directory "~/.propane/libraries/video"
 
 desc 'download and copy sound library to ~/.propane'
 task download_and_copy_sound: [:download_sound, :copy_sound]
