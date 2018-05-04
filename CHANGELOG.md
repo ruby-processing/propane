@@ -1,3 +1,5 @@
+**v2.7.2** Slight re-factor of control_panel, fix virgin install of libraries folder, add grafica library examples suggest upgrade to jruby-9.1.17.0
+
 **v2.7.1** Avoid calling protected method in control_panel (ready for jdk9)
 
 **v2.7.0** Now using custom icons, nice blue ruby image
