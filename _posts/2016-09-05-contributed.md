@@ -37,7 +37,7 @@ Install libraries to your `~/.propane/libraries` folder.  NB: this created for y
 
 ```bash
 propane -i Sound
-propane - Video
+propane -i Video
 ```
 
 It can make sense to convert the library names and jars from `camelcase` to `snakecase`, (_ie when library creators have messed up_) you just need to be consistent, see below
