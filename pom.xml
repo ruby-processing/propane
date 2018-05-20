@@ -11,9 +11,9 @@ DO NOT MODIFIY - GENERATED CODE
   <modelVersion>4.0.0</modelVersion>
   <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>2.7.2</version>
-  <name>rp5extras</name>
-  <description>rp5extras for propane</description>
+  <version>2.9.0</version>
+  <name>propane</name>
+  <description>An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.</description>
   <url>https://github.com/monkstone/propane</url>
   <organization>
     <name>ruby-processing</name>
@@ -24,11 +24,36 @@ DO NOT MODIFIY - GENERATED CODE
       <name>GPL 3</name>
       <url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
     </license>
+    <license>
+      <name>LGPL 2</name>
+      <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</url>
+    </license>
   </licenses>
   <developers>
     <developer>
       <id>monkstone</id>
       <name>Martin Prout</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>benfry</id>
+      <name>Ben Fry</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>REAS</id>
+      <name>Casey Reas</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>codeanticode</id>
+      <name>Andres Colubri</name>
       <roles>
         <role>developer</role>
       </roles>
@@ -62,9 +87,9 @@ DO NOT MODIFIY - GENERATED CODE
       <type>pom</type>
     </dependency>
     <dependency>
-      <groupId>org.processing</groupId>
-      <artifactId>core</artifactId>
-      <version>3.3.7</version>
+      <groupId>com.apple.eawt</groupId>
+      <artifactId>apple</artifactId>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>org.processing</groupId>
@@ -83,9 +108,25 @@ DO NOT MODIFIY - GENERATED CODE
     </dependency>
   </dependencies>
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <defaultGoal>package</defaultGoal>
-    <finalName>propane</finalName>
+    <resources>
+      <resource>
+        <directory>${source.directory}/main/java</directory>
+        <includes>
+          <include>**/**/*.glsl</include>
+          <include>**/*.jnilib</include>
+        </includes>
+        <excludes>
+          <exclude>**/**/*.java</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>${source.directory}/main/resources</directory>
+        <includes>
+          <include>**/*.png</include>
+          <include>*.txt</include>
+        </includes>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
