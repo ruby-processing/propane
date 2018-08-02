@@ -17,7 +17,6 @@ Example sketch:-
 ```ruby
 #!/usr/bin/env jruby
 require 'propane'
-require_relative 'register_send'
 
 class LibraryProxySketch < Propane::App
 
