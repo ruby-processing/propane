@@ -32,7 +32,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
     'jogl.version' => '2.3.2'
     )
 
-  pom 'org.jruby:jruby:9.1.16.0'
+  pom 'org.jruby:jruby:9.2.0.0'
   jar 'org.processing:core:3.3.7'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
@@ -86,7 +86,7 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
       )
     end
 
-    plugin( :compiler, '3.7.0',
+    plugin( :compiler, '3.8.0',
       source: '${maven.compiler.source}',
       target: '${maven.compiler.target}'
     )
