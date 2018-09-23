@@ -39,7 +39,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
     )
 
   pom 'org.jruby:jruby:9.2.0.0'
-  jar 'org.processing:core:3.3.7'
+  jar 'com.apple.eawt:apple:1.0'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
   jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
