@@ -1,17 +1,23 @@
 require 'fileutils'
-project 'rp5extras', 'https://github.com/monkstone/propane' do
+project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane', '2.7.2'
+  id 'propane:propane:2.9.0'
   packaging 'jar'
-  description 'rp5extras for propane'
+  description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
+
   organization 'ruby-processing', 'https://ruby-processing.github.io'
-  { 'monkstone' => 'Martin Prout' }.each do |key, value|
+
+  {
+    'monkstone' => 'Martin Prout', 'benfry' => 'Ben Fry',
+    'REAS' => 'Casey Reas', 'codeanticode' => 'Andres Colubri'
+  }.each do |key, value|
     developer key do
       name value
       roles 'developer'
     end
   end
   license 'GPL 3', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'
+  license 'LGPL 2', 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
   issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
 
   source_control(
@@ -100,8 +106,14 @@ project 'rp5extras', 'https://github.com/monkstone/propane' do
   end
 
   build do
-    default_goal 'package'
-    source_directory 'src'
-    final_name 'propane'
+    resource do
+      directory '${source.directory}/main/java'
+      includes ['**/**/*.glsl', '**/*.jnilib']
+      excludes '**/**/*.java'
+    end
+    resource do
+      directory '${source.directory}/main/resources'
+      includes ['**/*.png', '*.txt']
+    end
   end
 end

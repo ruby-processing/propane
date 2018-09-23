@@ -7,10 +7,10 @@ adjust above for your OS/distro setup.
 
 ## Requirements
 
-- jdk8+ (jdk9 mostly works, see changelog, but is noisy)
-- jruby-9.1.16.0
-- mvn-3.5.0+
-- processing-core.jar (_build only_) see [propane-core](https://github.com/ruby-processing/processing-core)
+- `jdk8_u172`
+- `jruby-9.1.16.0`
+- `mvn-3.5.0+`
+- `apple.jar` (_build only_) see [vanilla-processing](https://github.com/processing/processing/blob/master/core/apple.jar)
 
 ## Building and testing
 
@@ -23,7 +23,7 @@ rake javadoc
 ## Installation
 ```bash
 jgem install propane # from rubygems
-jgem install propane-2.7.1-java.gem # local install requires a custom processing-core
+jgem install propane-2.9.0-java.gem # local install requires a custom processing-core
 ```
 
 ## Usage
