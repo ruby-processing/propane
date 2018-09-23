@@ -5,6 +5,7 @@
 java_import 'monkstone.slider.CustomHorizontalSlider'
 java_import 'monkstone.slider.CustomVerticalSlider'
 
+# Slider module
 module Slider
   def self.slider(app:, x:, y:, name:, **opts)
     options = default.merge opts
@@ -35,7 +36,7 @@ module Slider
     end
     slider
   end
-  
+
   def self.default
     { length: 100, range: (0..100) }
   end

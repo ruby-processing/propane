@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.description  = <<-EOS
   A batteries included version of processing in ruby, for MacOS and linux64.
   EOS
-  gem.summary       = %q{ruby wrapper for processing-3.3.7 on MacOS and linux64 bit only for opengl}
+  gem.summary       = %q{ruby wrapper for processing-3.4 on MacOS and linux64 bit only for opengl}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/propane-2.9.0.jar'
