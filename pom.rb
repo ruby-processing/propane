@@ -1,7 +1,7 @@
 require 'fileutils'
 project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane:2.9.0'
+  id 'propane:propane:2.9.1'
   packaging 'jar'
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
 
@@ -44,54 +44,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
   jar('org.jogamp.gluegen:gluegen-rt-main:${jogl.version}')
 
-  overrides do
-    plugin :resources, '2.6'
-    plugin :dependency, '2.10' do
-      execute_goals( id: 'default-cli',
-        artifactItems: [ { groupId:  'org.jogamp.jogl',
-          artifactId:  'jogl-all',
-          version:  '${jogl.version}',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.gluegen',
-          artifactId:  'gluegen-rt',
-          version:  '${jogl.version}',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.jogl',
-          artifactId:  'jogl-all',
-          version:  '${jogl.version}',
-          classifier: 'natives-linux-amd64',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.gluegen',
-          artifactId:  'gluegen-rt',
-          version:  '${jogl.version}',
-          type:  'jar',
-          classifier: 'natives-linux-amd64',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.jogl',
-          artifactId:  'jogl-all',
-          version:  '${jogl.version}',
-          classifier: 'natives-macosx-universal',
-          type:  'jar',
-          outputDirectory: '${propane.basedir}/lib'
-        },
-        { groupId:  'org.jogamp.gluegen',
-          artifactId:  'gluegen-rt',
-          version:  '${jogl.version}',
-          type:  'jar',
-          classifier: 'natives-macosx-universal',
-          outputDirectory: '${propane.basedir}/lib'
-        }
-        ]
-      )
-    end
-
+  plugin_management do
     plugin( :compiler, '3.8.0',
       source: '${maven.compiler.source}',
       target: '${maven.compiler.target}'

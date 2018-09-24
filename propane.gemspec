@@ -10,18 +10,21 @@ Gem::Specification.new do |gem|
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.licenses     = %w(GPL-3.0 LGPL-2.0)
   gem.description  = <<-EOS
-  A batteries included version of processing in ruby, for MacOS and linux64.
+  A batteries included version of processing in ruby.
   EOS
-  gem.summary       = %q{ruby wrapper for processing-3.4 on MacOS and linux64 bit only for opengl}
+  gem.summary       = %q{ruby wrapper for processing-3.4 on MacOS, linux and windows 64bit only for opengl}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
-  gem.files << 'lib/propane-2.9.0.jar'
-  gem.files << 'lib/gluegen-rt-2.3.2.jar'
-  gem.files << 'lib/jogl-all-2.3.2.jar'
-  gem.files << 'lib/gluegen-rt-2.3.2-natives-linux-amd64.jar'
-  gem.files << 'lib/gluegen-rt-2.3.2-natives-macosx-universal.jar'
-  gem.files << 'lib/jogl-all-2.3.2-natives-linux-amd64.jar'
-  gem.files << 'lib/jogl-all-2.3.2-natives-macosx-universal.jar'
+  gem.files << 'lib/propane-2.9.1.jar'
+  gem.files << 'lib/apple.jar'
+  gem.files << 'lib/gluegen-rt.jar'
+  gem.files << 'lib/jogl-all.jar'
+  gem.files << 'lib/gluegen-rt-natives-linux-amd64.jar'
+  gem.files << 'lib/gluegen-rt-natives-macosx-universal.jar'
+  gem.files << 'gluegen-rt-natives-windows-amd64.jar'
+  gem.files << 'lib/jogl-all-natives-linux-amd64.jar'
+  gem.files << 'lib/jogl-all-natives-macosx-universal.jar'
+  gem.files << 'lib/jogl-all-natives-windows-amd64.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.add_development_dependency 'rake', '~> 12.3'
