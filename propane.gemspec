@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/jogl-all.jar'
   gem.files << 'lib/gluegen-rt-natives-linux-amd64.jar'
   gem.files << 'lib/gluegen-rt-natives-macosx-universal.jar'
-  gem.files << 'gluegen-rt-natives-windows-amd64.jar'
+  gem.files << 'lib/gluegen-rt-natives-windows-amd64.jar'
   gem.files << 'lib/jogl-all-natives-linux-amd64.jar'
   gem.files << 'lib/jogl-all-natives-macosx-universal.jar'
   gem.files << 'lib/jogl-all-natives-windows-amd64.jar'
