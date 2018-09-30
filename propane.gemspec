@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.description  = <<-EOS
   A batteries included version of processing in ruby.
   EOS
-  gem.summary       = %q{ruby wrapper for processing-3.4 on MacOS, linux and windows 64bit only for opengl}
+  gem.summary       = %q{ruby wrapper for processing-3.4 on MacOS, linux and windows (64bit only)}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/propane-2.9.1.jar'
@@ -32,5 +32,5 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'arcball', '~> 1.0', '>= 1.0.0'
   gem.require_paths = ['lib']
   gem.platform      = 'java'
-  gem.requirements << 'java runtime >= 1.8.0_171+'
+  gem.requirements << 'java runtime >= 1.8.0_181+'
 end
