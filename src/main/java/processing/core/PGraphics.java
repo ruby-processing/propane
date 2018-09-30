@@ -227,7 +227,7 @@ public class PGraphics extends PImage implements PConstants {
    * images go out of scope, they will be properly garbage collected.
    */
   protected WeakHashMap<PImage, Object> cacheMap =
-    new WeakHashMap<PImage, Object>();
+    new WeakHashMap<>();
 
 
   ////////////////////////////////////////////////////////////
@@ -334,7 +334,7 @@ public class PGraphics extends PImage implements PConstants {
   /** True if colors are not in the range 0..1 */
   boolean colorModeScale; // = true;
 
-  /** 
+  /**
    * True if colorMode(RGB, 255). Defaults to true so that color()
    * used as part of a field declaration will properly assign values.
    */
@@ -2016,6 +2016,7 @@ public class PGraphics extends PImage implements PConstants {
     showMissingWarning("clip");
   }
 
+
   /**
    * ( begin auto-generated from noClip.xml )
    *
@@ -2269,9 +2270,9 @@ public class PGraphics extends PImage implements PConstants {
   */
   public void curveVertex(float x, float y) {
     curveVertexCheck();
-    float[] vertex = curveVertices[curveVertexCount];
-    vertex[X] = x;
-    vertex[Y] = y;
+    float[] v = curveVertices[curveVertexCount];
+    v[X] = x;
+    v[Y] = y;
     curveVertexCount++;
 
     // draw a segment if there are enough points
@@ -2292,10 +2293,10 @@ public class PGraphics extends PImage implements PConstants {
    */
   public void curveVertex(float x, float y, float z) {
     curveVertexCheck();
-    float[] vertex = curveVertices[curveVertexCount];
-    vertex[X] = x;
-    vertex[Y] = y;
-    vertex[Z] = z;
+    float[] v = curveVertices[curveVertexCount];
+    v[X] = x;
+    v[Y] = y;
+    v[Z] = z;
     curveVertexCount++;
 
     // draw a segment if there are enough points
@@ -3904,6 +3905,7 @@ public class PGraphics extends PImage implements PConstants {
   }
 
 
+
   //////////////////////////////////////////////////////////////
 
   // SHAPE
@@ -3955,7 +3957,6 @@ public class PGraphics extends PImage implements PConstants {
       }
     }
   }
-
 
 
   /**
@@ -4053,6 +4054,7 @@ public class PGraphics extends PImage implements PConstants {
   protected void shape(PShape shape, float x, float y, float z, float c, float d, float e) {
     showMissingWarning("shape");
   }
+
 
 
   //////////////////////////////////////////////////////////////
@@ -4916,16 +4918,6 @@ public class PGraphics extends PImage implements PConstants {
     textBreakStop[textBreakCount] = stop;
     textBreakCount++;
   }
-
-
-//  public void text(String s, float a, float b, float c, float d, float z) {
-//    if (z != 0) translate(0, 0, z);  // slowness, badness
-//
-//    text(s, a, b, c, d);
-//    textZ = z;
-//
-//    if (z != 0) translate(0, 0, -z);  // TEMPORARY HACK! SLOW!
-//  }
 
 
   public void text(int num, float x, float y) {
@@ -6169,7 +6161,9 @@ public class PGraphics extends PImage implements PConstants {
     ellipseMode(s.ellipseMode);
     shapeMode(s.shapeMode);
 
-    blendMode(s.blendMode);
+    if (blendMode != s.blendMode) {
+      blendMode(s.blendMode);
+    }
 
     if (s.tint) {
       tint(s.tintColor);
@@ -7384,6 +7378,7 @@ public class PGraphics extends PImage implements PConstants {
     pushStyle();
     pushMatrix();
     resetMatrix();
+    noStroke();
     fill(backgroundColor);
     rect(0, 0, width, height);
     popMatrix();
@@ -8128,7 +8123,7 @@ public class PGraphics extends PImage implements PConstants {
    */
   static public void showWarning(String msg) {  // ignore
     if (warnings == null) {
-      warnings = new HashMap<String, Object>();
+      warnings = new HashMap<>();
     }
     if (!warnings.containsKey(msg)) {
       System.err.println(msg);
