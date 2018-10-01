@@ -1,32 +1,188 @@
 ---
 layout: post
-title:  "Windows"
-date:   2015-11-21 14:15:13
-permalink: /windows/
+title:  "Getting Started on Windows"
+date:   2015-11-21 06:54:13
+permalink: /mac_start/
 ---
-### Install linux ###
 
-If you've got a Windows machine it is probably much easier than you think to install linux OS, for most people the sensible choice would be [Mint][mint] / [Ubuntu][ubuntu]. You should do this because Microsoft Windows has never been [OSS friendly][oss], you will learn a lot (MacOS is not very OSS friendly either, and just too expensive but it is somewhat more [posix][posix] compliant). Unless you have an Intel graphics card, you should probably use the closed source drivers (but free as in free beer from manufacturers). On Mint you should use the `Adminstration/Driver Manager` to check/install such drivers (eg Nvidia-375.66). In general you should prefer to use the graphical tools to install software on Debian, but sometimes versions will be out of date see [Install Debian][debian]
+### Getting Started With propane (stolen from [Ben Lewis][ben])
 
-### Or stick with what you know ###
+If you love to code because it is a creative process, then you should give propane a try because it can be used to create [music][sound], art, animations, [videos][video] and much more. Also since it is based on the latest [Processing][processing] you can access a vast range of libraries to make the difficult things easier.
 
-Vanilla processing is not too bad, but you should also try [JRubyArt][jruby_art], the updated version of the now deprecated ruby-processing.
+### What Is Processing?
 
-### Become an OSS hero ###
+Processing is a simple language, based on Java, that you can use to create digital graphics. It's easy to learn, fun to use, and has an amazing online community comprised of programmers, visual artists, musicians, and interdisciplinary artists of all kinds.
 
-Help make [propane][propane] work on Windows (it should be quite easy, should only need addition of JOGL binaries) and test what already works (ie should mostly work but without OPENGL support). To do this you should fork the [distro][propane] and submit a PR, ideally you will be familiar with maven, github, and ruby, but you could surprise yourself.
+Processing was built by Casey Reas and Benjamin Fry, two protegés of interdisciplinary digital art guru John Maeda at the MIT Media Lab.
 
+Since the project began in 2001, it's been helping teach people to program in a visual art context using a simplified version of Java. It comes packaged as an IDE that can be downloaded and used to create and save digital art “sketches”.
 
-[mint]:https://www.linuxmint.com/
+In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.4 and jruby-9.2.0.0+ (ruby-2.3 syntax)
 
-[ubuntu]:http://www.ubuntu.com/
+### Why propane?
 
-[jruby_art]:https://ruby-processing.github.io/JRubyArt/
+You can dabble with the latest `processing framework` (in ruby) without even needing to install `vanilla processing` (and its embded jdk).
 
-[propane]:https://github.com/ruby-processing/propane
+Additionally, you don't have to declare types, voids, or understand the differences between floats and ints to get started, as you do in pure Processing.
 
-[posix]:https://en.wikipedia.org/wiki/POSIX
+Although there are some drawbacks to using the Ruby version Processing (slower start up time, and sometimes performance), having Ruby's API available to translate your ideas into sketches more than makes up for them.
 
-[oss]:https://en.wikipedia.org/wiki/Open-source_software
+Why was ruby-processing not updated to use processing-3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0 from the outset, it makes use of the more literate ruby-2.2 syntax (although the original ruby-processing will run with jruby-9.2.0.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
 
-[debian]:{{ site.github.url }}/debian
+### Setup
+
+Setting propane is dead easy. The propane gem relies on jruby and arc_ball.gem, you don't need rvm or rvm for this don't let anyone persuade that you do.
+
+### Java
+
+You can use either Oracle or openjdk, , but preferably jdk8, there are unresolved issues with both JRuby and [processing][wiki] with jdk9 but it mainly works except for FX2D sketches (since propane-2.7.2).
+
+Install wget, java (1.8.0_181+)
+
+In case you have issues, it has been reported to be useful to set the JAVA_HOME and to add the path to `java` to your PATH
+
+### JRuby
+
+Unlike `JRubyArt` and `ruby-processing` it is not possible to run `propane` without a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, it is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables).
+
+### propane
+
+```bash
+jgem install propane # or `jruby -S gem`, use rvm at your own risk...
+```
+
+Install Samples
+
+```bash
+propane --install Samples
+```
+
+Install Sound library
+
+```bash
+propane --install Sound
+```
+
+Install Video library
+
+```bash
+propane --install video
+# experimental, expected to work on Raspberry-Pi debian-linux and Windows
+```
+
+### Running examples
+
+To run a bunch of the samples as a demo:-
+
+```bash
+cd ~/propane_samples
+rake # autoruns a bunch of files as a demo
+cd ~/propane_samples/contributed # for example
+rake # autoruns files in contributed folder
+jruby jwishy.rb # run the JWishy sketch, using an installed jruby
+cd ~/propane_samples/processing_app/topics/shaders
+rake # autoruns shader sketches
+jruby monjori.rb # run single shader sketch, since propane-1.0
+```
+
+### Creating your own sketch
+
+All we ask is that you obey the ruby filename convention (ie snakecase) and we can create a template sketch for you as follows:-
+
+```bash
+propane --create fred_sketch 200 200 # creates a propane sketch fred_sketch.rb (see below)
+vim fred_sketch.rb
+:!jruby % # from vim runs the sketch
+```
+
+other [editors][editors] are available
+
+```ruby
+# frozen_string_literal: true
+require 'propane'
+
+class FredSketch
+  def setup
+  sketch_title 'Fred Sketch'
+  end
+
+  def draw
+
+  end
+
+  def settings
+  size 200, 200
+  # smooth # here
+  end
+end
+
+FredSketch.new
+```
+
+### Running examples
+
+To run a bunch of the samples as a demo, __assuming powershell or cygwin__:-
+
+```bash
+cd ~/propane_samples
+rake # autoruns a bunch of files as a demo
+cd ~/propane_samples/contributed # for example
+rake # autoruns files in contributed folder
+jruby jwishy.rb # run the JWishy sketch, using an installed jruby
+cd ~/propane_samples/processing_app/topics/shaders
+rake # autoruns shader sketches
+jruby monjori.rb # run single shader sketch, since propane-1.0
+```
+
+### Creating your own sketch
+
+All we ask is that you obey the ruby filename convention (ie snakecase) and we can create a template sketch for you as follows:-
+
+```bash
+propane --create fred_sketch 200 200 # creates a propane sketch fred_sketch.rb (see below)
+vim fred_sketch.rb
+:!jruby % # from vim runs the sketch
+```
+
+other [editors][editors] are available
+
+```ruby
+# frozen_string_literal: true
+require 'propane'
+
+class FredSketch
+  def setup
+  sketch_title 'Fred Sketch'
+  end
+
+  def draw
+
+  end
+
+  def settings
+  size 200, 200
+  # smooth # here
+  end
+end
+
+FredSketch.new
+```
+
+PS: `propane -c fred` also works with a default size 0
+
+Read more about using the [processing api here][api]
+
+[report]:https://github.com/processing/processing/issues/5006
+[api]: {{site.github.url}}/methods/processing_api.html
+[editors]:{{site.github.url}}/editors/
+[ben]:https://blog.engineyard.com/2015/getting-started-with-ruby-processing
+[processing]:https://processing.org/
+[gem]:https://rubygems.org/gems/ruby-processing
+[propane]:https://rubygems.org/gems/propane
+[changes]:https://github.com/processing/processing/wiki/Changes-in-3.0
+[official]:https://processing.org/download/?processing
+[platforms]:https://github.com/processing/processing/wiki/Supported-Platforms
+[bitnami]:https://bitnami.com/stack/jruby/installer
+[sound]:https://monkstone.github.io/_posts/minim
+[video]:https://monkstone.github.io/_posts/create_video
