@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>2.9.1</version>
+  <version>3.0.0</version>
   <name>propane</name>
   <description>An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.</description>
   <url>https://github.com/monkstone/propane</url>

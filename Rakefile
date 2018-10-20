@@ -20,7 +20,7 @@ end
 
 desc 'Install'
 task :install do
-  sh 'mv target/propane-2.9.1.jar lib'
+  sh 'mv target/propane-3.0.0.jar lib'
 end
 
 desc 'Gem'
