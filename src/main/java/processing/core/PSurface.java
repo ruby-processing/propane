@@ -38,7 +38,7 @@ public interface PSurface {
   public void initOffscreen(PApplet sketch);
 
   // considering removal in favor of separate Component classes for appropriate renderers
-  // (i.e. for Java2D or a generic Image surface, but not PDF, debatable for GL or FX)
+  // (i.e. for Java2D or a generic Image surface, but not PDF, debatable for GL or )
   //public Component initComponent(PApplet sketch);
 
   //public Frame initFrame(PApplet sketch, Color backgroundColor,
