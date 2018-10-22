@@ -1,3 +1,5 @@
+**v3.0.0.pre** Compiled for java 11, works on linux, requires testing on MacOS and Windows
+
 **v2.9.1** Attempt to bring 64 bit Windows users to party. Use non versioned jogl/opengl jars from processing distro, including processing.org apple.jar in case it's needed, MacOS users are being very opaque on this.
 
 **v2.9.0** No-one helped with think_open branch, that was trying to get ready for jdk9 (as compilable), so I'm abandoning 2.8.0 series, the 2.9.0 version will create an integrated jar and concentrate on compatibility, rather than be future looking (but I'm not sure that think_different is any use or will work in future). Anyone having difficulty on MacOS should try putting apple.jar into lib folder.
