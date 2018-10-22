@@ -58,7 +58,7 @@ class Boid
   end
 
   def angle
-    Vec2D.new(vel.x, vel.y).heading
+    Vec2D.new(vel.x, vel.y).fast_heading
   end
 
   def goal(target, d = 50.0)

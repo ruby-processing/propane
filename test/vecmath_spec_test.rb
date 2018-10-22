@@ -226,6 +226,12 @@ class VecmathTest < Minitest::Test
     assert_in_epsilon(a.heading, Math::PI / 4.0, 0.001, 'Failed to return heading in radians')
   end
 
+  def test_fast_heading
+    a = Vec2D.new(1, 1)
+    assert_respond_to a, :fast_heading
+    assert_in_epsilon(a.fast_heading, Math::PI / 4.0, 0.01, 'Failed to return heading in radians')
+  end
+
   def test_rotate
     x, y = 20, 10
     b = Vec2D.new(x, y)
