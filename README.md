@@ -22,8 +22,11 @@ rake javadoc
 
 ## Installation
 ```bash
-jgem install propane # from rubygems
+jgem install --pre propane # from rubygems
 jgem install propane-3.0.0.pre-java.gem # local install requires a custom processing-core
+# Alternative
+jruby -S gem install --pre propane # from rubygems
+jruby -S gem install propane-3.0.0.pre-java.gem # local install requires a custom processing-core
 ```
 
 ## Usage
