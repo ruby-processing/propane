@@ -8,7 +8,7 @@ adjust above for your OS/distro setup.
 ## Requirements
 
 - `jdk8_u181`
-- `jruby-9.2.0.0`
+- `jruby-9.2.3.0`
 - `mvn-3.5.0+`
 - `apple.jar` (_build only_) see (or may'be runtime as well a MacOS user needed to test) [vanilla-processing](https://github.com/processing/processing/blob/master/core/apple.jar)
 

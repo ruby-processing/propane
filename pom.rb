@@ -1,7 +1,7 @@
 require 'fileutils'
 project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane:2.9.1'
+  id 'propane:propane:2.9.2'
   packaging 'jar'
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
 
@@ -38,7 +38,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
     'jogl.version' => '2.3.2'
     )
 
-  pom 'org.jruby:jruby:9.2.0.0'
+  pom 'org.jruby:jruby:9.2.3.0'
   jar 'com.apple.eawt:apple:1.0'
   jar 'org.processing:video:3.0.2'
   jar('org.jogamp.jogl:jogl-all:${jogl.version}')
