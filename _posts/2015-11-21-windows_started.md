@@ -28,7 +28,7 @@ Additionally, you don't have to declare types, voids, or understand the differen
 
 Although there are some drawbacks to using the Ruby version Processing (slower start up time, and sometimes performance), having Ruby's API available to translate your ideas into sketches more than makes up for them.
 
-Why was ruby-processing not updated to use processing-3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0 from the outset, it makes use of the more literate ruby-2.2 syntax (although the original ruby-processing will run with jruby-9.2.3.0, the examples and the ruby-processing library are all based on ruby-1.9.3 syntax).
+Why was ruby-processing not updated to use processing-3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0 from the outset, it makes use of the more literate ruby-2.2 syntax.
 
 ### Setup
 
@@ -36,7 +36,7 @@ Setting propane is dead easy. The propane gem relies on jruby and arc_ball.gem, 
 
 ### Java
 
-You can use either Oracle or openjdk, , but preferably jdk8, there are unresolved issues with both JRuby and [processing][wiki] with jdk9 but it mainly works except for FX2D sketches (since propane-2.7.2).
+You can use either Oracle or openjdk, but preferably jdk8. But please try the pre-release version for jdk11+, and report back via issues.
 
 Install wget, java (1.8.0_181+)
 
