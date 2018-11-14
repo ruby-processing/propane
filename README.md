@@ -8,7 +8,7 @@ adjust above for your OS/distro setup.
 ## Requirements
 
 - `jdk-11.0.1`
-- `jruby-9.2.0.0`
+- `jruby-9.2.4.0`
 - `mvn-3.5.4+`
 - `apple.jar` (_build only_) see (or may'be runtime as well a MacOS user needed to test) [vanilla-processing](https://github.com/processing/processing/blob/master/core/apple.jar)
 
@@ -23,10 +23,10 @@ rake javadoc
 ## Installation
 ```bash
 jgem install --pre propane # from rubygems
-jgem install propane-3.0.0.pre-java.gem # local install requires a custom processing-core
+jgem install propane-3.0.1.pre-java.gem # local install requires a custom processing-core
 # Alternative
 jruby -S gem install --pre propane # from rubygems
-jruby -S gem install propane-3.0.0.pre-java.gem # local install requires a custom processing-core
+jruby -S gem install propane-3.0.1.pre-java.gem # local install requires a custom processing-core
 ```
 
 ## Usage

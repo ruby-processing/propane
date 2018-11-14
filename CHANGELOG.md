@@ -1,3 +1,5 @@
+**v3.0.1.pre** Bump jriuby version
+
 **v3.0.0.pre** Compiled for java 11, works on linux, requires testing on MacOS and Windows
 
 **v2.9.1** Attempt to bring 64 bit Windows users to party. Use non versioned jogl/opengl jars from processing distro, including processing.org apple.jar in case it's needed, MacOS users are being very opaque on this.
