@@ -13,14 +13,23 @@ end
 
 task default: [:init, :compile, :install, :test, :gem]
 
-desc 'Create Manifest'
+# depends on installed processing, with processing on path
+desc 'Create Manifest and Copy Jars'
 task :init do
   create_manifest
+  processing_root = File.dirname(`readlink -f $(which processing)`) # for Archlinux etc
+  # processing_root = '/home/tux/processing-3.4' # alternative for debian linux etc
+  jar_dir = File.join(processing_root, 'core', 'library')
+  opengl = Dir.entries(jar_dir).grep(/amd64|macosx-universal/)
+  opengl.concat %w[jogl-all.jar gluegen-rt.jar]
+  opengl.each do |gl|
+    FileUtils.cp(File.join(jar_dir, gl), File.join('.', 'lib'))
+  end
 end
 
 desc 'Install'
 task :install do
-  sh 'mv target/propane-2.9.2.jar lib'
+  sh "mv target/propane-#{Propane::VERSION}.jar lib"
 end
 
 desc 'Gem'
@@ -55,8 +64,8 @@ end
 
 desc 'clean'
 task :clean do
-  Dir['./**/*.%w{jar gem}'].each do |path|
-    puts 'Deleting #{path} ...'
+  Dir["./**/*.{jar,gem}"].each do |path|
+    puts "Deleting #{path} ..."
     File.delete(path)
   end
   FileUtils.rm_rf('./target')
