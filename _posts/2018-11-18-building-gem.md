@@ -14,7 +14,7 @@ Requirements:-
 Simply clone this distribution, then rake to build and test gem
 ```bash
 git clone https://github.com/ruby-processing/propane.git
-cd PiCrate
+cd propane
 rake # to build gem
 ```
 
