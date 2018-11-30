@@ -1,3 +1,5 @@
+**v2.9.2** Bump for jruby-9.2.4.1.
+
 **v2.9.2** Bump for jruby-9.2.3.0.
 
 **v2.9.1** Attempt to bring 64 bit Windows users to party. Use non versioned jogl/opengl jars from processing distro, including processing.org apple.jar in case it's needed, MacOS users are being very opaque on this.
