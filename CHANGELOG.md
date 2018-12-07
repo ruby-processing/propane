@@ -1,4 +1,6 @@
-**v2.9.2** Bump for jruby-9.2.4.1.
+**v2.9.4** Bump for jruby-9.2.5.0.
+
+**v2.9.3** Bump for jruby-9.2.4.1.
 
 **v2.9.2** Bump for jruby-9.2.3.0.
 
