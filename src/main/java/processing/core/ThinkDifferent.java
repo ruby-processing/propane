@@ -25,7 +25,6 @@ package processing.core;
 import java.awt.Image;
 import java.awt.Taskbar;
 import java.awt.Desktop;
-import java.awt.desktop.QuitHandler;
 import java.awt.desktop.QuitResponse;
 import java.awt.desktop.QuitEvent;
 
@@ -45,17 +44,15 @@ public class ThinkDifferent {
       desktop = Desktop.getDesktop();
     }
 
-    desktop.setQuitHandler(new QuitHandler() {
-      public void handleQuitRequestWith(QuitEvent event, QuitResponse response) {
+    desktop.setQuitHandler((QuitEvent event, QuitResponse response) -> {
         sketch.exit();
         if (PApplet.uncaughtThrowable == null &&  // no known crash
-            !attemptedQuit) {  // haven't tried yet
-          response.cancelQuit();  // tell OS X we'll handle this
-          attemptedQuit = true;
+                !attemptedQuit) {  // haven't tried yet
+            response.cancelQuit();  // tell OS X we'll handle this
+            attemptedQuit = true;
         } else {
-          response.performQuit();  // just force it this time
+            response.performQuit();  // just force it this time
         }
-      }
     });
   }
 
