@@ -1,5 +1,7 @@
 # Propane
-To build custom core see [processing-core][processing-core]
+
+Here is my attempt to get a version of ruby-processing working with openjdk11, it imore than a proof of concept, as it already works very succesfully under linux the question is will it work under Windows and MacOS. To do this I have created a custom maven build of processing core, to which I add vanilla processing jogl jars (these are not the same as jogl jars form maven).
+I am watching with interest progress made by @sampottinger on [vanilla processing][vanilla]. I have implemented a different solution for think different than @ssilverman in my jdk11 branch (but I don't know whether it works).
 
 A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.4, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building]. NB: this is a far from perfect solution and javafx sketches and possibly a few others will not run with jdk11, but a least I get to diagnose those errors too.
 
@@ -83,4 +85,5 @@ propane --install samples
 
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
-[processing-core]:https://github.com/ruby-processing/processing-core
+[vanilla]:https://github.com/processing/processing/pull/5753
+https://github.com/processing/processing/pull/5747
