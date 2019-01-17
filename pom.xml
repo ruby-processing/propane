@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>3.0.1</version>
+  <version>3.1.0</version>
   <name>propane</name>
   <description>An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.</description>
   <url>https://github.com/monkstone/propane</url>
@@ -69,18 +69,15 @@
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <propane.basedir>${project.basedir}</propane.basedir>
     <source.directory>src</source.directory>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
   <dependencies>
     <dependency>
       <groupId>org.jruby</groupId>
       <artifactId>jruby</artifactId>
-      <version>9.2.4.0</version>
+      <version>9.2.5.0</version>
       <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>com.apple.eawt</groupId>
-      <artifactId>apple</artifactId>
-      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>org.processing</groupId>
@@ -133,8 +130,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
-            <release>11</release>
-          </configuration>
+                <release>11</release>
+            </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>

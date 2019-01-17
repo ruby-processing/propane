@@ -23,41 +23,29 @@
 package processing.core;
 
 import java.awt.Image;
+import java.awt.Taskbar;
+import java.awt.Desktop;
+import java.awt.desktop.QuitHandler;
+import java.awt.desktop.QuitResponse;
+import java.awt.desktop.QuitEvent;
 
-import com.apple.eawt.AppEvent.QuitEvent;
-import com.apple.eawt.Application;
-import com.apple.eawt.QuitHandler;
-import com.apple.eawt.QuitResponse;
 
-
-/**
- * Deal with issues related to thinking differently.
- *
- * We have to register a quit handler to safely shut down the sketch,
- * otherwise OS X will just kill the sketch when a user hits Cmd-Q.
- * In addition, we have a method to set the dock icon image so we look more
- * like a native application.
- *
- * This is a stripped-down version of what's in processing.app.platform to fix
- * <a href="https://github.com/processing/processing/issues/3301">3301</a>.
- */
 public class ThinkDifferent {
 
-  // http://developer.apple.com/documentation/Java/Reference/1.4.2/appledoc/api/com/apple/eawt/Application.html
-  private static Application application;
-
-  // True if user has tried to quit once. Prevents us from canceling the quit
-  // call if the sketch is held up for some reason, like an exception that's
-  // managed to put the sketch in a bad state.
+  private static Desktop desktop;
+  private static Taskbar taskbar;
   static boolean attemptedQuit;
 
 
   static public void init(final PApplet sketch) {
-    if (application == null) {
-      application = Application.getApplication();
+    if (taskbar == null) {
+      taskbar = Taskbar.getTaskbar();
+    }
+    if (desktop == null) {
+      desktop = Desktop.getDesktop();
     }
 
-    application.setQuitHandler(new QuitHandler() {
+    desktop.setQuitHandler(new QuitHandler() {
       public void handleQuitRequestWith(QuitEvent event, QuitResponse response) {
         sketch.exit();
         if (PApplet.uncaughtThrowable == null &&  // no known crash
@@ -72,25 +60,14 @@ public class ThinkDifferent {
   }
 
   static public void cleanup() {
-    if (application == null) {
-      application = Application.getApplication();
+    if (desktop == null) {
+      desktop = Desktop.getDesktop();
     }
-    application.setQuitHandler(null);
+    desktop.setQuitHandler(null);
   }
 
   // Called via reflection from PSurfaceAWT and others
   static public void setIconImage(Image image) {
-    // When already set, is a sun.awt.image.MultiResolutionCachedImage on OS X
-//    Image current = application.getDockIconImage();
-//    System.out.println("current dock icon image is " + current);
-//    System.out.println("changing to " + image);
-
-    application.setDockIconImage(image);
+    taskbar.setIconImage(image);
   }
-
-
-  // Instead, just use Application.getApplication() inside your app
-//  static public Application getApplication() {
-//    return application;
-//  }
 }

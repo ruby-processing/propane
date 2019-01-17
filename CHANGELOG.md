@@ -1,4 +1,6 @@
-**v3.0.1.pre** Bump jriuby version
+**v3.1.0.pre** Now is the time for some serious refactoring for jdk11. Hell we might even get in working on MacOS and Windows, ahead of vanilla processing. For MacOS this means ditching apple.jar dependency.
+
+**v3.0.1.pre** Bump jruby version
 
 **v3.0.0.pre** Compiled for java 11, works on linux, requires testing on MacOS and Windows
 
