@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['mamba2928@yahoo.co.uk']
   gem.licenses     = %w(GPL-3.0 LGPL-2.0)
   gem.description  = <<-EOS
-  A batteries included version of processing in ruby.
+  A batteries included version of processing in ruby targetting jdk11.
   EOS
   gem.summary       = %q{ruby wrapper for processing-3.4 on MacOS, linux and windows (64bit only)}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
