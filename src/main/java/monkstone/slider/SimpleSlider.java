@@ -44,7 +44,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
 
     abstract void drawGui();
 
-    
     @Override
     public void draw() {
         applet.pushStyle();
@@ -58,7 +57,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
     /**
      *
      */
-    
     @Override
     public void showLabel() {
         displayLabel = true;
@@ -67,7 +65,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
     /**
      *
      */
-    
     @Override
     public void hideLabel() {
         displayLabel = false;
@@ -76,7 +73,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
     /**
      *
      */
-    
     @Override
     public void showNumbers() {
         displayValue = true;
@@ -97,7 +93,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
     /**
      *
      */
-    
     @Override
     public void hideBackground() {
         backgroundVisible = false;
@@ -107,7 +102,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
      *
      * @return
      */
-    
     @Override
     public float readValue() {
         return pValue;
@@ -129,7 +123,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
      *
      * @param s
      */
-    
     @Override
     public void labelSize(int s) {
         labelSize = (s < 4) ? 4 : s;
@@ -144,7 +137,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
     }
 
     abstract void checkKeyboard();
-
 
     protected int constrainMap(double val, double begIn, double endIn, double beginOut, double endOut) {
         double max = Math.max(begIn, endIn);
@@ -167,7 +159,6 @@ public abstract class SimpleSlider implements Slider {//implements Slider {
         }
     }
 
-    
     @Override
     public void dispose() {
         setActive(false);

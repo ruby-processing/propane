@@ -16,71 +16,65 @@
   Public License along with this library; if not, write to the
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
-*/ 
+ */
 package japplemenubar;
 
 import java.io.*;
 
 import processing.core.PApplet;
 
-
 /**
- * Starting point for the application. General initialization should be done 
- * inside the ApplicationController's init() method. If certain kinds of 
- * non-Swing initialization takes too long, it should happen in a new Thread 
- * and off the Swing event dispatch thread (EDT).
- * 
+ * Starting point for the application. General initialization should be done
+ * inside the ApplicationController's init() method. If certain kinds of
+ * non-Swing initialization takes too long, it should happen in a new Thread and
+ * off the Swing event dispatch thread (EDT).
+ *
  * @author hansi
  */
 public class JAppleMenuBar {
-  static JAppleMenuBar instance;
-  static final String FILENAME = "libjAppleMenuBar.jnilib";
-  
-	static {
-	  try {
-	    File temp = File.createTempFile("processing", "menubar");
-	    temp.delete();  // remove the file itself
-	    temp.mkdirs();  // create a directory out of it
-	    temp.deleteOnExit();
 
-	    File jnilibFile = new File(temp, FILENAME);
-	    InputStream input = JAppleMenuBar.class.getResourceAsStream(FILENAME);
-	    if (input != null) {
-	      if (PApplet.saveStream(jnilibFile, input)) {
-	        System.load(jnilibFile.getAbsolutePath());
-	        instance = new JAppleMenuBar();
+    static JAppleMenuBar instance;
+    static final String FILENAME = "libjAppleMenuBar.jnilib";
 
-	      } else {
-	        sadness("Problem saving " + FILENAME + " for full screen use.");
-	      }
-	    } else {
-        sadness("Could not load " + FILENAME + " from core.jar");
-	    }
-	  } catch (IOException e) {
-	    sadness("Unknown error, here's the stack trace.");
-	    e.printStackTrace();
-	  }
-	}
-	
-	
-	static void sadness(String msg) {
-	  System.err.println("Full screen mode disabled. " + msg);
-	}
+    static {
+        try {
+            File temp = File.createTempFile("processing", "menubar");
+            temp.delete();  // remove the file itself
+            temp.mkdirs();  // create a directory out of it
+            temp.deleteOnExit();
 
-	
+            File jnilibFile = new File(temp, FILENAME);
+            InputStream input = JAppleMenuBar.class.getResourceAsStream(FILENAME);
+            if (input != null) {
+                if (PApplet.saveStream(jnilibFile, input)) {
+                    System.load(jnilibFile.getAbsolutePath());
+                    instance = new JAppleMenuBar();
+
+                } else {
+                    sadness("Problem saving " + FILENAME + " for full screen use.");
+                }
+            } else {
+                sadness("Could not load " + FILENAME + " from core.jar");
+            }
+        } catch (IOException e) {
+            sadness("Unknown error, here's the stack trace.");
+            e.printStackTrace();
+        }
+    }
+
+    static void sadness(String msg) {
+        System.err.println("Full screen mode disabled. " + msg);
+    }
+
 //	static public void show() {
 //	  instance.setVisible(true);
 //	}
+    static public void hide() {
+        instance.setVisible(false, false);
+    }
 
-	
-	static public void hide() {
-	  instance.setVisible(false, false);
-	}
+    public native void setVisible(boolean visibility, boolean kioskMode);
 
-	
-	public native void setVisible(boolean visibility, boolean kioskMode); 
-
-	
 //  public void setVisible(boolean visibility) {
 //    // Keep original API in-tact.  Default kiosk-mode to off.
 //    setVisible(visibility, false);

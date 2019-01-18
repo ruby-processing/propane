@@ -175,7 +175,8 @@ public class MathToolModule {
         }
         return mapMt(context, value, start, stop, 0, 1.0);
     }
-     // start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+    // start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+
     static final RubyFloat mapMt(ThreadContext context, double value, double first1, double last1, double first2, double last2) {
         double result = first2 + (last2 - first2) * ((value - first1) / (last1 - first1));
         return context.runtime.newFloat(result);
@@ -218,17 +219,17 @@ public class MathToolModule {
         int column = (int) args[1].toJava(Integer.class);
         int rowStep = 1;
         int colStep = 1;
-        if (args.length == 4){
-        rowStep = (int) args[2].toJava(Integer.class);
-        colStep = (int) args[3].toJava(Integer.class);
+        if (args.length == 4) {
+            rowStep = (int) args[2].toJava(Integer.class);
+            colStep = (int) args[3].toJava(Integer.class);
         }
         if (block.isGiven()) {
-              int tempRow = row / rowStep;
-              for (int z = 0; z < (tempRow * (column / colStep)); z++){
-                  int x = z % tempRow;
-                  int y = z / tempRow;
-                  block.yieldSpecific(context, context.runtime.newFixnum(x * rowStep), context.runtime.newFixnum(y * colStep));
-              }
+            int tempRow = row / rowStep;
+            for (int z = 0; z < (tempRow * (column / colStep)); z++) {
+                int x = z % tempRow;
+                int y = z / tempRow;
+                block.yieldSpecific(context, context.runtime.newFixnum(x * rowStep), context.runtime.newFixnum(y * colStep));
+            }
         }
         return context.nil;
 

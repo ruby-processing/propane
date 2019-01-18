@@ -20,7 +20,7 @@ package monkstone.vecmath.vec2;
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 *
 * fastAtan2 algorithm from https://github.com/libgdx/libgdx (Apache 2.0 license)
-*/
+ */
 import org.jruby.Ruby;
 import org.jruby.RubyArray;
 import org.jruby.RubyClass;

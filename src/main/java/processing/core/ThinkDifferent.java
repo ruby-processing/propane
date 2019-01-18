@@ -1,5 +1,3 @@
-/* -*- mode: java; c-basic-offset: 2; indent-tabs-mode: nil -*- */
-
 /*
   Part of the Processing project - http://processing.org
 
@@ -18,8 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
+ */
 package processing.core;
 
 import java.awt.Image;
@@ -28,43 +25,42 @@ import java.awt.Desktop;
 import java.awt.desktop.QuitResponse;
 import java.awt.desktop.QuitEvent;
 
-
 public class ThinkDifferent {
 
-  private static Desktop desktop;
-  private static Taskbar taskbar;
-  static boolean attemptedQuit;
+    private static Desktop desktop;
+    private static Taskbar taskbar;
+    static boolean attemptedQuit;
 
-
-  static public void init(final PApplet sketch) {
-    if (taskbar == null) {
-      taskbar = Taskbar.getTaskbar();
-    }
-    if (desktop == null) {
-      desktop = Desktop.getDesktop();
-    }
-
-    desktop.setQuitHandler((QuitEvent event, QuitResponse response) -> {
-        sketch.exit();
-        if (PApplet.uncaughtThrowable == null &&  // no known crash
-                !attemptedQuit) {  // haven't tried yet
-            response.cancelQuit();  // tell OS X we'll handle this
-            attemptedQuit = true;
-        } else {
-            response.performQuit();  // just force it this time
+    static public void init(final PApplet sketch) {
+        if (taskbar == null) {
+            taskbar = Taskbar.getTaskbar();
         }
-    });
-  }
+        if (desktop == null) {
+            desktop = Desktop.getDesktop();
+        }
 
-  static public void cleanup() {
-    if (desktop == null) {
-      desktop = Desktop.getDesktop();
+        desktop.setQuitHandler((QuitEvent event, QuitResponse response) -> {
+            sketch.exit();
+            if (PApplet.uncaughtThrowable == null
+                    && // no known crash
+                    !attemptedQuit) {  // haven't tried yet
+                response.cancelQuit();  // tell OS X we'll handle this
+                attemptedQuit = true;
+            } else {
+                response.performQuit();  // just force it this time
+            }
+        });
     }
-    desktop.setQuitHandler(null);
-  }
 
-  // Called via reflection from PSurfaceAWT and others
-  static public void setIconImage(Image image) {
-    taskbar.setIconImage(image);
-  }
+    static public void cleanup() {
+        if (desktop == null) {
+            desktop = Desktop.getDesktop();
+        }
+        desktop.setQuitHandler(null);
+    }
+
+    // Called via reflection from PSurfaceAWT and others
+    static public void setIconImage(Image image) {
+        taskbar.setIconImage(image);
+    }
 }

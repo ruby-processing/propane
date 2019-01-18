@@ -14,7 +14,6 @@
  * attribution is appreciated.
  *
  */
-
 package monkstone.noise;
 
 public class SimplexNoise {  // Simplex noise in 2D, 3D and 4D
