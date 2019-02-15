@@ -33,7 +33,7 @@ Why was ruby-processing not updated to use processing3.0+? The [major changes][c
 
 ### Java
 
-You can use either Oracle or openjdk, but preferably jdk8. Please try pre-release version for jdk11+ (and report back via issues).
+You can use either Oracle or openjdk, but preferably jdk11. Please try pre-release version for jdk11+ (and report back via issues).
 
 ### JRuby
 
@@ -44,7 +44,7 @@ Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` ske
 Install Software as required:-
 
 ```bash
-sudo pacman -S jdk8-openjdk # installs openjdk
+sudo pacman -S jdk11-openjdk # installs openjdk
 sudo pacman -S java-openjfx # installs openjfx
 sudo pacman -S jruby # installs jruby
 ```

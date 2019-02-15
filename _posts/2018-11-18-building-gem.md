@@ -2,7 +2,7 @@
 layout: post
 title: "Building propane gem on linux"
 date: 2016-11-18 10:00:00
-keywords: linux, jdk8, jruby
+keywords: linux, jdk11, jruby
 permalink: /building/
 ---
 Requirements:-

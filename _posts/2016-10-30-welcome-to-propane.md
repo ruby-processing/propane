@@ -6,7 +6,7 @@ keywords: processing, jruby, propane
 ---
 ### Requirements ###
 
-[jruby-9.2.6.0][jruby], [open jdk8][openjvm] or [Oracle jdk8][oraclejvm]
+[jruby-9.2.6.0][jruby], [open jdk11][openjvm] or [Oracle jdk11][oraclejvm]
 
 If you arrive here from rubygems `math_demo` you may well have installed `propane` as a requirement
 
@@ -21,7 +21,7 @@ If you are familiar with the original ruby-processing (deprecated since January 
 
 ### Installing ###
 
-propane is a configuration free version of processing-3.5 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. But Java2D mode should work on Windows possibly raspberry-pi (depends on a successful jruby-9.x.x.x install and jdk8).
+propane is a configuration free version of processing-3.5 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. For raspberry-pi see [PiCrate][picrate].
 To install gem:-
 ```bash
 jgem install propane # or alternatively
@@ -156,9 +156,10 @@ end
 JWishy.new
 ```
 
+[picrate]:https://github.com/ruby-processing/picrate
 [propane]:https://github.com/ruby-processing/propane
 [jruby]:http://jruby.org/download
 [openjvm]:http://openjdk.java.net/install/
-[oraclejvm]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[oraclejvm]:http://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-2133151.html
 [JRubyArt]:{{ site.github.url }}/JRubyArt/
 [math_demo]:https://ruby-processing.github.io/math_demo

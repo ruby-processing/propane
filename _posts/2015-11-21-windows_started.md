@@ -36,7 +36,7 @@ Setting propane is dead easy. The propane gem relies on jruby and arc_ball.gem, 
 
 ### Java
 
-You can use either Oracle or openjdk, but preferably jdk8. But please try the pre-release version for jdk11+, and report back via issues.
+You can use either Oracle or openjdk, but preferably jdk11. But please try the pre-release version for jdk11+, and report back via issues.
 
 Install wget, java (1.8.0_181+)
 
