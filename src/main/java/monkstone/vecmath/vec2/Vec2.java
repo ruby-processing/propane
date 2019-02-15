@@ -18,6 +18,8 @@ package monkstone.vecmath.vec2;
 * You should have received a copy of the GNU Lesser General Public
 * License along with this library; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*
+* fastAtan2 algorithm from https://github.com/libgdx/libgdx (Apache 2.0 license)
  */
 import org.jruby.Ruby;
 import org.jruby.RubyArray;
@@ -28,7 +30,6 @@ import org.jruby.RubyObject;
 import org.jruby.RubySymbol;
 import org.jruby.anno.JRubyClass;
 import org.jruby.anno.JRubyMethod;
-import org.jruby.runtime.Arity;
 import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
@@ -357,6 +358,16 @@ public class Vec2 extends RubyObject {
     /**
      *
      * @param context ThreadContext
+     * @return heading IRubyObject radians
+     */
+    @JRubyMethod(name = "fast_heading")
+    public IRubyObject fastHeading(ThreadContext context) {
+        return context.runtime.newFloat(fastAtan2(jy, jx));
+    }
+
+    /**
+     *
+     * @param context ThreadContext
      * @return magnitude IRubyObject
      */
     @JRubyMethod(name = "mag")
@@ -441,7 +452,7 @@ public class Vec2 extends RubyObject {
     /**
      *
      * @param context ThreadContext
-     * @return new normalized Vec3D object (ruby)
+     * @return new normalized Vec2D object (ruby)
      */
     @JRubyMethod(name = "normalize")
 
@@ -582,7 +593,7 @@ public class Vec2 extends RubyObject {
     /**
      *
      * @param context ThreadContext
-     * @param other IRubyObject another Vec3D
+     * @param other IRubyObject another Vec2D
      * @return angle IRubyObject in radians
      */
     @JRubyMethod(name = "angle_between")
@@ -596,6 +607,25 @@ public class Vec2 extends RubyObject {
             throw runtime.newTypeError("argument should be Vec2D");
         }
         return runtime.newFloat(Math.atan2(jx - vec.jx, jy - vec.jy));
+    }
+
+    /**
+     *
+     * @param context ThreadContext
+     * @param other IRubyObject another Vec2D
+     * @return angle IRubyObject in radians
+     */
+    @JRubyMethod(name = "fast_angle_between")
+
+    public IRubyObject fastAngleBetween(ThreadContext context, IRubyObject other) {
+        Vec2 vec = null;
+        Ruby runtime = context.runtime;
+        if (other instanceof Vec2) {
+            vec = (Vec2) other.toJava(Vec2.class);
+        } else {
+            throw runtime.newTypeError("argument should be Vec2D");
+        }
+        return runtime.newFloat(fastAtan2(jx - vec.jx, jy - vec.jy));
     }
 
     /**
@@ -664,6 +694,28 @@ public class Vec2 extends RubyObject {
 
     public IRubyObject to_s(ThreadContext context) {
         return context.runtime.newString(String.format("Vec2D(x = %4.4f, y = %4.4f)", jx, jy));
+    }
+
+    private double fastAtan2(double y, double x) {
+        if (x == 0) {
+            if (y > 0) {
+                return Math.PI / 2;
+            }
+            if (y == 0) {
+                return 0;
+            }
+            return -Math.PI / 2;
+        }
+        final double atan, z = y / x;
+        if (Math.abs(z) < 1) {
+            atan = z / (1 + 0.28 * z * z);
+            if (x < 0) {
+                return atan + (y < 0 ? -Math.PI : Math.PI);
+            }
+            return atan;
+        }
+        atan = Math.PI / 2 - z / (z * z + 0.28);
+        return y < 0 ? atan - Math.PI : atan;
     }
 
     /**

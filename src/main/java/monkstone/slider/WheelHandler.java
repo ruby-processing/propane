@@ -20,16 +20,15 @@
 package monkstone.slider;
 
 /**
- * @author Martin Prout 
- * from a borrowed pattern seen in Jonathan Feinbergs Peasycam
- * when I was struggling with non functioning browser applet, 
- * probably superfluous here. 
+ * @author Martin Prout from a borrowed pattern seen in Jonathan Feinbergs
+ * Peasycam when I was struggling with non functioning browser applet, probably
+ * superfluous here.
  */
-public interface WheelHandler { 
-    /**
-     * 
-     * @param amount int
-     */   
+public interface WheelHandler {
 
+    /**
+     *
+     * @param amount int
+     */
     public void handleWheel(final short amount);
 }

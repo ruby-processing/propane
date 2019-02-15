@@ -17,7 +17,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
 package monkstone.fastmath;
 
 import org.jruby.Ruby;
@@ -29,96 +28,94 @@ import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
 /**
-*
-* @author Martin Prout
-*/
+ *
+ * @author Martin Prout
+ */
 @JRubyModule(name = "DegLut")
 public class Deglut {
-  
-  /**
-  * Lookup table for degree cosine/sine, has a fixed precision 1.0
-  * degrees Quite accurate but imprecise
-  *
-  * @author Martin Prout <martin_p@lineone.net>
-  */
-  static final double[] SIN_DEG_LUT = new double[91];
-  /**
-  *
-  */
-  public static final double TO_RADIANS = Math.PI / 180;
-  /**
-  *
-  */
-  private static boolean initialized = false;
-  
-  private final static int NINETY = 90;
-  private final static int FULL = 360;
-  private static final long serialVersionUID = -1466528933765940101L;
-  
-  /**
-  * Initialize sin table with values (first quadrant only)
-  */
-  public static final void initTable() {
-    if (initialized == false) {
-      for (int i = 0; i <= NINETY; i++) {
-        SIN_DEG_LUT[i] = Math.sin(TO_RADIANS * i);
-      }
-      initialized = true;
+
+    /**
+     * Lookup table for degree cosine/sine, has a fixed precision 1.0 degrees
+     * Quite accurate but imprecise
+     *
+     * @author Martin Prout <martin_p@lineone.net>
+     */
+    static final double[] SIN_DEG_LUT = new double[91];
+    /**
+     *
+     */
+    public static final double TO_RADIANS = Math.PI / 180;
+    /**
+     *
+     */
+    private static boolean initialized = false;
+
+    private final static int NINETY = 90;
+    private final static int FULL = 360;
+    private static final long serialVersionUID = -1466528933765940101L;
+
+    /**
+     * Initialize sin table with values (first quadrant only)
+     */
+    public static final void initTable() {
+        if (initialized == false) {
+            for (int i = 0; i <= NINETY; i++) {
+                SIN_DEG_LUT[i] = Math.sin(TO_RADIANS * i);
+            }
+            initialized = true;
+        }
     }
-  }
-    
-  /**
-  *
-  * @param runtime Ruby
-  */
-  
-  public static void createDeglut(final Ruby runtime){
-    RubyModule deglutModule = runtime.defineModule("DegLut");
-    deglutModule.defineAnnotatedMethods(Deglut.class);
-    Deglut.initTable();
-  }
-    
- 
-  /**
-  *
-  * @param context ThreadContext
-  * @param recv IRubyObject
-  * @param other IRubyObject degrees
-  * @return sin IRubyObject
-  */
-  @JRubyMethod(name = "sin", module = true)
-  
-  public static IRubyObject sin(ThreadContext context, IRubyObject recv, IRubyObject other) {
-    int thet = (int) ((RubyInteger)other).getLongValue();
-    while (thet < 0) {
-      thet += FULL; // Needed because negative modulus plays badly in java
+
+    /**
+     *
+     * @param runtime Ruby
+     */
+    public static void createDeglut(final Ruby runtime) {
+        RubyModule deglutModule = runtime.defineModule("DegLut");
+        deglutModule.defineAnnotatedMethods(Deglut.class);
+        Deglut.initTable();
     }
-    int theta = thet % FULL;
-    int y = theta % NINETY;
-    double result = (theta < NINETY) ? SIN_DEG_LUT[y] : (theta < 180)
-    ? SIN_DEG_LUT[NINETY - y] : (theta < 270)
-    ? -SIN_DEG_LUT[y] : -SIN_DEG_LUT[NINETY - y];
-    return context.runtime.newFloat(result);
-  }
-  
-  /**
-  *
-  * @param context ThreadContext
-  * @param recv IRubyObject
-  * @param other IRubyObject degrees
-  * @return cos IRubyObject
-  */
-  @JRubyMethod(name = "cos", module = true)
-  public static IRubyObject cos(ThreadContext context, IRubyObject recv, IRubyObject other) {
-    int thet = (int) ((RubyInteger)other).getLongValue();
-    while (thet < 0) {
-      thet += FULL; // Needed because negative modulus plays badly in java
+
+    /**
+     *
+     * @param context ThreadContext
+     * @param recv IRubyObject
+     * @param other IRubyObject degrees
+     * @return sin IRubyObject
+     */
+    @JRubyMethod(name = "sin", module = true)
+
+    public static IRubyObject sin(ThreadContext context, IRubyObject recv, IRubyObject other) {
+        int thet = (int) ((RubyInteger) other).getLongValue();
+        while (thet < 0) {
+            thet += FULL; // Needed because negative modulus plays badly in java
+        }
+        int theta = thet % FULL;
+        int y = theta % NINETY;
+        double result = (theta < NINETY) ? SIN_DEG_LUT[y] : (theta < 180)
+                ? SIN_DEG_LUT[NINETY - y] : (theta < 270)
+                        ? -SIN_DEG_LUT[y] : -SIN_DEG_LUT[NINETY - y];
+        return context.runtime.newFloat(result);
     }
-    int theta = thet % FULL;
-    int y = theta % NINETY;
-    double result = (theta < NINETY) ? SIN_DEG_LUT[NINETY - y] : (theta < 180)
-    ? -SIN_DEG_LUT[y] : (theta < 270)
-    ? -SIN_DEG_LUT[NINETY - y] : SIN_DEG_LUT[y];
-    return context.runtime.newFloat(result);
-  }  
+
+    /**
+     *
+     * @param context ThreadContext
+     * @param recv IRubyObject
+     * @param other IRubyObject degrees
+     * @return cos IRubyObject
+     */
+    @JRubyMethod(name = "cos", module = true)
+    public static IRubyObject cos(ThreadContext context, IRubyObject recv, IRubyObject other) {
+        int thet = (int) ((RubyInteger) other).getLongValue();
+        while (thet < 0) {
+            thet += FULL; // Needed because negative modulus plays badly in java
+        }
+        int theta = thet % FULL;
+        int y = theta % NINETY;
+        double result = (theta < NINETY) ? SIN_DEG_LUT[NINETY - y] : (theta < 180)
+                ? -SIN_DEG_LUT[y] : (theta < 270)
+                        ? -SIN_DEG_LUT[NINETY - y] : SIN_DEG_LUT[y];
+        return context.runtime.newFloat(result);
+    }
 }

@@ -7,7 +7,7 @@ task :create_manifest do
   manifest = ERB.new <<~MANIFEST
     Implementation-Title: rpextras (java extension for propane)
     Implementation-Version: <%= Propane::VERSION %>
-    Class-Path: apple.jar gluegen-rt.jar jog-all.jar
+    Class-Path: gluegen-rt.jar jog-all.jar
   MANIFEST
   File.open('MANIFEST.MF', 'w') do |f|
     f.puts(manifest.result(binding))

@@ -1,5 +1,3 @@
-/* -*- mode: java; c-basic-offset: 2; indent-tabs-mode: nil -*- */
-
 /*
   Part of the Processing project - http://processing.org
 
@@ -18,10 +16,8 @@
   Public License along with this library; if not, write to the
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
-*/
-
+ */
 package processing.event;
-
 
 // PLACEHOLDER CLASS: DO NOT USE. IT HAS NOT EVEN DECIDED WHETHER
 // THIS WILL BE CALLED TOUCHEVENT ONCE IT'S FINISHED.
@@ -47,11 +43,11 @@ http://www.w3.org/TR/2011/WD-touch-events-20110913/
 Pointer and gesture events (Windows)
 http://msdn.microsoft.com/en-US/library/ie/hh673557.aspx
 
-*/
+ */
 public class TouchEvent extends Event {
 
-  public TouchEvent(Object nativeObject, long millis, int action, int modifiers) {
-    super(nativeObject, millis, action, modifiers);
-    this.flavor = TOUCH;
-  }
+    public TouchEvent(Object nativeObject, long millis, int action, int modifiers) {
+        super(nativeObject, millis, action, modifiers);
+        this.flavor = TOUCH;
+    }
 }

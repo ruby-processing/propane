@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-
-DO NOT MODIFIY - GENERATED CODE
-
-
--->
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>2.9.4</version>
+  <version>3.2.0</version>
   <name>propane</name>
   <description>An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.</description>
   <url>https://github.com/monkstone/propane</url>
@@ -84,18 +77,13 @@ DO NOT MODIFIY - GENERATED CODE
     <dependency>
       <groupId>org.jruby</groupId>
       <artifactId>jruby</artifactId>
-      <version>9.2.5.0</version>
+      <version>9.2.6.0</version>
       <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>com.apple.eawt</groupId>
-      <artifactId>apple</artifactId>
-      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>org.processing</groupId>
       <artifactId>video</artifactId>
-      <version>3.0.2</version>
+      <version>3.2.3</version>
     </dependency>
     <dependency>
       <groupId>org.jogamp.jogl</groupId>
@@ -131,35 +119,42 @@ DO NOT MODIFIY - GENERATED CODE
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
-		  <!--<release>${maven.compiler.release}</release>-->
-		  <source>${maven.compiler.source}</source>
-		  <target>${maven.compiler.target}</target>
-	  </configuration>
-        </plugin>
-        <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.4</version>
-          <configuration>
-            <detectOfflineLinks>false</detectOfflineLinks>
-            <links>
-              <link>${jruby.api}</link>
-              <link>${processing.api}</link>
-            </links>
+            <release>11</release>
           </configuration>
         </plugin>
         <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-          <configuration>
-            <archive>
-              <manifestFile>MANIFEST.MF</manifestFile>
-            </archive>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <detectOfflineLinks>false</detectOfflineLinks>
+          <links>
+            <link>${jruby.api}</link>
+            <link>${processing.api}</link>
+          </links>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifestFile>MANIFEST.MF</manifestFile>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </pluginManagement>
+</build>
 </project>

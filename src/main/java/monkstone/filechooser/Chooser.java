@@ -23,19 +23,13 @@ import java.io.File;
 
 /**
  * This interface makes it easier/possible to use the reflection methods
- * selectInput
- * def setup
- *   java_signature 'void selectInput(String, String)'
- *   selectInput('Select a file to process:', 'fileSelected')
- * end
+ * selectInput def setup java_signature 'void selectInput(String, String)'
+ * selectInput('Select a file to process:', 'fileSelected') end
  *
- * def file_selected(selection)
- *   if selection.nil?
- *     puts 'Window was closed or the user hit cancel.'
- *   else
- *     puts format('User selected %s', selection.get_absolute_path)
- *   end
- * end
+ * def file_selected(selection) if selection.nil? puts 'Window was closed or the
+ * user hit cancel.' else puts format('User selected %s',
+ * selection.get_absolute_path) end end
+ *
  * @author Martin Prout
  */
 public interface Chooser {

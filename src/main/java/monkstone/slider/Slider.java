@@ -57,5 +57,5 @@ public interface Slider {
      *
      */
     void showNumbers();
-    
+
 }
