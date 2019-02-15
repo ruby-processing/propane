@@ -83,35 +83,35 @@ import processing.opengl.*;
 
 /**
  * Base class for all sketches that use processing.core.
- * <p/>
+ 
  * The
  * <A HREF="https://github.com/processing/processing/wiki/Window-Size-and-Full-Screen">
  * Window Size and Full Screen</A> page on the Wiki has useful information about
  * sizing, multiple displays, full screen, etc.
- * <p/>
+ 
  * Processing uses active mode rendering. All animation tasks happen on the
  * "Processing Animation Thread". The setup() and draw() methods are handled by
  * that thread, and events (like mouse movement and key presses, which are fired
  * by the event dispatch thread or EDT) are queued to be safely handled at the
  * end of draw().
- * <p/>
+ 
  * Starting with 3.0a6, blit operations are on the EDT, so as not to cause GUI
  * problems with Swing and AWT. In the case of the default renderer, the sketch
  * renders to an offscreen image, then the EDT is asked to bring that image to
  * the screen.
- * <p/>
+ 
  * For code that needs to run on the EDT, use EventQueue.invokeLater(). When
  * doing so, be careful to synchronize between that code and the Processing
  * animation thread. That is, you can't call Processing methods from the EDT or
  * at any random time from another thread. Use of a callback function or the
  * registerXxx() methods in PApplet can help ensure that your code doesn't do
  * something naughty.
- * <p/>
+ 
  * As of Processing 3.0, we have removed Applet as the base class for PApplet.
  * This means that we can remove lots of legacy code, however one downside is
  * that it's no longer possible (without extra code) to embed a PApplet into
  * another Java application.
- * <p/>
+ 
  * As of Processing 3.0, we have discontinued support for versions of Java prior
  * to 1.8. We don't have enough people to support it, and for a project of our
  * (tiny) size, we should be focusing on the future, rather than working around
@@ -157,10 +157,10 @@ public class PApplet implements PConstants {
     static {
         String osname = System.getProperty("os.name");
 
-        if (osname.indexOf("Mac") != -1) {
+        if (osname.contains("Mac")) {
             platform = MACOSX;
 
-        } else if (osname.indexOf("Windows") != -1) {
+        } else if (osname.contains("Windows")) {
             platform = WINDOWS;
 
         } else if (osname.equals("Linux")) {  // true for the ibm vm
@@ -190,7 +190,7 @@ public class PApplet implements PConstants {
      * example, if the current screen resolution is 1024x768,
      * <b>displayWidth</b> is 1024 and <b>displayHeight</b> is 768. These
      * dimensions are useful when exporting full-screen applications.
-     * <br /><br />
+     
      * To ensure that the sketch takes over the entire screen, use "Present"
      * instead of "Run". Otherwise the window will still have a frame border
      * around it and not be placed in the upper corner of the screen. On Mac OS
@@ -207,7 +207,7 @@ public class PApplet implements PConstants {
      * example, if the current screen resolution is 1024x768,
      * <b>displayWidth</b> is 1024 and <b>displayHeight</b> is 768. These
      * dimensions are useful when exporting full-screen applications.
-     * <br /><br />
+     
      * To ensure that the sketch takes over the entire screen, use "Present"
      * instead of "Run". Otherwise the window will still have a frame border
      * around it and not be placed in the upper corner of the screen. On Mac OS
@@ -272,8 +272,8 @@ public class PApplet implements PConstants {
      * values. The <b>index</b> value defines the position of a value within the
      * array. For example, the statement <b>color b = pixels[230]</b> will set
      * the variable <b>b</b> to be equal to the value at that location in the
-     * array.<br />
-     * <br />
+     * array.
+     * 
      * Before accessing this array, the data must loaded with the
      * <b>loadPixels()</b> function. After the array data has been modified, the
      * <b>updatePixels()</b> function must be run to update the changes. Without
@@ -429,8 +429,8 @@ public class PApplet implements PConstants {
      * ( begin auto-generated from pmouseX.xml )
      *
      * The system variable <b>pmouseX</b> always contains the horizontal
-     * position of the mouse in the frame previous to the current frame.<br />
-     * <br />
+     * position of the mouse in the frame previous to the current frame.
+     * 
      * You may find that <b>pmouseX</b> and <b>pmouseY</b> have different values
      * inside <b>draw()</b> and inside events like <b>mousePressed()</b>
      * and <b>mouseMoved()</b>. This is because they're used for different
@@ -573,6 +573,14 @@ public class PApplet implements PConstants {
      */
     public boolean mousePressed;
 
+    // MACOSX: CTRL + Left Mouse is converted to Right Mouse. This boolean keeps
+    // track of whether the conversion happened on PRESS, because we should report
+    // the same button during DRAG and on RELEASE, even though CTRL might have
+    // been released already. Otherwise the events are inconsistent, e.g.
+    // Left Pressed - Left Drag - CTRL Pressed - Right Drag - Right Released.
+    // See: https://github.com/processing/processing/issues/5672
+    private boolean macosxLeftButtonWithCtrlPressed;
+
     /**
      * @deprecated Use a mouse event handler that passes an event instead.
      */
@@ -584,7 +592,7 @@ public class PApplet implements PConstants {
      *
      * The system variable <b>key</b> always contains the value of the most
      * recent key on the keyboard that was used (either pressed or released).
-     * <br/> <br/>
+     
      * For non-ASCII keys, use the <b>keyCode</b> variable. The keys included in
      * the ASCII specification (BACKSPACE, TAB, ENTER, RETURN, ESC, and DELETE)
      * do not require checking to see if they key is coded, and you should
@@ -619,7 +627,7 @@ public class PApplet implements PConstants {
      * for these keys, it's first necessary to check and see if the key is
      * coded. This is done with the conditional "if (key == CODED)" as shown in
      * the example.
-     * <br/> <br/>
+     
      * The keys included in the ASCII specification (BACKSPACE, TAB, ENTER,
      * RETURN, ESC, and DELETE) do not require checking to see if they key is
      * coded, and you should simply use the <b>key</b> variable instead of
@@ -627,7 +635,7 @@ public class PApplet implements PConstants {
      * ENTER key is commonly used on PCs and Unix and the RETURN key is used
      * instead on Macintosh. Check for both ENTER and RETURN to make sure your
      * program will work for all platforms.
-     * <br/> <br/>
+     
      * For users familiar with Java, the values for UP and DOWN are simply
      * shorter versions of Java's KeyEvent.VK_UP and KeyEvent.VK_DOWN. Other
      * keyCode values can be found in the Java <a
@@ -722,7 +730,7 @@ public class PApplet implements PConstants {
      * @see PApplet#frameRate(float)
      * @see PApplet#frameCount
      */
-    public float frameRate = 10;
+    public float frameRate = 60;
 
     protected boolean looping = true;
 
@@ -1291,7 +1299,7 @@ public class PApplet implements PConstants {
      * Called by the browser or applet viewer to inform this applet that it
      * should start its execution. It is called after the init method and each
      * time the applet is revisited in a Web page.
-     * <p/>
+     
      * Called explicitly via the first call to PApplet.paint(), because
      * PAppletGL needs to have a usable screen before getting things rolling.
      */
@@ -1306,7 +1314,7 @@ public class PApplet implements PConstants {
     /**
      * Called by the browser or applet viewer to inform this applet that it
      * should stop its execution.
-     * <p/>
+     
      * Unfortunately, there are no guarantees from the Java spec when or if
      * stop() will be called (i.e. on browser quit, or when moving between web
      * pages), and it's not always called.
@@ -1362,7 +1370,7 @@ public class PApplet implements PConstants {
     //   * Called by the browser or applet viewer to inform this applet
     //   * that it is being reclaimed and that it should destroy
     //   * any resources that it has allocated.
-    //   * <p/>
+    //   
     //   * destroy() supposedly gets called as the applet viewer
     //   * is shutting down the applet. stop() is called
     //   * first, and then destroy() to really get rid of things.
@@ -1863,6 +1871,7 @@ height = newHeight;
     }
 
     /**
+     * @param renderer
      * @param display the screen to run the sketch on (1, 2, 3, etc. or on
      * multiple screens using SPAN)
      */
@@ -1885,41 +1894,41 @@ height = newHeight;
      * <b>size()</b> function must be the first line in <b>setup()</b>. If
      * <b>size()</b> is not used, the default size of the window is 100x100
      * pixels. The system variables <b>width</b> and <b>height</b> are set by
-     * the parameters passed to this function.<br />
-     * <br />
+     * the parameters passed to this function.
+     * 
      * Do not use variables as the parameters to <b>size()</b> function, because
      * it will cause problems when exporting your sketch. When variables are
      * used, the dimensions of your sketch cannot be determined during export.
      * Instead, employ numeric values in the <b>size()</b>
      * statement, and then use the built-in <b>width</b> and <b>height</b>
      * variables inside your program when the dimensions of the display window
-     * are needed.<br />
-     * <br />
+     * are needed.
+     * 
      * The <b>size()</b> function can only be used once inside a sketch, and
      * cannot be used for resizing.<br/>
-     * <br/> <b>renderer</b> parameter selects which rendering engine to use.
+     * renderer</b> parameter selects which rendering engine to use.
      * For example, if you will be drawing 3D shapes, use <b>P3D</b>, if you
      * want to export images from a program as a PDF file use <b>PDF</b>. A
-     * brief description of the three primary renderers follows:<br />
-     * <br />
+     * brief description of the three primary renderers follows:
+     * 
      * <b>P2D</b> (Processing 2D) - The default renderer that supports two
-     * dimensional drawing.<br />
-     * <br />
+     * dimensional drawing.
+     * 
      * <b>P3D</b> (Processing 3D) - 3D graphics renderer that makes use of
-     * OpenGL-compatible graphics hardware.<br />
-     * <br />
+     * OpenGL-compatible graphics hardware.
+     * 
      * <b>PDF</b> - The PDF renderer draws 2D graphics directly to an Acrobat
      * PDF file. This produces excellent results when you need vector shapes for
      * high resolution output or printing. You must first use Import Library
      * &rarr; PDF to make use of the library. More information can be found in
-     * the PDF library reference.<br />
-     * <br />
+     * the PDF library reference.
+     * 
      * The P3D renderer doesn't support <b>strokeCap()</b> or
      * <b>strokeJoin()</b>, which can lead to ugly results when using
      * <b>strokeWeight()</b>. (<a
      * href="http://code.google.com/p/processing/issues/detail?id=123">Issue
-     * 123</a>) <br />
-     * <br />
+     * 123</a>) 
+     * 
      * The maximum width and height is limited by your operating system, and is
      * usually the width and height of your actual screen. On some machines it
      * may simply be the number of pixels on your current screen, meaning that a
@@ -1927,8 +1936,8 @@ height = newHeight;
      * same number of pixels. This varies widely so you'll have to try different
      * rendering modes and sizes until you get what you're looking for. If you
      * need something larger, use <b>createGraphics</b> to create a non-visible
-     * drawing surface.<br />
-     * <br />
+     * drawing surface.
+     * 
      * Again, the <b>size()</b> function must be the first line of the code (or
      * first item inside setup). Any code that appears before the <b>size()</b>
      * command may run more than once, which can lead to confusing results.
@@ -2073,8 +2082,8 @@ throw new RuntimeException("The sketchRenderer() method is not implemented.");
      * P3D. Use this class if you need to draw into an off-screen graphics
      * buffer. The PDF renderer requires the filename parameter. The DXF
      * renderer should not be used with <b>createGraphics()</b>, it's only built
-     * for use with <b>beginRaw()</b> and <b>endRaw()</b>.<br />
-     * <br />
+     * for use with <b>beginRaw()</b> and <b>endRaw()</b>.
+     * 
      * It's important to call any drawing functions between <b>beginDraw()</b>
      * and <b>endDraw()</b> statements. This is also true for any functions that
      * affect drawing, such as <b>smooth()</b> or <b>colorMode()</b>.<br/>
@@ -2292,10 +2301,10 @@ return pg;
      * <b>width</b> and <b>height</b> parameters. The <b>format</b> parameter
      * defines how the pixels are stored. See the PImage reference for more
      * information.
-     * <br/> <br/>
+     
      * Be sure to include all three parameters, specifying only the width and
      * height (but no format) will produce a strange error.
-     * <br/> <br/>
+     
      * Advanced users please note that createImage() should be used instead of
      * the syntax <tt>new PImage()</tt>.
      *
@@ -2377,9 +2386,34 @@ return pg;
             //      defaultSize = false;
         } else {  // frameCount > 0, meaning an actual draw()
             // update the current frameRate
-            double rate = 1000000.0 / ((now - frameRateLastNanos) / 1000000.0);
-            float instantaneousRate = (float) (rate / 1000.0);
-            frameRate = (frameRate * 0.9f) + (instantaneousRate * 0.1f);
+
+            // Calculate frameRate through average frame times, not average fps, e.g.:
+            //
+            // Alternating 2 ms and 20 ms frames (JavaFX or JOGL sometimes does this)
+            // is around 90.91 fps (two frames in 22 ms, one frame 11 ms).
+            //
+            // However, averaging fps gives us: (500 fps + 50 fps) / 2 = 275 fps.
+            // This is because we had 500 fps for 2 ms and 50 fps for 20 ms, but we
+            // counted them with equal weight.
+            //
+            // If we average frame times instead, we get the right result:
+            // (2 ms + 20 ms) / 2 = 11 ms per frame, which is 1000/11 = 90.91 fps.
+            //
+            // The counter below uses exponential moving average. To do the
+            // calculation, we first convert the accumulated frame rate to average
+            // frame time, then calculate the exponential moving average, and then
+            // convert the average frame time back to frame rate.
+            {
+                // Get the frame time of the last frame
+                double frameTimeSecs = (now - frameRateLastNanos) / 1e9;
+                // Convert average frames per second to average frame time
+                double avgFrameTimeSecs = 1.0 / frameRate;
+                // Calculate exponential moving average of frame time
+                final double alpha = 0.05;
+                avgFrameTimeSecs = (1.0 - alpha) * avgFrameTimeSecs + alpha * frameTimeSecs;
+                // Convert frame time back to frames per second
+                frameRate = (float) (1.0 / avgFrameTimeSecs);
+            }
 
             if (frameCount != 0) {
                 handleMethods("pre");
@@ -2439,11 +2473,11 @@ return pg;
      * the program to update the display window only when necessary, for example
      * when an event registered by <b>mousePressed()</b> or
      * <b>keyPressed()</b> occurs.
-     * <br/><br/> structuring a program, it only makes sense to call redraw()
+     *  structuring a program, it only makes sense to call redraw()
      * within events such as <b>mousePressed()</b>. This is because
      * <b>redraw()</b> does not run <b>draw()</b> immediately (it only sets a
      * flag that indicates an update is needed).
-     * <br/><br/> <b>redraw()</b> within <b>draw()</b> has no effect because
+     *  <b>redraw()</b> within <b>draw()</b> has no effect because
      * <b>draw()</b> is continuously called anyway.
      *
      * ( end auto-generated )
@@ -2499,7 +2533,7 @@ return pg;
      * <b>draw()</b>. If <b>loop()</b> is called, the code in <b>draw()</b>
      * begin to run continuously again. If using <b>noLoop()</b> in
      * <b>setup()</b>, it should be the last line inside the block.
-     * <br/> <br/>
+     
      * When <b>noLoop()</b> is used, it's not possible to manipulate or access
      * the screen inside event handling functions such as <b>mousePressed()</b>
      * or <b>keyPressed()</b>. Instead, use those functions to call
@@ -2507,7 +2541,7 @@ return pg;
      * update the screen properly. This means that when noLoop() has been
      * called, no drawing can happen, and functions like saveFrame() or
      * loadPixels() may not be used.
-     * <br/> <br/>
+     
      * Note that if the sketch is resized, <b>redraw()</b> will be called to
      * update the sketch, even after <b>noLoop()</b> has been specified.
      * Otherwise, the sketch would enter an odd state until <b>loop()</b> was
@@ -2538,6 +2572,7 @@ return pg;
     /**
      * Add an event to the internal event queue, or process it immediately if
      * the sketch is not currently looping.
+     * @param pe
      */
     public void postEvent(processing.event.Event pe) {
         eventQueue.add(pe);
@@ -2589,21 +2624,40 @@ return pg;
             mouseY = event.getY();
         }
 
+        int button = event.getButton();
+
+        // If running on Mac OS, allow ctrl-click as right mouse.
+        if (PApplet.platform == PConstants.MACOSX && event.getButton() == PConstants.LEFT) {
+            if (action == MouseEvent.PRESS && event.isControlDown()) {
+                macosxLeftButtonWithCtrlPressed = true;
+            }
+            if (macosxLeftButtonWithCtrlPressed) {
+                button = PConstants.RIGHT;
+                event = new MouseEvent(event.getNative(), event.getMillis(),
+                        event.getAction(), event.getModifiers(),
+                        event.getX(), event.getY(),
+                        button, event.getCount());
+            }
+            if (button == MouseEvent.RELEASE) {
+                macosxLeftButtonWithCtrlPressed = false;
+            }
+        }
+
         // Get the (already processed) button code
-        mouseButton = event.getButton();
+        mouseButton = button;
 
         /*
-  // Compatibility for older code (these have AWT object params, not P5)
-  if (mouseEventMethods != null) {
-  // Probably also good to check this, in case anyone tries to call
-  // postEvent() with an artificial event they've created.
-  if (event.getNative() != null) {
-  mouseEventMethods.handle(new Object[] { event.getNative() });
-}
-}
+      // Compatibility for older code (these have AWT object params, not P5)
+      if (mouseEventMethods != null) {
+        // Probably also good to check this, in case anyone tries to call
+        // postEvent() with an artificial event they've created.
+        if (event.getNative() != null) {
+          mouseEventMethods.handle(new Object[] { event.getNative() });
+        }
+      }
          */
-// this used to only be called on mouseMoved and mouseDragged
-// change it back if people run into trouble
+        // this used to only be called on mouseMoved and mouseDragged
+        // change it back if people run into trouble
         if (firstMouse) {
             pmouseX = mouseX;
             pmouseY = mouseY;
@@ -2614,8 +2668,8 @@ return pg;
 
         mouseEvent = event;
 
-// Do this up here in case a registered method relies on the
-// boolean for mousePressed.
+        // Do this up here in case a registered method relies on the
+        // boolean for mousePressed.
         switch (action) {
             case MouseEvent.PRESS:
                 mousePressed = true;
@@ -2926,7 +2980,7 @@ return pg;
      *
      * The <b>keyPressed()</b> function is called once every time a key is
      * pressed. The key that was pressed is stored in the <b>key</b> variable.
-     * <br/> <br/>
+     
      * For non-ASCII keys, use the <b>keyCode</b> variable. The keys included in
      * the ASCII specification (BACKSPACE, TAB, ENTER, RETURN, ESC, and DELETE)
      * do not require checking to see if they key is coded, and you should
@@ -2935,7 +2989,7 @@ return pg;
      * on PCs and Unix and the RETURN key is used instead on Macintosh. Check
      * for both ENTER and RETURN to make sure your program will work for all
      * platforms.
-     * <br/> <br/>
+     
      * Because of how operating systems handle key repeats, holding down a key
      * may cause multiple calls to keyPressed() (and keyReleased() as well). The
      * rate of repeat is set by the operating system and how each computer is
@@ -3306,9 +3360,7 @@ return pg;
                 // Just pass it off to open() and hope for the best
                 launch(url);
             }
-        } catch (IOException e) {
-            printStackTrace(e);
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             printStackTrace(e);
         }
     }
@@ -3324,25 +3376,25 @@ return pg;
      * an executable in the system's PATH. In most cases, using a full path is
      * the best option, rather than relying on the system PATH. Be sure to make
      * the file executable before attempting to open it (chmod +x).
-     * <br/> <br/>
+     
      * The <b>args</b> parameter is a String or String array which is passed to
      * the command line. If you have multiple parameters, e.g. an application
      * and a document, or a command with multiple switches, use the version that
      * takes a String array, and place each individual item in a separate
      * element.
-     * <br/> <br/>
+     
      * If args is a String (not an array), then it can only be a single file or
      * application with no parameters. It's not the same as executing that
      * String using a shell. For instance, launch("javac -help") will not work
      * properly.
-     * <br/> <br/>
+     
      * This function behaves differently on each platform. On Windows, the
      * parameters are sent to the Windows shell via "cmd /c". On Mac OS X, the
      * "open" command is used (type "man open" in Terminal.app for
      * documentation). On Linux, it first tries gnome-open, then kde-open, but
      * if neither are available, it sends the command to the shell without any
      * alterations.
-     * <br/> <br/>
+     
      * For users familiar with Java, this is not quite the same as
      * Runtime.exec(), because the launcher command is prepended. Instead, the
      * <b>exec(String[])</b> function is a shortcut for
@@ -3618,12 +3670,12 @@ return arg;
      * Quits/stops/exits the program. Programs without a <b>draw()</b> function
      * exit automatically after the last line has run, but programs with
      * <b>draw()</b> run continuously until the program is manually stopped or
-     * <b>exit()</b> is run.<br />
-     * <br />
+     * <b>exit()</b> is run.
+     * 
      * Rather than terminating immediately, <b>exit()</b> will cause the sketch
      * to exit after <b>draw()</b> has completed (or after <b>setup()</b>
-     * completes if called during the <b>setup()</b> function).<br />
-     * <br />
+     * completes if called during the <b>setup()</b> function).
+     * 
      * For Java programmers, this is <em>not</em> the same as System.exit().
      * Further, System.exit() should not be used because closing out an
      * application while <b>draw()</b> is running may cause a crash
@@ -3697,9 +3749,9 @@ return arg;
 
         if (platform == MACOSX) {
             try {
-                final String td = "processing.core.ThinkDifferent";
-                final Class<?> thinkDifferent = getClass().getClassLoader().loadClass(td);
-                thinkDifferent.getMethod("cleanup").invoke(null);
+                final String dh = "processing.core.DesktopHandler";
+                final Class<?> displayHandler = getClass().getClassLoader().loadClass(dh);
+                displayHandler.getMethod("cleanup").invoke(null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -3710,7 +3762,7 @@ return arg;
 //////////////////////////////////////////////////////////////
     /**
      * Call a method in the current class based on its name.
-     * <p/>
+     
      * Note that the function being called must be public. Inside the PDE,
      * 'public' is automatically added, but when used without the preprocessor,
      * (like from Eclipse) you'll have to do it yourself.
@@ -3738,7 +3790,7 @@ return arg;
      * Launch a new thread and call the specified function from that new thread.
      * This is a very simple way to do a thread without needing to get into
      * classes, runnables, etc.
-     * <p/>
+     
      * Note that the function being called must be public. Inside the PDE,
      * 'public' is automatically added, but when used without the preprocessor,
      * (like from Eclipse) you'll have to do it yourself.
@@ -3814,8 +3866,8 @@ return arg;
      * sequences can be loaded into programs such as Apple's QuickTime software
      * and made into movies. These files are saved to the sketch's folder, which
      * may be opened by selecting "Show sketch folder" from the "Sketch"
-     * menu.<br />
-     * <br />
+     * menu.
+     * 
      * It is not possible to use saveXxxxx() functions inside a web browser
      * unless the sketch is <a
      * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</A>. To
@@ -3893,7 +3945,7 @@ return arg;
      * load an image as the cursor if you are exporting your program for the Web
      * and not all MODES work with all Web browsers. The values for parameters
      * <b>x</b> and <b>y</b> must be less than the dimensions of the image.
-     * <br /> <br />
+     *  
      * Setting or hiding the cursor generally does not work with "Present" mode
      * (when running full-screen).
      *
@@ -3952,15 +4004,15 @@ return arg;
      * function <b>println()</b> works like <b>print()</b>, but creates a new
      * line of text for each call to the function. Individual elements can be
      * separated with quotes ("") and joined with the addition operator
-     * (+).<br />
-     * <br />
+     * (+).
+     * 
      * Beginning with release 0125, to print the contents of an array, use
      * println(). There's no sensible way to do a <b>print()</b> of an array,
      * because there are too many possibilities for how to separate the data
      * (spaces, commas, etc). If you want to print an array as a single line,
      * use <b>join()</b>. With <b>join()</b>, you can choose any delimiter you
-     * like and <b>print()</b> the result.<br />
-     * <br />
+     * like and <b>print()</b> the result.
+     * 
      * Using <b>print()</b> on an object will output <b>null</b>, a memory
      * location that may look like "@10be08," or the result of the
      * <b>toString()</b> method from the object that's being printed. Advanced
@@ -4055,7 +4107,7 @@ System.out.println(what.toString());
      * separated with quotes ("") and joined with the string concatenation
      * operator (+). See <b>print()</b> for more about what to expect in the
      * output.
-     * <br/><br/> <b>println()</b> on an array (by itself) will write the
+     *  <b>println()</b> on an array (by itself) will write the
      * contents of the array to the console. This is often helpful for looking
      * at the data a program is producing. A new line is put between each
      * element of the array. This function can only print one dimensional
@@ -4880,9 +4932,9 @@ return min;
      * ( begin auto-generated from norm.xml )
      *
      * Normalizes a number from another range into a value between 0 and 1.
-     * <br/> <br/>
+     
      * Identical to map(value, low, high, 0, 1);
-     * <br/> <br/>
+     
      * Numbers outside the range are not clamped to 0 and 1, because
      * out-of-range values are often intentional and useful.
      *
@@ -4906,7 +4958,7 @@ return min;
      * number '25' is converted from a value in the range 0..100 into a value
      * that ranges from the left edge (0) to the right edge (width) of the
      * screen.
-     * <br/> <br/>
+     
      * Numbers outside the range are not clamped to 0 and 1, because
      * out-of-range values are often intentional and useful.
      *
@@ -5110,7 +5162,7 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * succession of numbers compared to the standard <b>random()</b> function.
      * It was invented by Ken Perlin in the 1980s and been used since in
      * graphical applications to produce procedural textures, natural motion,
-     * shapes, terrains etc.<br /><br /> The main difference to the
+     * shapes, terrains etc. The main difference to the
      * <b>random()</b> function is that Perlin noise is defined in an infinite
      * n-dimensional space where each pair of coordinates corresponds to a fixed
      * semi-random value (fixed only for the lifespan of the program). The
@@ -5118,11 +5170,11 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * compute 1D, 2D and 3D noise, depending on the number of coordinates
      * given. The noise value can be animated by moving through the noise space
      * as demonstrated in the example above. The 2nd and 3rd dimension can also
-     * be interpreted as time.<br /><br />The actual noise is structured similar
+     * be interpreted as time.The actual noise is structured similar
      * to an audio signal, in respect to the function's use of frequencies.
      * Similar to the concept of harmonics in physics, perlin noise is computed
      * over several octaves which are added together for the final result.
-     * <br /><br />Another way to adjust the character of the resulting sequence
+     Another way to adjust the character of the resulting sequence
      * is the scale of the input coordinates. As the function works within an
      * infinite space the value of the coordinates doesn't matter as such, only
      * the distance between successive coordinates does (eg. when using
@@ -5251,7 +5303,7 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * Eg. a falloff factor of 0.75 means each octave will now have 75% impact
      * (25% less) of the previous lower octave. Any value between 0.0 and 1.0 is
      * valid, however note that values greater than 0.5 might result in greater
-     * than 1.0 values returned by <b>noise()</b>.<br /><br
+     * than 1.0 values returned by <b>noise()</b>.<br
      * />By changing these parameters, the signal created by the <b>noise()</b>
      * function can be adapted to fit very specific needs and characteristics.
      *
@@ -5318,13 +5370,13 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * directory of the current sketch. In most cases, load all images in
      * <b>setup()</b> to preload them at the start of the program. Loading
      * images inside <b>draw()</b> will reduce the speed of a program.<br/>
-     * <br/> <b>filename</b> parameter can also be a URL to a file found online.
+     * filename</b> parameter can also be a URL to a file found online.
      * For security reasons, a Processing sketch found online can only download
      * files from the same server from which it came. Getting around this
      * restriction requires a <a
      * href="http://wiki.processing.org/w/Sign_an_Applet">signed
      * applet</a>.<br/>
-     * <br/> <b>extension</b> parameter is used to determine the image type in
+     * extension</b> parameter is used to determine the image type in
      * cases where the image filename does not end with a proper extension.
      * Specify the extension as the second parameter to <b>loadImage()</b>, as
      * shown in the third example on this page.<br/>
@@ -5519,8 +5571,8 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * the image, its width and height will be set to -1. You'll know when the
      * image has loaded properly because its width and height will be greater
      * than 0. Asynchronous image loading (particularly when downloading from a
-     * server) can dramatically improve performance.<br />
-     * <br/> <b>extension</b> parameter is used to determine the image type in
+     * server) can dramatically improve performance.
+     * extension</b> parameter is used to determine the image type in
      * cases where the image filename does not end with a proper extension.
      * Specify the extension as the second parameter to <b>requestImage()</b>.
      *
@@ -6131,19 +6183,19 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * fonts must be located in the data directory of the current sketch. To
      * create a font to use with Processing, select "Create Font..." from the
      * Tools menu. This will create a font in the format Processing requires and
-     * also adds it to the current sketch's data directory.<br />
-     * <br />
+     * also adds it to the current sketch's data directory.
+     * 
      * Like <b>loadImage()</b> and other functions that load data, the
      * <b>loadFont()</b> function should not be used inside <b>draw()</b>,
      * because it will slow down the sketch considerably, as the font will be
-     * re-loaded from the disk (or network) on each frame.<br />
-     * <br />
+     * re-loaded from the disk (or network) on each frame.
+     * 
      * For most renderers, Processing displays fonts using the .vlw font format,
      * which uses images for each letter, rather than defining them through
      * vector data. When <b>hint(ENABLE_NATIVE_FONTS)</b> is used with the
      * JAVA2D renderer, the native version of a font will be used if it is
-     * installed on the user's machine.<br />
-     * <br />
+     * installed on the user's machine.
+     * 
      * Using <b>createFont()</b> (instead of loadFont) enables vector data to be
      * used with the JAVA2D (default) renderer setting. This can be helpful when
      * many font sizes are needed, or when using any renderer based on JAVA2D,
@@ -6200,7 +6252,7 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * inside the sketches "data" folder. This function is an advanced feature
      * for precise control. On most occasions you should create fonts through
      * selecting "Create Font..." from the Tools menu.
-     * <br /><br />
+     
      * Use the <b>PFont.list()</b> method to first determine the names for the
      * fonts recognized by the computer and are compatible with this function.
      * Because of limitations in Java, not all fonts can be used and some might
@@ -6209,12 +6261,12 @@ return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
      * .otf version of your font in the data directory of the sketch because
      * other people might not have the font installed on their computer. Only
      * fonts that can legally be distributed should be included with a sketch.
-     * <br /><br />
+     
      * The <b>size</b> parameter states the font size you want to generate. The
      * <b>smooth</b> parameter specifies if the font should be antialiased or
      * not, and the <b>charset</b> parameter is an array of chars that specifies
      * the characters to generate.
-     * <br /><br />
+     
      * This function creates a bitmapped version of a font in the same manner as
      * the Create Font tool. It loads a font by name, and converts it to a
      * series of images based on the size of the font. When possible, the
@@ -6475,49 +6527,47 @@ return selectFrame;
             final Object callbackObject,
             final Frame parentFrame,
             final PApplet sketch) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                File selectedFile = null;
+        EventQueue.invokeLater(() -> {
+            File selectedFile = null;
 
-                boolean hide = (sketch != null)
-                        && (sketch.g instanceof PGraphicsOpenGL) && (platform == WINDOWS);
-                if (hide) {
-                    sketch.surface.setVisible(false);
-                }
-
-                if (platform == MACOSX && useNativeSelect != false) {
-                    FileDialog fileDialog
-                            = new FileDialog(parentFrame, prompt, FileDialog.LOAD);
-                    if (defaultSelection != null) {
-                        fileDialog.setDirectory(defaultSelection.getAbsolutePath());
-                    }
-                    System.setProperty("apple.awt.fileDialogForDirectories", "true");
-                    fileDialog.setVisible(true);
-                    System.setProperty("apple.awt.fileDialogForDirectories", "false");
-                    String filename = fileDialog.getFile();
-                    if (filename != null) {
-                        selectedFile = new File(fileDialog.getDirectory(), fileDialog.getFile());
-                    }
-                } else {
-                    checkLookAndFeel();
-                    JFileChooser fileChooser = new JFileChooser();
-                    fileChooser.setDialogTitle(prompt);
-                    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                    if (defaultSelection != null) {
-                        fileChooser.setCurrentDirectory(defaultSelection);
-                    }
-
-                    int result = fileChooser.showOpenDialog(parentFrame);
-                    if (result == JFileChooser.APPROVE_OPTION) {
-                        selectedFile = fileChooser.getSelectedFile();
-                    }
-                }
-
-                if (hide) {
-                    sketch.surface.setVisible(true);
-                }
-                selectCallback(selectedFile, callbackMethod, callbackObject);
+            boolean hide = (sketch != null)
+                    && (sketch.g instanceof PGraphicsOpenGL) && (platform == WINDOWS);
+            if (hide) {
+                sketch.surface.setVisible(false);
             }
+
+            if (platform == MACOSX && useNativeSelect != false) {
+                FileDialog fileDialog
+                        = new FileDialog(parentFrame, prompt, FileDialog.LOAD);
+                if (defaultSelection != null) {
+                    fileDialog.setDirectory(defaultSelection.getAbsolutePath());
+                }
+                System.setProperty("apple.awt.fileDialogForDirectories", "true");
+                fileDialog.setVisible(true);
+                System.setProperty("apple.awt.fileDialogForDirectories", "false");
+                String filename = fileDialog.getFile();
+                if (filename != null) {
+                    selectedFile = new File(fileDialog.getDirectory(), fileDialog.getFile());
+                }
+            } else {
+                checkLookAndFeel();
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle(prompt);
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                if (defaultSelection != null) {
+                    fileChooser.setCurrentDirectory(defaultSelection);
+                }
+
+                int result = fileChooser.showOpenDialog(parentFrame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    selectedFile = fileChooser.getSelectedFile();
+                }
+            }
+
+            if (hide) {
+                sketch.surface.setVisible(true);
+            }
+            selectCallback(selectedFile, callbackMethod, callbackObject);
         });
     }
 
@@ -6686,17 +6736,15 @@ return selectFrame;
     /**
      * ( begin auto-generated from createReader.xml )
      *
-     * Creates a <b>BufferedReader</b> object that can be used to read files
-     * line-by-line as individual <b>String</b> objects. This is the complement
-     * to the <b>createWriter()</b> function.
-     * <br/> <br/>
-     * Starting with Processing release 0134, all files loaded and saved by the
-     * Processing API use UTF-8 encoding. In previous releases, the default
-     * encoding for your platform was used, which causes problems when files are
-     * moved to other platforms.
+     * Creates a <b>BufferedReader<b>String    This is the complement
+ to the <b>createWriter()</b> function. Starting with Processing release 0134, all files loaded and saved by the
+ Processing API use UTF-8 encoding. In previous releases, the default
+ encoding for your platform was used, which causes problems when files are
+ moved to other platforms.
+
+ ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref input:files
      * @param filename name of the file to be opened
      * @see BufferedReader
@@ -6762,7 +6810,7 @@ return selectFrame;
      * to write to it. For the file to be made correctly, it should be flushed
      * and must be closed with its <b>flush()</b> and <b>close()</b> methods
      * (see above example).
-     * <br/> <br/>
+     
      * Starting with Processing release 0134, all files loaded and saved by the
      * Processing API use UTF-8 encoding. In previous releases, the default
      * encoding for your platform was used, which causes problems when files are
@@ -6822,28 +6870,28 @@ return selectFrame;
      * It's useful if you want to use the facilities provided by PApplet to
      * easily open files from the data folder or from a URL, but want an
      * InputStream object so that you can use other parts of Java to take more
-     * control of how the stream is read.<br />
-     * <br />
-     * The filename passed in can be:<br />
-     * - A URL, for instance <b>openStream("http://processing.org/")</b><br />
-     * - A file in the sketch's <b>data</b> folder<br />
+     * control of how the stream is read.
+     * 
+     * The filename passed in can be:
+     * - A URL, for instance <b>openStream("http://processing.org/")</b>
+     * - A file in the sketch's <b>data</b> folder
      * - The full path to a file to be opened locally (when running as an
-     * application)<br />
-     * <br />
+     * application)
+     * 
      * If the requested item doesn't exist, null is returned. If not online,
      * this will also check to see if the user is asking for a file whose name
      * isn't properly capitalized. If capitalization is different, an error will
      * be printed to the console. This helps prevent issues that appear when a
      * sketch is exported to the web, where case sensitivity matters, as opposed
      * to running from inside the Processing Development Environment on Windows
-     * or Mac OS, where case sensitivity is preserved but ignored.<br />
-     * <br />
+     * or Mac OS, where case sensitivity is preserved but ignored.
+     * 
      * If the file ends with <b>.gz</b>, the stream will automatically be gzip
      * decompressed. If you don't want the automatic decompression, use the
      * related function <b>createInputRaw()</b>.
-     * <br />
-     * In earlier releases, this function was called <b>openStream()</b>.<br />
-     * <br />
+     * 
+     * In earlier releases, this function was called <b>openStream()</b>.
+     * 
      *
      * ( end auto-generated )
      *
@@ -7111,8 +7159,8 @@ return selectFrame;
      *
      * Reads the contents of a file or url and places it in a byte array. If a
      * file is specified, it must be located in the sketch's "data"
-     * directory/folder.<br />
-     * <br />
+     * directory/folder.
+     * 
      * The filename parameter can also be a URL to a file found online. For
      * security reasons, a Processing sketch found online can only download
      * files from the same server from which it came. Getting around this
@@ -7244,14 +7292,14 @@ return selectFrame;
             int length;
 
             if (file.getName().toLowerCase().endsWith(".gz")) {
-                RandomAccessFile raf = new RandomAccessFile(file, "r");
-                raf.seek(raf.length() - 4);
-                int b4 = raf.read();
-                int b3 = raf.read();
-                int b2 = raf.read();
-                int b1 = raf.read();
-                length = (b1 << 24) | (b2 << 16) + (b3 << 8) + b4;
-                raf.close();
+                try ( RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+                    raf.seek(raf.length() - 4);
+                    int b4 = raf.read();
+                    int b3 = raf.read();
+                    int b2 = raf.read();
+                    int b1 = raf.read();
+                    length = (b1 << 24) | (b2 << 16) + (b3 << 8) + b4;
+                }
 
                 // buffered has to go *around* the GZ, otherwise 25x slower
                 input = new BufferedInputStream(new GZIPInputStream(new FileInputStream(file)));
@@ -7310,20 +7358,20 @@ return selectFrame;
      *
      * Reads the contents of a file or url and creates a String array of its
      * individual lines. If a file is specified, it must be located in the
-     * sketch's "data" directory/folder.<br />
-     * <br />
+     * sketch's "data" directory/folder.
+     * 
      * The filename parameter can also be a URL to a file found online. For
      * security reasons, a Processing sketch found online can only download
      * files from the same server from which it came. Getting around this
      * restriction requires a <a
      * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</a>.
-     * <br />
+     * 
      * If the file is not available or an error occurs, <b>null</b> will be
      * returned and an error message will be printed to the console. The error
      * message does not halt the program, however the null value may cause a
      * NullPointerException if your code does not check whether the value
      * returned is null.
-     * <br/> <br/>
+     
      * Starting with Processing release 0134, all files loaded and saved by the
      * Processing API use UTF-8 encoding. In previous releases, the default
      * encoding for your platform was used, which causes problems when files are
@@ -7420,16 +7468,16 @@ return selectFrame;
      * Similar to <b>createInput()</b>, this creates a Java <b>OutputStream</b>
      * for a given filename or path. The file will be created in the sketch
      * folder, or in the same folder as an exported application.
-     * <br /><br />
+     
      * If the path does not exist, intermediate folders will be created. If an
      * exception occurs, it will be printed to the console, and <b>null</b>
      * will be returned.
-     * <br /><br />
+     
      * This function is a convenience over the Java approach that requires you
      * to 1) create a FileOutputStream object, 2) determine the exact file
      * location, and 3) handle exceptions. Exceptions are handled internally by
      * the function, which is more appropriate for "sketch" projects.
-     * <br /><br />
+     
      * If the output filename ends with <b>.gz</b>, the output will be
      * automatically GZIP compressed as it is written.
      *
@@ -7467,8 +7515,8 @@ return selectFrame;
      *
      * Save the contents of a stream to a file in the sketch folder. This is
      * basically <b>saveBytes(blah, loadBytes())</b>, but done more efficiently
-     * (and with less confusing syntax).<br />
-     * <br />
+     * (and with less confusing syntax).
+     * 
      * When using the <b>targetFile</b> parameter, it writes to a <b>File</b>
      * object for greater control over the file location. (Note that unlike some
      * other functions, this will not automatically compress or uncompress gzip
@@ -7488,7 +7536,7 @@ return selectFrame;
     /**
      * Identical to the other saveStream(), but writes to a File object, for
      * greater control over the file location.
-     * <p/>
+     
      * Note that unlike other api methods, this will not automatically compress
      * or uncompress gzip files.
      */
@@ -7563,8 +7611,8 @@ return selectFrame;
      * Opposite of <b>loadBytes()</b>, will write an entire array of bytes to a
      * file. The data is saved in binary format. This file is saved to the
      * sketch's folder, which is opened by selecting "Show sketch folder" from
-     * the "Sketch" menu.<br />
-     * <br />
+     * the "Sketch" menu.
+     * 
      * It is not possible to use saveXxxxx() functions inside a web browser
      * unless the sketch is <a
      * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</A>. To
@@ -7664,8 +7712,8 @@ return selectFrame;
      *
      * Writes an array of strings to a file, one line per string. This file is
      * saved to the sketch's folder, which is opened by selecting "Show sketch
-     * folder" from the "Sketch" menu.<br />
-     * <br />
+     * folder" from the "Sketch" menu.
+     * 
      * It is not possible to use saveXxxxx() functions inside a web browser
      * unless the sketch is <a
      * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</A>. To
@@ -7757,11 +7805,11 @@ return selectFrame;
      * Prepend the sketch folder path to the filename (or path) that is passed
      * in. External libraries should use this function to save to the sketch
      * folder.
-     * <p/>
+     
      * Note that when running as an applet inside a web browser, the sketchPath
      * will be set to null, because security restrictions prevent applets from
      * accessing that information.
-     * <p/>
+     
      * This will also cause an error if the sketch is not inited properly,
      * meaning that init() was never called on the PApplet when hosted my some
      * other main() or by other code. For proper use of init(), see the examples
@@ -7791,7 +7839,7 @@ return selectFrame;
     /**
      * Returns a path inside the applet folder to save to. Like sketchPath(),
      * but creates any in-between folders so that things save properly.
-     * <p/>
+     
      * All saveXxxx() functions use the path to the sketch folder, rather than
      * its data folder. Once exported, the data folder will be found inside the
      * jar file of the exported application or applet. In this case, it's not
@@ -8131,7 +8179,7 @@ return selectFrame;
      * Increases the size of an array. By default, this function doubles the
      * size of the array, but the optional <b>newSize</b> parameter provides
      * precise control over the increase in size.
-     * <br/> <br/>
+     
      * When using an array of objects, the data returned from the function must
      * be cast to the object array's data type. For example: <em>SomeClass[]
      * items = (SomeClass[]) expand(originalArray)</em>.
@@ -8250,7 +8298,7 @@ return selectFrame;
      * Expands an array by one element and adds data to the new position. The
      * datatype of the <b>element</b> parameter must be the same as the datatype
      * of the array.
-     * <br/> <br/>
+     
      * When using an array of objects, the data returned from the function must
      * be cast to the object array's data type. For example: <em>SomeClass[]
      * items = (SomeClass[]) append(originalArray, element)</em>.
@@ -8304,7 +8352,7 @@ return selectFrame;
      * ( begin auto-generated from shorten.xml )
      *
      * Decreases an array by one element and returns the shortened array.
-     * <br/> <br/>
+     
      * When using an array of objects, the data returned from the function must
      * be cast to the object array's data type. For example: <em>SomeClass[]
      * items = (SomeClass[]) shorten(originalArray)</em>.
@@ -8348,17 +8396,11 @@ return selectFrame;
     /**
      * ( begin auto-generated from splice.xml )
      *
-     * Inserts a value or array of values into an existing array. The first two
-     * parameters must be of the same datatype. The <b>array</b> parameter
-     * defines the array which will be modified and the second parameter defines
-     * the data which will be inserted.
-     * <br/> <br/>
-     * When using an array of objects, the data returned from the function must
-     * be cast to the object array's data type. For example: <em>SomeClass[]
-     * items = (SomeClass[]) splice(array1, array2, index)</em>.
+     * Inserts a value or array of values into an existing array.The first two
+ parameters must be of the same datatype. The <b>array<em>SomeClass[]
+     * items = (SomeClass[]) splice(array1, array2, index)
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref data:array_functions
      * @param list array to splice into
      * @param value value to be spliced in
@@ -8522,7 +8564,7 @@ return selectFrame;
      * the <b>offset</b> to the end of the array. When specifying the
      * <b>offset</b> remember the first array element is 0. This function does
      * not change the source array.
-     * <br/> <br/>
+     
      * When using an array of objects, the data returned from the function must
      * be cast to the object array's data type. For example: <em>SomeClass[]
      * items = (SomeClass[]) subset(originalArray, 0, 4)</em>.
@@ -8629,7 +8671,7 @@ return selectFrame;
      * Concatenates two arrays. For example, concatenating the array { 1, 2, 3 }
      * and the array { 4, 5, 6 } yields { 1, 2, 3, 4, 5, 6 }. Both parameters
      * must be arrays of the same datatype.
-     * <br/> <br/>
+     
      * When using an array of objects, the data returned from the function must
      * be cast to the object array's data type. For example: <em>SomeClass[]
      * items = (SomeClass[]) concat(array1, array2)</em>.
@@ -8852,7 +8894,7 @@ return selectFrame;
      * The splitTokens() function splits a String at one or many character
      * "tokens." The <b>tokens</b> parameter specifies the character or
      * characters to be used as a boundary.
-     * <br/> <br/>
+     
      * If no <b>tokens</b> character is specified, any whitespace character is
      * used to split. Whitespace characters include tab (\\t), line feed (\\n),
      * carriage return (\\r), form feed (\\f), and space. To convert a String to
@@ -8887,15 +8929,15 @@ return selectFrame;
      * string as the divider. The <b>delim</b> parameter specifies the character
      * or characters that mark the boundaries between each piece. A String[]
      * array is returned that contains each of the pieces.
-     * <br/> <br/>
+     
      * If the result is a set of numbers, you can convert the String[] array to
      * to a float[] or int[] array using the datatype conversion functions
      * <b>int()</b> and <b>float()</b> (see example above).
-     * <br/> <br/>
+     
      * The <b>splitTokens()</b> function works in a similar fashion, except that
      * it splits using a range of characters instead of a specific character or
      * sequence.
-     * <!-- /><br />
+     * <!-- />
      * This function uses regular expressions to determine how the <b>delim</b>
      * parameter divides the <b>str</b> parameter. Therefore, if you use
      * characters such parentheses and brackets that are used with regular
@@ -9001,16 +9043,16 @@ return selectFrame;
      * text, and return matching groups (elements found inside parentheses) as a
      * String array. No match will return null. If no groups are specified in
      * the regexp, but the sequence matches, an array of length one (with the
-     * matched text as the first element of the array) will be returned.<br />
-     * <br />
+     * matched text as the first element of the array) will be returned.
+     * 
      * To use the function, first check to see if the result is null. If the
      * result is null, then the sequence did not match. If the sequence did
      * match, an array is returned. If there are groups (specified by sets of
      * parentheses) in the regexp, then the contents of each will be returned in
      * the array. Element [0] of a regexp match returns the entire matching
      * string, and the match groups start at element [1] (the first group is
-     * [1], the second [2], and so on).<br />
-     * <br />
+     * [1], the second [2], and so on).
+     * 
      * The syntax can be found in the reference for Java's <a
      * href="http://download.oracle.com/javase/6/docs/api/">Pattern</a> class.
      * For regular expression syntax, read the <a
@@ -9050,8 +9092,8 @@ return selectFrame;
      * as a two-dimensional String array. No matches will return null. If no
      * groups are specified in the regexp, but the sequence matches, a two
      * dimensional array is still returned, but the second dimension is only of
-     * length one.<br />
-     * <br />
+     * length one.
+     * 
      * To use the function, first check to see if the result is null. If the
      * result is null, then the sequence did not match at all. If the sequence
      * did match, a 2D array is returned. If there are groups (specified by sets
@@ -9059,8 +9101,8 @@ return selectFrame;
      * in the array. Assuming, a loop with counter variable i, element [i][0] of
      * a regexp match returns the entire matching string, and the match groups
      * start at element [i][1] (the first group is [i][1], the second [i][2],
-     * and so on).<br />
-     * <br />
+     * and so on).
+     * 
      * The syntax can be found in the reference for Java's <a
      * href="http://download.oracle.com/javase/6/docs/api/">Pattern</a> class.
      * For regular expression syntax, read the <a
@@ -9625,7 +9667,7 @@ return floaties;
      * Utility function for formatting numbers into strings. There are two
      * versions, one for formatting floats and one for formatting ints. The
      * values for the <b>digits</b>, <b>left</b>, and <b>right</b> parameters
-     * should always be positive integers.<br /><br />As shown in the above
+     * should always be positive integers.As shown in the above
      * example, <b>nf()</b> is used to add zeros to the left and/or right of a
      * number. This is typically for aligning a list of numbers. To
      * <em>remove</em> digits from a floating-point number, use the
@@ -9676,7 +9718,7 @@ return floaties;
      * appropriate commas to mark units of 1000. There are two versions, one for
      * formatting ints and one for formatting an array of ints. The value for
      * the <b>digits</b> parameter should always be a positive integer.
-     * <br/><br/>
+     * 
      * For a non-US locale, this will insert periods instead of commas, or
      * whatever is apprioriate for that region.
      *
@@ -9907,7 +9949,7 @@ return floaties;
      * equivalent hexadecimal notation. For example color(0, 102, 153) will
      * convert to the String "FF006699". This function can help make your geeky
      * debugging sessions much happier.
-     * <br/> <br/>
+     
      * Note that the maximum number of digits is 8, because an int value can
      * only represent up to 32 bits. Specifying more than eight digits will
      * simply shorten the string to eight anyway.
@@ -10007,7 +10049,7 @@ return floaties;
      * equivalent binary notation. For example color(0, 102, 153, 255) will
      * convert to the String "11111111000000000110011010011001". This function
      * can help make your geeky debugging sessions much happier.
-     * <br/> <br/>
+     
      * Note that the maximum number of digits is 32, because an int value can
      * only represent up to 32 bits. Specifying more than 32 digits will simply
      * shorten the string to 32 anyway.
@@ -10504,6 +10546,7 @@ return floaties;
         String folder = calcSketchPath();
 
         int argIndex = 0;
+        OUTER:
         while (argIndex < args.length) {
             int equals = args[argIndex].indexOf('=');
             if (equals != -1) {
@@ -10551,22 +10594,23 @@ return floaties;
                         System.err.println(ARGS_DENSITY + " should be 1 or 2");
                     }
                 }
-
             } else {
-                if (args[argIndex].equals(ARGS_PRESENT)) {
-                    present = true;
+                switch (args[argIndex]) {
+                    case ARGS_PRESENT:
+                        present = true;
 
-                    //        } else if (args[argIndex].equals(ARGS_SPAN_DISPLAYS)) {
-                    //          spanDisplays = true;
-                } else if (args[argIndex].equals(ARGS_HIDE_STOP)) {
-                    hideStop = true;
-
-                } else if (args[argIndex].equals(ARGS_EXTERNAL)) {
-                    external = true;
-
-                } else {
-                    name = args[argIndex];
-                    break;  // because of break, argIndex won't increment again
+                        //        } else if (args[argIndex].equals(ARGS_SPAN_DISPLAYS)) {
+                        //          spanDisplays = true;
+                        break;
+                    case ARGS_HIDE_STOP:
+                        hideStop = true;
+                        break;
+                    case ARGS_EXTERNAL:
+                        external = true;
+                        break;
+                    default:
+                        name = args[argIndex];
+                        break OUTER; // because of break, argIndex won't increment again
                 }
             }
             argIndex++;
@@ -10593,7 +10637,7 @@ return floaties;
             } catch (RuntimeException re) {
                 // Don't re-package runtime exceptions
                 throw re;
-            } catch (Exception e) {
+            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
                 // Package non-runtime exceptions so we can throw them freely
                 throw new RuntimeException(e);
             }
@@ -10601,13 +10645,13 @@ return floaties;
 
         if (platform == MACOSX) {
             try {
-                final String td = "processing.core.ThinkDifferent";
+                final String td = "processing.core.DesktopHandler";
                 Class<?> thinkDifferent
                         = Thread.currentThread().getContextClassLoader().loadClass(td);
                 Method method
                         = thinkDifferent.getMethod("init", new Class[]{PApplet.class});
                 method.invoke(null, new Object[]{sketch});
-            } catch (Exception e) {
+            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
                 e.printStackTrace();  // That's unfortunate
             }
         }
@@ -10861,7 +10905,7 @@ surface.startThread();
      * requires two parameters, the first is the renderer and the second is the
      * file name. This function is always used with <b>endRecord()</b> to stop
      * the recording process and close the file.
-     * <br /> <br />
+     *  
      * Note that beginRecord() will only pick up any settings that happen after
      * it has been called. For instance, if you call textFont() before
      * beginRecord(), then that font will not be set for the file that you're
@@ -10920,21 +10964,21 @@ surface.startThread();
      * hundreds of triangles, rather than a single object. Or that a
      * multi-segment line shape (such as a curve) will be rendered as individual
      * segments.
-     * <br /><br />
+     
      * When using <b>beginRaw()</b> and <b>endRaw()</b>, it's possible to write
      * to either a 2D or 3D renderer. For instance, <b>beginRaw()</b> with the
      * PDF library will write the geometry as flattened triangles and lines,
      * even if recording from the <b>P3D</b> renderer.
-     * <br /><br />
+     
      * If you want a background to show up in your files, use <b>rect(0, 0,
      * width, height)</b> after setting the <b>fill()</b> to the background
      * color. Otherwise the background will not be rendered to the file because
      * the background is not shape.
-     * <br /><br />
+     
      * Using <b>hint(ENABLE_DEPTH_SORT)</b> can improve the appearance of 3D
      * geometry drawn to 2D file formats. See the <b>hint()</b> reference for
      * more details.
-     * <br /><br />
+     
      * See examples in the reference for the <b>PDF</b> and <b>DXF</b>
      * libraries for more information.
      *
@@ -10997,7 +11041,7 @@ return g.beginRecord();
      * Loads the pixel data for the display window into the <b>pixels[]</b>
      * array. This function must always be called before reading from or writing
      * to <b>pixels[]</b>.
-     * <br/><br/> renderers may or may not seem to require <b>loadPixels()</b>
+     *  renderers may or may not seem to require <b>loadPixels()</b>
      * or <b>updatePixels()</b>. However, the rule is that any time you want to
      * manipulate the <b>pixels[]</b> array, you must first call
      * <b>loadPixels()</b>, and after changes have been made, call
@@ -11027,14 +11071,14 @@ return g.beginRecord();
      * Use in conjunction with <b>loadPixels()</b>. If you're only reading
      * pixels from the array, there's no need to call <b>updatePixels()</b>
      * unless there are changes.
-     * <br/><br/> renderers may or may not seem to require <b>loadPixels()</b>
+     *  renderers may or may not seem to require <b>loadPixels()</b>
      * or <b>updatePixels()</b>. However, the rule is that any time you want to
      * manipulate the <b>pixels[]</b> array, you must first call
      * <b>loadPixels()</b>, and after changes have been made, call
      * <b>updatePixels()</b>. Even if the renderer may not seem to use this
      * function in the current Processing release, this will always be subject
      * to change.
-     * <br/> <br/>
+     
      * Currently, none of the renderers use the additional parameters to
      * <b>updatePixels()</b>, however this may be implemented in the future.
      *
@@ -11114,12 +11158,12 @@ return g.beginRecord();
      * specifies a position in 2D and the <b>vertex()</b> function with three
      * parameters specifies a position in 3D. Each shape will be outlined with
      * the current stroke color and filled with the fill color.
-     * <br/> <br/>
+     
      * Transformations such as <b>translate()</b>, <b>rotate()</b>, and
      * <b>scale()</b> do not work within <b>beginShape()</b>. It is also not
      * possible to use other shapes, such as <b>ellipse()</b> or <b>rect()</b>
      * within <b>beginShape()</b>.
-     * <br/> <br/>
+     
      * The P3D renderer settings allow <b>stroke()</b> and <b>fill()</b>
      * settings to be altered per-vertex, however the default P2D renderer does
      * not. Settings such as <b>strokeWeight()</b>, <b>strokeCap()</b>, and
@@ -11275,7 +11319,7 @@ return g.beginRecord();
      * Sets a texture to be applied to vertex points. The <b>texture()</b>
      * function must be called between <b>beginShape()</b> and
      * <b>endShape()</b> and before any calls to <b>vertex()</b>.
-     * <br/> <br/>
+     
      * When textures are in use, the fill color is ignored. Instead, use tint()
      * to specify the color of the texture as it is applied to the shape.
      *
@@ -11348,11 +11392,11 @@ return g.beginRecord();
      * All shapes are constructed by connecting a series of vertices.
      * <b>vertex()</b> is used to specify the vertex coordinates for points,
      * lines, triangles, quads, and polygons and is used exclusively within the
-     * <b>beginShape()</b> and <b>endShape()</b> function.<br />
-     * <br />
+     * <b>beginShape()</b> and <b>endShape()</b> function.
+     * 
      * Drawing a vertex in 3D using the <b>z</b> parameter requires the P3D
-     * parameter in combination with size as shown in the above example.<br />
-     * <br />
+     * parameter in combination with size as shown in the above example.
+     * 
      * This function is also used to map a texture onto the geometry. The
      * <b>texture()</b> function declares the texture to apply to the geometry
      * and the <b>u</b> and <b>v</b> coordinates set define the mapping of this
@@ -12526,8 +12570,8 @@ return g.beginRecord();
      * <b>image()</b> to set the location of one corner of the image and uses
      * the fourth and fifth parameters to set the opposite corner. Use
      * <b>imageMode(CENTER)</b> to draw images centered at the given x and y
-     * position.<br />
-     * <br />
+     * position.
+     * 
      * The parameter to <b>imageMode()</b> must be written in ALL CAPS because
      * Processing is a case-sensitive language.
      *
@@ -12557,13 +12601,13 @@ return g.beginRecord();
      * <b>x</b> and <b>y</b> parameters define the location of the image from
      * its upper-left corner. The image is displayed at its original size unless
      * the <b>width</b> and <b>height</b> parameters specify a different
-     * size.<br />
-     * <br />
+     * size.
+     * 
      * The <b>imageMode()</b> function changes the way the parameters work. For
      * example, a call to <b>imageMode(CORNERS)</b> will change the
      * <b>width</b> and <b>height</b> parameters to define the x and y values of
-     * the opposite corner of the image.<br />
-     * <br />
+     * the opposite corner of the image.
+     * 
      * The color of an image may be modified with the <b>tint()</b> function.
      * This function will maintain transparency for GIF and PNG images.
      *
@@ -12669,7 +12713,7 @@ return g.beginRecord();
      * to <b>shapeMode(CORNERS)</b>, for example, will change the width and
      * height parameters to define the x and y values of the opposite corner of
      * the shape.
-     * <br /><br />
+     
      * Note complex shapes may draw awkwardly with P3D. This renderer does not
      * yet support shapes that have holes or complicated breaks.
      *
@@ -12719,7 +12763,7 @@ return g.beginRecord();
      * and RIGHT set the display characteristics of the letters in relation to
      * the values for the <b>x</b> and <b>y</b> parameters of the
      * <b>text()</b> function.
-     * <br/> <br/>
+     
      * In Processing 0125 and later, an optional second parameter can be used to
      * vertically align the text. BASELINE is the default, and the vertical
      * alignment will be reset to BASELINE if the second parameter is not used.
@@ -12727,12 +12771,12 @@ return g.beginRecord();
      * offsets the line based on the current <b>textDescent()</b>. For multiple
      * lines, the final line will be aligned to the bottom, with the previous
      * lines appearing above it.
-     * <br/> <br/>
+     
      * When using <b>text()</b> with width and height parameters, BASELINE is
      * ignored, and treated as TOP. (Otherwise, text would by default draw
      * outside the box, since BASELINE is the default setting. BASELINE is not a
      * useful drawing mode for text drawn in a rectangle.)
-     * <br/> <br/>
+     
      * The vertical alignment is based on the value of <b>textAscent()</b>,
      * which many fonts do not specify correctly. It may be necessary to use a
      * hack and offset by a few pixels by hand so that the offset looks correct.
@@ -12802,10 +12846,10 @@ return g.beginRecord();
      * <b>text()</b> function. If no <b>size</b> parameter is input, the font
      * will appear at its original size (the size it was created at with the
      * "Create Font..." tool) until it is changed with <b>textSize()</b>. <br
-     * /> <br /> Because fonts are usually bitmaped, you should create fonts at
+     * />  Because fonts are usually bitmaped, you should create fonts at
      * the sizes that will be used most commonly. Using <b>textFont()</b>
      * without the size parameter will result in the cleanest-looking text. <br
-     * /><br /> With the default (JAVA2D) and PDF renderers, it's also possible
+     * /> With the default (JAVA2D) and PDF renderers, it's also possible
      * to enable the use of native fonts via the command
      * <b>hint(ENABLE_NATIVE_FONTS)</b>. This will produce vector text in JAVA2D
      * sketches and PDF output in cases where the vector data is available: when
@@ -12867,16 +12911,16 @@ return g.beginRecord();
      *
      * Sets the way text draws to the screen. In the default configuration, the
      * <b>MODEL</b> mode, it's possible to rotate, scale, and place letters in
-     * two and three dimensional space.<br />
-     * <br />
+     * two and three dimensional space.
+     * 
      * The <b>SHAPE</b> mode draws text using the the glyph outlines of
      * individual characters rather than as textures. This mode is only
      * supported with the <b>PDF</b> and <b>P3D</b> renderer settings. With the
      * <b>PDF</b> renderer, you must call <b>textMode(SHAPE)</b> before any
      * other drawing occurs. If the outlines are not available, then
      * <b>textMode(SHAPE)</b> will be ignored and <b>textMode(MODEL)</b> will be
-     * used instead.<br />
-     * <br />
+     * used instead.
+     * 
      * The <b>textMode(SHAPE)</b> option in <b>P3D</b> can be combined with
      * <b>beginRaw()</b> to write vector-accurate text to 2D and 3D output
      * files, for instance <b>DXF</b> or <b>PDF</b>. The <b>SHAPE</b> mode is
@@ -12969,7 +13013,7 @@ return g.beginRecord();
      * <b>fill()</b> function. The text displays in relation to the
      * <b>textAlign()</b> function, which gives the option to draw to the left,
      * right, and center of the coordinates.
-     * <br /><br />
+     
      * The <b>x2</b> and <b>y2</b> parameters define a rectangular area to
      * display within and may only be used with string data. For text drawn
      * inside a rectangle, the coordinates are interpreted based on the current
@@ -13228,7 +13272,7 @@ return g.beginRecord();
      * Rotates a shape the amount specified by the <b>angle</b> parameter.
      * Angles should be specified in radians (values from 0 to TWO_PI) or
      * converted to radians with the <b>radians()</b> function.
-     * <br/> <br/>
+     
      * Objects are always rotated around their relative position to the origin
      * and positive numbers rotate objects in a clockwise direction.
      * Transformations apply to everything that happens after and subsequent
@@ -13236,7 +13280,7 @@ return g.beginRecord();
      * <b>rotate(HALF_PI)</b> and then <b>rotate(HALF_PI)</b> is the same as
      * <b>rotate(PI)</b>. All tranformations are reset when <b>draw()</b>
      * begins again.
-     * <br/> <br/>
+     
      * Technically, <b>rotate()</b> multiplies the current transformation matrix
      * by a rotation matrix. This function can be further controlled by the
      * <b>pushMatrix()</b> and <b>popMatrix()</b>.
@@ -13456,7 +13500,7 @@ return g.beginRecord();
      * <b>shearX(PI/2)</b> and then <b>shearX(PI/2)</b> is the same as
      * <b>shearX(PI)</b>. If <b>shearX()</b> is called within the
      * <b>draw()</b>, the transformation is reset when the loop begins again.
-     * <br/> <br/>
+     
      * Technically, <b>shearX()</b> multiplies the current transformation matrix
      * by a rotation matrix. This function can be further controlled by the
      * <b>pushMatrix()</b> and <b>popMatrix()</b> functions.
@@ -13492,7 +13536,7 @@ return g.beginRecord();
      * <b>shearY(PI/2)</b> and then <b>shearY(PI/2)</b> is the same as
      * <b>shearY(PI)</b>. If <b>shearY()</b> is called within the
      * <b>draw()</b>, the transformation is reset when the loop begins again.
-     * <br/> <br/>
+     
      * Technically, <b>shearY()</b> multiplies the current transformation matrix
      * by a rotation matrix. This function can be further controlled by the
      * <b>pushMatrix()</b> and <b>popMatrix()</b> functions.
@@ -13689,14 +13733,14 @@ return g.beginRecord();
      * The <b>beginCamera()</b> and <b>endCamera()</b> functions enable advanced
      * customization of the camera space. The functions are useful if you want
      * to more control over camera movement, however for most users, the
-     * <b>camera()</b> function will be sufficient.<br /><br />The camera
+     * <b>camera()</b> function will be sufficient.The camera
      * functions will replace any transformations (such as <b>rotate()</b> or
      * <b>translate()</b>) that occur before them in <b>draw()</b>, but they
      * will not automatically replace the camera transform itself. For this
      * reason, camera functions should be placed at the beginning of
      * <b>draw()</b> (so that transformations happen afterwards), and the
      * <b>camera()</b> function can be used after <b>beginCamera()</b> if you
-     * want to reset the camera before applying transformations.<br /><br
+     * want to reset the camera before applying transformations.<br
      * />This function sets the matrix mode to the camera matrix so calls such
      * as <b>translate()</b>, <b>rotate()</b>, applyMatrix() and resetMatrix()
      * affect the camera. <b>beginCamera()</b> should always be used with a
@@ -14025,7 +14069,7 @@ return g.beginRecord();
      * transformations (scale, rotate, translate, etc.) The X value can be used
      * to place an object in space relative to the location of the original
      * point once the transformations are no longer in use.
-     * <br/> <br/>
+     
      * In the example, the <b>modelX()</b>, <b>modelY()</b>, and
      * <b>modelZ()</b> functions record the location of a box in space after
      * being placed using a series of translate and rotate commands. After
@@ -14053,8 +14097,8 @@ return g.beginRecord();
      * returns the Y value for a given coordinate based on the current set of
      * transformations (scale, rotate, translate, etc.) The Y value can be used
      * to place an object in space relative to the location of the original
-     * point once the transformations are no longer in use.<br />
-     * <br />
+     * point once the transformations are no longer in use.
+     * 
      * In the example, the <b>modelX()</b>, <b>modelY()</b>, and
      * <b>modelZ()</b> functions record the location of a box in space after
      * being placed using a series of translate and rotate commands. After
@@ -14082,8 +14126,8 @@ return g.beginRecord();
      * returns the Z value for a given coordinate based on the current set of
      * transformations (scale, rotate, translate, etc.) The Z value can be used
      * to place an object in space relative to the location of the original
-     * point once the transformations are no longer in use.<br />
-     * <br />
+     * point once the transformations are no longer in use.
+     * 
      * In the example, the <b>modelX()</b>, <b>modelY()</b>, and
      * <b>modelZ()</b> functions record the location of a box in space after
      * being placed using a series of translate and rotate commands. After
@@ -14114,7 +14158,7 @@ return g.beginRecord();
      * <b>pushStyle()</b>, it builds on the current style information. The
      * <b>pushStyle()</b> and <b>popStyle()</b> functions can be embedded to
      * provide more control (see the second example above for a demonstration.)
-     * <br /><br />
+     
      * The style information controlled by the following functions are included
      * in the style: fill(), stroke(), tint(), strokeWeight(), strokeCap(),
      * strokeJoin(), imageMode(), rectMode(), ellipseMode(), shapeMode(),
@@ -14168,7 +14212,7 @@ return g.beginRecord();
      *
      * Sets the width of the stroke used for lines, points, and the border
      * around shapes. All widths are set in units of pixels.
-     * <br/> <br/>
+     
      * When drawing with P3D, series of connected lines (such as the stroke
      * around a polygon, triangle, or ellipse) produce unattractive results when
      * a thick stroke weight is set (<a
@@ -14200,7 +14244,7 @@ return g.beginRecord();
      * are either mitered, beveled, or rounded and specified with the
      * corresponding parameters MITER, BEVEL, and ROUND. The default joint is
      * MITER.
-     * <br/> <br/>
+     
      * This function is not available with the P3D renderer, (<a
      * href="http://code.google.com/p/processing/issues/detail?id=123">see Issue
      * 123</a>). More information about the renderers can be found in the
@@ -14227,7 +14271,7 @@ return g.beginRecord();
      * Sets the style for rendering line endings. These ends are either squared,
      * extended, or rounded and specified with the corresponding parameters
      * SQUARE, PROJECT, and ROUND. The default cap is ROUND.
-     * <br/> <br/>
+     
      * This function is not available with the P3D renderer (<a
      * href="http://code.google.com/p/processing/issues/detail?id=123">see Issue
      * 123</a>). More information about the renderers can be found in the
@@ -14276,7 +14320,7 @@ return g.beginRecord();
      * is either specified in terms of the RGB or HSB color depending on the
      * current <b>colorMode()</b> (the default color space is RGB, with each
      * value in the range from 0 to 255).
-     * <br/> <br/>
+     
      * When using hexadecimal notation to specify a color, use "#" or "0x"
      * before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six
      * digits to specify a color (the way colors are specified in HTML and CSS).
@@ -14284,7 +14328,7 @@ return g.beginRecord();
      * value must be specified with eight characters; the first two characters
      * define the alpha component and the remainder the red, green, and blue
      * components.
-     * <br/> <br/>
+     
      * The value for the parameter "gray" must be less than or equal to the
      * current maximum value as specified by <b>colorMode()</b>. The default
      * maximum value is 255.
@@ -14380,25 +14424,25 @@ return g.beginRecord();
      * ( begin auto-generated from tint.xml )
      *
      * Sets the fill value for displaying images. Images can be tinted to
-     * specified colors or made transparent by setting the alpha.<br />
-     * <br />
+     * specified colors or made transparent by setting the alpha.
+     * 
      * To make an image transparent, but not change it's color, use white as the
      * tint color and specify an alpha value. For instance, tint(255, 128) will
      * make an image 50% transparent (unless <b>colorMode()</b> has been
-     * used).<br />
-     * <br />
+     * used).
+     * 
      * When using hexadecimal notation to specify a color, use "#" or "0x"
      * before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six
      * digits to specify a color (the way colors are specified in HTML and CSS).
      * When using the hexadecimal notation starting with "0x", the hexadecimal
      * value must be specified with eight characters; the first two characters
      * define the alpha component and the remainder the red, green, and blue
-     * components.<br />
-     * <br />
+     * components.
+     * 
      * The value for the parameter "gray" must be less than or equal to the
      * current maximum value as specified by <b>colorMode()</b>. The default
-     * maximum value is 255.<br />
-     * <br />
+     * maximum value is 255.
+     * 
      * The <b>tint()</b> function is also used to control the coloring of
      * textures in 3D.
      *
@@ -14492,7 +14536,7 @@ return g.beginRecord();
      * is either specified in terms of the RGB or HSB color depending on the
      * current <b>colorMode()</b> (the default color space is RGB, with each
      * value in the range from 0 to 255).
-     * <br/> <br/>
+     
      * When using hexadecimal notation to specify a color, use "#" or "0x"
      * before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six
      * digits to specify a color (the way colors are specified in HTML and CSS).
@@ -14500,11 +14544,11 @@ return g.beginRecord();
      * value must be specified with eight characters; the first two characters
      * define the alpha component and the remainder the red, green, and blue
      * components.
-     * <br/> <br/>
+     
      * The value for the parameter "gray" must be less than or equal to the
      * current maximum value as specified by <b>colorMode()</b>. The default
      * maximum value is 255.
-     * <br/> <br/>
+     
      * To change the color of an image (or a texture), use tint().
      *
      * ( end auto-generated )
@@ -14957,9 +15001,9 @@ return g.beginRecord();
      *
      * Sets the falloff rates for point lights, spot lights, and ambient lights.
      * The parameters are used to determine the falloff with the following
-     * equation:<br /><br />d = distance from light position to vertex
-     * position<br />falloff = 1 / (CONSTANT + d * LINEAR + (d*d) *
-     * QUADRATIC)<br /><br />Like <b>fill()</b>, it affects only the elements
+     * equation:d = distance from light position to vertex
+     * positionfalloff = 1 / (CONSTANT + d * LINEAR + (d*d) *
+     * QUADRATIC)Like <b>fill()</b>, it affects only the elements
      * which are created after it in the code. The default value if
      * <b>LightFalloff(1.0, 0.0, 0.0)</b>. Thinking about an ambient light with
      * a falloff can be tricky. It is used, for example, if you wanted a region
@@ -15028,13 +15072,13 @@ return g.beginRecord();
      * of the Processing window. The default background is light gray. In the
      * <b>draw()</b> function, the background color is used to clear the display
      * window at the beginning of each frame.
-     * <br/> <br/>
+     
      * An image can also be used as the background for a sketch, however its
      * width and height must be the same size as the sketch window. To resize an
      * image 'b' to the size of the sketch window, use b.resize(width, height).
-     * <br/> <br/>
+     
      * Images used as background will ignore the current <b>tint()</b> setting.
-     * <br/> <br/>
+     
      * It is not possible to use transparency (alpha) in background colors with
      * the main drawing surface, however they will work properly with
      * <b>createGraphics()</b>.
@@ -15236,12 +15280,12 @@ return g.beginRecord();
      *
      * Extracts the red value from a color, scaled to match current
      * <b>colorMode()</b>. This value is always returned as a float so be
-     * careful not to assign it to an int value.<br /><br />The red() function
+     * careful not to assign it to an int value.The red() function
      * is easy to use and undestand, but is slower than another technique. To
      * achieve the same results when working in <b>colorMode(RGB, 255)</b>, but
      * with greater speed, use the &gt;&gt; (right shift) operator with a bit
      * mask. For example, the following two lines of code are equivalent:<br
-     * /><pre>float r1 = red(myColor);<br />float r2 = myColor &gt;&gt; 16
+     * /><pre>float r1 = red(myColor);float r2 = myColor &gt;&gt; 16
      * &amp; 0xFF;</pre>
      *
      * ( end auto-generated )
@@ -15265,16 +15309,13 @@ return g.beginRecord();
      * ( begin auto-generated from green.xml )
      *
      * Extracts the green value from a color, scaled to match current
-     * <b>colorMode()</b>. This value is always returned as a float so be
-     * careful not to assign it to an int value.<br /><br />The <b>green()</b>
+     * <b>colorMode() This value is always returned as a float so be careful not
+     * to assign it to an int value.<br/><br/>The <b>green()</b>
      * function is easy to use and undestand, but is slower than another
-     * technique. To achieve the same results when working in <b>colorMode(RGB,
-     * 255)</b>, but with greater speed, use the &gt;&gt; (right shift) operator
-     * with a bit mask. For example, the following two lines of code are equivalent:<br /><pre>float r1 = green(myColor);<br />float r2 =
-     * myColor &gt;&gt; 8 &amp; 0xFF;</pre>
+     * technique. To achieve the same results when working in <b>colorMode(RGB,      255)<pre>float r1 = green(myColor);float r2 =
+     * myColor
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref color:creating_reading
      * @usage web_application
      * @param rgb any value of the color datatype
@@ -15295,11 +15336,12 @@ return g.beginRecord();
      *
      * Extracts the blue value from a color, scaled to match current
      * <b>colorMode()</b>. This value is always returned as a float so be
-     * careful not to assign it to an int value.<br /><br />The <b>blue()</b>
+     * careful not to assign it to an int value.The <b>blue()</b>
      * function is easy to use and undestand, but is slower than another
      * technique. To achieve the same results when working in <b>colorMode(RGB,
      * 255)</b>, but with greater speed, use a bit mask to remove the other
-     * color components. For example, the following two lines of code are null null     equivalent:<br /><pre>float r1 = blue(myColor);<br />float r2 = myColor
+     * color components. For example, the following two lines of code are null
+     * null null null     equivalent:<pre>float r1 = blue(myColor);float r2 = myColor
 * &amp; 0xFF;</pre>
      *
      * ( end auto-generated )
@@ -15443,14 +15485,14 @@ return g.beginRecord();
      * the display window by specifying an additional <b>width</b> and
      * <b>height</b> parameter. When getting an image, the <b>x</b> and
      * <b>y</b> parameters define the coordinates for the upper-left corner of
-     * the image, regardless of the current <b>imageMode()</b>.<br />
-     * <br />
+     * the image, regardless of the current <b>imageMode()</b>.
+     * 
      * If the pixel requested is outside of the image window, black is returned.
      * The numbers returned are scaled according to the current color ranges,
      * but only RGB values are returned by this function. For example, even
      * though you may have drawn a shape with <b>colorMode(HSB)</b>, the numbers
-     * returned will be in RGB format.<br />
-     * <br />
+     * returned will be in RGB format.
+     * 
      * Getting the color of a single pixel with <b>get(x, y)</b> is easy, but
      * not as fast as grabbing the data directly from <b>pixels[]</b>. The
      * equivalent statement to <b>get(x, y)</b> using <b>pixels[]</b> is
@@ -15513,15 +15555,15 @@ return g.beginRecord();
      * ( begin auto-generated from PImage_set.xml )
      *
      * Changes the color of any pixel or writes an image directly into the
-     * display window.<br />
-     * <br />
+     * display window.
+     * 
      * The <b>x</b> and <b>y</b> parameters specify the pixel to change and the
      * <b>color</b> parameter specifies the color value. The color parameter is
      * affected by the current color mode (the default is RGB values from 0 to
      * 255). When setting an image, the <b>x</b> and <b>y</b> parameters define
      * the coordinates for the upper-left corner of the image, regardless of the
      * current <b>imageMode()</b>.
-     * <br /><br />
+     
      * Setting the color of a single pixel with <b>set(x, y)</b> is easy, but
      * not as fast as putting the data directly into <b>pixels[]</b>. The
      * equivalent statement to <b>set(x, y, #000000)</b> using <b>pixels[]</b>
@@ -15568,8 +15610,8 @@ return g.beginRecord();
      * Masks part of an image from displaying by loading another image and using
      * it as an alpha channel. This mask image should only contain grayscale
      * data, but only the blue color channel is used. The mask image needs to be
-     * the same size as the image to which it is applied.<br />
-     * <br />
+     * the same size as the image to which it is applied.
+     * 
      * In addition to using a mask image, an integer array containing the alpha
      * channel data can be specified directly. This method is useful for
      * creating dynamically generated alpha masks. This array must be of the
@@ -15612,28 +15654,28 @@ return g.beginRecord();
     /**
      * ( begin auto-generated from PImage_filter.xml )
      *
-     * Filters an image as defined by one of the following modes:<br /><br
+     * Filters an image as defined by one of the following modes:<br
      * />THRESHOLD - converts the image to black and white pixels depending if
      * they are above or below the threshold defined by the level parameter. The
      * level must be between 0.0 (black) and 1.0(white). If no level is
-     * specified, 0.5 is used.<br />
-     * <br />
-     * GRAY - converts any colors in the image to grayscale equivalents<br />
-     * <br />
-     * INVERT - sets each pixel to its inverse value<br />
-     * <br />
+     * specified, 0.5 is used.
+     * 
+     * GRAY - converts any colors in the image to grayscale equivalents
+     * 
+     * INVERT - sets each pixel to its inverse value
+     * 
      * POSTERIZE - limits each channel of the image to the number of colors
-     * specified as the level parameter<br />
-     * <br />
+     * specified as the level parameter
+     * 
      * BLUR - executes a Guassian blur with the level parameter specifying the
      * extent of the blurring. If no level parameter is used, the blur is
-     * equivalent to Guassian blur of radius 1<br />
-     * <br />
-     * OPAQUE - sets the alpha channel to entirely opaque<br />
-     * <br />
+     * equivalent to Guassian blur of radius 1
+     * 
+     * OPAQUE - sets the alpha channel to entirely opaque
+     * 
      * ERODE - reduces the light areas with the amount defined by the level
-     * parameter<br />
-     * <br />
+     * parameter
+     * 
      * DILATE - increases the light areas with the amount defined by the level
      * parameter
      *
@@ -15679,7 +15721,7 @@ return g.beginRecord();
      * source pixels to fit the specified target region. No alpha information is
      * used in the process, however if the source image has an alpha channel
      * set, it will be copied as well.
-     * <br /><br />
+     
      * As of release 0149, this function ignores <b>imageMode()</b>.
      *
      * ( end auto-generated )
@@ -15732,48 +15774,48 @@ return g.beginRecord();
      * Blends a region of pixels into the image specified by the <b>img</b>
      * parameter. These copies utilize full alpha channel support and a choice
      * of the following modes to blend the colors of source pixels (A) with the
-     * ones of pixels in the destination image (B):<br />
-     * <br />
-     * BLEND - linear interpolation of colours: C = A*factor + B<br />
-     * <br />
-     * ADD - additive blending with white clip: C = min(A*factor + B, 255)<br />
-     * <br />
+     * ones of pixels in the destination image (B):
+     * 
+     * BLEND - linear interpolation of colours: C = A*factor + B
+     * 
+     * ADD - additive blending with white clip: C = min(A*factor + B, 255)
+     * 
      * SUBTRACT - subtractive blending with black clip: C = max(B - A*factor,
-     * 0)<br />
-     * <br />
-     * DARKEST - only the darkest colour succeeds: C = min(A*factor, B)<br />
-     * <br />
-     * LIGHTEST - only the lightest colour succeeds: C = max(A*factor, B)<br />
-     * <br />
-     * DIFFERENCE - subtract colors from underlying image.<br />
-     * <br />
-     * EXCLUSION - similar to DIFFERENCE, but less extreme.<br />
-     * <br />
-     * MULTIPLY - Multiply the colors, result will always be darker.<br />
-     * <br />
-     * SCREEN - Opposite multiply, uses inverse values of the colors.<br />
-     * <br />
+     * 0)
+     * 
+     * DARKEST - only the darkest colour succeeds: C = min(A*factor, B)
+     * 
+     * LIGHTEST - only the lightest colour succeeds: C = max(A*factor, B)
+     * 
+     * DIFFERENCE - subtract colors from underlying image.
+     * 
+     * EXCLUSION - similar to DIFFERENCE, but less extreme.
+     * 
+     * MULTIPLY - Multiply the colors, result will always be darker.
+     * 
+     * SCREEN - Opposite multiply, uses inverse values of the colors.
+     * 
      * OVERLAY - A mix of MULTIPLY and SCREEN. Multiplies dark values, and
-     * screens light values.<br />
-     * <br />
+     * screens light values.
+     * 
      * HARD_LIGHT - SCREEN when greater than 50% gray, MULTIPLY when
-     * lower.<br />
-     * <br />
+     * lower.
+     * 
      * SOFT_LIGHT - Mix of DARKEST and LIGHTEST. Works like OVERLAY, but not as
-     * harsh.<br />
-     * <br />
+     * harsh.
+     * 
      * DODGE - Lightens light tones and increases contrast, ignores darks.
-     * Called "Color Dodge" in Illustrator and Photoshop.<br />
-     * <br />
+     * Called "Color Dodge" in Illustrator and Photoshop.
+     * 
      * BURN - Darker areas are applied, increasing contrast, ignores lights.
-     * Called "Color Burn" in Illustrator and Photoshop.<br />
-     * <br />
+     * Called "Color Burn" in Illustrator and Photoshop.
+     * 
      * All modes use the alpha information (highest byte) of source image pixels
      * as the blending factor. If the source and destination regions are
      * different sizes, the image will be automatically resized to match the
      * destination size. If the <b>srcImg</b> parameter is not used, the display
-     * window is used as the source image.<br />
-     * <br />
+     * window is used as the source image.
+     * 
      * As of release 0149, this function ignores <b>imageMode()</b>.
      *
      * ( end auto-generated )

@@ -1,16 +1,15 @@
 # Propane
 
-Here is my attempt to get a version of ruby-processing working with openjdk11, it is more than a proof of concept, as it already works very succesfully under linux the question is will it work under Windows and MacOS. To do this I have created a custom maven build of processing core, to which I add vanilla processing jogl jars (these are not the same as jogl jars from maven).
-I am watching with interest progress made by @sampottinger on [vanilla processing][vanilla]. I have implemented a different solution for think different than @ssilverman in my jdk11 branch (but I don't know whether it works).
+This version is intended to work with openjdk11+, @sampottinger is currently working on [vanilla processing][vanilla] which will enable JRubyArt to catch up.
 
-A slim layer to communicate with Processing from JRuby, features a polyglot maven build. We have created a configuration free version of ruby processing, for processing-3.5.1, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby, but you could use jruby-complete if you used the propane script (avoids need to give the absolute data path for the data folder, but would also be needed for a watch mode). See guide to [building ruby-processing projects][building]. NB: this is a far from perfect solution and javafx sketches and possibly a few others will not run with jdk11, but a least I get to diagnose those errors too.
+A slim layer to communicate with Processing from JRuby, features maven build. We have created a configuration free version of ruby processing, for processing-3.5+, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby. Currently JavaFX is unsupported again @sampottinger is currently working on [vanilla processing][vanilla] to use OpenJFX.
 
 adjust above for your OS/distro setup.
 
 ## Requirements
 
-- `jdk-11.0.1`
-- `jruby-9.2.5.0`
+- `jdk-11.0.2+`
+- `jruby-9.2.7.0`
 - `mvn-3.5.4+`
 
 ## Building and testing
@@ -24,10 +23,10 @@ rake javadoc
 ## Installation
 ```bash
 jgem install --pre propane # from rubygems
-jgem install propane-3.1.0.pre-java.gem # local install requires a custom processing-core
+jgem install propane-3.2-java.gem # local install
 # Alternative
 jruby -S gem install --pre propane # from rubygems
-jruby -S gem install propane-3.1.0.pre-java.gem # local install requires a custom processing-core
+jruby -S gem install propane-3.2-java.gem # local install
 ```
 
 ## Usage
@@ -77,7 +76,8 @@ See [gh-pages][gh-pages] for more detailed instructions and much more.
 
 ## Examples
 
-[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.2+ syntax now we can. To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
+[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.4
++ syntax now we can. To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
 ```bash
 propane --install samples
 ```
@@ -86,4 +86,3 @@ propane --install samples
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
 [vanilla]:https://github.com/processing/processing/pull/5753
-https://github.com/processing/processing/pull/5747

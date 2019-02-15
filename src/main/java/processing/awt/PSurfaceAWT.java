@@ -39,12 +39,14 @@ import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 import java.lang.management.ManagementFactory;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import processing.core.DesktopHandler;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -528,6 +530,8 @@ public class PSurfaceAWT extends PSurfaceNone {
 //  }
     /**
      * Set the window (and dock, or whatever necessary) title.
+     *
+     * @param title
      */
     @Override
     public void setTitle(String title) {
@@ -557,22 +561,8 @@ public class PSurfaceAWT extends PSurfaceNone {
     @Override
     public void setIcon(PImage image) {
         Image awtImage = (Image) image.getNative();
-
-        if (PApplet.platform != PConstants.MACOSX) {
-            frame.setIconImage(awtImage);
-
-        } else {
-            try {
-                final String td = "processing.core.ThinkDifferent";
-                Class<?> thinkDifferent
-                        = Thread.currentThread().getContextClassLoader().loadClass(td);
-                Method method
-                        = thinkDifferent.getMethod("setIconImage", new Class[]{java.awt.Image.class});
-                method.invoke(null, new Object[]{awtImage});
-            } catch (Exception e) {
-                e.printStackTrace();  // That's unfortunate
-            }
-        }
+        DesktopHandler.init(sketch);
+        DesktopHandler.setIconImage(awtImage);
     }
 
     @Override
@@ -593,39 +583,38 @@ public class PSurfaceAWT extends PSurfaceNone {
         if (PApplet.platform != PConstants.MACOSX) {
             //Image image = Toolkit.getDefaultToolkit().createImage(ICON_IMAGE);
             //frame.setIconImage(image);
-            try {
-                if (iconImages == null) {
-                    iconImages = new ArrayList<Image>();
-                    final int[] sizes = {16, 32, 48, 64, 128, 256, 512};
+            // try {
+            if (iconImages == null) {
+                iconImages = new ArrayList<>();
+                final int[] sizes = {16, 32, 48, 64, 128, 256, 512};
 
-                    for (int sz : sizes) {
-                        //URL url = getClass().getResource("/icon/icon-" + sz + ".png");
-                        URL url = PApplet.class.getResource("/icon/icon-" + sz + ".png");
-                        Image image = Toolkit.getDefaultToolkit().getImage(url);
-                        iconImages.add(image);
-                        //iconImages.add(Toolkit.getLibImage("icons/pde-" + sz + ".png", frame));
-                    }
+                for (int sz : sizes) {
+                    //URL url = getClass().getResource("/icon/icon-" + sz + ".png");
+                    URL url = PApplet.class.getResource("/icon/icon-" + sz + ".png");
+                    Image image = Toolkit.getDefaultToolkit().getImage(url);
+                    iconImages.add(image);
+                    //iconImages.add(Toolkit.getLibImage("icons/pde-" + sz + ".png", frame));
                 }
-                frame.setIconImages(iconImages);
+            }
+            frame.setIconImages(iconImages);
 
-            } catch (Exception e) {
-            }  // harmless; keep this to ourselves
-
+//            } catch (Exception e) {
+//            }  // harmless; keep this to ourselves
         } else {  // handle OS X differently
             if (!dockIconSpecified()) {  // don't override existing -Xdock param
                 // On OS X, set this for AWT surfaces, which handles the dock image
                 // as well as the cmd-tab image that's shown. Just one size, I guess.
                 URL url = PApplet.class.getResource("/icon/icon-512.png");
                 // Seems dangerous to have this in code instead of using reflection, no?
-                //ThinkDifferent.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
+                //DesktopHandler.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
                 try {
-                    final String td = "processing.core.ThinkDifferent";
+                    final String td = "processing.core.DesktopHandler";
                     Class<?> thinkDifferent
                             = Thread.currentThread().getContextClassLoader().loadClass(td);
                     Method method
                             = thinkDifferent.getMethod("setIconImage", new Class[]{java.awt.Image.class});
                     method.invoke(null, new Object[]{Toolkit.getDefaultToolkit().getImage(url)});
-                } catch (Exception e) {
+                } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
                     e.printStackTrace();  // That's unfortunate
                 }
             }
@@ -640,12 +629,7 @@ public class PSurfaceAWT extends PSurfaceNone {
         //      the app has an icns file specified already. Help?
         List<String> jvmArgs
                 = ManagementFactory.getRuntimeMXBean().getInputArguments();
-        for (String arg : jvmArgs) {
-            if (arg.startsWith("-Xdock:icon")) {
-                return true;  // dock image already set
-            }
-        }
-        return false;
+        return (jvmArgs.stream().anyMatch((arg) -> (arg.startsWith("-Xdock:icon"))));
     }
 
     @Override
@@ -1059,27 +1043,21 @@ public class PSurfaceAWT extends PSurfaceNone {
      * where frame.setResizable(true) is called.
      */
     private void setupFrameResizeListener() {
-        frame.addWindowStateListener(new WindowStateListener() {
-            @Override
-            // Detecting when the frame is resized in order to handle the frame
-            // maximization bug in OSX:
-            // http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8036935
-            public void windowStateChanged(WindowEvent e) {
-                // This seems to be firing when dragging the window on OS X
+        frame.addWindowStateListener((WindowEvent e) -> {
+            // This seems to be firing when dragging the window on OS X
+            // https://github.com/processing/processing/issues/3092
+            if (Frame.MAXIMIZED_BOTH == e.getNewState()) {
+                // Supposedly, sending the frame to back and then front is a
+                // workaround for this bug:
+                // http://stackoverflow.com/a/23897602
+                // but is not working for me...
+                //frame.toBack();
+                //frame.toFront();
+                // Packing the frame works, but that causes the window to collapse
+                // on OS X when the window is dragged. Changing to addNotify() for
                 // https://github.com/processing/processing/issues/3092
-                if (Frame.MAXIMIZED_BOTH == e.getNewState()) {
-                    // Supposedly, sending the frame to back and then front is a
-                    // workaround for this bug:
-                    // http://stackoverflow.com/a/23897602
-                    // but is not working for me...
-                    //frame.toBack();
-                    //frame.toFront();
-                    // Packing the frame works, but that causes the window to collapse
-                    // on OS X when the window is dragged. Changing to addNotify() for
-                    // https://github.com/processing/processing/issues/3092
-                    //frame.pack();
-                    frame.addNotify();
-                }
+                //frame.pack();
+                frame.addNotify();
             }
         });
 
@@ -1173,9 +1151,11 @@ public class PSurfaceAWT extends PSurfaceNone {
   }
      */
     /**
-     * Figure out how to process a mouse event. When loop() has been called, the
+     * Figure out how to process a mouse event.When loop() has been called, the
      * events will be queued up until drawing is complete. If noLoop() has been
      * called, then events will happen immediately.
+     *
+     * @param nativeEvent
      */
     protected void nativeMouseEvent(java.awt.event.MouseEvent nativeEvent) {
         // the 'amount' is the number of button clicks for a click event,
@@ -1342,11 +1322,8 @@ public class PSurfaceAWT extends PSurfaceNone {
             }
         });
 
-        canvas.addMouseWheelListener(new MouseWheelListener() {
-
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                nativeMouseEvent(e);
-            }
+        canvas.addMouseWheelListener((MouseWheelEvent e) -> {
+            nativeMouseEvent(e);
         });
 
         canvas.addKeyListener(new KeyListener() {
