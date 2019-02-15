@@ -1,10 +1,22 @@
+**v2.9.4** Bump for jruby-9.2.5.0.
+
+**v2.9.3** Bump for jruby-9.2.4.1.
+
+**v2.9.2** Bump for jruby-9.2.3.0.
+
+**v2.9.1** Attempt to bring 64 bit Windows users to party. Use non versioned jogl/opengl jars from processing distro, including processing.org apple.jar in case it's needed, MacOS users are being very opaque on this.
+
+**v2.9.0** No-one helped with think_open branch, that was trying to get ready for jdk9 (as compilable), so I'm abandoning 2.8.0 series, the 2.9.0 version will create an integrated jar and concentrate on compatibility, rather than be future looking (but I'm not sure that think_different is any use or will work in future). Anyone having difficulty on MacOS should try putting apple.jar into lib folder.
+
+**v2.7.2** Slight re-factor of control_panel, fix virgin install of libraries folder, add grafica library examples suggest upgrade to jruby-9.1.17.0
+
 **v2.7.1** Avoid calling protected method in control_panel (ready for jdk9)
 
 **v2.7.0** Now using custom icons, nice blue ruby image
 
 **v2.6.6** Using a modified processing-core to support jdk9 (NB FX2D and sketches with control_panel using sliders are still expected to fail with jdk9). Jdk8 users should not notice any change.
 
-**v2.6.5** bump for processing-3.3.7
+**v2.6.5** bump for processing-3.4
 
 **v2.6.4** Vec2D and Vec3D now support `copy` constructor where the original can be a duck-type. Further the only requirement is that the duck-type responds to `:x`, and `:y` by returning a `float` or `fixnum` thus Vec2D can be promoted to Vec3D (where `z = 0`), or more usually some other Vector or Point class can be used as the original. A VectorUtils library has been implemented, see examples for usage.
 
