@@ -26,7 +26,7 @@ In the above snippet the sketch viewport is centered at half width and half heig
 
 #### Toxiclibs gem
 
-Is a ruby wrapper around Karsten Schmidts (aka toxi / postspectacular) toxiclibs libraries, in `propane` you should prefer to use this collection of libraries as a `gem`. The toxiclibs libraries are a set of building blocks for computational design, that were  designed to be compatible with processing-2.2.1 (and earlier versions of java). The [gem][toxi] is maintained independently from the version available in the processing ide, and the java code has been updated to make use java-8 and to be compatible with `processing-3.4` and hence `propane`. The gem also provides a convenient [namespaces][ntoxi] for the toxiclibs libraries see [examples sketches][texamples], so you don't have to individualy import the java classes/packages.
+Is a ruby wrapper around Karsten Schmidts (aka toxi / postspectacular) toxiclibs libraries, in `propane` you should prefer to use this collection of libraries as a `gem`. The toxiclibs libraries are a set of building blocks for computational design, that were  designed to be compatible with processing-2.2.1 (and earlier versions of java). The [gem][toxi] is maintained independently from the version available in the processing ide, and the java code has been updated to make use java-8 and to be compatible with `processing-3.5` and hence `propane`. The gem also provides a convenient [namespaces][ntoxi] for the toxiclibs libraries see [examples sketches][texamples], so you don't have to individualy import the java classes/packages.
 
 #### Geomerative gem
 
