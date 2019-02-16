@@ -21,15 +21,25 @@ rake javadoc
 ```
 
 ## Installation
+
 ```bash
-jgem install --pre propane # from rubygems
-jgem install propane-3.2-java.gem # local install
+jgem install propane # from rubygems
+jgem install propane-3.2.0-java.gem # local install
 # Alternative
-jruby -S gem install --pre propane # from rubygems
-jruby -S gem install propane-3.2-java.gem # local install
+jruby -S gem install propane # from rubygems
+jruby -S gem install propane-3.2.0-java.gem # local install
+```
+
+## Check Install
+To check version and confirm gem bin files are on your path (also checks JDK version)
+
+```bash
+propane --version
 ```
 
 ## Usage
+
+A propane sketch:-
 
 ``` ruby
 require 'propane'
@@ -52,8 +62,8 @@ end
 FlashingLightsSketch.new
 ```
 
+Create template sketches with the sketch creator tool
 
-There is a handy sketch creator tool
 ```bash
 propane -c my_sketch 200 200 # for default renderer
 propane -c my_sketch 200 200 p2d # for opengl 2D renderer
@@ -65,11 +75,13 @@ To run sketches
 ```bash
 jruby my_sketch.rb # or use script to run sketches from atom
 ```
+
 To install the sound and video libraries `~/.propane/libraries`. Depends on wget.
 ```bash
 propane --install sound
 propane --install video
 ```
+
 Other java libraries can be manually installed to the same folder (no need for processing ide)
 
 See [gh-pages][gh-pages] for more detailed instructions and much more.
