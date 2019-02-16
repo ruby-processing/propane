@@ -1,6 +1,6 @@
 # Propane
 
-This version is intended to work with openjdk11+, @sampottinger is currently working on [vanilla processing][vanilla] which will enable JRubyArt to catch up.
+This version is intended to work with openjdk11+, @sampottinger is currently working on [vanilla processing][vanilla] which will enable JRubyArt to catch up. Unfortunately there is a cockup in debian distributions, and it is currently safer to use the Oracle version on debian (Archlinux openjdk version is fine).
 
 A slim layer to communicate with Processing from JRuby, features maven build. We have created a configuration free version of ruby processing, for processing-3.5+, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby. Currently JavaFX is unsupported again @sampottinger is currently working on [vanilla processing][vanilla] to use OpenJFX.
 
