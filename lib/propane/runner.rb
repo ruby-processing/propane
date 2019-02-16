@@ -67,7 +67,15 @@ module Propane
     end
 
     def show_version
+
+      v_format = "Propane version %s\nJRuby version %s"
+      puts format(v_format, Propane::VERSION, JRUBY_VERSION)
+    end
+
+    def show_version
       require 'erb'
+      require_relative 'helpers/version_error'
+      raise JDKVersionError.new if ENV_JAVA['java.specification.version'] < '11'
       template = ERB.new <<-EOF
         propane version <%= Propane::VERSION %>
         JRuby version <%= JRUBY_VERSION %>
