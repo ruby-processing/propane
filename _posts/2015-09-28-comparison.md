@@ -27,7 +27,7 @@ th{
 |Vec2D         |library            |built-in         |
 |Vec3D         |library            |built-in         |
 |DegLut        |library            |built-in         |
-|FX2D          |No                 |Yes              |
+|FX2D          |No                 |No (since 2.3.0+)|
 |App Export    |Yes                |[Experimental][exp]|
 |Live mode     |Yes                |Yes              |
 |Watch mode    |Yes                |No               |
@@ -35,9 +35,9 @@ th{
 |settings      |no                 |see below        |
 |java_args.txt |Sets jvm opt       |see below        |
 
-For ruby-processing the `--nojruby` flag (or running with jruby-complete) is required to run a number of sketches eg `shader` and `load_image`. In propane use the `data_path` wrapper to return the absolute path for the `data` folder [see here][here]. Currently there is no option use jruby-complete instead of an installed jruby (if you want this install [JRubyArt][jruby_art] instead).
+For ruby-processing the `--nojruby` flag (or running with jruby-complete) is required to run a number of sketches eg `shader` and `load_image`. In propane use the `data_path` wrapper to return the absolute path for the `data` folder [see here][here]. Currently there is no option use jruby-complete instead of an installed jruby (if you want to do this use [JRubyArt][jruby_art] instead).
 
-Introduced for processing-3.0 is the `settings` method, but this is hidden for users of the [processing ide][settings]. This is where `size` belongs or `full_screen`, also you should set `smooth` and `pixel_density` here. Retina users can make use of their hi-dpi display by setting `pixel_density(2)`, NB: size should be first line of `settings`, and if used `pixel_density(2)` should be next.
+Introduced for processing-3.0 is the `settings` method, but this is hidden for users of the [processing ide][settings]. This is where `size` belongs or `full_screen`, also you should set `smooth` and `pixel_density` here. It is unclear since jdk11 whether pixel density is required, or works as expected...
 
 In propane we do not use `java_args.txt` to set jruby or java options since you can enter these after the jruby command [see Execution Environments][wiki].
 
