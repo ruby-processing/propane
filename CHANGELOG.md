@@ -1,3 +1,5 @@
+**v3.3** Compile with jdk12. Changed AppRender to GfxRender (PGraphics instead of PApplet).
+
 **v3.2** Now is the time for some serious refactoring for jdk11. Might even work on MacOS and Windows, ahead of vanilla processing.
 
 **v2.9.1** Attempt to bring 64 bit Windows users to party. Use non versioned jogl/opengl jars from processing distro, including processing.org apple.jar in case it's needed, MacOS users are being very opaque on this.

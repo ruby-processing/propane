@@ -10,7 +10,7 @@ module Propane
   SKETCH_ROOT = File.absolute_path('.')
 
   module Render
-    java_import 'monkstone.vecmath.AppRender'
+    java_import 'monkstone.vecmath.GfxRender'
     java_import 'monkstone.vecmath.ShapeRender'
   end
 

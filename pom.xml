@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>3.2.0</version>
+  <version>3.3.0</version>
   <name>propane</name>
   <description>An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.</description>
   <url>https://github.com/monkstone/propane</url>
@@ -64,9 +64,6 @@
   <properties>
     <jogl.version>2.3.2</jogl.version>
     <jruby.api>http://jruby.org/apidocs/</jruby.api>
-    <!--<maven.compiler.release>8</maven.compiler.release>-->
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
     <polyglot.dump.pom>pom.xml</polyglot.dump.pom>
     <processing.api>http://processing.github.io/processing-javadocs/core/</processing.api>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
