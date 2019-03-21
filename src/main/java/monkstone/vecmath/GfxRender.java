@@ -1,21 +1,21 @@
 package monkstone.vecmath;
 
-import processing.core.PApplet;
+import processing.core.PGraphics;
 
 /**
  *
  * @author Martin Prout
  */
-public class AppRender implements JRender {
+public class GfxRender implements JRender {
 
-    final PApplet app;
+    final PGraphics graphics;
 
     /**
      *
-     * @param app PApplet
+     * @param graphics PGraphics
      */
-    public AppRender(final PApplet app) {
-        this.app = app;
+    public GfxRender(final PGraphics graphics) {
+        this.graphics = graphics;
     }
 
     /**
@@ -25,7 +25,7 @@ public class AppRender implements JRender {
      */
     @Override
     public void vertex(double x, double y) {
-        app.vertex((float) x, (float) y);
+        graphics.vertex((float) x, (float) y);
     }
 
     /**
@@ -35,7 +35,7 @@ public class AppRender implements JRender {
      */
     @Override
     public void curveVertex(double x, double y) {
-        app.curveVertex((float) x, (float) y);
+        graphics.curveVertex((float) x, (float) y);
     }
 
     /**
@@ -46,7 +46,7 @@ public class AppRender implements JRender {
      */
     @Override
     public void vertex(double x, double y, double z) {
-        app.vertex((float) x, (float) y, (float) z);
+        graphics.vertex((float) x, (float) y, (float) z);
     }
 
     /**
@@ -57,7 +57,7 @@ public class AppRender implements JRender {
      */
     @Override
     public void normal(double x, double y, double z) {
-        app.normal((float) x, (float) y, (float) z);
+        graphics.normal((float) x, (float) y, (float) z);
     }
 
     /**
@@ -70,7 +70,7 @@ public class AppRender implements JRender {
      */
     @Override
     public void vertex(double x, double y, double z, double u, double v) {
-        app.vertex((float) x, (float) y, (float) z, (float) u, (float) v);
+        graphics.vertex((float) x, (float) y, (float) z, (float) u, (float) v);
     }
 
     /**
@@ -81,6 +81,6 @@ public class AppRender implements JRender {
      */
     @Override
     public void curveVertex(double x, double y, double z) {
-        app.curveVertex((float) x, (float) y, (float) z);
+        graphics.curveVertex((float) x, (float) y, (float) z);
     }
 }
