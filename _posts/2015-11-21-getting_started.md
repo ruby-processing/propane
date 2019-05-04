@@ -19,7 +19,7 @@ Since the project began in 2001, it's been helping teach people to program in a 
 
 In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
 
-In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], a stand alone version of ruby-processing, since using the core.jar from processing (recently using the processing-3.5 version see changelog) and jruby-9.2.6.0+ (ruby-2.5 syntax)
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], a stand alone version of ruby-processing, since using the core.jar from processing (recently using the processing-3.5 version see changelog) and jruby-9.2.7.0+ (ruby-2.5 syntax)
 
 ### Why propane? ###
 
