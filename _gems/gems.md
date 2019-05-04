@@ -15,7 +15,8 @@ NB: the arcball gem is installed as a propane dependency
 
 ### Other java libraries ported as ruby-gems
 
-jbox2d ([pbox2d][jbox2d])
+jbox2d ([pbox2d][jbox2d] physics engine)
+joonsrender ([joonsrender][joons] sunflow renderer)
 
 ### Stand Alone Gems
 [cf3][cf3] context free art in ruby
@@ -25,5 +26,6 @@ jbox2d ([pbox2d][jbox2d])
 [tox]:https://github.com/ruby-processing/toxicgem/
 [geom]:https://ruby-processing.github.io/geomerativegem/
 [jbox2d]:https://github.com/ruby-processing/jbox2d/
+[joons]:https://github.com/ruby-processing/joonsrenderer/
 [cf3]:https://github.com/monkstone/cf3ruby/
 [wordcram]:https://ruby-processing.github.io/WordCram/

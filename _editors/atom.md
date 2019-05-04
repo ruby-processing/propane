@@ -10,11 +10,11 @@ Unless you are a vim aficionado you should probably prefer to use atom.
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
 
-For linux ignore any distro version and download latest version (preferably 1.34.0+) and:-
+For linux ignore any distro version and download latest version (preferably 1.36.1+) and:-
 
 ```bash
 sudo dpkg --install atom-amd64.deb # debian, mint, ubuntu
-sudo pacman -S atom # Archlinux currently installs 1.34.0
+sudo pacman -S atom # Archlinux currently installs 1.36.1
 ```
 
 MacOS/Windows users could just download direct (or homebrew on MacOS)
@@ -66,4 +66,4 @@ Fans of Sandi Metz will probably want to install linter-ruby-reek and rubocop pa
 [language]:https://atom.io/packages/language-jruby-art
 [script]:https://atom.io/packages/script
 [atom]:https://atom.io/
-[releases]:https://github.com/atom/atom/releases/tag/v1.34.0
+[releases]:https://github.com/atom/atom/releases/tag/v1.36.1
