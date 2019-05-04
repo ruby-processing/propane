@@ -3,7 +3,7 @@ port: 4000
 title: propane (Code as Art)
 email: mamba2928@yahoo.co.uk
 description: > # this means to ignore newlines until "baseurl:"
-   propane is a stand-alone ruby wrapper for processing-3.5
+   propane is a stand-alone ruby wrapper for processing-4.0+
 baseurl: "" # the subpath of your site, e.g. /blog
 regenerate: true
 url: "https://ruby-processing.github.io/propane"
