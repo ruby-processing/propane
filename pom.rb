@@ -40,7 +40,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
               'jogl.version' => '2.3.2',
               'jruby.api' => 'http://jruby.org/apidocs/' )
 
-  pom 'org.jruby:jruby:9.2.6.0'
+  pom 'org.jruby:jruby:9.2.7.0'
   jar 'org.processing:video:3.2.3'
   jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
   jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
@@ -72,7 +72,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
     resource do
       directory '${source.directory}/main/resources'
       includes '**/*.png', '*.txt'
-      excludes 
+      excludes
     end
   end
 

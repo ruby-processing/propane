@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import processing.core.DesktopHandler;
+import processing.core.ThinkDifferent;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -561,8 +561,8 @@ public class PSurfaceAWT extends PSurfaceNone {
     @Override
     public void setIcon(PImage image) {
         Image awtImage = (Image) image.getNative();
-        DesktopHandler.init(sketch);
-        DesktopHandler.setIconImage(awtImage);
+        ThinkDifferent.init(sketch);
+        ThinkDifferent.setIconImage(awtImage);
     }
 
     @Override
