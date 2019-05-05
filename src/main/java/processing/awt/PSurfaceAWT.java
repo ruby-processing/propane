@@ -606,9 +606,9 @@ public class PSurfaceAWT extends PSurfaceNone {
                 // as well as the cmd-tab image that's shown. Just one size, I guess.
                 URL url = PApplet.class.getResource("/icon/icon-512.png");
                 // Seems dangerous to have this in code instead of using reflection, no?
-                //DesktopHandler.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
+                // ThinkDifferent.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
                 try {
-                    final String td = "processing.core.DesktopHandler";
+                    final String td = "processing.core.ThinkDifferent";
                     Class<?> thinkDifferent
                             = Thread.currentThread().getContextClassLoader().loadClass(td);
                     Method method

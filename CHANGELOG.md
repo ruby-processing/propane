@@ -1,3 +1,5 @@
+**v3.3.1** Reflection makes refactoring a nightmare DesktopHandler => ThinkDifferent
+
 **v3.3.0** Compile with jdk12. Changed AppRender to GfxRender (PGraphics instead of PApplet). Attempt fix for macOS icons
 
 **v3.2.0** Now is the time for some serious refactoring for jdk11. Might even work on MacOS and Windows, ahead of vanilla processing.
