@@ -6,14 +6,14 @@ class NativeFolder
 
   WIN_FORMAT = 'windows%d'.freeze
   LINUX_FORMAT = 'linux%d'.freeze
-  # WIN_PATTERNS = [
-  #   /bccwin/i,
-  #   /cygwin/i,
-  #   /djgpp/i,
-  #   /ming/i,
-  #   /mswin/i,
-  #   /wince/i
-  # ].freeze
+  WIN_PATTERNS = [
+    /bccwin/i,
+    /cygwin/i,
+    /djgpp/i,
+    /ming/i,
+    /mswin/i,
+    /wince/i
+  ].freeze
 
   def initialize
     @os = RbConfig::CONFIG['host_os'].downcase
@@ -21,13 +21,21 @@ class NativeFolder
   end
 
   def name
-    return 'macosx' if os =~ /darwin/ || os =~ /mac/
-    # return format(WIN_FORMAT, bit) if WIN_PATTERNS.include? os
-    return format(LINUX_FORMAT, bit) if os =~ /linux/
+    return 'macosx' if /darwin|mac/.match?(os)
+    if /linux/.match?(os)
+      return format(LINUX_FORMAT, '64') if /amd64/.match?(bit)
+      return format(LINUX_FORMAT, ARM32) if /arm/.match?(bit)
+    end
+    if WIN_PATTERNS.any? { |pat| pat =~ os }
+      return format(WINDOWS_FORMAT, '64') if /64/.match?(bit)
+      return format(WINDOWS_FORMAT, '32') if /32/.match?(bit)
+    end
+    raise 'Unsupported Architecture'
   end
 
   def extension
-    return '*.so' if os =~ /linux/
+    return '*.so' if /linux/.match?(os)
+    return '*.dll' if WIN_PATTERNS.any? { |pat| pat =~ os }
     '*.dylib' # MacOS
   end
 end
