@@ -7,7 +7,3 @@ jdk:
   - openjdk11
 os:
   - linux
-
-addons:
-   apt:
-   update: true
