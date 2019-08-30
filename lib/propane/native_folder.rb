@@ -22,10 +22,7 @@ class NativeFolder
 
   def name
     return 'macosx' if /darwin|mac/.match?(os)
-    if /linux/.match?(os)
-      return format(LINUX_FORMAT, '64') if /amd64/.match?(bit)
-      return format(LINUX_FORMAT, ARM32) if /arm/.match?(bit)
-    end
+    return format(LINUX_FORMAT, bit) if os =~ /linux/
     if WIN_PATTERNS.any? { |pat| pat =~ os }
       return format(WINDOWS_FORMAT, '64') if /64/.match?(bit)
       return format(WINDOWS_FORMAT, '32') if /32/.match?(bit)
