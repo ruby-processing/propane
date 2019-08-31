@@ -399,7 +399,7 @@ public class Vec2 extends RubyObject {
     @JRubyMethod(name = "set_mag")
 
     public IRubyObject set_mag(ThreadContext context, IRubyObject scalar, Block block) {
-        double new_mag = (Double) scalar.toJava(Double.class);
+        double new_mag = scalar.toJava(Double.class);
         if (block.isGiven()) {
             if (!(boolean) block.yield(context, scalar).toJava(Boolean.class)) {
                 return this;

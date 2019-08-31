@@ -44,6 +44,13 @@ DO NOT MODIFIY - GENERATED CODE
         <role>developer</role>
       </roles>
     </developer>
+    <developer>
+      <id>sampottinger</id>
+      <name>Sam Pottinger</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
   </developers>
   <scm>
     <connection>scm:git:git://github.com/ruby-processing/propane.git</connection>
@@ -67,7 +74,7 @@ DO NOT MODIFIY - GENERATED CODE
     <dependency>
       <groupId>org.jruby</groupId>
       <artifactId>jruby</artifactId>
-      <version>9.2.7.0</version>
+      <version>9.2.8.0</version>
       <type>pom</type>
     </dependency>
     <dependency>
@@ -118,14 +125,14 @@ DO NOT MODIFIY - GENERATED CODE
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.8.1</version>
           <configuration>
             <release>11</release>
           </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>3.1.1</version>
           <configuration>
             <detectOfflineLinks>false</detectOfflineLinks>
             <links>
@@ -136,18 +143,7 @@ DO NOT MODIFIY - GENERATED CODE
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.0</version>
-          <configuration>
-            <archive>
-              <manifestEntries>
-                <Class-Path>gluegen-rt.jar jog-all.jar</Class-Path>
-              </manifestEntries>
-            </archive>
-          </configuration>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.1.2</version>
           <configuration>
             <archive>
               <manifestEntries>

@@ -26,6 +26,11 @@ project 'propane', 'https://github.com/monkstone/propane' do
     roles 'developer'
   end
 
+  developer 'sampottinger' do
+    name 'Sam Pottinger'
+    roles 'developer'
+  end
+
   issue_management 'https://github.com/ruby-processing/propane/issues', 'Github'
 
   source_control( :url => 'https://github.com/ruby-processing/propane',
@@ -40,7 +45,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'jogl.version' => '2.3.2',
       'jruby.api' => 'http://jruby.org/apidocs/' )
 
-      pom 'org.jruby:jruby:9.2.7.0'
+      pom 'org.jruby:jruby:9.2.8.0'
       jar 'org.processing:video:3.2.3'
       jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
@@ -48,25 +53,19 @@ project 'propane', 'https://github.com/monkstone/propane' do
       overrides do
         plugin( 'org.codehaus.mojo:versions-maven-plugin:2.7',
           'generateBackupPoms' =>  'false' )
-          plugin( :compiler, '3.8.0',
+          plugin( :compiler, '3.8.1',
             'release' =>  '11' )
-            plugin( :javadoc, '3.0.1',
+            plugin( :javadoc, '3.1.1',
               'detectOfflineLinks' =>  'false',
               'links' => [ '${jruby.api}',
                 '${processing.api}' ] )
                 plugin(
-                  :jar, '3.1.0',
+                  :jar, '3.1.2',
                   'archive' => {
                     'manifestEntries' => { 'Class-Path' => 'gluegen-rt.jar jog-all.jar' }
                   }
                 )
-                plugin(
-                  :jar, '3.1.0',
-                  'archive' => {
-                    'manifestEntries' => { 'Class-Path' => 'gluegen-rt.jar jog-all.jar' }
-                  }
-                )
-              end              
+              end
               build do
                 resource do
                   directory '${source.directory}/main/java'

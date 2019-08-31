@@ -385,7 +385,7 @@ public final class Vec3 extends RubyObject {
     @JRubyMethod(name = "/", required = 1)
     public IRubyObject op_div(ThreadContext context, IRubyObject scalar) {
         Ruby runtime = context.runtime;
-        double divisor = (scalar instanceof RubyFloat)
+        var divisor = (scalar instanceof RubyFloat)
                 ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
         if (Math.abs(divisor) < Vec3.EPSILON) {
             return this;
@@ -432,7 +432,7 @@ public final class Vec3 extends RubyObject {
                 return this;
             }
         }
-        double new_mag = (scalar instanceof RubyFloat)
+        var new_mag = (scalar instanceof RubyFloat)
                 ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
         double current = Math.sqrt(jx * jx + jy * jy + jz * jz);
         if (current > EPSILON) {
