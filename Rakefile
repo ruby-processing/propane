@@ -6,8 +6,8 @@ task default: [:init, :compile, :install, :test, :gem]
 # depends on installed processing, with processing on path
 desc 'Copy Jars'
 task :init do
-  processing_root = File.dirname(`readlink -f $(which processing)`) # for Archlinux etc
-  # processing_root = File.join(ENV['HOME'], 'processing-3.5.3') # alternative for debian linux etc
+  # processing_root = File.dirname(`readlink -f $(which processing)`) # for Archlinux etc
+  processing_root = File.join(ENV['HOME'], 'processing-3.5.3') # alternative for debian linux etc
   jar_dir = File.join(processing_root, 'core', 'library')
   opengl = Dir.entries(jar_dir).grep(/amd64|macosx-universal/)
   opengl.concat %w[jogl-all.jar gluegen-rt.jar]
@@ -45,10 +45,10 @@ desc 'Test'
 task :test do
   sh 'jruby test/helper_methods_test.rb'
   # sh 'jruby test/respond_to_test.rb' Skip test on Travis to avoid Headless fail
-  sh 'jruby test/create_test.rb'
-  sh 'jruby test/math_tool_test.rb'
-  sh 'jruby test/deglut_spec_test.rb'
-  sh 'jruby test/vecmath_spec_test.rb'
+  sh 'jruby --dev test/create_test.rb'
+  sh 'jruby --dev test/math_tool_test.rb'
+  sh 'jruby --dev test/deglut_spec_test.rb'
+  sh 'jruby --dev test/vecmath_spec_test.rb'
 end
 
 desc 'clean'
