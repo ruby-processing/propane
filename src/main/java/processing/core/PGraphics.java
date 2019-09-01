@@ -1087,7 +1087,7 @@ public class PGraphics extends PImage implements PConstants {
    * obscure rendering features that cannot be implemented in a consistent
    * manner across renderers. Many options will often graduate to standard
    * features instead of hints over time.
-   * <br/> <br/>
+   * 
    * hint(ENABLE_OPENGL_4X_SMOOTH) - Enable 4x anti-aliasing for P3D. This
    * can help force anti-aliasing if it has not been enabled by the user. On
    * some graphics cards, this can also be set by the graphics driver's
@@ -1095,13 +1095,13 @@ public class PGraphics extends PImage implements PConstants {
    * be called immediately after the size() command because it resets the
    * renderer, obliterating any settings and anything drawn (and like size(),
    * re-running the code that came before it again).
-   * <br/> <br/>
+   * 
    * hint(DISABLE_OPENGL_2X_SMOOTH) - In Processing 1.0, Processing always
    * enables 2x smoothing when the P3D renderer is used. This hint disables
    * the default 2x smoothing and returns the smoothing behavior found in
    * earlier releases, where smooth() and noSmooth() could be used to enable
    * and disable smoothing, though the quality was inferior.
-   * <br/> <br/>
+   * 
    * hint(ENABLE_NATIVE_FONTS) - Use the native version fonts when they are
    * installed, rather than the bitmapped version from a .vlw file. This is
    * useful with the default (or JAVA2D) renderer setting, as it will improve
@@ -1110,7 +1110,7 @@ public class PGraphics extends PImage implements PConstants {
    * machine (because you have the font installed) but lousy on others'
    * machines if the identical font is unavailable. This option can only be
    * set per-sketch, and must be called before any use of textFont().
-   * <br/> <br/>
+   * 
    * hint(DISABLE_DEPTH_TEST) - Disable the zbuffer, allowing you to draw on
    * top of everything at will. When depth testing is disabled, items will be
    * drawn to the screen sequentially, like a painting. This hint is most
@@ -1120,14 +1120,14 @@ public class PGraphics extends PImage implements PConstants {
    * hint(ENABLE_DEPTH_TEST), but note that with the depth buffer cleared,
    * any 3D drawing that happens later in draw() will ignore existing shapes
    * on the screen.
-   * <br/> <br/>
+   * 
    * hint(ENABLE_DEPTH_SORT) - Enable primitive z-sorting of triangles and
    * lines in P3D and OPENGL. This can slow performance considerably, and the
    * algorithm is not yet perfect. Restore the default with hint(DISABLE_DEPTH_SORT).
-   * <br/> <br/>
+   * 
    * hint(DISABLE_OPENGL_ERROR_REPORT) - Speeds up the P3D renderer setting
    * by not checking for errors while running. Undo with hint(ENABLE_OPENGL_ERROR_REPORT).
-   * <br/> <br/>
+   * 
    * hint(ENABLE_BUFFER_READING) - Depth and stencil buffers in P2D/P3D will be
    * downsampled to make PGL#readPixels work with multisampling. Enabling this
    * introduces some overhead, so if you experience bad performance, disable
@@ -1136,17 +1136,17 @@ public class PGraphics extends PImage implements PConstants {
    * creating your PGraphics2D/3D. You can restore the default with
    * hint(DISABLE_BUFFER_READING) if you don't plan to read depth from
    * this PGraphics anymore.
-   * <br/> <br/>
+   * 
    * hint(ENABLE_KEY_REPEAT) - Auto-repeating key events are discarded
    * by default (works only in P2D/P3D); use this hint to get all the key events
    * (including auto-repeated). Call hint(DISABLE_KEY_REPEAT) to get events
    * only when the key goes physically up or down.
-   * <br/> <br/>
+   * 
    * hint(DISABLE_ASYNC_SAVEFRAME) - P2D/P3D only - save() and saveFrame()
    * will not use separate threads for saving and will block until the image
    * is written to the drive. This was the default behavior in 3.0b7 and before.
    * To enable, call hint(ENABLE_ASYNC_SAVEFRAME).
-   * <br/> <br/>
+   * 
    * As of release 0149, unhint() has been removed in favor of adding
    * additional ENABLE/DISABLE constants to reset the default behavior. This
    * prevents the double negatives, and also reinforces which hints can be
@@ -1208,12 +1208,12 @@ public class PGraphics extends PImage implements PConstants {
    * specifies a position in 2D and the <b>vertex()</b> function with three
    * parameters specifies a position in 3D. Each shape will be outlined with
    * the current stroke color and filled with the fill color.
-   * <br/> <br/>
+   * 
    * Transformations such as <b>translate()</b>, <b>rotate()</b>, and
    * <b>scale()</b> do not work within <b>beginShape()</b>. It is also not
    * possible to use other shapes, such as <b>ellipse()</b> or <b>rect()</b>
    * within <b>beginShape()</b>.
-   * <br/> <br/>
+   * 
    * The P3D renderer settings allow <b>stroke()</b> and <b>fill()</b>
    * settings to be altered per-vertex, however the default P2D renderer does
    * not. Settings such as <b>strokeWeight()</b>, <b>strokeCap()</b>, and
@@ -1358,7 +1358,7 @@ public class PGraphics extends PImage implements PConstants {
    * Sets a texture to be applied to vertex points. The <b>texture()</b>
    * function must be called between <b>beginShape()</b> and
    * <b>endShape()</b> and before any calls to <b>vertex()</b>.
-   * <br/> <br/>
+   * 
    * When textures are in use, the fill color is ignored. Instead, use tint()
    * to specify the color of the texture as it is applied to the shape.
    *
@@ -4165,7 +4165,7 @@ public class PGraphics extends PImage implements PConstants {
    * CENTER, and RIGHT set the display characteristics of the letters in
    * relation to the values for the <b>x</b> and <b>y</b> parameters of the
    * <b>text()</b> function.
-   * <br/> <br/>
+   * 
    * In Processing 0125 and later, an optional second parameter can be used
    * to vertically align the text. BASELINE is the default, and the vertical
    * alignment will be reset to BASELINE if the second parameter is not used.
@@ -4173,12 +4173,12 @@ public class PGraphics extends PImage implements PConstants {
    * offsets the line based on the current <b>textDescent()</b>. For multiple
    * lines, the final line will be aligned to the bottom, with the previous
    * lines appearing above it.
-   * <br/> <br/>
+   * 
    * When using <b>text()</b> with width and height parameters, BASELINE is
    * ignored, and treated as TOP. (Otherwise, text would by default draw
    * outside the box, since BASELINE is the default setting. BASELINE is not
    * a useful drawing mode for text drawn in a rectangle.)
-   * <br/> <br/>
+   * 
    * The vertical alignment is based on the value of <b>textAscent()</b>,
    * which many fonts do not specify correctly. It may be necessary to use a
    * hack and offset by a few pixels by hand so that the offset looks
@@ -5348,7 +5348,7 @@ public class PGraphics extends PImage implements PConstants {
    * Rotates a shape the amount specified by the <b>angle</b> parameter.
    * Angles should be specified in radians (values from 0 to TWO_PI) or
    * converted to radians with the <b>radians()</b> function.
-   * <br/> <br/>
+   * 
    * Objects are always rotated around their relative position to the origin
    * and positive numbers rotate objects in a clockwise direction.
    * Transformations apply to everything that happens after and subsequent
@@ -5356,7 +5356,7 @@ public class PGraphics extends PImage implements PConstants {
    * <b>rotate(HALF_PI)</b> and then <b>rotate(HALF_PI)</b> is the same as
    * <b>rotate(PI)</b>. All tranformations are reset when <b>draw()</b>
    * begins again.
-   * <br/> <br/>
+   * 
    * Technically, <b>rotate()</b> multiplies the current transformation
    * matrix by a rotation matrix. This function can be further controlled by
    * the <b>pushMatrix()</b> and <b>popMatrix()</b>.
@@ -5559,7 +5559,7 @@ public class PGraphics extends PImage implements PConstants {
    * <b>shearX(PI/2)</b> and then <b>shearX(PI/2)</b> is the same as
    * <b>shearX(PI)</b>. If <b>shearX()</b> is called within the
    * <b>draw()</b>, the transformation is reset when the loop begins again.
-   * <br/> <br/>
+   * 
    * Technically, <b>shearX()</b> multiplies the current transformation
    * matrix by a rotation matrix. This function can be further controlled by
    * the <b>pushMatrix()</b> and <b>popMatrix()</b> functions.
@@ -5593,7 +5593,7 @@ public class PGraphics extends PImage implements PConstants {
    * <b>shearY(PI/2)</b> and then <b>shearY(PI/2)</b> is the same as
    * <b>shearY(PI)</b>. If <b>shearY()</b> is called within the
    * <b>draw()</b>, the transformation is reset when the loop begins again.
-   * <br/> <br/>
+   * 
    * Technically, <b>shearY()</b> multiplies the current transformation
    * matrix by a rotation matrix. This function can be further controlled by
    * the <b>pushMatrix()</b> and <b>popMatrix()</b> functions.
@@ -6115,7 +6115,7 @@ public class PGraphics extends PImage implements PConstants {
    * transformations (scale, rotate, translate, etc.) The X value can be used
    * to place an object in space relative to the location of the original
    * point once the transformations are no longer in use.
-   * <br/> <br/>
+   * 
    * In the example, the <b>modelX()</b>, <b>modelY()</b>, and
    * <b>modelZ()</b> functions record the location of a box in space after
    * being placed using a series of translate and rotate commands. After
@@ -6408,7 +6408,7 @@ public class PGraphics extends PImage implements PConstants {
    *
    * Sets the width of the stroke used for lines, points, and the border
    * around shapes. All widths are set in units of pixels.
-   * <br/> <br/>
+   * 
    * When drawing with P3D, series of connected lines (such as the stroke
    * around a polygon, triangle, or ellipse) produce unattractive results
    * when a thick stroke weight is set (<a
@@ -6437,7 +6437,7 @@ public class PGraphics extends PImage implements PConstants {
    * are either mitered, beveled, or rounded and specified with the
    * corresponding parameters MITER, BEVEL, and ROUND. The default joint is
    * MITER.
-   * <br/> <br/>
+   * 
    * This function is not available with the P3D renderer, (<a
    * href="http://code.google.com/p/processing/issues/detail?id=123">see
    * Issue 123</a>). More information about the renderers can be found in the
@@ -6461,7 +6461,7 @@ public class PGraphics extends PImage implements PConstants {
    * Sets the style for rendering line endings. These ends are either
    * squared, extended, or rounded and specified with the corresponding
    * parameters SQUARE, PROJECT, and ROUND. The default cap is ROUND.
-   * <br/> <br/>
+   * 
    * This function is not available with the P3D renderer (<a
    * href="http://code.google.com/p/processing/issues/detail?id=123">see
    * Issue 123</a>). More information about the renderers can be found in the
@@ -6512,7 +6512,7 @@ public class PGraphics extends PImage implements PConstants {
    * is either specified in terms of the RGB or HSB color depending on the
    * current <b>colorMode()</b> (the default color space is RGB, with each
    * value in the range from 0 to 255).
-   * <br/> <br/>
+   * 
    * When using hexadecimal notation to specify a color, use "#" or "0x"
    * before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six
    * digits to specify a color (the way colors are specified in HTML and
@@ -6520,7 +6520,7 @@ public class PGraphics extends PImage implements PConstants {
    * hexadecimal value must be specified with eight characters; the first two
    * characters define the alpha component and the remainder the red, green,
    * and blue components.
-   * <br/> <br/>
+   * 
    * The value for the parameter "gray" must be less than or equal to the
    * current maximum value as specified by <b>colorMode()</b>. The default
    * maximum value is 255.
@@ -6753,7 +6753,7 @@ public class PGraphics extends PImage implements PConstants {
    * color is either specified in terms of the RGB or HSB color depending on
    * the current <b>colorMode()</b> (the default color space is RGB, with
    * each value in the range from 0 to 255).
-   * <br/> <br/>
+   * 
    * When using hexadecimal notation to specify a color, use "#" or "0x"
    * before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six
    * digits to specify a color (the way colors are specified in HTML and
@@ -6761,11 +6761,11 @@ public class PGraphics extends PImage implements PConstants {
    * hexadecimal value must be specified with eight characters; the first two
    * characters define the alpha component and the remainder the red, green,
    * and blue components.
-   * <br/> <br/>
+   * 
    * The value for the parameter "gray" must be less than or equal to the
    * current maximum value as specified by <b>colorMode()</b>. The default
    * maximum value is 255.
-   * <br/> <br/>
+   * 
    * To change the color of an image (or a texture), use tint().
    *
    * ( end auto-generated )
@@ -7313,13 +7313,13 @@ public class PGraphics extends PImage implements PConstants {
    * of the Processing window. The default background is light gray. In the
    * <b>draw()</b> function, the background color is used to clear the
    * display window at the beginning of each frame.
-   * <br/> <br/>
+   * 
    * An image can also be used as the background for a sketch, however its
    * width and height must be the same size as the sketch window. To resize
    * an image 'b' to the size of the sketch window, use b.resize(width, height).
-   * <br/> <br/>
+   * 
    * Images used as background will ignore the current <b>tint()</b> setting.
-   * <br/> <br/>
+   * 
    * It is not possible to use transparency (alpha) in background colors with
    * the main drawing surface, however they will work properly with <b>createGraphics()</b>.
    *
@@ -7450,13 +7450,13 @@ public class PGraphics extends PImage implements PConstants {
   /**
    * Takes an RGB or ARGB image and sets it as the background.
    * The width and height of the image must be the same size as the sketch.
-   * Use image.resize(width, height) to make short work of such a task.<br/>
-   * <br/>
+   * Use image.resize(width, height) to make short work of such a task.
+   * 
    * Note that even if the image is set as RGB, the high 8 bits of each pixel
    * should be set opaque (0xFF000000) because the image data will be copied
    * directly to the screen, and non-opaque background images may have strange
-   * behavior. Use image.filter(OPAQUE) to handle this easily.<br/>
-   * <br/>
+   * behavior. Use image.filter(OPAQUE) to handle this easily.
+   * 
    * When using 3D, this will also clear the zbuffer (if it exists).
    *
    * @param image PImage to set as background (must be same size as the sketch window)
@@ -8349,7 +8349,7 @@ public class PGraphics extends PImage implements PConstants {
    * Return true if this renderer should be drawn to the screen. Defaults to
    * returning true, since nearly all renderers are on-screen beasts. But can
    * be overridden for subclasses like PDF so that a window doesn't open up.
-   * <br/> <br/>
+   * 
    * A better name? showFrame, displayable, isVisible, visible, shouldDisplay,
    * what to call this?
    */

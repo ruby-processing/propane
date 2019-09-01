@@ -151,11 +151,13 @@ public class PMatrix2D implements PMatrix {
      *
      * @throws IllegalArgumentException
      */
+    @Override
     public void translate(float x, float y, float z) {
         throw new IllegalArgumentException("Cannot use translate(x, y, z) on a PMatrix2D.");
     }
 
     // Implementation roughly based on AffineTransform.
+    @Override
     public void rotate(float angle) {
         float s = sin(angle);
         float c = cos(angle);
@@ -175,6 +177,7 @@ public class PMatrix2D implements PMatrix {
      *
      * @throws IllegalArgumentException
      */
+    @Override
     public void rotateX(float angle) {
         throw new IllegalArgumentException("Cannot use rotateX() on a PMatrix2D.");
     }
@@ -197,14 +200,17 @@ public class PMatrix2D implements PMatrix {
      *
      * @throws IllegalArgumentException
      */
+    @Override
     public void rotate(float angle, float v0, float v1, float v2) {
         throw new IllegalArgumentException("Cannot use this version of rotate() on a PMatrix2D.");
     }
 
+    @Override
     public void scale(float s) {
         scale(s, s);
     }
 
+    @Override
     public void scale(float sx, float sy) {
         m00 *= sx;
         m01 *= sy;

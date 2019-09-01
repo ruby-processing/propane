@@ -405,7 +405,7 @@ public class PShape implements PConstants {
      *
      * Returns a boolean value "true" if the image is set to be visible, "false"
      * if not. This is modified with the <b>setVisible()</b> parameter.
-     * <br/> <br/>
+     * 
      * The visibility of a shape is usually controlled by whatever program
      * created the SVG file. For instance, this parameter is controlled by
      * showing or hiding the shape in the layers palette in Adobe Illustrator.
@@ -427,7 +427,7 @@ public class PShape implements PConstants {
      *
      * Sets the shape to be visible or invisible. This is determined by the
      * value of the <b>visible</b> parameter.
-     * <br/> <br/>
+     * 
      * The visibility of a shape is usually controlled by whatever program
      * created the SVG file. For instance, this parameter is controlled by
      * showing or hiding the shape in the layers palette in Adobe Illustrator.

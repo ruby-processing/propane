@@ -22,11 +22,12 @@
 
 package processing.core;
 
-import java.awt.*;
-
+import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.Taskbar;
 
 /**
- * Deal with issues related to Mac OS window behavior.
+ * Deal with issues related to Mac OS window behaviour.
  *
  * We have to register a quit handler to safely shut down the sketch,
  * otherwise OS X will just kill the sketch when a user hits Cmd-Q.
@@ -56,11 +57,9 @@ public class ThinkDifferent {
    * @param sketch The sketch whose quit handler callback should be set.
    */
   static public void init(final PApplet sketch) {
-    getDesktop().setQuitHandler((event, quitResponse) -> {
-      sketch.exit();
-
-      boolean noKnownCrash = PApplet.uncaughtThrowable == null;
-
+    getDesktop().setQuitHandler((var event, var quitResponse) -> {
+      sketch.exit();      
+      var noKnownCrash = PApplet.uncaughtThrowable == null;      
       if (noKnownCrash && !attemptedQuit) {  // haven't tried yet
         quitResponse.cancelQuit();  // tell OS X we'll handle this
         attemptedQuit = true;
@@ -111,10 +110,4 @@ public class ThinkDifferent {
 
     return desktop;
   }
-
-
-  // Instead, just use Application.getApplication() inside your app
-//  static public Application getApplication() {
-//    return desktop;
-//  }
 }

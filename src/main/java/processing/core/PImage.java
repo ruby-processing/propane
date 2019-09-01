@@ -40,11 +40,11 @@ import java.awt.image.*;
    * fields for the <b>width</b> and <b>height</b> of the image, as well as
    * an array called <b>pixels[]</b> that contains the values for every pixel
    * in the image. The methods described below allow easy access to the
-   * image's pixels and alpha channel and simplify the process of compositing.<br/>
-   * <br/> using the <b>pixels[]</b> array, be sure to use the
+   * image's pixels and alpha channel and simplify the process of compositing.
+   *  using the <b>pixels[]</b> array, be sure to use the
    * <b>loadPixels()</b> method on the image to make sure that the pixel data
-   * is properly loaded.<br/>
-   * <br/> create a new image, use the <b>createImage()</b> function. Do not
+   * is properly loaded.
+   *  create a new image, use the <b>createImage()</b> function. Do not
    * use the syntax <b>new PImage()</b>.
    *
    * ( end auto-generated )
@@ -184,11 +184,11 @@ public class PImage implements PConstants, Cloneable {
    * pixel in the image. A group of methods, described below, allow easy
    * access to the image's pixels and alpha channel and simplify the process
    * of compositing.
-   * <br/> <br/>
+   * 
    * Before using the <b>pixels[]</b> array, be sure to use the
    * <b>loadPixels()</b> method on the image to make sure that the pixel data
    * is properly loaded.
-   * <br/> <br/>
+   * 
    * To create a new image, use the <b>createImage()</b> function (do not use
    * <b>new PImage()</b>).
    * ( end auto-generated )
@@ -478,7 +478,7 @@ public class PImage implements PConstants, Cloneable {
    *
    * Loads the pixel data for the image into its <b>pixels[]</b> array. This
    * function must always be called before reading from or writing to <b>pixels[]</b>.
-   * <br/><br/> renderers may or may not seem to require <b>loadPixels()</b>
+   *  renderers may or may not seem to require <b>loadPixels()</b>
    * or <b>updatePixels()</b>. However, the rule is that any time you want to
    * manipulate the <b>pixels[]</b> array, you must first call
    * <b>loadPixels()</b>, and after changes have been made, call
@@ -517,14 +517,14 @@ public class PImage implements PConstants, Cloneable {
    * Updates the image with the data in its <b>pixels[]</b> array. Use in
    * conjunction with <b>loadPixels()</b>. If you're only reading pixels from
    * the array, there's no need to call <b>updatePixels()</b>.
-   * <br/><br/> renderers may or may not seem to require <b>loadPixels()</b>
+   *  renderers may or may not seem to require <b>loadPixels()</b>
    * or <b>updatePixels()</b>. However, the rule is that any time you want to
    * manipulate the <b>pixels[]</b> array, you must first call
    * <b>loadPixels()</b>, and after changes have been made, call
    * <b>updatePixels()</b>. Even if the renderer may not seem to use this
    * function in the current Processing release, this will always be subject
    * to change.
-   * <br/> <br/>
+   * 
    * Currently, none of the renderers use the additional parameters to
    * <b>updatePixels()</b>, however this may be implemented in the future.
    *
