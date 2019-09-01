@@ -18,7 +18,7 @@ Processing was built by Casey Reas and Benjamin Fry, two protegés of interdisci
 Since the project began in 2001, it's been helping teach people to program in a visual art context using a simplified version of Java. It comes packaged as an IDE that can be downloaded and used to create and save digital art “sketches”.
 
 In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
-In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.5 and jruby-9.2.7.0+ (ruby-2.5 syntax)
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.5 and jruby-9.2.8.0+ (ruby-2.5 syntax)
 
 ### Why propane?
 
@@ -36,9 +36,9 @@ Setting propane is dead easy. The propane gem relies on jruby and arc_ball.gem, 
 
 ### Java
 
-You can use either Oracle or openjdk, but preferably jdk11. But please try the pre-release version for jdk11+, and report back via issues.
+You can use either Oracle or openjdk jdk11+, but preferably openjdk12+.
 
-Install wget, java (1.8.0_181+)
+Install wget, java
 
 In case you have issues, it has been reported to be useful to set the JAVA_HOME and to add the path to `java` to your PATH
 
