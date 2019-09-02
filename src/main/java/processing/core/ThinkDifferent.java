@@ -39,8 +39,8 @@ import java.awt.Taskbar;
  */
 public class ThinkDifferent {
 
-  private static Desktop desktop;
-  private static Taskbar taskbar;
+  private static Desktop desktop; // cached instance
+  private static Taskbar taskbar; // cached instance
 
   // True if user has tried to quit once. Prevents us from canceling the quit
   // call if the sketch is held up for some reason, like an exception that's
@@ -57,9 +57,9 @@ public class ThinkDifferent {
    * @param sketch The sketch whose quit handler callback should be set.
    */
   static public void init(final PApplet sketch) {
-    getDesktop().setQuitHandler((var event, var quitResponse) -> {
-      sketch.exit();      
-      var noKnownCrash = PApplet.uncaughtThrowable == null;      
+    getDesktop().setQuitHandler((event, quitResponse) -> {
+      sketch.exit();
+      var noKnownCrash = PApplet.uncaughtThrowable == null;
       if (noKnownCrash && !attemptedQuit) {  // haven't tried yet
         quitResponse.cancelQuit();  // tell OS X we'll handle this
         attemptedQuit = true;
@@ -94,7 +94,6 @@ public class ThinkDifferent {
     if (taskbar == null) {
       taskbar = Taskbar.getTaskbar();
     }
-
     return taskbar;
   }
 
@@ -107,7 +106,6 @@ public class ThinkDifferent {
     if (desktop == null) {
       desktop = Desktop.getDesktop();
     }
-
     return desktop;
   }
 }
