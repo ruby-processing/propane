@@ -17,12 +17,14 @@ So, what exactly is special about inner classes? Well, the main thing that you m
 
 _Stolen from stack exchange_
 
-* Reflection is much slower than just calling methods by their name, because it has to inspect the metadata in the bytecode instead of just using precompiled addresses and constants.
+* Reflection is much slower than just calling methods by their name, because it has to inspect the metadata in the bytecode instead of just using pre-compiled addresses and constants.
 * Reflection is also more powerful: you can retrieve the definition of a protected or final member, remove the protection and manipulate it as if it had been declared mutable!
 * Obviously this subverts many of the guarantees the language normally makes for your programs and that can be extremely dangerous.
 And this pretty much explains when you would use it. Ordinarily, don't. If you want to call a method, just call it. If you want to mutate a member, just declare it mutable instead of going behind the compiler's back.
 
 One useful real-world use of reflection is when writing a framework that has to interoperate with user-defined classes, where the framework author doesn't know what the members (or even the classes) will be. Reflection allows them to deal with any class without knowing it in advance. For instance, I don't think it would be possible to write a complex aspect-oriented library without reflection.
+
+Since jdk9+ stronger encapsulation causes a lot of warnings about illegal reflective access, and one should explicitly open which classes are allowed such access (using `--add-opens` on the command line or within `module-info`). In future jdk releases reflective access without explicitly being enabled will be prohibited.
 
 [reflection]:https://docs.oracle.com/javase/tutorial/reflect/
 [inner]:https://docs.oracle.com/javase/tutorial/java/javaOO/innerclasses.html
