@@ -1,4 +1,4 @@
-# Propane ![Travis CI](https://travis-ci.org/ruby-processing/propane.svg)
+# Propane [![Gem Version](https://badge.fury.io/rb/propane.svg)](https://badge.fury.io/rb/propane) ![Travis CI](https://travis-ci.org/ruby-processing/propane.svg)
 
 This version is intended to work with openjdk11+, @sampottinger is currently working on [vanilla processing][vanilla] which will enable JRubyArt to catch up. Unfortunately there is a cockup in debian distributions, and it is currently safer to use the Oracle version on debian (Archlinux openjdk version is fine).
 
