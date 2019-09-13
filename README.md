@@ -8,9 +8,11 @@ adjust above for your OS/distro setup.
 
 ## Requirements
 
-- `jdk-11.0.2+`
-- `jruby-9.2.7.0`
+- `jdk-11.0.3+`
+- `jruby-9.2.8.0`
 - `mvn-3.5.4+`
+
+Currently you can ignore `illegal reflective access` warnings, see [here how to suppress them][warning].
 
 ## Building and testing
 
@@ -98,3 +100,4 @@ propane --install samples
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
 [vanilla]:https://github.com/processing/processing/pull/5753
+[warning]: https://monkstone.github.io/jruby_art/update/2019/09/10/Reflective_Access.html
