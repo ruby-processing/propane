@@ -8,6 +8,8 @@ adjust above for your OS/distro setup.
 
 ## Requirements
 
+There may be a linker issue with P2D or P3D sketches with stock openjdk with some linux distros, in which case you might find [Adopt open jdk binaries][adopt] will work for you.
+
 - `jdk-11.0.3+`
 - `jruby-9.2.8.0`
 - `mvn-3.5.4+`
@@ -97,6 +99,7 @@ propane --install samples
 ```
  please move existing `propane_samples` if you wish to keep them. The current release features several PixelFlow glsl library examples, including a few shadertoy demos as sketches.
 
+[adopt]: https://adoptopenjdk.net/
 [building]:http://ruby-processing.github.io/building/building/
 [gh-pages]:https://ruby-processing.github.io/propane/
 [vanilla]:https://github.com/processing/processing/pull/5753
