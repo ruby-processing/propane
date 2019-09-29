@@ -2,23 +2,12 @@
 layout: post
 title:  "Getting Started on Windows"
 date:   2019-09-29 06:00:00
-permalink: /mac_start/
+permalink: /windows_start/
 ---
 
-### Getting Started With propane (stolen from [Ben Lewis][ben])
+### Getting Started With propane
 
 If you love to code because it is a creative process, then you should give propane a try because it can be used to create [music][sound], art, animations, [videos][video] and much more. Also since it is based on the latest [Processing][processing] you can access a vast range of libraries to make the difficult things easier.
-
-### What Is Processing?
-
-Processing is a simple language, based on Java, that you can use to create digital graphics. It's easy to learn, fun to use, and has an amazing online community comprised of programmers, visual artists, musicians, and interdisciplinary artists of all kinds.
-
-Processing was built by Casey Reas and Benjamin Fry, two protegés of interdisciplinary digital art guru John Maeda at the MIT Media Lab.
-
-Since the project began in 2001, it's been helping teach people to program in a visual art context using a simplified version of Java. It comes packaged as an IDE that can be downloaded and used to create and save digital art “sketches”.
-
-In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
-In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], loosely based on the original ruby-processing, but updated to use processing-3.5 and jruby-9.2.8.0+ (ruby-2.5 syntax)
 
 ### Why propane?
 
@@ -28,19 +17,13 @@ Additionally, you don't have to declare types, voids, or understand the differen
 
 Although there are some drawbacks to using the Ruby version Processing (slower start up time, and sometimes performance), having Ruby's API available to translate your ideas into sketches more than makes up for them.
 
-Why was ruby-processing not updated to use processing-3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane was designed to use jruby-9.0.0.0 from the outset, it makes use of the more literate ruby-2.2 syntax.
-
 ### Setup
 
 Setting propane is dead easy. The propane gem relies on jruby and arc_ball.gem, you don't need rvm or rvm for this don't let anyone persuade that you do.
 
 ### Java
 
-You can use either Oracle or openjdk jdk11+, but preferably openjdk12+.
-
-Install wget, java
-
-In case you have issues, it has been reported to be useful to set the JAVA_HOME and to add the path to `java` to your PATH
+Install [wget][wget] which is also available as [cygwin][cygwin] package, openjdk (11.0.3+), and some version of ruby-2.4+ preferably jruby-9.2.8.0+. If you encounter linkage problems it might be worth looking the [AdoptOpenJDK][adopt] distribution.
 
 ### JRuby
 
