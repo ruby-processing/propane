@@ -21,19 +21,11 @@ If you are familiar with the original ruby-processing (deprecated since January 
 
 ### Installing ###
 
-propane is a configuration free version of processing-3.5 (in a ruby environment) [Propane][propane] the full version is currently just MacOS / Linux. For raspberry-pi see [PiCrate][picrate].
-To install gem:-
-```bash
-jgem install propane # or alternatively
-jruby -S gem install propane
-```
-Post install:-
+1. [Getting started on linux][linux]
+2. [Getting started on MacOS][mac]
+3. [Getting started on Windows][windows]
 
-```bash
-propane --install samples # requires wget installs samples
-propane --install sound # requires wget installs processing sound library
-propane --install video # requires wget installs processing video library
-```
+For more info on how to get the most out of JRubyArt see the [propane website][propane] and my [JRubyArt blog][blog]. File all bugs/feature requests at [propane issues][issues].
 
 ### Using ###
 
@@ -157,9 +149,14 @@ JWishy.new
 ```
 
 [picrate]:https://github.com/ruby-processing/picrate
-[propane]:https://github.com/ruby-processing/propane
+[propane]:https://ruby-processing.github.io/propane/
+[propane]:https://github.com/ruby-processing/propane/issues
 [jruby]:http://jruby.org/download
 [openjvm]:http://openjdk.java.net/install/
-[oraclejvm]:http://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-2133151.html
+[examples]: https://github.com/ruby-processing/propane-examples
 [JRubyArt]:{{ site.github.url }}/JRubyArt/
 [math_demo]:https://ruby-processing.github.io/math_demo
+[windows]: {{site.github.url}}/windows_start/
+[mac]: {{site.github.url}}/mac_start/
+[linux]: {{site.github.url}}/linux_started/
+[blog]: https://monkstone.github.io/
