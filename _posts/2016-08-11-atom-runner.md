@@ -10,16 +10,14 @@ permalink: /atom-propane/
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
 
-For linux ignore any distro version and download latest version (at least 1.24.0) and:-
+For linux ignore any distro version and download latest version (at least 1.40.0) and:-
 
 ```bash
 sudo dpkg --install atom-amd64.deb # debian, mint, ubuntu
-sudo pacman -S atom # Archlinux currently installs 1.24.0
+sudo pacman -S atom # Archlinux currently installs 1.40.1
 ```
 
 Mac/Windows users could just download direct (or homebrew on Mac)
-
-Tough luck if you want the 32 bit version on debian linux
 
 ### Install Package ###
 

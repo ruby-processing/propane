@@ -150,7 +150,7 @@ JWishy.new
 
 [picrate]:https://github.com/ruby-processing/picrate
 [propane]:https://ruby-processing.github.io/propane/
-[propane]:https://github.com/ruby-processing/propane/issues
+[issues]:https://github.com/ruby-processing/propane/issues
 [jruby]:http://jruby.org/download
 [openjvm]:http://openjdk.java.net/install/
 [examples]: https://github.com/ruby-processing/propane-examples
