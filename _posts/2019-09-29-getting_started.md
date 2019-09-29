@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Getting Started on ArchLinux"
-date:   2015-11-21 06:24:13
+date:  2019-09-29 06:00:00
 permalink: /linux_started/
 ---
 
@@ -37,7 +37,7 @@ You can use either Oracle or openjdk jdk11+. Preferably openjdk12+.
 
 ### JRuby
 
-Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` sketches without doing a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, this is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables).
+Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` sketches without doing a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, this is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables). See also [JRuby downloads][downloads] for latest releases.
 
 ### Pure JRuby Setup Archlinux ###
 
@@ -86,72 +86,32 @@ propane --install glvideo
 
 Might be hackable (ie re-compile native binary)
 
-### Running examples
+### Running examples ###
 
-To run a bunch of the samples as a demo:-
-
+To explore the installed examples:-
 ```bash
 cd ~/propane_samples
-rake # autoruns files
-cd ~/propane_samples/contributed # navigate to say contributed folder
-jruby jwishy.rb # run the JWishy sketch, using an installed jruby
-cd ~/propane_samples/processing_app/topics/shaders
-rake # autoruns shader sketches
-jruby monjori.rb # run the Monjori sketch with jruby-complete
+rake # to run examples randomly as a demo
+# or check available tasks with
+rake --tasks
+# use a task to randomly run a group of sketches eg
+rake shaders # runs the shader examples
 ```
 
-### Creating your own sketch
+To create a simple sketch:-
+```bash
+propane -c fred 200 200 # sketch name=Fred width=200 height=200 mode=default
+propane -c my_sketch 300 300 p2d # sketch name=MySketch width=300 height=300 mode=P2D
+```
+Edit `fred.rb` or `my_sketch.rb` with your favourite editor preferably `vim`, `emacs` or `atom`.
 
-All we ask is that you obey the ruby filename convention (ie snakecase) and we can create a template sketch for you as follows:-
+To run sketch using the command line
 
 ```bash
-propane --create fred_sketch 200 200 # creates a bare sketch fred_sketch.rb (see below)
-vim fred_sketch.rb # other editors are available
-:!jruby % # from vim runs the sketch
+jruby fred.rb
 ```
 
-You may want to try other [development environments][editor] eg atom, emacs or even netbeans. Needless to say your distro can install these for you, but they need a bit of post install love get the best out of them (vim in the main just works, and is super light weight).
-
-```ruby
-#!/usr/bin/env jruby
-# frozen_string_literal: false
-require 'propane'
-
-class FredSketch < Propane::App
-  def setup
-    sketch_title 'Fred Sketch'
-  end
-
-  def draw
-
-  end
-
-  def settings
-    size 200, 200
-    # smooth # here
-  end
-end
-
-FredSketch.new
-```
-
-PS: `propane -c fred` also works with a bare template defaults, to `size 0, 0`
-
-
-### Running examples
-
-To run a bunch of the samples as a demo:-
-
-```bash
-cd ~/propane_samples
-rake # autoruns a bunch of files as a demo
-cd ~/propane_samples/contributed # for example
-rake # autoruns files in contributed folder
-jruby jwishy.rb # run the JWishy sketch, using an installed jruby
-cd ~/propane_samples/processing_app/topics/shaders
-rake # autoruns shader sketches
-jruby monjori.rb # run single shader sketch
-```
+To run a sketch from editor see [editors][editors]
 
 [api]: {{site.github.url}}/methods/processing_api.html
 [ben]:https://blog.engineyard.com/2015/getting-started-with-ruby-processing
@@ -165,3 +125,5 @@ jruby monjori.rb # run single shader sketch
 [editor]:{{site.github.url}}/editors/
 [sound]:https://monkstone.github.io/_posts/minim
 [video]:https://monkstone.github.io/_posts/create_video
+[adopt]:https://adoptopenjdk.net/
+[download]:https://www.jruby.org/download

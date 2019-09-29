@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Getting Started on Windows"
-date:   2015-11-21 06:54:13
+date:   2019-09-29 06:00:00
 permalink: /mac_start/
 ---
 
@@ -44,7 +44,7 @@ In case you have issues, it has been reported to be useful to set the JAVA_HOME 
 
 ### JRuby
 
-Unlike `JRubyArt` and `ruby-processing` it is not possible to run `propane` without a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, it is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables).
+Unlike `JRubyArt` and `ruby-processing` it is not possible to run `propane` without a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, it is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables). See also [JRuby downloads][downloads] for latest releases.
 
 ### propane
 
@@ -186,3 +186,5 @@ Read more about using the [processing api here][api]
 [bitnami]:https://bitnami.com/stack/jruby/installer
 [sound]:https://monkstone.github.io/_posts/minim
 [video]:https://monkstone.github.io/_posts/create_video
+[adopt]:https://adoptopenjdk.net/
+[download]:https://www.jruby.org/download
