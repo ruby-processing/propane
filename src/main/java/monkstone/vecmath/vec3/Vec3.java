@@ -33,6 +33,7 @@ import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 import monkstone.vecmath.JRender;
 import monkstone.vecmath.vec2.Vec2;
+import org.jruby.RubyNumeric;
 
 /**
  *
@@ -385,7 +386,7 @@ public final class Vec3 extends RubyObject {
     @JRubyMethod(name = "/", required = 1)
     public IRubyObject op_div(ThreadContext context, IRubyObject scalar) {
         Ruby runtime = context.runtime;
-        var divisor = (scalar instanceof RubyFloat)
+        double divisor = (scalar instanceof RubyFloat)
                 ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
         if (Math.abs(divisor) < Vec3.EPSILON) {
             return this;
@@ -432,7 +433,7 @@ public final class Vec3 extends RubyObject {
                 return this;
             }
         }
-        var new_mag = (scalar instanceof RubyFloat)
+        double new_mag = (scalar instanceof RubyFloat)
                 ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
         double current = Math.sqrt(jx * jx + jy * jy + jz * jz);
         if (current > EPSILON) {

@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 require_relative 'helper_methods'
 require_relative 'library_loader'
 
@@ -8,7 +9,7 @@ module Propane
   # Load vecmath, fastmath and mathtool modules
   Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
   SKETCH_ROOT = File.absolute_path('.')
-
+  # import custom Vecmath renderers
   module Render
     java_import 'monkstone.vecmath.GfxRender'
     java_import 'monkstone.vecmath.ShapeRender'
@@ -44,18 +45,20 @@ module Propane
   }.freeze
 
   class << self
-    attr_accessor :app
+    attr_accessor :app, :surface
   end
 
   # All sketches extend this class
   class App < PApplet
-    include Math, MathTool, HelperMethods, Render
+    include HelperMethods
+    include Math
+    include MathTool
+    include Render
     # Alias some methods for familiarity for Shoes coders.
     alias oval ellipse
     alias stroke_width stroke_weight
     alias rgb color
     alias gray color
-    field_reader :surface
 
     def sketch_class
       self.class.sketch_class
@@ -99,6 +102,7 @@ module Propane
       # Processing call them by their expected Java names.
       def method_added(method_name) #:nodoc:
         return unless METHODS_TO_ALIAS.key?(method_name)
+
         alias_method METHODS_TO_ALIAS[method_name], method_name
       end
     end
@@ -112,12 +116,14 @@ module Propane
       proxy_java_fields
       raise TypeError unless options.is_a? Hash
       raise TypeError unless arguments.is_a? Array
+
       # Set up the sketch.
       super()
       post_initialize(options)
       Propane.app = self
       @arguments = arguments
       @options   = options
+      @surface   = get_surface
       run_propane
     end
 
@@ -130,8 +136,7 @@ module Propane
       super(*args)
     end
 
-    def post_initialize(_args)
-    end
+    def post_initialize(_args); end
 
     def sketch_title(title)
       surface.set_title(title)
@@ -164,6 +169,7 @@ module Propane
     # Processing call them by their expected Java names.
     def method_added(method_name) #:nodoc:
       return unless METHODS_TO_ALIAS.key?(method_name)
+
       alias_method METHODS_TO_ALIAS[method_name], method_name
     end
   end
@@ -181,7 +187,10 @@ module Propane
 
     def method_missing(name, *args, &block)
       return Propane.app.send(name, *args) if Propane.app.respond_to? name
+
       super
     end
-  end # Processing::Proxy
-end # Propane
+  end
+  # end Processing::Proxy
+end
+# end Propane

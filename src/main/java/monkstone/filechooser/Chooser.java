@@ -32,6 +32,7 @@ import java.io.File;
  *
  * @author Martin Prout
  */
+@FunctionalInterface 
 public interface Chooser {
 
     public void file_selected(File selection);
