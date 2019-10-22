@@ -13,6 +13,9 @@
  */
 package monkstone;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 /**
  *
  * @author Martin Prout
@@ -101,6 +104,17 @@ public class ColorUtil {
     static public float colorDouble(double hex) {
         return (float) hex;
     }
+
+    static public int[] shuffle(int[] cols) {
+    Random rgen = new Random();  // Random number generator
+    for (int i = 0; i < cols.length; i++) {
+        int randomPosition = rgen.nextInt(cols.length);
+        int temp = cols[i];
+        cols[i] = cols[randomPosition];
+        cols[randomPosition] = temp;
+    }
+    return cols;
+}
 
     /**
      *
