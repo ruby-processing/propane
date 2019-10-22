@@ -45,7 +45,7 @@ module Propane
   }.freeze
 
   class << self
-    attr_accessor :app, :surface
+    attr_accessor :app
   end
 
   # All sketches extend this class
@@ -78,8 +78,8 @@ module Propane
     #
     class << self
       # Handy getters and setters on the class go here:
-      attr_accessor :sketch_class, :library_loader, :title, :arguments, :options
-
+      attr_accessor :sketch_class, :library_loader, :arguments, :options
+      attr_reader :surface
       def load_libraries(*args)
         library_loader ||= LibraryLoader.new
         library_loader.load_library(*args)
