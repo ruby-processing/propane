@@ -1,3 +1,5 @@
+**v3.4.1** Update to JRuby-9.2.9.0
+
 **v3.4.0** Experimental refactoring of ThinkDifferent, and some other processing classes
 
 **v3.3.1** Reflection makes refactoring a nightmare DesktopHandler => ThinkDifferent

@@ -1,7 +1,7 @@
 project 'propane', 'https://github.com/monkstone/propane' do
 
   model_version '4.0.0'
-  id 'propane:propane:3.4.0'
+  id 'propane:propane:3.4.1'
   packaging 'jar'
 
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
@@ -45,7 +45,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'jogl.version' => '2.3.2',
       'jruby.api' => 'http://jruby.org/apidocs/' )
 
-      pom 'org.jruby:jruby:9.2.8.0'
+      pom 'org.jruby:jruby:9.2.9.0'
       jar 'org.processing:video:3.2.3'
       jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
