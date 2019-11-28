@@ -1,8 +1,8 @@
 language: java
-dist: trusty
+dist: bionic
 
 rvm:
-  - jruby-9.2.7.0
+  - jruby-9.2.9.0
 jdk:
   - openjdk11
 os:

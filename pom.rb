@@ -46,7 +46,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'jruby.api' => 'http://jruby.org/apidocs/' )
 
       pom 'org.jruby:jruby:9.2.9.0'
-      jar 'org.processing:video:3.2.3'
+      jar 'org.processing:video:3.3.7'
       jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
 

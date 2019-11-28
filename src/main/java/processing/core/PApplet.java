@@ -31,6 +31,7 @@ import java.awt.DisplayMode;
 // handleSettings() and displayDensity()
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.GraphicsConfiguration;
 // used to present the fullScreen() warning about Spaces on OS X
 import javax.swing.JOptionPane;
 
@@ -79,7 +80,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.regex.*;
 import java.util.zip.*;
 import javax.swing.UnsupportedLookAndFeelException;
-
+import java.awt.geom.AffineTransform;
 import processing.data.*;
 import processing.event.*;
 import processing.opengl.*;
@@ -1144,63 +1145,19 @@ public class PApplet implements PConstants {
   /**
    * @param display the display number to check
    */
-  public int displayDensity(int display) {
-    if (PApplet.platform == PConstants.MACOSX) {
-      // This should probably be reset each time there's a display change.
-      // A 5-minute search didn't turn up any such event in the Java 7 API.
-      // Also, should we use the Toolkit associated with the editor window?
-      final String javaVendor = System.getProperty("java.vendor");
-      if (javaVendor.contains("Oracle")) {
-        GraphicsDevice device;
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+   /**
+    * @param display the display number to check
+    */
+    public int displayDensity(int display) {
+      GraphicsDevice graphicsDevice = GraphicsEnvironment
+              .getLocalGraphicsEnvironment()
+              .getDefaultScreenDevice();
+      GraphicsConfiguration graphicsConfig = graphicsDevice
+              .getDefaultConfiguration();
 
-        switch (display) {
-          case -1:
-            device = env.getDefaultScreenDevice();
-            break;
-          case SPAN:
-            throw new RuntimeException("displayDensity() only works with specific display numbers");
-          default:
-            GraphicsDevice[] devices = env.getScreenDevices();
-            if (display > 0 && display <= devices.length) {
-              device = devices[display - 1];
-            } else {
-              if (devices.length == 1) {
-                System.err.println("Only one display is currently known, use displayDensity(1).");
-              } else {
-                System.err.format("Your displays are numbered %d through %d, "
-                  + "pass one of those numbers to displayDensity()%n", 1, devices.length);
-              }
-              throw new RuntimeException("Display " + display + " does not exist.");
-            }
-            break;
-        }
-
-        try {
-          Field field = device.getClass().getDeclaredField("scale");
-          if (field != null) {
-            field.setAccessible(true);
-            Object scale = field.get(device);
-
-            if (scale instanceof Integer && ((Integer) scale) == 2) {
-              return 2;
-            }
-          }
-        } catch (IllegalAccessException | IllegalArgumentException | NoSuchFieldException | SecurityException ignore) {
-        }
-      }
-    } else if (PApplet.platform == PConstants.WINDOWS
-      || PApplet.platform == PConstants.LINUX) {
-      if (suggestedDensity == -1) {
-        // TODO: detect and return DPI scaling using JNA; Windows has
-        //   a system-wide value, not sure how it works on Linux
-        return 1;
-      } else if (suggestedDensity == 1 || suggestedDensity == 2) {
-        return suggestedDensity;
-      }
+      AffineTransform tx = graphicsConfig.getDefaultTransform();
+      return (int) Math.round(tx.getScaleX());
     }
-    return 1;
-  }
 
   /**
    * @webref environment
@@ -1212,12 +1169,12 @@ public class PApplet implements PConstants {
     if (density != this.pixelDensity) {
       if (insideSettings("pixelDensity", density)) {
         if (density != 1 && density != 2) {
-          throw new RuntimeException("pixelDensity() can only be 1 or 2");
+          throw new RuntimeException("pixel_density can only be 1 or 2");
         }
         if (!FX2D.equals(renderer) && density == 2 && displayDensity() == 1) {
           // FX has its own check in PSurfaceFX
           // Don't throw exception because the sketch should still work
-          System.err.println("pixelDensity(2) is not available for this display");
+          System.err.println("pixel_density(2) is not available for this display");
           this.pixelDensity = 1;
         } else {
           this.pixelDensity = density;
@@ -1226,7 +1183,7 @@ public class PApplet implements PConstants {
         System.err.println("not inside settings");
         // this should only be reachable when not running in the PDE,
         // so saying it's a settings()--not just setup()--issue should be ok
-        throw new RuntimeException("pixelDensity() can only be used inside settings()");
+        throw new RuntimeException("pixel_density can only be used inside settings()");
       }
     }
   }
@@ -1277,10 +1234,10 @@ public class PApplet implements PConstants {
 
   private void smoothWarning(String method) {
     // When running from the PDE, say setup(), otherwise say settings()
-    final String where = external ? "setup" : "settings";
-    PGraphics.showWarning("%s() can only be used inside %s()", method, where);
+    final String where = "settings";
+    PGraphics.showWarning("%s can only be used inside %s", method, where);
     if (external) {
-      PGraphics.showWarning("When run from the PDE, %s() is automatically moved from setup() to settings()", method);
+      PGraphics.showWarning("In vanilla processing, %s is automatically moved from setup to settings", method);
     }
   }
 
@@ -1369,7 +1326,7 @@ public class PApplet implements PConstants {
 //   * Called by the browser or applet viewer to inform this applet
 //   * that it is being reclaimed and that it should destroy
 //   * any resources that it has allocated.
-//   * 
+//   *
 //   * destroy() supposedly gets called as the applet viewer
 //   * is shutting down the applet. stop() is called
 //   * first, and then destroy() to really get rid of things.
@@ -2284,7 +2241,7 @@ public class PApplet implements PConstants {
 
   /**
    * Create default renderer, likely to be resized, but needed for surface init.
-   * @return 
+   * @return
    */
   protected PGraphics createPrimaryGraphics() {
     return makeGraphics(sketchWidth(), sketchHeight(),
@@ -2569,6 +2526,7 @@ public class PApplet implements PConstants {
   /**
    * Add an event to the internal event queue, or process it immediately if the
    * sketch is not currently looping.
+   * @param pe
    */
   public void postEvent(processing.event.Event pe) {
     eventQueue.add(pe);
@@ -10554,7 +10512,7 @@ public class PApplet implements PConstants {
         if (equals != -1) {
           param = args[argIndex].substring(0, equals);
           value = args[argIndex].substring(equals + 1);
-          
+
           switch (param) {
             case ARGS_EDITOR_LOCATION:
               external = true;
@@ -10602,7 +10560,7 @@ public class PApplet implements PConstants {
           switch (args[argIndex]) {
             case ARGS_PRESENT:
               present = true;
-              
+
 //        } else if (args[argIndex].equals(ARGS_SPAN_DISPLAYS)) {
 //          spanDisplays = true;
               break;
