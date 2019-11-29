@@ -33,11 +33,11 @@ Why was ruby-processing not updated to use processing3.0+? The [major changes][c
 
 ### Java
 
-You can use either Oracle or openjdk jdk11+. Preferably openjdk12+.
+Use adoptopenjdk jdk11+ (Oracle jdk will probably work _untested_ stock openjdk plays badly with jogl). See [here][java]
 
 ### JRuby
 
-Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` sketches without doing a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, this is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables). See also [JRuby downloads][downloads] for latest releases.
+Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` sketches without doing a system install of jruby. It is highly recommended that you create a symbolic link to `/usr/bin/jruby`, this is the easiest way to ensure that `jruby` is on you `PATH` and you can then make sketches executable with `#!/usr/bin/env jruby` (and `chmod +x`). Further you will be able to run sketches from `atom` using the `script` plugin (without needing to start `atom` from the command-line to pick up environmental variables). See also [JRuby downloads][jruby].
 
 ### Pure JRuby Setup Archlinux ###
 
@@ -127,3 +127,5 @@ To run a sketch from editor see [editors][editors]
 [video]:https://monkstone.github.io/_posts/create_video
 [adopt]:https://adoptopenjdk.net/
 [download]:https://www.jruby.org/download
+[propane]:http://ruby-processing.github.io/java/JRubyArt_propane/
+[jruby]:http://ruby-processing.github.io/jruby/propane/
