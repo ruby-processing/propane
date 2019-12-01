@@ -1,6 +1,6 @@
 # Propane [![Gem Version](https://badge.fury.io/rb/propane.svg)](https://badge.fury.io/rb/propane) ![Travis CI](https://travis-ci.org/ruby-processing/propane.svg)
 
-This version is intended to work with openjdk11+, @sampottinger is currently working on [vanilla processing][vanilla] which will enable JRubyArt to catch up. 
+This version is intended to work with openjdk11+, @sampottinger is currently working on [vanilla processing][vanilla] which will enable JRubyArt to catch up.
 
 A slim layer to communicate with Processing from JRuby, features maven build. We have created a configuration free version of ruby processing, for processing-4.0+, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby. Currently JavaFX is unsupported again @sampottinger is currently working on [vanilla processing][vanilla] to use OpenJFX. It would be nice make use of java modules, but I think we should let jruby project do that first (unless processing.org beat them to it).
 
@@ -11,8 +11,7 @@ adjust above for your OS/distro setup.
 There may be a linker issue with P2D or P3D sketches with stock openjdk with some linux distros, in which case you might find [Adopt open jdk binaries][adopt] will work for you.
 
 - `jdk-11.0.3+`
-- `jruby-9.2.8.0`
-- `mvn-3.5.4+`
+- `jruby-9.2.9.0`
 
 Currently you can ignore `illegal reflective access` warnings, see [here how to suppress them][warning].
 
@@ -28,10 +27,10 @@ rake javadoc
 
 ```bash
 jgem install propane # from rubygems
-jgem install propane-3.4.0-java.gem # local install
+jgem install propane-3.4.1-java.gem # local install
 # Alternative
 jruby -S gem install propane # from rubygems
-jruby -S gem install propane-3.4.0-java.gem # local install
+jruby -S gem install propane-3.4.1-java.gem # local install
 ```
 
 ## Check Install
