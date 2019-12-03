@@ -28,12 +28,12 @@ end
 
 desc 'Document'
 task :javadoc do
-  sh 'mvn javadoc:javadoc'
+	sh './mvnw javadoc:javadoc'
 end
 
 desc 'Compile'
 task :compile do
-  sh 'mvn package'
+	sh './mvnw package'
 end
 
 desc 'JRuby-Complete'
