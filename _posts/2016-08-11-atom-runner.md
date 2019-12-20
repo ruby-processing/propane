@@ -10,11 +10,11 @@ permalink: /atom-propane/
 
 See [website][atom] (or scroll to bottom of [releases page for downloads][releases] on github)
 
-For linux ignore any distro version and download latest version (at least 1.40.0) and:-
+For linux ignore any distro version and download latest version (at least 1.42.0) and:-
 
 ```bash
 sudo dpkg --install atom-amd64.deb # debian, mint, ubuntu
-sudo pacman -S atom # Archlinux currently installs 1.40.1
+sudo pacman -S atom # Archlinux currently installs 1.42.0
 ```
 
 Mac/Windows users could just download direct (or homebrew on Mac)
@@ -38,6 +38,6 @@ To explore propane samples open `~/propane_samples/regular` or `~/propane_sample
 
 [script]:https://atom.io/packages/script
 [atom]:https://atom.io/
-[releases]:https://github.com/atom/atom/releases/tag/v1.9.0
+[releases]:https://github.com/atom/atom/releases/tag/
 [jedit]:https://ruby-processing.github.io/JRubyArt/editors
 [vim]:https://ruby-processing.github.io/JRubyArt/editors
