@@ -1,3 +1,5 @@
+**v3.4.2** Fix native library bug on windows (thanks to Jay Scott). Add minim library examples
+
 **v3.4.1** Update to JRuby-9.2.9.0
 
 **v3.4.0** Experimental refactoring of ThinkDifferent, and some other processing classes
