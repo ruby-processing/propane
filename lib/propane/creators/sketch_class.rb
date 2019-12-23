@@ -43,6 +43,7 @@ class SketchClass
     lines = [
       '#!/usr/bin/env jruby',
       '# frozen_string_literal: false',
+      '',
       "require 'propane'",
       '',
       class_sketch

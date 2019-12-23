@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rbconfig'
 
 # Utility to load native binaries on Java CLASSPATH
 class NativeFolder
   attr_reader :os, :bit
 
-  WIN_FORMAT = 'windows%d'.freeze
-  LINUX_FORMAT = 'linux%d'.freeze
+  WIN_FORMAT = 'windows%d'
+  LINUX_FORMAT = 'linux%d'
   WIN_PATTERNS = [
     /bccwin/i,
     /cygwin/i,
@@ -23,16 +25,15 @@ class NativeFolder
   def name
     return 'macosx' if /darwin|mac/.match?(os)
     return format(LINUX_FORMAT, bit) if os =~ /linux/
-    if WIN_PATTERNS.any? { |pat| pat =~ os }
-      return format(WIN_FORMAT, '64') if /64/.match?(bit)
-      return format(WIN_FORMAT, '32') if /32/.match?(bit)
-    end
+    return format(WIN_FORMAT, bit) if WIN_PATTERNS.any? { |pat| pat =~ os }
+
     raise 'Unsupported Architecture'
   end
 
   def extension
     return '*.so' if /linux/.match?(os)
     return '*.dll' if WIN_PATTERNS.any? { |pat| pat =~ os }
+
     '*.dylib' # MacOS
   end
 end

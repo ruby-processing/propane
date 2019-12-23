@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This class demonstrates how by inheriting from the abstract class LibraryProxy
 # we can access 'keyEvent' and 'draw'  (Note we need a draw method even
 # though can be empty)
@@ -20,6 +22,7 @@ class MyLibrary < LibraryProxy
   def keyEvent(e) # NB: need camel case for reflection to work
     return unless e.get_action == KeyEvent::PRESS
     return if e.get_key > 122 # else we can't use :chr
+
     case e.get_key.chr.upcase
     when 'S'
       app.send :hide, false
