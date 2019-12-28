@@ -942,21 +942,20 @@ public class PApplet implements PConstants {
    * @param args parameters passed to the function so we can show the user
    * @return true if safely inside the settings() method
    */
-  boolean insideSettings(String method, Object... args) {
-    if (insideSettings) {
-      return true;
-    }
-    final String url = "https://processing.org/reference/" + method + "_.html";
-    if (!external) {  // post a warning for users of Eclipse and other IDEs
-      StringList argList = new StringList(args);
-      System.err.println("When not using the PDE, " + method + "() can only be used inside settings().");
-      System.err.println("Remove the " + method + "() method from setup(), and add the following:");
-      System.err.println("public void settings() {");
-      System.err.println("  " + method + "(" + argList.join(", ") + ");");
-      System.err.println("}");
-    }
-    throw new IllegalStateException(method + "() cannot be used here, see " + url);
-  }
+   boolean insideSettings(String method, Object... args) {
+     if (insideSettings) {
+       return true;
+     }
+     if (!external) {  // post a warning for users of Eclipse and other IDEs
+       StringList argList = new StringList(args);
+       System.err.println("" + method + " can only be used inside settings.");
+       System.err.println("Move " + method + " from setup, to settings:");
+       System.err.println("def settings");
+       System.err.println("  " + method + "(" + argList.join(", ") + ")");
+       System.err.println("end");
+     }
+     throw new IllegalStateException(method + " cannot be used here");
+   }
 
   void handleSettings() {
     insideSettings = true;
@@ -1234,7 +1233,7 @@ public class PApplet implements PConstants {
 
   private void smoothWarning(String method) {
     // When running from the PDE, say setup(), otherwise say settings()
-    final String where = "settings";
+    final String where = external ? "setup" : "settings";
     PGraphics.showWarning("%s can only be used inside %s", method, where);
     if (external) {
       PGraphics.showWarning("In vanilla processing, %s is automatically moved from setup to settings", method);
