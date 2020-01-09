@@ -1679,13 +1679,11 @@ public class PGraphicsJava2D extends PGraphics {
     // don't derive again if the font size has not changed
     if (font != null) {
       if (font.getSize2D() != size) {
-        Map<TextAttribute, Object> map
-          = new HashMap<>();
-        map.put(TextAttribute.SIZE, size);
-        map.put(TextAttribute.KERNING,
-          TextAttribute.KERNING_ON);
-//      map.put(TextAttribute.TRACKING,
-//              TextAttribute.TRACKING_TIGHT);
+        Map<TextAttribute, Object> map = Map.of(
+            TextAttribute.SIZE, size,
+            TextAttribute.KERNING, TextAttribute.KERNING_ON
+          // TextAttribute.TRACKING, TextAttribute.TRACKING_TIGHT
+          );
         font = font.deriveFont(map);
       }
       g2.setFont(font);

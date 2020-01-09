@@ -1,3 +1,6 @@
+
+**v3.4.3** Use Map.of to initialize HashMap
+
 **v3.4.2** Fix native library bug on windows (thanks to Jay Scott). Add minim library examples
 
 **v3.4.1** Update to JRuby-9.2.9.0
