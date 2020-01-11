@@ -1325,6 +1325,7 @@ public class PSurfaceAWT extends PSurfaceNone {
         nativeMouseEvent(e);
       }
 
+      @Override
       public void mouseMoved(java.awt.event.MouseEvent e) {
         nativeMouseEvent(e);
       }
