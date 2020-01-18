@@ -2587,39 +2587,39 @@ public abstract class PGL {
 
   protected interface Tessellator {
 
-    public void setCallback(int flag);
+    void setCallback(int flag);
 
-    public void setWindingRule(int rule);
+    void setWindingRule(int rule);
 
-    public void setProperty(int property, int value);
+    void setProperty(int property, int value);
 
-    public void beginPolygon();
+    void beginPolygon();
 
-    public void beginPolygon(Object data);
+    void beginPolygon(Object data);
 
-    public void endPolygon();
+    void endPolygon();
 
-    public void beginContour();
+    void beginContour();
 
-    public void endContour();
+    void endContour();
 
-    public void addVertex(double[] v);
+    void addVertex(double[] v);
 
-    public void addVertex(double[] v, int n, Object data);
+    void addVertex(double[] v, int n, Object data);
   }
 
   protected interface TessellatorCallback {
 
-    public void begin(int type);
+    void begin(int type);
 
-    public void end();
+    void end();
 
-    public void vertex(Object data);
+    void vertex(Object data);
 
-    public void combine(double[] coords, Object[] data,
+    void combine(double[] coords, Object[] data,
       float[] weight, Object[] outData);
 
-    public void error(int errnum);
+    void error(int errnum);
   }
 
   protected String tessError(int err) {
@@ -2639,11 +2639,11 @@ public abstract class PGL {
 
   protected interface FontOutline {
 
-    public boolean isDone();
+    boolean isDone();
 
-    public int currentSegment(float coords[]);
+    int currentSegment(float coords[]);
 
-    public void next();
+    void next();
   }
 
   //////////////////////////////////////////////////////////////////////////////

@@ -26,7 +26,6 @@ import java.awt.font.TextAttribute;
 import java.awt.geom.*;
 import java.awt.image.*;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 import processing.core.*;
@@ -79,8 +78,7 @@ public class PGraphicsJava2D extends PGraphics {
   float[] curveDrawY;
 
   int transformCount;
-  AffineTransform transformStack[]
-    = new AffineTransform[MATRIX_STACK_DEPTH];
+  AffineTransform[] transformStack = new AffineTransform[MATRIX_STACK_DEPTH];
   double[] transform = new double[6];
 
   Line2D.Float line = new Line2D.Float();
@@ -1707,7 +1705,7 @@ public class PGraphicsJava2D extends PGraphics {
   //public float textWidth(char c)
   //public float textWidth(String str)
   @Override
-  protected float textWidthImpl(char buffer[], int start, int stop) {
+  protected float textWidthImpl(char[] buffer, int start, int stop) {
     if (textFont == null) {
       defaultFontOrDeath("textWidth");
     }
@@ -1757,10 +1755,10 @@ public class PGraphicsJava2D extends PGraphics {
   // None of the variations of text() are overridden from PGraphics.
   //////////////////////////////////////////////////////////////
   // TEXT IMPL
-  //protected void textLineAlignImpl(char buffer[], int start, int stop,
+  //protected void textLineAlignImpl(char[] buffer, int start, int stop,
   //                                 float x, float y)
   @Override
-  protected void textLineImpl(char buffer[], int start, int stop,
+  protected void textLineImpl(char[] buffer, int start, int stop,
     float x, float y) {
     Font font = (Font) textFont.getNative();
 //    if (font != null && (textFont.isStream() || hints[ENABLE_NATIVE_FONTS])) {
