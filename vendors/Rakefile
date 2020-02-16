@@ -1,16 +1,17 @@
 # frozen_string_literal: true
+
 require 'rake/clean'
 
 WARNING = <<-EOS
    WARNING: you may not have wget installed, you could just download
    the correct version of propane-examples (see EXAMPLES vendors directory)
 EOS
-SOUND = 'sound.zip'.freeze
+SOUND = 'sound.zip'
 SOUND_VERSION = 'v1.3.2' # version 1.3.2
 GLVIDEO = 'processing-glvideo.zip'
 VIDEO = 'video-2.0-beta4.zip'
 VIDEO_VERSION = 'r6-v2.0-beta4'
-EXAMPLES = '2.7'.freeze
+EXAMPLES = '2.7'
 HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/ =~ RbConfig::CONFIG['host_os']
 
@@ -20,7 +21,7 @@ desc 'download, and copy propane examples'
 task default: [:download_and_copy_samples]
 
 desc 'download and copy examples to user home'
-task download_and_copy_samples: [:download_examples, :copy_examples]
+task download_and_copy_samples: %i[download_examples copy_examples]
 
 task :download_examples
 file_name = MAC_OR_LINUX.nil? ? "#{EXAMPLES}.zip" : "#{EXAMPLES}.tar.gz"
@@ -29,16 +30,16 @@ wget_string = [wget_base, 'archive', file_name].join('/')
 file file_name do
   begin
     sh wget_string
-  rescue
+  rescue StandardError
     warn(WARNING)
   end
 end
 
 desc 'download and copy sound library to ~/.propane'
-task download_and_copy_sound: [:init_dir, :download_sound, :copy_sound, :clobber]
+task download_and_copy_sound: %i[init_dir download_sound copy_sound clobber]
 
 desc 'download and copy video library to ~/.propane'
-task download_and_copy_video: [:init_dir, :download_video, :copy_video, :clobber]
+task download_and_copy_video: %i[init_dir download_video copy_video clobber]
 
 desc 'download sound library'
 task :download_sound do
@@ -46,7 +47,7 @@ task :download_sound do
   wget_string = [wget_base, 'releases/download', SOUND_VERSION, SOUND].join('/')
   begin
     sh wget_string
-  rescue
+  rescue StandardError
     warn(WARNING)
   end
 end
@@ -57,7 +58,7 @@ task :download_video do
   wget_string = [wget_base, 'releases/download', VIDEO_VERSION, VIDEO].join('/')
   begin
     sh wget_string
-  rescue
+  rescue StandardError
     warn(WARNING)
   end
 end
@@ -65,39 +66,44 @@ end
 desc 'initialize ~/.propane directories'
 task :init_dir do
   unless File.exist? "#{HOME_DIR}/.propane/libraries"
-    sh "mkdir -p ~/.propane"
-    sh "mkdir -p ~/.propane/libraries"
+    sh 'mkdir -p ~/.propane'
+    sh 'mkdir -p ~/.propane/libraries'
   end
 end
 
-
 desc 'copy examples'
-task :copy_examples => file_name do
+task copy_examples: file_name do
   if MAC_OR_LINUX.nil?
     sh "unzip #{EXAMPLES}.zip"
   else
     sh "tar xzvf #{EXAMPLES}.tar.gz"
   end
-  sh "rm -r #{HOME_DIR}/propane_samples" if File.exist? "#{HOME_DIR}/propane_samples"
+  if File.exist? "#{HOME_DIR}/propane_samples"
+    sh "rm -r #{HOME_DIR}/propane_samples"
+  end
   sh "cp -r propane-examples-#{EXAMPLES} #{HOME_DIR}/propane_samples"
   sh "rm -r propane-examples-#{EXAMPLES}"
 end
 
 desc 'copy sound library'
-task :copy_sound => SOUND do
-  directory "~/.propane"
-  directory "~/.propane/libraries"
+task copy_sound: SOUND do
+  directory '~/.propane'
+  directory '~/.propane/libraries'
   sh "unzip #{SOUND}"
-  sh "rm -r #{HOME_DIR}/.propane/libraries/sound" if File.exist? "#{HOME_DIR}/.propane/libraries/sound"
+  if File.exist? "#{HOME_DIR}/.propane/libraries/sound"
+    sh "rm -r #{HOME_DIR}/.propane/libraries/sound"
+  end
   sh "cp -r sound #{HOME_DIR}/.propane/libraries"
   sh 'rm -r sound'
   sh 'rm -r __MACOSX'
 end
 
 desc 'copy video library'
-task :copy_video => VIDEO do
+task copy_video: VIDEO do
   sh "unzip #{VIDEO}"
-  sh "rm -r #{HOME_DIR}/.propane/libraries/video" if File.exist? "#{HOME_DIR}/.propane/libraries/video"
+  if File.exist? "#{HOME_DIR}/.propane/libraries/video"
+    sh "rm -r #{HOME_DIR}/.propane/libraries/video"
+  end
   sh "cp -r video #{HOME_DIR}/.propane/libraries/video"
   sh 'rm -r video'
 end

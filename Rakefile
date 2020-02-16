@@ -1,7 +1,8 @@
 # frozen_string_literal: false
+
 require_relative 'lib/propane/version'
 
-task default: [:init, :compile, :install, :test, :gem]
+task default: %i[init compile install test gem]
 
 # depends on installed processing, with processing on path
 desc 'Copy Jars'
@@ -28,12 +29,12 @@ end
 
 desc 'Document'
 task :javadoc do
-	sh './mvnw javadoc:javadoc'
+  sh './mvnw javadoc:javadoc'
 end
 
 desc 'Compile'
 task :compile do
-	sh './mvnw package'
+  sh './mvnw package'
 end
 
 desc 'JRuby-Complete'
@@ -53,7 +54,7 @@ end
 
 desc 'clean'
 task :clean do
-  Dir["./**/*.{jar,gem}"].each do |path|
+  Dir['./**/*.{jar,gem}'].each do |path|
     puts "Deleting #{path} ..."
     File.delete(path)
   end

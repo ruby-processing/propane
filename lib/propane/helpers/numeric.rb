@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Numeric #:nodoc:
   def degrees
     self * 57.29577951308232

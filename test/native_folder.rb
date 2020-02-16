@@ -36,10 +36,12 @@ class NativeFolderTest < Minitest::Test
     end
   end
 
-  def test_native_folder
-    obj = NativeFolder.new
-    assert_instance_of NativeFolder, obj, 'Constructor Failed'
-    assert obj.name =~ /linux/
-    assert obj.extension =~ /\*.so/
-  end if RbConfig::CONFIG['host_os'].downcase =~ /linux/
+  if RbConfig::CONFIG['host_os'].downcase =~ /linux/
+    def test_native_folder
+      obj = NativeFolder.new
+      assert_instance_of NativeFolder, obj, 'Constructor Failed'
+      assert obj.name =~ /linux/
+      assert obj.extension =~ /\*.so/
+    end
+  end
 end

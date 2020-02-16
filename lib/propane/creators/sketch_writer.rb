@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 require_relative 'sketch_class'
 
 # The file writer can write a sketch when given instance of Sketch type

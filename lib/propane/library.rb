@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'native_folder'
 require_relative 'native_loader'
 require 'pathname'
@@ -18,6 +20,7 @@ class Library
     return if (@path = Pathname.new(
       File.join(PROPANE_ROOT, 'library', name, "#{name}.rb")
     )).exist?
+
     locate_java
   end
 
@@ -46,10 +49,11 @@ class Library
   end
 
   def load_jars
-    Dir.glob("#{dir}/*.jar").each do |jar|
+    Dir.glob("#{dir}/*.jar").sort.each do |jar|
       require jar
     end
     return true unless native_binaries?
+
     add_binaries_to_classpath
   end
 
