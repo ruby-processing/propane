@@ -110,7 +110,7 @@ module Propane
     # Here's a convenient way to look for them.
     def find_method(method_name)
       reg = Regexp.new(method_name.to_s, true)
-      methods.sort.select { |meth| reg.match(meth) }
+      methods.sort.select { |meth| reg.match?(meth) }
     end
 
     # Proxy over a list of Java declared fields that have the same name as
