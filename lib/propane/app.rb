@@ -132,7 +132,7 @@ module Propane
       @width ||= w
       @height ||= h
       @render_mode ||= mode
-      import_opengl if /opengl/ =~ mode
+      import_opengl if /opengl/.match?(mode)
       super(*args)
     end
 

@@ -87,9 +87,11 @@ module Propane
     def install(library)
       choice = library.downcase
       valid = Regexp.union('samples', 'sound', 'video', 'glvideo')
-      return warn format('No installer for %s', choice) unless valid =~ choice
+      return warn format('No installer for %<lib>s', lib: choice) unless valid.match?(choice)
 
       system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_#{choice}"
     end
-  end # class Runner
-end # module Propane
+  end
+  # class Runner
+end
+# module Propane

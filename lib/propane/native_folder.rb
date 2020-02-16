@@ -19,20 +19,20 @@ class NativeFolder
 
   def initialize
     @os = RbConfig::CONFIG['host_os'].downcase
-    @bit = java.lang.System.get_property('os.arch') =~ /64/ ? 64 : 32
+    @bit = /64/.match?(java.lang.System.get_property('os.arch')) ? 64 : 32
   end
 
   def name
     return 'macosx' if /darwin|mac/.match?(os)
-    return format(LINUX_FORMAT, bit) if os =~ /linux/
-    return format(WIN_FORMAT, bit) if WIN_PATTERNS.any? { |pat| pat =~ os }
+    return format(LINUX_FORMAT, bit) if /linux/.match?(os)
+    return format(WIN_FORMAT, bit) if WIN_PATTERNS.any? { |pat| pat.match?(os) }
 
     raise 'Unsupported Architecture'
   end
 
   def extension
     return '*.so' if /linux/.match?(os)
-    return '*.dll' if WIN_PATTERNS.any? { |pat| pat =~ os }
+    return '*.dll' if WIN_PATTERNS.any? { |pat| pat.match?(os) }
 
     '*.dylib' # MacOS
   end
