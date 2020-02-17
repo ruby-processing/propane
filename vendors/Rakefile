@@ -2,10 +2,10 @@
 
 require 'rake/clean'
 
-WARNING = <<-EOS
+WARNING = <<-WGET
    WARNING: you may not have wget installed, you could just download
    the correct version of propane-examples (see EXAMPLES vendors directory)
-EOS
+WGET
 SOUND = 'sound.zip'
 SOUND_VERSION = 'v1.3.2' # version 1.3.2
 GLVIDEO = 'processing-glvideo.zip'

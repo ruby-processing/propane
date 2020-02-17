@@ -47,13 +47,15 @@ class VecmathTest < Minitest::Test
   end
 
   def test_constructor_fixnum
-    val = Point.new(1, 8) # duck type fixnum
+    # duck type fixnum
+    val = Point.new(1, 8)
     expected = Vec2D.new(val)
     assert_equal(expected, Vec2D.new(1.0, 8.0), 'Failed duck type constructor fixnum')
   end
 
   def test_failed_duck_type
-    val = Pointless.new(1.0, 8.0) # non duck type
+    # non duck type
+    val = Pointless.new(1.0, 8.0)
     assert_raises TypeError do
       Vec2D.new(val)
     end
