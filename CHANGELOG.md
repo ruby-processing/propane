@@ -1,5 +1,5 @@
 
-**v3.4.3** Use Map.of to initialize HashMap bump processing version in build bum to jruby-9.2.10.0
+**v3.4.3** Use Map.of to initialize HashMap bump processing version in build bump to jruby-9.2.11.0
 
 **v3.4.2** Fix native library bug on windows (thanks to Jay Scott). Add minim library examples
 

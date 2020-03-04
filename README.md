@@ -11,7 +11,7 @@ adjust above for your OS/distro setup.
 There may be a linker issue with P2D or P3D sketches with stock openjdk with some linux distros, in which case you might find [Adopt open jdk binaries][adopt] will work for you.
 
 - `jdk-11.0.3+`
-- `jruby-9.2.10.0`
+- `jruby-9.2.11.0`
 
 Currently you can ignore `illegal reflective access` warnings, see [here how to suppress them][warning].
 
@@ -39,6 +39,18 @@ To check version and confirm gem bin files are on your path (also checks JDK ver
 ```bash
 propane --version
 ```
+
+## Suppressing Reflective Access warnings
+
+Since propane-3.4.3 it is possible to suppress reflective access warnings by including a `~/.jruby.java_opts` file with following contents:-
+
+```bash
+--add-opens java.base/java.lang=ALL-UNNAMED
+--add-opens java.desktop/java.awt=ALL-UNNAMED
+--add-opens java.desktop/sun.awt=ALL-UNNAMED
+--add-opens java.desktop/sun.java2d.opengl=ALL-UNNAMED
+```
+Mainly needed for opengl sketches.
 
 ## Usage
 
