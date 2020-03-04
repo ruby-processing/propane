@@ -23,7 +23,7 @@ You should not even to install maven since we provide a maven wrapper.
 
 Runtime Requirements:-
 
-You may well find that stock jdk version do not play too well with jogl (binder issues), and we recommend you install [adoptopenjdk][adopt], further you can suppress may reflective access warning (and possibly get better start up times) by installing the jruby-launcher gem.
+You may well find that stock jdk version do not play too well with jogl (binder issues), and we recommend you install [adoptopenjdk][adopt].  To suppress reflective access warnings you will need to define `JAVA_HOME`.
 
 [adopt]:http://ruby-processing.github.io/java/JRubyArt_propane/
 [launcher]:http://ruby-processing.github.io/jruby/propane/
