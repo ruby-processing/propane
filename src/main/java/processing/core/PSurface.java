@@ -1,3 +1,5 @@
+/* -*- mode: java; c-basic-offset: 2; indent-tabs-mode: nil -*- */
+
 /*
   Part of the Processing project - http://processing.org
 
@@ -16,84 +18,108 @@
   Public License along with this library; if not, write to the
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
- */
+*/
+
 package processing.core;
 
+import java.io.File;
+
 public interface PSurface {
+  /**
+   * Minimum dimensions for the window holding an applet. This varies between
+   * platforms, Mac OS X 10.3 (confirmed with 10.7 and Java 6) can do any
+   * height but requires at least 128 pixels width. Windows XP has another
+   * set of limitations. And for all I know, Linux probably allows window
+   * sizes to be negative numbers.
+   */
+  static public final int MIN_WINDOW_WIDTH = 128;
+  static public final int MIN_WINDOW_HEIGHT = 128;
 
-    /**
-     * Minimum dimensions for the window holding an applet. This varies between
-     * platforms, Mac OS X 10.3 (confirmed with 10.7 and Java 6) can do any
-     * height but requires at least 128 pixels width. Windows XP has another set
-     * of limitations. And for all I know, Linux probably allows window sizes to
-     * be negative numbers.
-     */
-    static public final int MIN_WINDOW_WIDTH = 128;
-    static public final int MIN_WINDOW_HEIGHT = 128;
+  //public int displayDensity();
 
-    // renderer that doesn't draw to the screen
-    public void initOffscreen(PApplet sketch);
+  //public int displayDensity(int display);
 
-    // considering removal in favor of separate Component classes for appropriate renderers
-    // (i.e. for Java2D or a generic Image surface, but not PDF, debatable for GL or )
-    //public Component initComponent(PApplet sketch);
-    //public Frame initFrame(PApplet sketch, Color backgroundColor,
+  //
+
+  // renderer that doesn't draw to the screen
+  public void initOffscreen(PApplet sketch);
+
+  // considering removal in favor of separate Component classes for appropriate renderers
+  // (i.e. for Java2D or a generic Image surface, but not PDF, debatable for GL or FX)
+  //public Component initComponent(PApplet sketch);
+
+  //public Frame initFrame(PApplet sketch, Color backgroundColor,
 //  public void initFrame(PApplet sketch, int backgroundColor,
 //                        int deviceIndex, boolean fullScreen, boolean spanDisplays);
-    public void initFrame(PApplet sketch);
+  public void initFrame(PApplet sketch);
 
-    /**
-     * Get the native window object associated with this drawing surface. For
-     * Java2D, this will be an AWT Frame object. For OpenGL, the window. The
-     * data returned here is subject to the whims of the renderer, and using
-     * this method means you're willing to deal with underlying implementation
-     * changes and that you won't throw a fit like a toddler if your code breaks
-     * sometime in the future.
-     */
-    public Object getNative();
+  //
 
-    //
-    // Just call these on an AWT Frame object stored in PApplet.
-    // Silly, but prevents a lot of rewrite and extra methods for little benefit.
-    // However, maybe prevents us from having to document the 'frame' variable?
-    /**
-     * Set the window (and dock, or whatever necessary) title.
-     */
-    public void setTitle(String title);
+  public PImage loadImage(String path, Object... args);
 
-    /**
-     * Show or hide the window.
-     */
-    public void setVisible(boolean visible);
+  //
 
-    /**
-     * Set true if we want to resize things (default is not resizable)
-     */
-    public void setResizable(boolean resizable);
+  public void selectInput(String prompt, String callback,
+                          File file, Object callbackObject);
 
-    /**
-     * Dumb name, but inherited from Frame and no better ideas.
-     */
-    public void setAlwaysOnTop(boolean always);
+  public void selectOutput(String prompt, String callback,
+                           File file, Object callbackObject);
 
-    public void setIcon(PImage icon);
+  public void selectFolder(String prompt, String callback,
+                           File file, Object callbackObject);
 
-    //
+  //
+
+  /**
+   * Get the native window object associated with this drawing surface.
+   * For Java2D, this will be an AWT Frame object. For OpenGL, the window.
+   * The data returned here is subject to the whims of the renderer,
+   * and using this method means you're willing to deal with underlying
+   * implementation changes and that you won't throw a fit like a toddler
+   * if your code breaks sometime in the future.
+   */
+  public Object getNative();
+
+  //
+
+  // Just call these on an AWT Frame object stored in PApplet.
+  // Silly, but prevents a lot of rewrite and extra methods for little benefit.
+  // However, maybe prevents us from having to document the 'frame' variable?
+
+  /** Set the window (and dock, or whatever necessary) title. */
+  public void setTitle(String title);
+
+  /** Show or hide the window. */
+  public void setVisible(boolean visible);
+
+  /** Set true if we want to resize things (default is not resizable) */
+  public void setResizable(boolean resizable);
+
+  /** Dumb name, but inherited from Frame and no better ideas. */
+  public void setAlwaysOnTop(boolean always);
+
+  public void setIcon(PImage icon);
+
+  //
+
 //  public void placeWindow(int[] location);
-    public void placeWindow(int[] location, int[] editorLocation);
 
-    //public void placeFullScreen(boolean hideStop);
-    public void placePresent(int stopColor);
+  public void placeWindow(int[] location, int[] editorLocation);
 
-    // Sketch is running from the PDE, set up messaging back to the PDE
-    public void setupExternalMessages();
+  //public void placeFullScreen(boolean hideStop);
+  public void placePresent(int stopColor);
 
-    //
-    // sets displayWidth/Height inside PApplet
-    //public void checkDisplaySize();
-    public void setLocation(int x, int y);
+  // Sketch is running from the PDE, set up messaging back to the PDE
+  public void setupExternalMessages();
 
-    public void setSize(int width, int height);
+  //
+
+  // sets displayWidth/Height inside PApplet
+  //public void checkDisplaySize();
+
+  public void setLocation(int x, int y);
+
+  public void setSize(int width, int height);
 
 //  /**
 //   * Called by {@link PApplet#createGraphics} to initialize the
@@ -103,54 +129,65 @@ public interface PSurface {
 //   * @param wide
 //   * @param high
 //   */
-    // create pixel buffer (pulled out for offscreen graphics)
-    //public void initImage(PGraphics gr, int wide, int high);
-    // create pixel buffer, called from allocate() to produce a compatible image for rendering efficiently
+  // create pixel buffer (pulled out for offscreen graphics)
+  //public void initImage(PGraphics gr, int wide, int high);
+  // create pixel buffer, called from allocate() to produce a compatible image for rendering efficiently
 //  public void initImage(PGraphics gr);
-    //public Component getComponent();
+
+  //public Component getComponent();
+
 //  /**
 //   * Sometimes smoothing must be set at the drawing surface level
 //   * not just inside the renderer itself.
 //   */
 //  public void setSmooth(int level);
-    public void setFrameRate(float fps);
+
+  public void setFrameRate(float fps);
 
 //  // called on the first frame so that the now-visible drawing surface can
 //  // receive key and mouse events
 //  public void requestFocus();
+
 //  // finish rendering to the screen (called by PApplet)
 //  public void blit();
-    //
-    public void setCursor(int kind);
 
-    public void setCursor(PImage image, int hotspotX, int hotspotY);
+  //
 
-    public void showCursor();
+  public void setCursor(int kind);
 
-    public void hideCursor();
+  public void setCursor(PImage image, int hotspotX, int hotspotY);
 
-    //
-    /**
-     * Start the animation thread
-     */
-    public void startThread();
+  public void showCursor();
 
-    /**
-     * On the next trip through the animation thread, things should go
-     * sleepy-bye. Does not pause the thread immediately because that needs to
-     * happen on the animation thread itself, so fires on the next trip through
-     * draw().
-     */
-    public void pauseThread();
+  public void hideCursor();
 
-    public void resumeThread();
+  //
 
-    /**
-     * Stop the animation thread (set it null)
-     *
-     * @return false if already stopped
-     */
-    public boolean stopThread();
+  /**
+   * @param url the link to open
+   * @return false if unable to find a viable way to open
+   */
+  public boolean openLink(String url);
 
-    public boolean isStopped();
+  //
+
+  /** Start the animation thread */
+  public void startThread();
+
+  /**
+   * On the next trip through the animation thread, things should go sleepy-bye.
+   * Does not pause the thread immediately because that needs to happen on the
+   * animation thread itself, so fires on the next trip through draw().
+   */
+  public void pauseThread();
+
+  public void resumeThread();
+
+  /**
+   * Stop the animation thread (set it null)
+   * @return false if already stopped
+   */
+  public boolean stopThread();
+
+  public boolean isStopped();
 }
