@@ -43,11 +43,11 @@ project 'propane', 'https://github.com/monkstone/propane' do
              'source.directory' => 'src',
              'polyglot.dump.pom' => 'pom.xml',
              'project.build.sourceEncoding' => 'utf-8',
-             'jogl.version' => '2.3.2',
+             'jogl.version' => '2.3.2', # for compiling actual included 2.4.0-rc
              'jruby.api' => 'http://jruby.org/apidocs/')
 
   pom 'org.jruby:jruby:9.2.11.1'
-  jar 'org.processing:video:3.3.7'
+  jar 'org.processing:video:3.3.7' # only for compiling
   jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
   jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
 
@@ -56,12 +56,12 @@ project 'propane', 'https://github.com/monkstone/propane' do
            'generateBackupPoms' => 'false')
     plugin(:compiler, '3.8.1',
            'release' => '11')
-    plugin(:javadoc, '3.1.1',
+    plugin(:javadoc, '3.2.0',
            'detectOfflineLinks' => 'false',
            'links' => ['${jruby.api}',
                        '${processing.api}'])
     plugin(
-      :jar, '3.1.2',
+      :jar, '3.2.0',
       'archive' => {
         'manifestEntries' => { 'Class-Path' => 'gluegen-rt.jar jog-all.jar' }
       }
