@@ -11,7 +11,7 @@ adjust above for your OS/distro setup.
 There may be a linker issue with P2D or P3D sketches with stock openjdk with some linux distros, in which case you might find [Adopt open jdk binaries][adopt] will work for you.
 
 - `jdk-11.0.3+`
-- `jruby-9.2.11.0`
+- `jruby-9.2.11.1`
 
 Currently you can ignore `illegal reflective access` warnings, see [here how to suppress them][warning].
 
