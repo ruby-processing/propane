@@ -41,6 +41,6 @@ public class PropaneLibrary implements Library {
      */
     @Override
     public void load(final Ruby runtime, boolean wrap) throws IOException {
-        load(runtime);
+        PropaneLibrary.load(runtime);
     }
 }

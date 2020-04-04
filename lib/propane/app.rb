@@ -1,5 +1,6 @@
 # frozen_string_literal: false
 
+require 'jruby'
 require_relative 'helper_methods'
 require_relative 'library_loader'
 
