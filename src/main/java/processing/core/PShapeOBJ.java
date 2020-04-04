@@ -8,13 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class is not part of the Processing API and should not be used directly.
- * Instead, use loadShape() and methods like it, which will make use of this
- * class. Using this class directly will cause your code to break when combined
- * with future versions of Processing.
+ * This class is not part of the Processing API and should not be used
+ * directly. Instead, use loadShape() and methods like it, which will make
+ * use of this class. Using this class directly will cause your code to break
+ * when combined with future versions of Processing.
  * <p>
  * OBJ loading implemented using code from Saito's OBJLoader library:
- * http://code.google.com/p/saitoobjloader/ and OBJReader from Ahmet Kizilay
+ * http://code.google.com/p/saitoobjloader/
+ * and OBJReader from Ahmet Kizilay
  * http://www.openprocessing.org/visuals/?visualID=191
  *
  */
@@ -22,9 +23,6 @@ public class PShapeOBJ extends PShape {
 
   /**
    * Initializes a new OBJ Object with the given filename.
-   *
-   * @param parent
-   * @param filename
    */
   public PShapeOBJ(PApplet parent, String filename) {
     this(parent, parent.createReader(filename), getBasePath(parent, filename));
@@ -41,7 +39,7 @@ public class PShapeOBJ extends PShape {
     ArrayList<PVector> normals = new ArrayList<>();
     ArrayList<PVector> texcoords = new ArrayList<>();
     parseOBJ(parent, basePath, reader,
-      faces, materials, coords, normals, texcoords);
+             faces, materials, coords, normals, texcoords);
 
     // The OBJ geometry is stored with each face in a separate child shape.
     parent = null;
@@ -49,10 +47,11 @@ public class PShapeOBJ extends PShape {
     addChildren(faces, materials, coords, normals, texcoords);
   }
 
+
   protected PShapeOBJ(OBJFace face, OBJMaterial mtl,
-    ArrayList<PVector> coords,
-    ArrayList<PVector> normals,
-    ArrayList<PVector> texcoords) {
+                      ArrayList<PVector> coords,
+                      ArrayList<PVector> normals,
+                      ArrayList<PVector> texcoords) {
     family = GEOMETRY;
     switch (face.vertIdx.size()) {
       case 3:
@@ -82,7 +81,7 @@ public class PShapeOBJ extends PShape {
 
     vertexCount = face.vertIdx.size();
     vertices = new float[vertexCount][12];
-    for (int j = 0; j < face.vertIdx.size(); j++) {
+    for (int j = 0; j < face.vertIdx.size(); j++){
       int vertIdx, normIdx, texIdx;
       PVector vert, norms, tex;
 
@@ -125,17 +124,18 @@ public class PShapeOBJ extends PShape {
         vertices[j][PGraphics.V] = tex.y;
       }
 
-      if (mtl.kdMap != null) {
+      if (mtl != null && mtl.kdMap != null) {
         image = mtl.kdMap;
       }
     }
   }
 
+
   protected void addChildren(ArrayList<OBJFace> faces,
-    ArrayList<OBJMaterial> materials,
-    ArrayList<PVector> coords,
-    ArrayList<PVector> normals,
-    ArrayList<PVector> texcoords) {
+                             ArrayList<OBJMaterial> materials,
+                             ArrayList<PVector> coords,
+                             ArrayList<PVector> normals,
+                             ArrayList<PVector> texcoords) {
     int mtlIdxCur = -1;
     OBJMaterial mtl = null;
     for (int i = 0; i < faces.size(); i++) {
@@ -154,14 +154,15 @@ public class PShapeOBJ extends PShape {
     }
   }
 
+
   static protected void parseOBJ(PApplet parent, String path,
-    BufferedReader reader,
-    ArrayList<OBJFace> faces,
-    ArrayList<OBJMaterial> materials,
-    ArrayList<PVector> coords,
-    ArrayList<PVector> normals,
-    ArrayList<PVector> texcoords) {
-    Map<String, Integer> mtlTable = new HashMap<>();
+                                 BufferedReader reader,
+                                 ArrayList<OBJFace> faces,
+                                 ArrayList<OBJMaterial> materials,
+                                 ArrayList<PVector> coords,
+                                 ArrayList<PVector> normals,
+                                 ArrayList<PVector> texcoords) {
+    Map<String, Integer> mtlTable  = new HashMap<>();
     int mtlIdxCur = -1;
     boolean readv, readvn, readvt;
     try {
@@ -170,7 +171,7 @@ public class PShapeOBJ extends PShape {
       String line;
       String gname = "object";
       while ((line = reader.readLine()) != null) {
-        // Parse the line.
+       // Parse the line.
         line = line.trim();
         if (line.equals("") || line.indexOf('#') == 0) {
           // Empty line of comment, ignore line
@@ -179,6 +180,7 @@ public class PShapeOBJ extends PShape {
 
         // The below patch/hack comes from Carlos Tomas Marti and is a
         // fix for single backslashes in Rhino obj files
+
         // BEGINNING OF RHINO OBJ FILES HACK
         // Statements can be broken in multiple lines using '\' at the
         // end of a line.
@@ -190,9 +192,8 @@ public class PShapeOBJ extends PShape {
         while (line.contains("\\")) {
           line = line.split("\\\\")[0];
           final String s = reader.readLine();
-          if (s != null) {
+          if (s != null)
             line += s;
-          }
         }
         // END OF RHINO OBJ FILES HACK
 
@@ -200,33 +201,35 @@ public class PShapeOBJ extends PShape {
         // if not a blank line, process the line.
         if (parts.length > 0) {
           switch (parts[0]) {
-            case "v": {
-              // vertex
-              PVector tempv = new PVector(Float.valueOf(parts[1]),
-                Float.valueOf(parts[2]),
-                Float.valueOf(parts[3]));
-              coords.add(tempv);
-              readv = true;
-              break;
-            }
+            case "v":
+              {
+                // vertex
+                PVector tempv = new PVector(Float.parseFloat(parts[1]),
+                  Float.parseFloat(parts[2]),
+                  Float.parseFloat(parts[3]));
+                coords.add(tempv);
+                readv = true;
+                break;
+              }
             case "vn":
               // normal
-              PVector tempn = new PVector(Float.valueOf(parts[1]),
-                Float.valueOf(parts[2]),
-                Float.valueOf(parts[3]));
+              PVector tempn = new PVector(Float.parseFloat(parts[1]),
+                Float.parseFloat(parts[2]),
+                Float.parseFloat(parts[3]));
               normals.add(tempn);
               readvn = true;
               break;
-            case "vt": {
-              // uv, inverting v to take into account Processing's inverted Y axis
-              // with respect to OpenGL.
-              PVector tempv = new PVector(Float.valueOf(parts[1]),
-                1 - Float.valueOf(parts[2]));
-              texcoords.add(tempv);
-              readvt = true;
-              break;
-            }
-            // Object name is ignored, for now.
+            case "vt":
+              {
+                // uv, inverting v to take into account Processing's inverted Y axis
+                // with respect to OpenGL.
+                PVector tempv = new PVector(Float.parseFloat(parts[1]),
+                  1 - Float.parseFloat(parts[2]));
+                texcoords.add(tempv);
+                readvt = true;
+                break;
+              }
+          // Object name is ignored, for now.
             case "o":
               break;
             case "mtllib":
@@ -241,8 +244,7 @@ public class PShapeOBJ extends PShape {
                   parseMTL(parent, fn, path, mreader, materials, mtlTable);
                   mreader.close();
                 }
-              }
-              break;
+              } break;
             case "g":
               gname = 1 < parts.length ? parts[1] : "";
               break;
@@ -257,8 +259,7 @@ public class PShapeOBJ extends PShape {
                 } else {
                   mtlIdxCur = -1;
                 }
-              }
-              break;
+              } break;
             case "f":
               // Face setting
               OBJFace face = new OBJFace();
@@ -266,16 +267,16 @@ public class PShapeOBJ extends PShape {
               face.name = gname;
               for (int i = 1; i < parts.length; i++) {
                 String seg = parts[i];
-
+                
                 if (seg.indexOf("/") > 0) {
                   String[] forder = seg.split("/");
-
+                  
                   if (forder.length > 2) {
                     // Getting vertex and texture and normal indexes.
                     if (forder[0].length() > 0 && readv) {
                       face.vertIdx.add(Integer.valueOf(forder[0]));
                     }
-
+                    
                     if (forder[1].length() > 0 && readvt) {
                       face.texIdx.add(Integer.valueOf(forder[1]));
                     }
@@ -288,16 +289,16 @@ public class PShapeOBJ extends PShape {
                     if (forder[0].length() > 0 && readv) {
                       face.vertIdx.add(Integer.valueOf(forder[0]));
                     }
-
+                    
                     if (forder[1].length() > 0) {
                       if (readvt) {
                         face.texIdx.add(Integer.valueOf(forder[1]));
-                      } else if (readvn) {
+                      } else  if (readvn) {
                         face.normIdx.add(Integer.valueOf(forder[1]));
                       }
-
+                      
                     }
-
+                    
                   } else if (forder.length > 0) {
                     // Getting vertex index only.
                     if (forder[0].length() > 0 && readv) {
@@ -310,8 +311,7 @@ public class PShapeOBJ extends PShape {
                     face.vertIdx.add(Integer.valueOf(seg));
                   }
                 }
-              }
-              faces.add(face);
+              } faces.add(face);
               break;
             default:
               break;
@@ -329,17 +329,18 @@ public class PShapeOBJ extends PShape {
     }
   }
 
+
   static protected void parseMTL(PApplet parent, String mtlfn, String path,
-    BufferedReader reader,
-    ArrayList<OBJMaterial> materials,
-    Map<String, Integer> materialsHash) {
+                                 BufferedReader reader,
+                                 ArrayList<OBJMaterial> materials,
+                                 Map<String, Integer> materialsHash) {
     try {
       String line;
       OBJMaterial currentMtl = null;
       while ((line = reader.readLine()) != null) {
         // Parse the line
         line = line.trim();
-        String parts[] = line.split("\\s+");
+        String[] parts = line.split("\\s+");
         if (parts.length > 0) {
           // Extract the material data.
           if (parts[0].equals("newmtl")) {
@@ -349,7 +350,7 @@ public class PShapeOBJ extends PShape {
           } else {
             if (currentMtl == null) {
               currentMtl = addMaterial("material" + materials.size(),
-                materials, materialsHash);
+                                       materials, materialsHash);
             }
             if (parts[0].equals("map_Kd") && parts.length > 1) {
               // Loading texture map.
@@ -363,29 +364,29 @@ public class PShapeOBJ extends PShape {
               if (file.exists()) {
                 currentMtl.kdMap = parent.loadImage(texname);
               } else {
-                System.err.println("The texture map \"" + texname + "\" "
-                  + "in the materials definition file \"" + mtlfn + "\" "
-                  + "is missing or inaccessible, make sure "
-                  + "the URL is valid or that the file has been "
-                  + "added to your sketch and is readable.");
+                System.err.println("The texture map \"" + texname + "\" " +
+                  "in the materials definition file \"" + mtlfn + "\" " +
+                  "is missing or inaccessible, make sure " +
+                  "the URL is valid or that the file has been " +
+                  "added to your sketch and is readable.");
               }
             } else if (parts[0].equals("Ka") && parts.length > 3) {
               // The ambient color of the material
-              currentMtl.ka.x = Float.valueOf(parts[1]);
-              currentMtl.ka.y = Float.valueOf(parts[2]);
-              currentMtl.ka.z = Float.valueOf(parts[3]);
+              currentMtl.ka.x = Float.parseFloat(parts[1]);
+              currentMtl.ka.y = Float.parseFloat(parts[2]);
+              currentMtl.ka.z = Float.parseFloat(parts[3]);
             } else if (parts[0].equals("Kd") && parts.length > 3) {
               // The diffuse color of the material
-              currentMtl.kd.x = Float.valueOf(parts[1]);
-              currentMtl.kd.y = Float.valueOf(parts[2]);
-              currentMtl.kd.z = Float.valueOf(parts[3]);
+              currentMtl.kd.x = Float.parseFloat(parts[1]);
+              currentMtl.kd.y = Float.parseFloat(parts[2]);
+              currentMtl.kd.z = Float.parseFloat(parts[3]);
             } else if (parts[0].equals("Ks") && parts.length > 3) {
               // The specular color weighted by the specular coefficient
-              currentMtl.ks.x = Float.valueOf(parts[1]);
+              currentMtl.ks.x = Float.parseFloat(parts[1]);
               currentMtl.ks.y = Float.parseFloat(parts[2]);
               currentMtl.ks.z = Float.parseFloat(parts[3]);
-            } else if ((parts[0].equals("d")
-              || parts[0].equals("Tr")) && parts.length > 1) {
+            } else if ((parts[0].equals("d") ||
+                        parts[0].equals("Tr")) && parts.length > 1) {
               // Reading the alpha transparency.
               currentMtl.d = Float.parseFloat(parts[1]);
             } else if (parts[0].equals("Ns") && parts.length > 1) {
@@ -400,8 +401,8 @@ public class PShapeOBJ extends PShape {
   }
 
   protected static OBJMaterial addMaterial(String mtlname,
-    ArrayList<OBJMaterial> materials,
-    Map<String, Integer> materialsHash) {
+                                           ArrayList<OBJMaterial> materials,
+                                           Map<String, Integer> materialsHash) {
     OBJMaterial currentMtl = new OBJMaterial(mtlname);
     materialsHash.put(mtlname, materials.size());
     materials.add(currentMtl);
@@ -409,21 +410,22 @@ public class PShapeOBJ extends PShape {
   }
 
   protected static int rgbaValue(PVector color) {
-    return 0xFF000000 | ((int) (color.x * 255) << 16)
-      | ((int) (color.y * 255) << 8)
-      | (int) (color.z * 255);
+    return 0xFF000000 | ((int)(color.x * 255) << 16) |
+                        ((int)(color.y * 255) <<  8) |
+                         (int)(color.z * 255);
   }
 
+
   protected static int rgbaValue(PVector color, float alpha) {
-    return ((int) (alpha * 255) << 24)
-      | ((int) (color.x * 255) << 16)
-      | ((int) (color.y * 255) << 8)
-      | (int) (color.z * 255);
+    return ((int)(alpha * 255)   << 24) |
+           ((int)(color.x * 255) << 16) |
+           ((int)(color.y * 255) <<  8) |
+            (int)(color.z * 255);
   }
+
 
   // Stores a face from an OBJ file
   static protected class OBJFace {
-
     ArrayList<Integer> vertIdx;
     ArrayList<Integer> texIdx;
     ArrayList<Integer> normIdx;
@@ -439,6 +441,7 @@ public class PShapeOBJ extends PShape {
     }
   }
 
+
   static protected String getBasePath(PApplet parent, String filename) {
     // Obtaining the path
     File file = new File(parent.dataPath(filename));
@@ -447,12 +450,12 @@ public class PShapeOBJ extends PShape {
     }
     String absolutePath = file.getAbsolutePath();
     return absolutePath.substring(0,
-      absolutePath.lastIndexOf(File.separator));
+            absolutePath.lastIndexOf(File.separator));
   }
+
 
   // Stores a material defined in an MTL file.
   static protected class OBJMaterial {
-
     String name;
     PVector ka;
     PVector kd;

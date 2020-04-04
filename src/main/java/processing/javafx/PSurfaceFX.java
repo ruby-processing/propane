@@ -19,6 +19,7 @@
  */
 package processing.javafx;
 
+import java.io.File;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PSurface;
@@ -141,5 +142,30 @@ public class PSurfaceFX implements PSurface {
     public boolean isStopped() {
         throw new UnsupportedOperationException(message);
     }
+
+  @Override
+  public PImage loadImage(String path, Object... args) {
+    throw new UnsupportedOperationException(message); 
+  }
+
+  @Override
+  public void selectInput(String prompt, String callback, File file, Object callbackObject) {
+    throw new UnsupportedOperationException(message); 
+  }
+
+  @Override
+  public void selectOutput(String prompt, String callback, File file, Object callbackObject) {
+    throw new UnsupportedOperationException(message); 
+  }
+
+  @Override
+  public void selectFolder(String prompt, String callback, File file, Object callbackObject) {
+    throw new UnsupportedOperationException(message); 
+  }
+
+  @Override
+  public boolean openLink(String url) {
+    throw new UnsupportedOperationException(message); 
+  }
 
 }

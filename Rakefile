@@ -4,16 +4,14 @@ require_relative 'lib/propane/version'
 
 task default: %i[init compile install test gem]
 
-# depends on installed processing, with processing on path
+# Currently depends on local jogl-2.4.0 jars on path ~/jogl24
 desc 'Copy Jars'
 task :init do
-  # processing_root = File.dirname(`readlink -f $(which processing)`) # for Archlinux etc
-  processing_root = File.join(ENV['HOME'], 'processing-3.5.4') # alternative for debian linux etc
-  jar_dir = File.join(processing_root, 'core', 'library')
-  opengl = Dir.entries(jar_dir).grep(/amd64|macosx-universal/)
+  jogl24 = File.join(ENV['HOME'], 'jogl24')
+  opengl = Dir.entries(jogl24).grep(/amd64|universal/).select { |jar| jar =~ /linux|windows|macosx/ }
   opengl.concat %w[jogl-all.jar gluegen-rt.jar]
   opengl.each do |gl|
-    FileUtils.cp(File.join(jar_dir, gl), File.join('.', 'lib'))
+    FileUtils.cp(File.join(jogl24, gl), File.join('.', 'lib'))
   end
 end
 

@@ -42,7 +42,7 @@ import java.net.*;
  * commonly used so be sure to not select one of these. For example, web 
  * servers usually use port 80 and POP mail uses port 110.
  * 
- * ( end auto-generated )
+ * 
  * @webref net
  * @usage application
  * @brief The server class is used to create server objects which send and receives data to and from its associated clients (other programs connected to it). 
@@ -119,7 +119,7 @@ public class Server implements Runnable {
    * 
    * Disconnect a particular client.
    * 
-   * ( end auto-generated )
+   * 
    * @brief Disconnect a particular client.
    * @webref server:server
    * @param client the client to disconnect
@@ -191,7 +191,7 @@ public class Server implements Runnable {
    * Returns true if this server is still active and hasn't run
    * into any trouble.
    * 
-   * ( end auto-generated )
+   * 
    * @webref server:server
    * @brief Return true if this server is still active.
    */
@@ -204,7 +204,7 @@ public class Server implements Runnable {
     try {
       return InetAddress.getLocalHost().getHostAddress();
     } catch (UnknownHostException e) {
-      e.printStackTrace();
+
       return null;
     }
   }
@@ -220,7 +220,7 @@ public class Server implements Runnable {
    * 
    * Returns the next client in line with a new message.
    * 
-   * ( end auto-generated )
+   * 
    * @brief Returns the next client in line with a new message.
    * @webref server
    * @usage application
@@ -258,7 +258,7 @@ public class Server implements Runnable {
    * 
    * Disconnects all clients and stops the server.
    * 
-   * ( end auto-generated )
+   * 
    * <h3>Advanced</h3>
    * Use this to shut down the server if you finish using it while your applet 
    * is still running. Otherwise, it will be automatically be shut down by the 
@@ -290,7 +290,7 @@ public class Server implements Runnable {
         server = null;
       }
     } catch (IOException e) {
-      e.printStackTrace();
+
     }
   }
 
@@ -324,7 +324,7 @@ public class Server implements Runnable {
         thread = null;
       } catch (IOException e) {
         //errorMessage("run", e);
-        e.printStackTrace();
+  
         thread = null;
       }
     }
@@ -337,7 +337,7 @@ public class Server implements Runnable {
    * Writes a value to all the connected clients. It sends bytes out from the 
    * Server object.
    * 
-   * ( end auto-generated )
+   * 
    * @webref server
    * @brief Writes data to all connected clients
    * @param data data to write

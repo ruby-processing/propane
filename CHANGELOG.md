@@ -1,3 +1,4 @@
+**v3.5.0** Rebase processing core code around Sam Pottinhgers latest fixes for JOGL an image save, does mean breaking some of Diwis and Joshua Davis examples, but one hopes codeanticode knows what he's doing.
 
 **v3.4.3** Use Map.of to initialize HashMap bump processing version in build bump to jruby-9.2.11.0
 

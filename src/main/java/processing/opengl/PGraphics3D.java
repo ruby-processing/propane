@@ -1,3 +1,5 @@
+/* -*- mode: java; c-basic-offset: 2; indent-tabs-mode: nil -*- */
+
 /*
   Part of the Processing project - http://processing.org
 
@@ -18,97 +20,128 @@
   Public License along with this library; if not, write to the
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
- */
+*/
+
 package processing.opengl;
 
 import processing.core.PGraphics;
 import processing.core.PShape;
 import processing.core.PShapeOBJ;
 
+
 public class PGraphics3D extends PGraphicsOpenGL {
 
-    public PGraphics3D() {
-        super();
+  public PGraphics3D() {
+    super();
+  }
+
+
+  //////////////////////////////////////////////////////////////
+
+  // RENDERER SUPPORT QUERIES
+
+
+  @Override
+  public boolean is2D() {
+    return false;
+  }
+
+
+  @Override
+  public boolean is3D() {
+    return true;
+  }
+
+
+  //////////////////////////////////////////////////////////////
+
+  // PROJECTION
+
+
+  @Override
+  protected void defaultPerspective() {
+    perspective();
+  }
+
+
+  //////////////////////////////////////////////////////////////
+
+  // CAMERA
+
+
+  @Override
+  protected void defaultCamera() {
+    camera();
+  }
+
+
+  //////////////////////////////////////////////////////////////
+
+  // MATRIX MORE!
+
+
+  @Override
+  protected void begin2D() {
+    pushProjection();
+    ortho(-width/2f, width/2f, -height/2f, height/2f);
+    pushMatrix();
+
+    // Set camera for 2D rendering, it simply centers at (width/2, height/2)
+    float centerX = width/2f;
+    float centerY = height/2f;
+    modelview.reset();
+    modelview.translate(-centerX, -centerY);
+
+    modelviewInv.set(modelview);
+    modelviewInv.invert();
+
+    camera.set(modelview);
+    cameraInv.set(modelviewInv);
+
+    updateProjmodelview();
+  }
+
+
+  @Override
+  protected void end2D() {
+    popMatrix();
+    popProjection();
+  }
+
+
+
+  //////////////////////////////////////////////////////////////
+
+  // SHAPE I/O
+
+
+  static protected boolean isSupportedExtension(String extension) {
+    return extension.equals("obj");
+  }
+
+
+  static protected PShape loadShapeImpl(PGraphics pg, String filename,
+                                                      String extension) {
+    PShapeOBJ obj = null;
+
+    if (extension.equals("obj")) {
+      obj = new PShapeOBJ(pg.parent, filename);
+      int prevTextureMode = pg.textureMode;
+      pg.textureMode = NORMAL;
+      PShapeOpenGL p3d = PShapeOpenGL.createShape((PGraphicsOpenGL)pg, obj);
+      pg.textureMode = prevTextureMode;
+      return p3d;
     }
+    return null;
+  }
 
-    //////////////////////////////////////////////////////////////
-    // RENDERER SUPPORT QUERIES
-    @Override
-    public boolean is2D() {
-        return false;
-    }
 
-    @Override
-    public boolean is3D() {
-        return true;
-    }
 
-    //////////////////////////////////////////////////////////////
-    // PROJECTION
-    @Override
-    protected void defaultPerspective() {
-        perspective();
-    }
+  //////////////////////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////////////
-    // CAMERA
-    @Override
-    protected void defaultCamera() {
-        camera();
-    }
+  // SHAPE CREATION
 
-    //////////////////////////////////////////////////////////////
-    // MATRIX MORE!
-    @Override
-    protected void begin2D() {
-        pushProjection();
-        ortho(-width / 2f, width / 2f, -height / 2f, height / 2f);
-        pushMatrix();
 
-        // Set camera for 2D rendering, it simply centers at (width/2, height/2)
-        float centerX = width / 2f;
-        float centerY = height / 2f;
-        modelview.reset();
-        modelview.translate(-centerX, -centerY);
-
-        modelviewInv.set(modelview);
-        modelviewInv.invert();
-
-        camera.set(modelview);
-        cameraInv.set(modelviewInv);
-
-        updateProjmodelview();
-    }
-
-    @Override
-    protected void end2D() {
-        popMatrix();
-        popProjection();
-    }
-
-    //////////////////////////////////////////////////////////////
-    // SHAPE I/O
-    static protected boolean isSupportedExtension(String extension) {
-        return extension.equals("obj");
-    }
-
-    static protected PShape loadShapeImpl(PGraphics pg, String filename,
-            String extension) {
-        PShapeOBJ obj = null;
-
-        if (extension.equals("obj")) {
-            obj = new PShapeOBJ(pg.parent, filename);
-            int prevTextureMode = pg.textureMode;
-            pg.textureMode = NORMAL;
-            PShapeOpenGL p3d = PShapeOpenGL.createShape((PGraphicsOpenGL) pg, obj);
-            pg.textureMode = prevTextureMode;
-            return p3d;
-        }
-        return null;
-    }
-
-    //////////////////////////////////////////////////////////////
-    // SHAPE CREATION
 //  @Override
 //  protected PShape createShapeFamily(int type) {
 //    PShape shape = new PShapeOpenGL(this, type);
@@ -123,7 +156,9 @@ public class PGraphics3D extends PGraphicsOpenGL {
 //    shape.set3D(true);
 //    return shape;
 //  }
-    /*
+
+
+  /*
   @Override
   public PShape createShape(PShape source) {
     return PShapeOpenGL.createShape3D(this, source);
@@ -242,5 +277,5 @@ public class PGraphics3D extends PGraphicsOpenGL {
     shape.set3D(true);
     return shape;
   }
-     */
+  */
 }

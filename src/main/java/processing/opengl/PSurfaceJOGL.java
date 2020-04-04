@@ -1,4 +1,6 @@
-/*
+/* -*- mode: java; c-basic-offset: 2; indent-tabs-mode: nil -*- */
+
+ /*
   Part of the Processing project - http://processing.org
 
   Copyright (c) 2012-15 The Processing Foundation
@@ -22,6 +24,9 @@
 package processing.opengl;
 
 import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.FileDialog;
+import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -58,7 +63,6 @@ import com.jogamp.newt.Display.PointerIcon;
 import com.jogamp.newt.NewtFactory;
 import com.jogamp.newt.Screen;
 import com.jogamp.newt.awt.NewtCanvasAWT;
-import com.jogamp.newt.event.InputEvent;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.util.FPSAnimator;
 
@@ -69,6 +73,10 @@ import processing.core.PImage;
 import processing.core.PSurface;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
+import processing.awt.PImageAWT;
+
+// have this removed by 4.0 final
+import processing.awt.ShimAWT;
 
 public class PSurfaceJOGL implements PSurface {
 
@@ -112,6 +120,86 @@ public class PSurfaceJOGL implements PSurface {
     this.pgl = (PJOGL) ((PGraphicsOpenGL) graphics).pgl;
   }
 
+
+  /*
+  @Override
+  public int displayDensity() {
+    return shim.displayDensity();
+  }
+
+
+  @Override
+  public int displayDensity(int display) {
+    return shim.displayDensity(display);
+  }
+   */
+  // TODO rewrite before 4.0 release
+  @Override
+  public PImage loadImage(String path, Object... args) {
+    return ShimAWT.loadImage(sketch, path, args);
+  }
+
+  @Override
+  public void selectInput(String prompt, String callbackMethod,
+    File file, Object callbackObject) {
+    EventQueue.invokeLater(() -> {
+      // https://github.com/processing/processing/issues/3831
+      boolean hide = (sketch != null)
+        && (PApplet.platform == PConstants.WINDOWS);
+      if (hide) {
+        setVisible(false);
+      }
+
+      ShimAWT.selectImpl(prompt, callbackMethod, file,
+        callbackObject, null, FileDialog.LOAD);
+
+      if (hide) {
+        setVisible(true);
+      }
+    });
+  }
+
+  @Override
+  public void selectOutput(String prompt, String callbackMethod,
+    File file, Object callbackObject) {
+    EventQueue.invokeLater(() -> {
+      // https://github.com/processing/processing/issues/3831
+      boolean hide = (sketch != null)
+        && (PApplet.platform == PConstants.WINDOWS);
+      if (hide) {
+        setVisible(false);
+      }
+
+      ShimAWT.selectImpl(prompt, callbackMethod, file,
+        callbackObject, null, FileDialog.SAVE);
+
+      if (hide) {
+        setVisible(true);
+      }
+    });
+  }
+
+  @Override
+  public void selectFolder(String prompt, String callbackMethod,
+    File file, Object callbackObject) {
+    EventQueue.invokeLater(() -> {
+      // https://github.com/processing/processing/issues/3831
+      boolean hide = (sketch != null)
+        && (PApplet.platform == PConstants.WINDOWS);
+      if (hide) {
+        setVisible(false);
+      }
+
+      ShimAWT.selectFolderImpl(prompt, callbackMethod, file,
+        callbackObject, null);
+
+      if (hide) {
+        setVisible(true);
+      }
+    });
+  }
+
+  @Override
   public void initOffscreen(PApplet sketch) {
     this.sketch = sketch;
 
@@ -125,8 +213,10 @@ public class PSurfaceJOGL implements PSurface {
     }
   }
 
+  @Override
   public void initFrame(PApplet sketch) {
     this.sketch = sketch;
+
     initIcons();
     initDisplay();
     initGL();
@@ -135,6 +225,7 @@ public class PSurfaceJOGL implements PSurface {
     initAnimator();
   }
 
+  @Override
   public Object getNative() {
     return window;
   }
@@ -168,20 +259,23 @@ public class PSurfaceJOGL implements PSurface {
       awtDisplayDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     }
 
-    displayRect = awtDisplayDevice.getDefaultConfiguration().getBounds();
+    GraphicsConfiguration config = awtDisplayDevice.getDefaultConfiguration();
+    displayRect = config.getBounds();
   }
 
   protected void initGL() {
 //  System.out.println("*******************************");
     if (profile == null) {
-      if (PJOGL.profile == 1) {
-        try {
+      switch (PJOGL.profile) {
+        case 1:
+          try {
           profile = GLProfile.getGL2ES1();
         } catch (GLException ex) {
           profile = GLProfile.getMaxFixedFunc(true);
         }
-      } else if (PJOGL.profile == 2) {
-        try {
+        break;
+        case 2:
+          try {
           profile = GLProfile.getGL2ES2();
 
           // workaround for https://jogamp.org/bugzilla/show_bug.cgi?id=1347
@@ -195,8 +289,9 @@ public class PSurfaceJOGL implements PSurface {
         } catch (GLException ex) {
           profile = GLProfile.getMaxProgrammable(true);
         }
-      } else if (PJOGL.profile == 3) {
-        try {
+        break;
+        case 3:
+          try {
           profile = GLProfile.getGL2GL3();
         } catch (GLException ex) {
           profile = GLProfile.getMaxProgrammable(true);
@@ -204,8 +299,9 @@ public class PSurfaceJOGL implements PSurface {
         if (!profile.isGL3()) {
           PGraphics.showWarning("Requested profile GL3 but is not available, got: " + profile);
         }
-      } else if (PJOGL.profile == 4) {
-        try {
+        break;
+        case 4:
+          try {
           profile = GLProfile.getGL4ES3();
         } catch (GLException ex) {
           profile = GLProfile.getMaxProgrammable(true);
@@ -213,8 +309,9 @@ public class PSurfaceJOGL implements PSurface {
         if (!profile.isGL4()) {
           PGraphics.showWarning("Requested profile GL4 but is not available, got: " + profile);
         }
-      } else {
-        throw new RuntimeException(PGL.UNSUPPORTED_GLPROF_ERROR);
+        break;
+        default:
+          throw new RuntimeException(PGL.UNSUPPORTED_GLPROF_ERROR);
       }
     }
 
@@ -249,7 +346,7 @@ public class PSurfaceJOGL implements PSurface {
 //    } else {
 //      window = GLWindow.create(displayDevice.getScreen(), pgl.getCaps());
 //    }
-    windowScaleFactor = PApplet.platform == PConstants.MACOSX
+    windowScaleFactor = PApplet.platform == PConstants.MACOS
       ? 1 : sketch.pixelDensity;
 
     boolean spanDisplays = sketch.sketchDisplay() == PConstants.SPAN;
@@ -312,7 +409,7 @@ public class PSurfaceJOGL implements PSurface {
     sketch.setSize(sketchWidth, sketchHeight);
 
     float[] reqSurfacePixelScale;
-    if (graphics.is2X() && PApplet.platform == PConstants.MACOSX) {
+    if (graphics.is2X() && PApplet.platform == PConstants.MACOS) {
       // Retina
       reqSurfacePixelScale = new float[]{ScalableSurface.AUTOMAX_PIXELSCALE,
         ScalableSurface.AUTOMAX_PIXELSCALE};
@@ -367,44 +464,36 @@ public class PSurfaceJOGL implements PSurface {
 
     animator = new FPSAnimator(window, 60);
     drawException = null;
-    animator.setUncaughtExceptionHandler(new GLAnimatorControl.UncaughtExceptionHandler() {
-      @Override
-      public void uncaughtException(final GLAnimatorControl animator,
-        final GLAutoDrawable drawable,
-        final Throwable cause) {
-        synchronized (drawExceptionMutex) {
-          drawException = cause;
-          drawExceptionMutex.notify();
-        }
+    animator.setUncaughtExceptionHandler((final GLAnimatorControl animator1, final GLAutoDrawable drawable, final Throwable cause) -> {
+      synchronized (drawExceptionMutex) {
+        drawException = cause;
+        drawExceptionMutex.notify();
       }
     });
 
-    drawExceptionHandler = new Thread(new Runnable() {
-      public void run() {
-        synchronized (drawExceptionMutex) {
-          try {
-            while (drawException == null) {
-              drawExceptionMutex.wait();
-            }
-            // System.err.println("Caught exception: " + drawException.getMessage());
-            if (drawException != null) {
-              Throwable cause = drawException.getCause();
-              if (cause instanceof ThreadDeath) {
-                // System.out.println("caught ThreadDeath");
-                // throw (ThreadDeath)cause;
-              } else if (cause instanceof RuntimeException) {
-                throw (RuntimeException) cause;
-              } else if (cause instanceof UnsatisfiedLinkError) {
-                throw new UnsatisfiedLinkError(cause.getMessage());
-              } else if (cause == null) {
-                throw new RuntimeException(drawException.getMessage());
-              } else {
-                throw new RuntimeException(cause);
-              }
-            }
-          } catch (InterruptedException e) {
-            return;
+    drawExceptionHandler = new Thread(() -> {
+      synchronized (drawExceptionMutex) {
+        try {
+          while (drawException == null) {
+            drawExceptionMutex.wait();
           }
+          // System.err.println("Caught exception: " + drawException.getMessage());
+          if (drawException != null) {
+            Throwable cause = drawException.getCause();
+            if (cause instanceof ThreadDeath) {
+              // System.out.println("caught ThreadDeath");
+              // throw (ThreadDeath)cause;
+            } else if (cause instanceof RuntimeException) {
+              throw (RuntimeException) cause;
+            } else if (cause instanceof UnsatisfiedLinkError) {
+              throw new UnsatisfiedLinkError(cause.getMessage());
+            } else if (cause == null) {
+              throw new RuntimeException(drawException.getMessage());
+            } else {
+              throw new RuntimeException(cause);
+            }
+          }
+        } catch (InterruptedException e) {
         }
       }
     });
@@ -413,34 +502,26 @@ public class PSurfaceJOGL implements PSurface {
 
   @Override
   public void setTitle(final String title) {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setTitle(title);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setTitle(title);
     });
   }
 
   @Override
   public void setVisible(final boolean visible) {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setVisible(visible);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setVisible(visible);
     });
   }
 
   @Override
   public void setResizable(final boolean resizable) {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setResizable(resizable);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setResizable(resizable);
     });
   }
 
+  @Override
   public void setIcon(PImage icon) {
     PGraphics.showWarning("Window icons for OpenGL sketches can only be set in settings()\n"
       + "using PJOGL.setIcon(filename).");
@@ -448,11 +529,8 @@ public class PSurfaceJOGL implements PSurface {
 
   @Override
   public void setAlwaysOnTop(final boolean always) {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setAlwaysOnTop(always);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setAlwaysOnTop(always);
     });
   }
 
@@ -524,8 +602,7 @@ public class PSurfaceJOGL implements PSurface {
 
       // have to break these out because a general Exception might
       // catch the RuntimeException being thrown above
-    } catch (IOException ioe) {
-    } catch (SecurityException se) {
+    } catch (IOException | SecurityException ioe) {
     }
 
     ClassLoader cl = sketch.getClass().getClassLoader();
@@ -581,7 +658,7 @@ public class PSurfaceJOGL implements PSurface {
             stream.close();
             return path;
           }
-        } catch (Exception e) {
+        } catch (IOException e) {
         }  // ignored
 
         try {
@@ -598,7 +675,7 @@ public class PSurfaceJOGL implements PSurface {
 
     } catch (Exception e) {
       //die(e.getMessage(), e);
-      e.printStackTrace();
+
     }
 
     return "";
@@ -663,6 +740,7 @@ public class PSurfaceJOGL implements PSurface {
     }
   }
 
+  @Override
   public void placePresent(int stopColor) {
     float scale = getPixelScale();
     pgl.initPresentMode(0.5f * (screenRect.width / scale - sketchWidth),
@@ -674,10 +752,12 @@ public class PSurfaceJOGL implements PSurface {
     window.setTopLevelSize((int) displayRect.getWidth(), (int) displayRect.getHeight());
   }
 
+  @Override
   public void setupExternalMessages() {
     external = true;
   }
 
+  @Override
   public void startThread() {
     if (animator != null) {
       animator.start();
@@ -690,12 +770,14 @@ public class PSurfaceJOGL implements PSurface {
     }
   }
 
+  @Override
   public void resumeThread() {
     if (animator != null) {
       animator.resume();
     }
   }
 
+  @Override
   public boolean stopThread() {
     if (drawExceptionHandler != null) {
       drawExceptionHandler.interrupt();
@@ -708,6 +790,7 @@ public class PSurfaceJOGL implements PSurface {
     }
   }
 
+  @Override
   public boolean isStopped() {
     if (animator != null) {
       return !animator.isAnimating();
@@ -716,15 +799,14 @@ public class PSurfaceJOGL implements PSurface {
     }
   }
 
+  @Override
   public void setLocation(final int x, final int y) {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setTopLevelPosition(x, y);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setTopLevelPosition(x, y);
     });
   }
 
+  @Override
   public void setSize(int wide, int high) {
     if (pgl.presentMode()) {
       return;
@@ -758,7 +840,7 @@ public class PSurfaceJOGL implements PSurface {
       return 1;
     }
 
-    if (PApplet.platform == PConstants.MACOSX) {
+    if (PApplet.platform == PConstants.MACOS) {
       return getCurrentPixelScale();
     }
 
@@ -791,6 +873,7 @@ public class PSurfaceJOGL implements PSurface {
     config.setChosenCapabilities(caps);
   }
 
+  @Override
   public void setFrameRate(float fps) {
     if (fps < 1) {
       PGraphics.showWarning(
@@ -812,16 +895,14 @@ public class PSurfaceJOGL implements PSurface {
   }
 
   public void requestFocus() {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.requestFocus();
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.requestFocus();
     });
   }
 
   class DrawListener implements GLEventListener {
 
+    @Override
     public void display(GLAutoDrawable drawable) {
       if (display.getEDTUtil().isCurrentThreadEDT()) {
         // For some reason, the first two frames of the animator are run on the
@@ -859,10 +940,12 @@ public class PSurfaceJOGL implements PSurface {
       }
     }
 
+    @Override
     public void dispose(GLAutoDrawable drawable) {
 //      sketch.dispose();
     }
 
+    @Override
     public void init(GLAutoDrawable drawable) {
       pgl.getGL(drawable);
       pgl.init(drawable);
@@ -871,15 +954,16 @@ public class PSurfaceJOGL implements PSurface {
       int c = graphics.backgroundColor;
       pgl.clearColor(((c >> 16) & 0xff) / 255f,
         ((c >> 8) & 0xff) / 255f,
-        ((c >> 0) & 0xff) / 255f,
+        ((c) & 0xff) / 255f,
         ((c >> 24) & 0xff) / 255f);
       pgl.clear(PGL.COLOR_BUFFER_BIT);
     }
 
+    @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int w, int h) {
       pgl.resetFBOLayer();
       pgl.getGL(drawable);
-      float scale = PApplet.platform == PConstants.MACOSX
+      float scale = PApplet.platform == PConstants.MACOS
         ? getCurrentPixelScale() : getPixelScale();
       setSize((int) (w / scale), (int) (h / scale));
     }
@@ -1004,11 +1088,13 @@ public class PSurfaceJOGL implements PSurface {
   protected void nativeMouseEvent(com.jogamp.newt.event.MouseEvent nativeEvent,
     int peAction) {
     int modifiers = nativeEvent.getModifiers();
-    int peModifiers = modifiers
-      & (InputEvent.SHIFT_MASK
-      | InputEvent.CTRL_MASK
-      | InputEvent.META_MASK
-      | InputEvent.ALT_MASK);
+    /*
+    int peModifiers = modifiers &
+                      (InputEvent.SHIFT_MASK |
+                       InputEvent.CTRL_MASK |
+                       InputEvent.META_MASK |
+                       InputEvent.ALT_MASK);
+     */
 
     int peButton = 0;
     switch (nativeEvent.getButton()) {
@@ -1023,13 +1109,6 @@ public class PSurfaceJOGL implements PSurface {
         break;
     }
 
-    if (PApplet.platform == PConstants.MACOSX) {
-      //if (nativeEvent.isPopupTrigger()) {
-      if ((modifiers & InputEvent.CTRL_MASK) != 0) {
-        peButton = PConstants.RIGHT;
-      }
-    }
-
     int peCount = 0;
     if (peAction == MouseEvent.WHEEL) {
       // Invert wheel rotation count so it matches JAVA2D's
@@ -1041,7 +1120,7 @@ public class PSurfaceJOGL implements PSurface {
     }
 
     int scale;
-    if (PApplet.platform == PConstants.MACOSX) {
+    if (PApplet.platform == PConstants.MACOS) {
       scale = (int) getCurrentPixelScale();
     } else {
       scale = (int) getPixelScale();
@@ -1064,7 +1143,7 @@ public class PSurfaceJOGL implements PSurface {
     }
 
     MouseEvent me = new MouseEvent(nativeEvent, nativeEvent.getWhen(),
-      peAction, peModifiers,
+      peAction, modifiers,
       mx, my,
       peButton,
       peCount);
@@ -1074,11 +1153,12 @@ public class PSurfaceJOGL implements PSurface {
 
   protected void nativeKeyEvent(com.jogamp.newt.event.KeyEvent nativeEvent,
     int peAction) {
-    int peModifiers = nativeEvent.getModifiers()
-      & (InputEvent.SHIFT_MASK
-      | InputEvent.CTRL_MASK
-      | InputEvent.META_MASK
-      | InputEvent.ALT_MASK);
+    int modifiers = nativeEvent.getModifiers();
+//    int peModifiers = nativeEvent.getModifiers() &
+//                      (InputEvent.SHIFT_MASK |
+//                       InputEvent.CTRL_MASK |
+//                       InputEvent.META_MASK |
+//                       InputEvent.ALT_MASK);
 
     short code = nativeEvent.getKeyCode();
     char keyChar;
@@ -1104,7 +1184,7 @@ public class PSurfaceJOGL implements PSurface {
     // In contrast to key symbol, key code uses a fixed US keyboard layout and therefore is keyboard layout independent.
     // E.g. virtual key code VK_Y denotes the same physical key regardless whether keyboard layout QWERTY or QWERTZ is active. The key symbol of the former is VK_Y, where the latter produces VK_Y.
     KeyEvent ke = new KeyEvent(nativeEvent, nativeEvent.getWhen(),
-      peAction, peModifiers,
+      peAction, modifiers,
       keyChar,
       keyCode,
       nativeEvent.isAutoRepeat());
@@ -1116,7 +1196,7 @@ public class PSurfaceJOGL implements PSurface {
         // Create key typed event
         // TODO: combine dead keys with the following key
         KeyEvent tke = new KeyEvent(nativeEvent, nativeEvent.getWhen(),
-          KeyEvent.TYPE, peModifiers,
+          KeyEvent.TYPE, modifiers,
           keyChar,
           0,
           nativeEvent.isAutoRepeat());
@@ -1219,6 +1299,7 @@ public class PSurfaceJOGL implements PSurface {
     PConstants.TEXT, "text"
   );
 
+  @Override
   public void setCursor(int kind) {
     if (!cursorNames.containsKey(kind)) {
       PGraphics.showWarning("Unknown cursor type: " + kind);
@@ -1230,20 +1311,26 @@ public class PSurfaceJOGL implements PSurface {
       if (name != null) {
         ImageIcon icon
           = new ImageIcon(getClass().getResource("cursors/" + name + ".png"));
-        PImage img = new PImage(icon.getImage());
+        PImage img = new PImageAWT(icon.getImage());
         // Most cursors just use the center as the hotspot...
         int x = img.width / 2;
         int y = img.height / 2;
         // ...others are more specific
-        if (kind == PConstants.ARROW) {
-          x = 10;
-          y = 7;
-        } else if (kind == PConstants.HAND) {
-          x = 12;
-          y = 8;
-        } else if (kind == PConstants.TEXT) {
-          x = 16;
-          y = 22;
+        switch (kind) {
+          case PConstants.ARROW:
+            x = 10;
+            y = 7;
+            break;
+          case PConstants.HAND:
+            x = 12;
+            y = 8;
+            break;
+          case PConstants.TEXT:
+            x = 16;
+            y = 22;
+            break;
+          default:
+            break;
         }
         cursor = new CursorInfo(img, x, y);
         cursors.put(kind, cursor);
@@ -1256,6 +1343,7 @@ public class PSurfaceJOGL implements PSurface {
     }
   }
 
+  @Override
   public void setCursor(PImage image, int hotspotX, int hotspotY) {
     Display disp = window.getScreen().getDisplay();
     BufferedImage bimg = (BufferedImage) image.getNative();
@@ -1267,30 +1355,28 @@ public class PSurfaceJOGL implements PSurface {
     final Dimension size = new Dimension(bimg.getWidth(), bimg.getHeight());
     PixelRectangle pixelrect = new PixelRectangle.GenericPixelRect(format, size, 0, false, pixels);
     final PointerIcon pi = disp.createPointerIcon(pixelrect, hotspotX, hotspotY);
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setPointerVisible(true);
-        window.setPointerIcon(pi);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setPointerVisible(true);
+      window.setPointerIcon(pi);
     });
   }
 
+  @Override
   public void showCursor() {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setPointerVisible(true);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setPointerVisible(true);
     });
   }
 
+  @Override
   public void hideCursor() {
-    display.getEDTUtil().invoke(false, new Runnable() {
-      @Override
-      public void run() {
-        window.setPointerVisible(false);
-      }
+    display.getEDTUtil().invoke(false, () -> {
+      window.setPointerVisible(false);
     });
+  }
+
+  @Override
+  public boolean openLink(String url) {
+    return ShimAWT.openLink(url);
   }
 }

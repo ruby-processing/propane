@@ -33,7 +33,6 @@ import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 import monkstone.vecmath.JRender;
 import monkstone.vecmath.vec2.Vec2;
-import org.jruby.RubyNumeric;
 
 /**
  *
