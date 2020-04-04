@@ -27,10 +27,10 @@ rake javadoc
 
 ```bash
 jgem install propane # from rubygems
-jgem install propane-3.4.3-java.gem # local install
+jgem install propane-3.5.0-java.gem # local install
 # Alternative
 jruby -S gem install propane # from rubygems
-jruby -S gem install propane-3.4.3-java.gem # local install
+jruby -S gem install propane-3.5.0-java.gem # local install
 ```
 
 ## Check Install
@@ -42,15 +42,7 @@ propane --version
 
 ## Suppressing Reflective Access warnings
 
-Since propane-3.4.3 it is possible to suppress reflective access warnings by including a `~/.jruby.java_opts` file with following contents:-
-
-```bash
---add-opens java.base/java.lang=ALL-UNNAMED
---add-opens java.desktop/java.awt=ALL-UNNAMED
---add-opens java.desktop/sun.awt=ALL-UNNAMED
---add-opens java.desktop/sun.java2d.opengl=ALL-UNNAMED
-```
-Mainly needed for opengl sketches.
+Since propane-3.5.0 it is possible to suppress reflective access warnings by setting JAVA_HOME environmental variable jruby does the rest.
 
 ## Usage
 
@@ -103,7 +95,7 @@ See [gh-pages][gh-pages] for more detailed instructions and much more.
 
 ## Examples
 
-[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.4
+[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.5
 + syntax now we can. To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
 ```bash
 propane --install samples
