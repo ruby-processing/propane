@@ -1213,7 +1213,7 @@ public class PSurfaceAWT extends PSurfaceNone {
 //    } catch (ClassNotFoundException cnfe) {
 //      // ignored
 //    } catch (Exception e) {
-//      e.printStackTrace();
+//
 //    }
 //  }
 //
@@ -1236,7 +1236,7 @@ public class PSurfaceAWT extends PSurfaceNone {
 //    } catch (ClassNotFoundException cnfe) {
 //      // ignored
 //    } catch (Exception e) {
-//      e.printStackTrace();
+//
 //    }
 //  }
 

@@ -540,7 +540,7 @@ public class PGraphicsJava2D extends PGraphics {
 //        try {
 //          ImageIO.write(image, "jpg", new java.io.File("/Users/fry/Desktop/buff.jpg"));
 //        } catch (IOException e) {
-//          e.printStackTrace();
+//    
 //        }
 //      }
 //        }
@@ -997,7 +997,7 @@ public class PGraphicsJava2D extends PGraphics {
    *
    * This is a new reference entry for Processing 2.0. It will be updated shortly.
    *
-   * ( end auto-generated )
+   * 
    *
    * @webref Rendering
    * @param mode the blending mode to use

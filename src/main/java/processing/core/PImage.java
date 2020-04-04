@@ -48,14 +48,14 @@ import java.util.Iterator;
    * fields for the <b>width</b> and <b>height</b> of the image, as well as
    * an array called <b>pixels[]</b> that contains the values for every pixel
    * in the image. The methods described below allow easy access to the
-   * image's pixels and alpha channel and simplify the process of compositing.<br/>
-   * <br/> using the <b>pixels[]</b> array, be sure to use the
+   * image's pixels and alpha channel and simplify the process of compositing.
+   *  using the <b>pixels[]</b> array, be sure to use the
    * <b>loadPixels()</b> method on the image to make sure that the pixel data
-   * is properly loaded.<br/>
-   * <br/> create a new image, use the <b>createImage()</b> function. Do not
+   * is properly loaded.
+   *  create a new image, use the <b>createImage()</b> function. Do not
    * use the syntax <b>new PImage()</b>.
    *
-   * ( end auto-generated )
+   * 
    *
  * @webref image
  * @usage Web &amp; Application
@@ -102,7 +102,7 @@ public class PImage implements PConstants, Cloneable {
    * Without <b>loadPixels()</b>, running the code may (or will in future
    * releases) result in a NullPointerException.
    *
-   * ( end auto-generated )
+   * 
    *
    * @webref image:pixels
    * @usage web_application
@@ -122,7 +122,7 @@ public class PImage implements PConstants, Cloneable {
    *
    * The width of the image in units of pixels.
    *
-   * ( end auto-generated )
+   * 
    * @webref pimage:field
    * @usage web_application
    * @brief     Image width
@@ -134,7 +134,7 @@ public class PImage implements PConstants, Cloneable {
    *
    * The height of the image in units of pixels.
    *
-   * ( end auto-generated )
+   * 
    * @webref pimage:field
    * @usage web_application
    * @brief     Image height
@@ -210,7 +210,7 @@ public class PImage implements PConstants, Cloneable {
    * 
    * To create a new image, use the <b>createImage()</b> function (do not use
    * <b>new PImage()</b>).
-   * ( end auto-generated )
+   * 
    * @nowebref
    * @usage web_application
    * @see PApplet#loadImage(String, String)
@@ -323,7 +323,7 @@ public class PImage implements PConstants, Cloneable {
       return ImageIO.write(bimage, extension, file);
 
     } catch (Exception e) {
-      e.printStackTrace();
+
       throw new IOException("image save failed.");
     }
   }
@@ -366,7 +366,7 @@ public class PImage implements PConstants, Cloneable {
 
       } catch (IIOInvalidTreeException e) {
         System.err.println("Could not set the DPI of the output image");
-        e.printStackTrace();
+  
       }
     }
     return null;
@@ -509,7 +509,7 @@ public class PImage implements PConstants, Cloneable {
    *
    * Loads the pixel data for the image into its <b>pixels[]</b> array. This
    * function must always be called before reading from or writing to <b>pixels[]</b>.
-   * <br/><br/> renderers may or may not seem to require <b>loadPixels()</b>
+   *  renderers may or may not seem to require <b>loadPixels()</b>
    * or <b>updatePixels()</b>. However, the rule is that any time you want to
    * manipulate the <b>pixels[]</b> array, you must first call
    * <b>loadPixels()</b>, and after changes have been made, call
@@ -517,7 +517,7 @@ public class PImage implements PConstants, Cloneable {
    * function in the current Processing release, this will always be subject
    * to change.
    *
-   * ( end auto-generated )
+   * 
    *
    * <h3>Advanced</h3>
    * Call this when you want to mess with the pixels[] array.
@@ -548,7 +548,7 @@ public class PImage implements PConstants, Cloneable {
    * Updates the image with the data in its <b>pixels[]</b> array. Use in
    * conjunction with <b>loadPixels()</b>. If you're only reading pixels from
    * the array, there's no need to call <b>updatePixels()</b>.
-   * <br/><br/> renderers may or may not seem to require <b>loadPixels()</b>
+   *  renderers may or may not seem to require <b>loadPixels()</b>
    * or <b>updatePixels()</b>. However, the rule is that any time you want to
    * manipulate the <b>pixels[]</b> array, you must first call
    * <b>loadPixels()</b>, and after changes have been made, call
@@ -559,7 +559,7 @@ public class PImage implements PConstants, Cloneable {
    * Currently, none of the renderers use the additional parameters to
    * <b>updatePixels()</b>, however this may be implemented in the future.
    *
-   * ( end auto-generated )
+   * 
    * <h3>Advanced</h3>
    * Mark the pixels in this region as needing an update.
    * This is not currently used by any of the renderers, however the api
@@ -632,7 +632,7 @@ public class PImage implements PConstants, Cloneable {
    * content, first get a copy of its image data using the <b>get()</b>
    * method, and call <b>resize()</b> on the PImage that is returned.
    *
-   * ( end auto-generated )
+   * 
    * @webref pimage:method
    * @brief Changes the size of an image to a new width and height
    * @usage web_application
@@ -692,7 +692,7 @@ public class PImage implements PConstants, Cloneable {
    * equivalent statement to <b>get(x, y)</b> using <b>pixels[]</b> is
    * <b>pixels[y*width+x]</b>. See the reference for <b>pixels[]</b> for more information.
    *
-   * ( end auto-generated )
+   * 
    *
    * <h3>Advanced</h3>
    * Returns an ARGB "color" type (a packed 32 bit int with the color.
@@ -848,7 +848,7 @@ public class PImage implements PConstants, Cloneable {
    * is <b>pixels[y*width+x] = #000000</b>. See the reference for
    * <b>pixels[]</b> for more information.
    *
-   * ( end auto-generated )
+   * 
    *
    * @webref image:pixels
    * @brief writes a color to any pixel or writes an image into another
@@ -965,7 +965,7 @@ public class PImage implements PConstants, Cloneable {
    * same length as the target image's pixels array and should contain only
    * grayscale data of values between 0-255.
    *
-   * ( end auto-generated )
+   * 
    *
    * <h3>Advanced</h3>
    *
@@ -1096,7 +1096,7 @@ public class PImage implements PConstants, Cloneable {
    * 
    * DILATE - increases the light areas with the amount defined by the level parameter
    *
-   * ( end auto-generated )
+   * 
    *
    * <h3>Advanced</h3>
    * Method to apply a variety of basic filters to this image.
@@ -1632,7 +1632,7 @@ public class PImage implements PConstants, Cloneable {
    * 
    * As of release 0149, this function ignores <b>imageMode()</b>.
    *
-   * ( end auto-generated )
+   * 
    *
    * @webref image:pixels
    * @brief Copies the entire image
@@ -1677,7 +1677,7 @@ public class PImage implements PConstants, Cloneable {
    * <b>MODE</b> parameter. The possible modes are described in the reference
    * for the <b>blend()</b> function.
    *
-   * ( end auto-generated )
+   * 
    * <h3>Advanced</h3>
    * <UL>
    * <LI>REPLACE - destination colour equals colour of source pixel: C = A.
@@ -1832,7 +1832,7 @@ public class PImage implements PConstants, Cloneable {
    * 
    * As of release 0149, this function ignores <b>imageMode()</b>.
    *
-   * ( end auto-generated )
+   * 
    *
    * @webref image:pixels
    * @brief  Copies a pixel or rectangle of pixels using different blending modes
@@ -3034,7 +3034,7 @@ int testFunction(int dst, int src) {
       return true;
 
     } catch (IOException e) {
-      e.printStackTrace();
+
     }
     return false;
   }
@@ -3387,7 +3387,7 @@ int testFunction(int dst, int src) {
        return true;
 
      } catch (IOException e) {
-       e.printStackTrace();
+ 
        return false;
      }
   }
@@ -3408,7 +3408,7 @@ int testFunction(int dst, int src) {
    * program and can therefore save the file to the right place. See the
    * <b>createImage()</b> reference for more information.
    *
-   * ( end auto-generated )
+   * 
    * <h3>Advanced</h3>
    * Save this image to disk.
    * <p>
@@ -3489,7 +3489,7 @@ int testFunction(int dst, int src) {
 
      } catch (IOException e) {
        System.err.println("Error while saving image.");
-       e.printStackTrace();
+ 
        success = false;
      }
      return success;

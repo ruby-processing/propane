@@ -37,7 +37,7 @@ import java.net.*;
    * goes wrong with the connection, for example the host is not there or is 
    * listening on a different port, an exception is thrown.
    * 
-   * ( end auto-generated )
+   * 
  * @webref net
  * @brief The client class is used to create client Objects which connect to a server to exchange data. 
  * @instanceName client any variable of type Client
@@ -108,7 +108,7 @@ public class Client implements Runnable {
       }
 
     } catch (IOException e) {
-      e.printStackTrace();
+
       dispose();
     }
   }
@@ -153,7 +153,7 @@ public class Client implements Runnable {
    * Disconnects from the server. Use to shut the connection when you're 
    * finished with the Client.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @brief Disconnects from the server
    * @usage application
@@ -194,7 +194,7 @@ public class Client implements Runnable {
         input = null;
       }
     } catch (Exception e) {
-      e.printStackTrace();
+
     }
 
     try {
@@ -203,7 +203,7 @@ public class Client implements Runnable {
         output = null;
       }
     } catch (Exception e) {
-      e.printStackTrace();
+
     }
     
     try {
@@ -212,7 +212,7 @@ public class Client implements Runnable {
         socket = null;
       }
     } catch (Exception e) {
-      e.printStackTrace();
+
     }
   }
 
@@ -299,7 +299,7 @@ public class Client implements Runnable {
         }
       } catch (IOException e) {
         //errorMessage("run", e);
-        e.printStackTrace();
+  
       }
     }
   }
@@ -311,7 +311,7 @@ public class Client implements Runnable {
    * Returns true if this client is still active and hasn't run
    * into any trouble.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @brief Returns true if this client is still active
    * @usage application
@@ -326,7 +326,7 @@ public class Client implements Runnable {
    * 
    * Returns the IP address of the computer to which the Client is attached.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Returns the IP address of the machine as a String
@@ -345,7 +345,7 @@ public class Client implements Runnable {
    * Returns the number of bytes available. When any client has bytes 
    * available from the server, it returns the number of bytes.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Returns the number of bytes in the buffer waiting to be read
@@ -362,7 +362,7 @@ public class Client implements Runnable {
    * 
    * Empty the buffer, removes all the data stored there.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Clears the buffer
@@ -382,7 +382,7 @@ public class Client implements Runnable {
    * the buffer. Returns -1 if there is no byte, although this should be 
    * avoided by first cheacking <b>available()</b> to see if any data is available.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Returns a value from the buffer
@@ -407,7 +407,7 @@ public class Client implements Runnable {
    * Returns the next byte in the buffer as a char. Returns -1 or 0xffff if 
    * nothing is there.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Returns the next byte in the buffer as a char
@@ -431,7 +431,7 @@ public class Client implements Runnable {
    * of bytes read. If more bytes are available than can fit into the 
    * <b>byteBuffer</b>, only those that fit are read.
    * 
-   * ( end auto-generated )
+   * 
    * <h3>Advanced</h3>
    * Return a byte array of anything that's in the serial buffer.
    * Not particularly memory/speed efficient, because it creates
@@ -531,7 +531,7 @@ public class Client implements Runnable {
    * not large enough, -1 is returned and an error is printed to the message 
    * area. If nothing is in the buffer, 0 is returned.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Reads from the buffer of bytes up to and including a particular character
@@ -623,7 +623,7 @@ public class Client implements Runnable {
    * representation of your choice (i.e. UTF8 or two-byte Unicode data), and 
    * send it as a byte array.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief Returns the buffer as a String
@@ -641,7 +641,7 @@ public class Client implements Runnable {
    * Combination of <b>readBytesUntil()</b> and <b>readString()</b>. Returns 
    * <b>null</b> if it doesn't find what you're looking for.
    * 
-   * ( end auto-generated )
+   * 
    * <h3>Advanced</h3>
    * <p/>
    * If you want to move Unicode data, you can first convert the
@@ -665,7 +665,7 @@ public class Client implements Runnable {
    * 
    * Writes data to a server specified when constructing the client.
    * 
-   * ( end auto-generated )
+   * 
    * @webref client:client
    * @usage application
    * @brief  	Writes bytes, chars, ints, bytes[], Strings
@@ -681,7 +681,7 @@ public class Client implements Runnable {
       //e.printStackTrace();
       //dispose();
       //disconnect(e);
-      e.printStackTrace();
+
       stop();
     }
   }
@@ -696,7 +696,7 @@ public class Client implements Runnable {
       //errorMessage("write", e);
       //e.printStackTrace();
       //disconnect(e);
-      e.printStackTrace();
+
       stop();
     }
   }

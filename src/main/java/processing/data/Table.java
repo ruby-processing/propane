@@ -437,7 +437,7 @@ public class Table {
             // Sleep this thread so that the GC can catch up
             Thread.sleep(10);
           } catch (InterruptedException e) {
-            e.printStackTrace();
+      
           }
         }
       }
@@ -835,7 +835,7 @@ public class Table {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+
     }
     return null;
   }
@@ -873,13 +873,13 @@ public class Table {
         }
       }
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+
     } catch (IOException e) {
-      e.printStackTrace();
+
     } catch (ParserConfigurationException e) {
-      e.printStackTrace();
+
     } catch (SAXException e) {
-      e.printStackTrace();
+
     }
   }
 
@@ -1047,9 +1047,9 @@ public class Table {
         outgoing = Array.newInstance(target, getRowCount());
       }
     } catch (NoSuchFieldException e) {
-      e.printStackTrace();
+
     } catch (SecurityException e) {
-      e.printStackTrace();
+
     }
 
 //    Object enclosingObject = sketch;
@@ -1070,9 +1070,9 @@ public class Table {
         con.setAccessible(true);
       }
     } catch (SecurityException e) {
-      e.printStackTrace();
+
     } catch (NoSuchMethodException e) {
-      e.printStackTrace();
+
     }
 
     Field[] fields = target.getDeclaredFields();
@@ -1166,13 +1166,13 @@ public class Table {
       targetField.set(enclosingObject, outgoing);
 
     } catch (InstantiationException e) {
-      e.printStackTrace();
+
     } catch (IllegalAccessException e) {
-      e.printStackTrace();
+
     } catch (IllegalArgumentException e) {
-      e.printStackTrace();
+
     } catch (InvocationTargetException e) {
-      e.printStackTrace();
+
     }
   }
 
@@ -1213,7 +1213,7 @@ public class Table {
       try {
         saveODS(output);
       } catch (IOException e) {
-        e.printStackTrace();
+  
         return false;
       }
     } else if (extension.equals("html")) {
@@ -1222,7 +1222,7 @@ public class Table {
       try {
         saveBinary(output);
       } catch (IOException e) {
-        e.printStackTrace();
+  
         return false;
       }
     }
@@ -2300,7 +2300,7 @@ public class Table {
           try {
             Thread.sleep(10);  // gc time!
           } catch (InterruptedException e) {
-            e.printStackTrace();
+      
           }
         }
       }
@@ -3021,7 +3021,7 @@ public class Table {
             try {
               return rs.getMetaData().getColumnCount();
             } catch (SQLException e) {
-              e.printStackTrace();
+        
               return -1;
             }
           }
@@ -3434,7 +3434,7 @@ public class Table {
 //    try {
 //      return excelDateFormat.parse(timestamp).getTime();
 //    } catch (ParseException e) {
-//      e.printStackTrace();
+//
 //      return -1;
 //    }
 //  }
@@ -4778,7 +4778,7 @@ public class Table {
 //        try {
 //          Thread.sleep(5);
 //        } catch (InterruptedException e) {
-//          e.printStackTrace();
+//    
 //        }
       }
     }
