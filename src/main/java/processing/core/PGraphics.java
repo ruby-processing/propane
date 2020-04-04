@@ -109,7 +109,7 @@ import processing.opengl.PShader;
    * instance, imageImpl() handles drawing an image whose x/y/w/h and u/v coords
    * have been specified, and screen placement (independent of imageMode) has
    * been determined. There's no point in all renderers implementing the
-   * <tt>if (imageMode == BLAH)</tt> placement/sizing logic, so that's handled
+   * <code>if (imageMode == BLAH)</code> placement/sizing logic, so that's handled
    * by PGraphics, which then calls imageImpl() once all that is figured out.
    *
    * <h2>His brother PImage</h2>
@@ -136,7 +136,7 @@ import processing.opengl.PShader;
    *
    * <h2>What's in the PGraphics documentation, what ain't</h2>
    * Some things are noted here, some things are not. For public API, always
-   * refer to the <a href="http://processing.org/reference">reference</A>
+   * refer to the <a href="http://processing.org/reference">reference</a>
    * on Processing.org for proper explanations. <b>No attempt has been made to
    * keep the javadoc up to date or complete.</b> It's an enormous task for
    * which we simply do not have the time. That is, it's not something that

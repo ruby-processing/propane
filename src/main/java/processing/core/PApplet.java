@@ -23,21 +23,58 @@
  */
 package processing.core;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
+import java.io.RandomAccessFile;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.JarURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.*;
-import java.util.*;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.StringTokenizer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-//import java.util.zip.*;
+
 
 // loadXML() error handling
 import javax.xml.parsers.ParserConfigurationException;
@@ -54,8 +91,8 @@ import processing.opengl.*;
  * Base class for all sketches that use processing.core.
  *
  * The
- * <A HREF="https://github.com/processing/processing/wiki/Window-Size-and-Full-Screen">
- * Window Size and Full Screen</A> page on the Wiki has useful information about
+ * <a href="https://github.com/processing/processing/wiki/Window-Size-and-Full-Screen">
+ * Window Size and Full Screen</a> page on the Wiki has useful information about
  * sizing, multiple displays, full screen, etc.
  *
  * Processing uses active mode rendering. All animation tasks happen on the
@@ -317,7 +354,7 @@ public class PApplet implements PConstants {
    * is doubled. As a result, all operations that use pixels (like
    * <b>loadPixels()</b>, <b>get()</b>, <b>set()</b>, etc.) happen in this
    * doubled space. As a convenience, the variables <b>pixelWidth</b>
-   * and <b>pixelHeight<b> hold the actual width and height of the sketch in
+   * and <b>pixelHeight</b> hold the actual width and height of the sketch in
    * pixels. This is useful for any sketch that uses the <b>pixels[]</b>
    * array, for instance, because the number of elements in the array will be
    * <b>pixelWidth*pixelHeight</b>, not <b>width*height</b>.
@@ -397,7 +434,7 @@ public class PApplet implements PConstants {
    * <b>draw()</b>). But, inside mouse events, they update each time the event
    * is called. If they weren't separated, then the mouse would be read only
    * once per frame, making response choppy. If the mouse variables were always
-   * updated multiple times per frame, using <b>line(pmouseX, of gaps, because
+   * updated multiple times per frame, using <b>line(pmouseX,</b> of gaps, because
    * <b>pmouseX</b> may have changed several times in between the calls to
    * <b>line()</b>. Use <b>pmouseX</b> and
    * <b>pmouseY</b> inside <b>draw()</b> if you want values relative to the
@@ -1427,7 +1464,7 @@ public class PApplet implements PConstants {
    * <li>resume – called when the sketch is resumed
    * <li>dispose – when the sketch is shutting down (definitely not safe to
    * draw)
-   * <ul>
+   * </ul>
    * In addition, the new (for 2.0) processing.event classes are passed to the
    * following event types:
    * <ul>
@@ -1442,17 +1479,19 @@ public class PApplet implements PConstants {
    * @param target the target object that should receive the event
    */
   public void registerMethod(String methodName, Object target) {
-    if (methodName.equals("mouseEvent")) {
-      registerWithArgs("mouseEvent", target, new Class[]{processing.event.MouseEvent.class});
-
-    } else if (methodName.equals("keyEvent")) {
-      registerWithArgs("keyEvent", target, new Class[]{processing.event.KeyEvent.class});
-
-    } else if (methodName.equals("touchEvent")) {
-      registerWithArgs("touchEvent", target, new Class[]{processing.event.TouchEvent.class});
-
-    } else {
-      registerNoArgs(methodName, target);
+    switch (methodName) {
+      case "mouseEvent":
+        registerWithArgs("mouseEvent", target, new Class[]{processing.event.MouseEvent.class});
+        break;
+      case "keyEvent":
+        registerWithArgs("keyEvent", target, new Class[]{processing.event.KeyEvent.class});
+        break;
+      case "touchEvent":
+        registerWithArgs("touchEvent", target, new Class[]{processing.event.TouchEvent.class});
+        break;
+      default:
+        registerNoArgs(methodName, target);
+        break;
     }
   }
 
@@ -2050,18 +2089,18 @@ public class PApplet implements PConstants {
    * <h3>Advanced</h3>
    * Create an offscreen PGraphics object for drawing. This can be used for
    * bitmap or vector images drawing or rendering.
-   * <UL>
-   * <LI>Do not use "new PGraphicsXxxx()", use this method. This method ensures
+   * <ul>
+   * <li>Do not use "new PGraphicsXxxx()", use this method. This method ensures
    * that internal variables are set up properly that tie the new graphics
    * context back to its parent PApplet.
-   * <LI>The basic way to create bitmap images is to use the <A
-   * HREF="http://processing.org/reference/saveFrame_.html">saveFrame()</A>
+   * <li>The basic way to create bitmap images is to use the <A
+   * HREF="http://processing.org/reference/saveFrame_.html">saveFrame()</a>
    * function.
-   * <LI>If you want to create a really large scene and write that, first make
+   * <li>If you want to create a really large scene and write that, first make
    * sure that you've allocated a lot of memory in the Preferences.
-   * <LI>If you want to create images that are larger than the screen, you
+   * <li>If you want to create images that are larger than the screen, you
    * should create your own PGraphics object, draw to that, and use
-   * <A HREF="http://processing.org/reference/save_.html">save()</A>.
+   * <a href="http://processing.org/reference/save_.html">save()</a>.
    * <PRE>
    *
    * PGraphics big;
@@ -2080,16 +2119,16 @@ public class PApplet implements PConstants {
    * }
    *
    * </PRE>
-   * <LI>It's important to always wrap drawing to createGraphics() with
+   * <li>It's important to always wrap drawing to createGraphics() with
    * beginDraw() and endDraw() (beginFrame() and endFrame() prior to revision
    * 0115). The reason is that the renderer needs to know when drawing has
    * stopped, so that it can update itself internally. This also handles calling
    * the defaults() method, for people familiar with that.
-   * <LI>With Processing 0115 and later, it's possible to write images in
+   * <li>With Processing 0115 and later, it's possible to write images in
    * formats other than the default .tga and .tiff. The exact formats and
    * background information can be found in the developer's reference for
-   * <A HREF="http://dev.processing.org/reference/core/javadoc/processing/core/PImage.html#save(java.lang.String)">PImage.save()</A>.
-   * </UL>
+   * <a href="http://dev.processing.org/reference/core/javadoc/processing/core/PImage.html#save(java.lang.String)">PImage.save()</a>.
+   * </ul>
    *
    * @return
    * @webref rendering
@@ -2265,7 +2304,7 @@ public class PApplet implements PConstants {
    * height (but no format) will produce a strange error.
    *
    * Advanced users please note that createImage() should be used instead of the
-   * syntax <tt>new PImage()</tt>.
+   * syntax <code>new PImage()</code>.
    *
    *
    * <h3>Advanced</h3>
@@ -3455,9 +3494,9 @@ public class PApplet implements PConstants {
 
   /**
    * Pass a set of arguments directly to the command line.Uses Java's
-   * <A HREF="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html#exec-java.lang.String:A-">Runtime.exec()</A>
+   * <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html#exec-java.lang.String:A-">Runtime.exec()</a>
    * method. This is different from the
-   * <A HREF="https://processing.org/reference/launch_.html">launch()</A>
+   * <a href="https://processing.org/reference/launch_.html">launch()</a>
    * method, which uses the operating system's launcher to open the files. It's
    * always a good idea to use a full path to the executable here.
    * <pre>
@@ -3474,7 +3513,7 @@ public class PApplet implements PConstants {
    *
    * @param args
    * @return a
-   * <A HREF="https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html">Process</A>
+   * <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html">Process</a>
    * object
    */
   static public Process exec(String... args) {
@@ -3783,9 +3822,8 @@ public class PApplet implements PConstants {
       Method method = getClass().getMethod(name);
       method.invoke(this);
 
-    } catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
+    } catch (IllegalArgumentException | IllegalAccessException | SecurityException | InvocationTargetException e) {
 
-    } catch (InvocationTargetException e) {
     } catch (NoSuchMethodException nsme) {
       System.err.println("There is no public " + name + "() method "
         + "in the class " + getClass().getName());
@@ -3871,10 +3909,10 @@ public class PApplet implements PConstants {
    *
    * It is not possible to use saveXxxxx() functions inside a web browser unless
    * the sketch is <a
-   * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</A>. To
+   * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</a>. To
    * save a file back to a server, see the <a
    * href="http://wiki.processing.org/w/Saving_files_to_a_web-server">save to
-   * web</A> code snippet on the Processing Wiki.
+   * web</a> code snippet on the Processing Wiki.
    * <br/ >
    * All images saved from the main drawing window will be opaque. To save
    * images without a background, use <b>createGraphics()</b>.
@@ -5490,12 +5528,7 @@ public class PApplet implements PConstants {
 
     // if the image loading thread pool hasn't been created, create it
     if (requestImagePool == null) {
-      ThreadFactory factory = new ThreadFactory() {
-        @Override
-        public Thread newThread(Runnable r) {
-          return new Thread(r, REQUEST_IMAGE_THREAD_PREFIX);
-        }
-      };
+      ThreadFactory factory = (Runnable r) -> new Thread(r, REQUEST_IMAGE_THREAD_PREFIX);
       requestImagePool = Executors.newFixedThreadPool(4, factory);
     }
     requestImagePool.execute(() -> {
@@ -6490,11 +6523,11 @@ public class PApplet implements PConstants {
    * like loadBytes(), loadImage(), etc.
    * <p>
    * The filename passed in can be:
-   * <UL>
-   * <LI>A URL, for instance openStream("http://processing.org/");
-   * <LI>A file in the sketch's data folder
-   * <LI>Another file to be opened locally (when running as an application)
-   * </UL>
+   * <ul>
+   * <li>A URL, for instance openStream("http://processing.org/");
+   * <li>A file in the sketch's data folder
+   * <li>Another file to be opened locally (when running as an application)
+   * </ul>
    *
    * @return
    * @webref input:files
@@ -6670,25 +6703,19 @@ public class PApplet implements PConstants {
       try {  // first try to catch any security exceptions
         try {
           stream = new FileInputStream(dataPath(filename));
-          if (stream != null) {
-            return stream;
-          }
+          return stream;
         } catch (IOException e2) {
         }
 
         try {
           stream = new FileInputStream(sketchPath(filename));
-          if (stream != null) {
-            return stream;
-          }
-        } catch (Exception e) {
+          return stream;
+        } catch (FileNotFoundException e) {
         }  // ignored
 
         try {
           stream = new FileInputStream(filename);
-          if (stream != null) {
-            return stream;
-          }
+          return stream;
         } catch (IOException e1) {
         }
 
@@ -6798,14 +6825,13 @@ public class PApplet implements PConstants {
             input.close();
             return buffer;
           }
-        } catch (MalformedURLException mfue) {
+        } catch (MalformedURLException | FileNotFoundException mfue) {
           // not a url, that's fine
 
-        } catch (FileNotFoundException fnfe) {
-          // Java 1.5+ throws FNFE when URL not available
-          // http://dev.processing.org/bugs/show_bug.cgi?id=403
-
-        } catch (IOException e) {
+        }
+        // Java 1.5+ throws FNFE when URL not available
+        // http://dev.processing.org/bugs/show_bug.cgi?id=403
+         catch (IOException e) {
           printStackTrace(e);
           return null;
 
@@ -7162,11 +7188,9 @@ public class PApplet implements PConstants {
       // make sure that this path actually exists before writing
       createPath(target);
       tempFile = createTempFile(target);
-      FileOutputStream targetStream = new FileOutputStream(tempFile);
-
-      saveStream(targetStream, source);
-      targetStream.close();
-      targetStream = null;
+      try (FileOutputStream targetStream = new FileOutputStream(tempFile)) {
+        saveStream(targetStream, source);
+      }
 
       if (target.exists()) {
         if (!target.delete()) {
@@ -7220,10 +7244,10 @@ public class PApplet implements PConstants {
    *
    * It is not possible to use saveXxxxx() functions inside a web browser unless
    * the sketch is <a
-   * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</A>. To
+   * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</a>. To
    * save a file back to a server, see the <a
    * href="http://wiki.processing.org/w/Saving_files_to_a_web-server">save to
-   * web</A> code snippet on the Processing Wiki.
+   * web</a> code snippet on the Processing Wiki.
    *
    *
    *
@@ -7278,10 +7302,9 @@ public class PApplet implements PConstants {
     try {
       tempFile = createTempFile(file);
 
-      OutputStream output = createOutput(tempFile);
-      saveBytes(output, data);
-      output.close();
-      output = null;
+      try (OutputStream output = createOutput(tempFile)) {
+        saveBytes(output, data);
+      }
 
       if (file.exists()) {
         if (!file.delete()) {
@@ -7328,7 +7351,7 @@ public class PApplet implements PConstants {
    *
    * It is not possible to use saveXxxxx() functions inside a web browser unless
    * the sketch is <a
-   * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</A>. To
+   * href="http://wiki.processing.org/w/Sign_an_Applet">signed applet</a>. To
    * save a file back to a server, see the <a
    * href="http://wiki.processing.org/w/Saving_files_to_a_web-server">save to
    * web</a> code snippet on the Processing Wiki.
@@ -7365,12 +7388,12 @@ public class PApplet implements PConstants {
    * @nowebref
    */
   static public void saveStrings(OutputStream output, String[] data) {
-    PrintWriter writer = createWriter(output);
-    for (int i = 0; i < data.length; i++) {
-      writer.println(data[i]);
+    try (PrintWriter writer = createWriter(output)) {
+      for (String data1 : data) {
+        writer.println(data1);
+      }
+      writer.flush();
     }
-    writer.flush();
-    writer.close();
   }
 
   //////////////////////////////////////////////////////////////
@@ -7407,7 +7430,7 @@ public class PApplet implements PConstants {
           folder = new File(jarPath, "../..").getCanonicalPath();
         }
       }
-    } catch (Exception e) {
+    } catch (IOException | URISyntaxException e) {
 
     }
     return folder;
@@ -7473,7 +7496,7 @@ public class PApplet implements PConstants {
    * marked in-use if running from a local file system. With this in mind,
    * saving to the data path doesn't make sense anyway. If you know you're
    * running locally, and want to save to the data folder, use
-   * <TT>saveXxxx("data/blah.dat")</TT>.
+   * <code>saveXxxx("data/blah.dat")</code>.
    *
    * @param where
    * @return
@@ -7808,7 +7831,6 @@ public class PApplet implements PConstants {
   //////////////////////////////////////////////////////////////
   // ARRAY UTILITIES
   /**
-   * ( begin auto-generated from arrayCopy.xml )
    *
    * Copies an array (or part of an array) to another array. The <b>src</b>
    * array is copied to the <b>dst</b> array, beginning at the position
@@ -7849,50 +7871,11 @@ public class PApplet implements PConstants {
   /**
    * Shortcut to copy the entire contents of the source into the destination
    * array.Identical to <CODE>arraycopy(src, 0, dst, 0, src.length);</CODE>
-   *
+   * Dodgy use of reflection to get length?
    * @param src
    * @param dst
    */
   static public void arrayCopy(Object src, Object dst) {
-    System.arraycopy(src, 0, dst, 0, Array.getLength(src));
-  }
-
-  /**
-   * Use arrayCopy() instead.
-   *
-   * @param src
-   * @param dstPosition
-   * @param srcPosition
-   * @param dst
-   * @param length
-   */
-  @Deprecated
-  static public void arraycopy(Object src, int srcPosition,
-    Object dst, int dstPosition,
-    int length) {
-    System.arraycopy(src, srcPosition, dst, dstPosition, length);
-  }
-
-  /**
-   * Use arrayCopy() instead.
-   *
-   * @param src
-   * @param dst
-   * @param length
-   */
-  @Deprecated
-  static public void arraycopy(Object src, Object dst, int length) {
-    System.arraycopy(src, 0, dst, 0, length);
-  }
-
-  /**
-   * Use arrayCopy() instead.
-   *
-   * @param src
-   * @param dst
-   */
-  @Deprecated
-  static public void arraycopy(Object src, Object dst) {
     System.arraycopy(src, 0, dst, 0, Array.getLength(src));
   }
 
@@ -10913,12 +10896,8 @@ public class PApplet implements PConstants {
    */
   static public void runSketch(final String[] args,
     final PApplet constructedSketch) {
-    Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-      @Override
-      public void uncaughtException(Thread t, Throwable e) {
-  
-        uncaughtThrowable = e;
-      }
+    Thread.setDefaultUncaughtExceptionHandler((Thread t, Throwable e) -> {
+      uncaughtThrowable = e;
     });
 
     // This doesn't work, need to mess with Info.plist instead
@@ -11026,9 +11005,6 @@ public class PApplet implements PConstants {
           switch (args[argIndex]) {
             case ARGS_PRESENT:
               present = true;
-
-//        } else if (args[argIndex].equals(ARGS_SPAN_DISPLAYS)) {
-//          spanDisplays = true;
               break;
             case ARGS_HIDE_STOP:
               hideStop = true;
@@ -16538,20 +16514,20 @@ public class PApplet implements PConstants {
    * <h3>Advanced</h3>
    * Method to apply a variety of basic filters to this image.
    * <P>
-   * <UL>
-   * <LI>filter(BLUR) provides a basic blur.
-   * <LI>filter(GRAY) converts the image to grayscale based on luminance.
-   * <LI>filter(INVERT) will invert the color components in the image.
-   * <LI>filter(OPAQUE) set all the high bits in the image to opaque
-   * <LI>filter(THRESHOLD) converts the image to black and white.
-   * <LI>filter(DILATE) grow white/light areas
-   * <LI>filter(ERODE) shrink white/light areas
-   * </UL>
+   * <ul>
+   * <li>filter(BLUR) provides a basic blur.
+   * <li>filter(GRAY) converts the image to grayscale based on luminance.
+   * <li>filter(INVERT) will invert the color components in the image.
+   * <li>filter(OPAQUE) set all the high bits in the image to opaque
+   * <li>filter(THRESHOLD) converts the image to black and white.
+   * <li>filter(DILATE) grow white/light areas
+   * <li>filter(ERODE) shrink white/light areas
+   * </ul>
    * Luminance conversion code contributed by
-   * <A HREF="http://www.toxi.co.uk">toxi</A>
+   * <a href="http://www.toxi.co.uk">toxi</a>
    *
    * Gaussian blur code contributed by
-   * <A HREF="http://incubator.quasimondo.com">Mario Klingemann</A>
+   * <a href="http://incubator.quasimondo.com">Mario Klingemann</a>
    *
    * @webref image:pixels
    * @brief Converts the image to grayscale or black and white

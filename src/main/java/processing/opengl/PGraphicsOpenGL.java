@@ -4558,11 +4558,11 @@ public class PGraphicsOpenGL extends PGraphics {
    * Calls perspective() with Processing's standard coordinate projection.
    * <P>
    * Projection functions:
-   * <UL>
-   * <LI>frustrum()
-   * <LI>ortho()
-   * <LI>perspective()
-   * </UL>
+   * <ul>
+   * <li>frustrum()
+   * <li>ortho()
+   * <li>perspective()
+   * </ul>
    * Each of these three functions completely replaces the projection matrix
    * with a new one. They can be called inside setup(), and their effects will
    * be felt inside draw(). At the top of draw(), the projection matrix is not

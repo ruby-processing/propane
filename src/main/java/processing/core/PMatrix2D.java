@@ -101,7 +101,7 @@ public class PMatrix2D implements PMatrix {
 
   /**
    * If matrix is a PMatrix2D, sets this matrix to be a copy of it.
-   * @throws IllegalArgumentException If <tt>matrix</tt> is not 2D.
+   * @throws IllegalArgumentException If <code>matrix</code> is not 2D.
    */
   public void set(PMatrix matrix) {
     if (matrix instanceof PMatrix2D) {

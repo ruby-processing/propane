@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
  * vector format so it allows for "infinite" resolution and relatively small
  * file sizes. Most modern media software can view SVG files, including Adobe
  * products, Firefox, etc. Illustrator and Inkscape can edit SVG files. View the
- * SVG specification <A HREF="http://www.w3.org/TR/SVG">here</A>.
+ * SVG specification <a href="http://www.w3.org/TR/SVG">here</a>.
  * <p>
  * We have no intention of turning this into a full-featured SVG library. The
  * goal of this project is a basic shape importer that originally was small
@@ -57,7 +57,7 @@ import java.util.regex.Pattern;
  * have volunteers who are available to maintain a larger SVG library.
  * <p>
  * For more sophisticated import/export, consider the
- * <A HREF="http://xmlgraphics.apache.org/batik/">Batik</A>
+ * <a href="http://xmlgraphics.apache.org/batik/">Batik</a>
  * library from the Apache Software Foundation.
  * <p>
  * Batik is used in the SVG Export library in Processing 3, however using it for
@@ -67,7 +67,7 @@ import java.util.regex.Pattern;
  * <p>
  * Future improvements to this library may focus on this properly supporting a
  * specific subset of SVG, for instance the simpler SVG profiles known as
- * <A HREF="http://www.w3.org/TR/SVGMobile/">SVG Tiny or Basic</A>, although we
+ * <a href="http://www.w3.org/TR/SVGMobile/">SVG Tiny or Basic</a>, although we
  * still would not support the interactivity options.
  *
  * <p>
@@ -1452,14 +1452,14 @@ public class PShapeSVG extends PShape {
   /**
    * Parse a size that may have a suffix for its units. This assumes 90dpi,
    * which implies, as given in the
-   * <A HREF="http://www.w3.org/TR/SVG/coords.html#Units">units</A> spec:
-   * <UL>
-   * <LI>"1pt" equals "1.25px" (and therefore 1.25 user units)
-   * <LI>"1pc" equals "15px" (and therefore 15 user units)
-   * <LI>"1mm" would be "3.543307px" (3.543307 user units)
-   * <LI>"1cm" equals "35.43307px" (and therefore 35.43307 user units)
-   * <LI>"1in" equals "90px" (and therefore 90 user units)
-   * </UL>
+   * <a href="http://www.w3.org/TR/SVG/coords.html#Units">units</a> spec:
+   * <ul>
+   * <li>"1pt" equals "1.25px" (and therefore 1.25 user units)
+   * <li>"1pc" equals "15px" (and therefore 15 user units)
+   * <li>"1mm" would be "3.543307px" (3.543307 user units)
+   * <li>"1cm" equals "35.43307px" (and therefore 35.43307 user units)
+   * <li>"1in" equals "90px" (and therefore 90 user units)
+   * </ul>
    *
    * @param relativeTo (float) Used for %. When relative to viewbox, should be
    * svgWidth for horizontal dimentions, svgHeight for vertical, and svgXYSize

@@ -315,7 +315,7 @@ public class PSurfaceNone implements PSurface {
 
     /**
      * Main method for the primary animation thread.
-     * <A HREF="http://java.sun.com/products/jfc/tsc/articles/painting/">Painting in AWT and Swing</A>
+     * <a href="http://java.sun.com/products/jfc/tsc/articles/painting/">Painting in AWT and Swing</a>
      */
     @Override
     public void run() {  // not good to make this synchronized, locks things up
