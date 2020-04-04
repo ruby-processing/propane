@@ -74,17 +74,8 @@ Install Video library _the past but stable?_
 
 ```bash
 propane --install Video
-# requires gstreamer-0.10 and does not work on Archlinux distro which no longer supports gstreamer-0.10
+# Install latest beta version requires gstreamer-1.0+
 ```
-
-Install GLVideo library _the future but unstable_
-
-```bash
-propane --install glvideo
-# uses gstreamer-1.0 still does not work on Archlinux (version issue), expected to work on Raspberry-Pi debian-linux and MacOS
-```
-
-Might be hackable (ie re-compile native binary)
 
 ### Running examples ###
 

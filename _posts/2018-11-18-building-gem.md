@@ -8,7 +8,7 @@ permalink: /building/
 
 Build Requirements:-
 
-1. An installed version of vanilla processing to provide `processing.org` customised version of the `jogl` jars. The default `Rakefile` assumes root installation of processing, for debian distros you will need to adjust `processing_root` _ca. line 20_.
+1. LatestJOGL jars 2.4.0-rc. The default `Rakefile` assumes jogl jars are in a local folder
 
 2. jdk-12+ (minitest and rake gems to test)
 
