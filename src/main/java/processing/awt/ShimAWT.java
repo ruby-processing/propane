@@ -54,7 +54,7 @@ public class ShimAWT implements PConstants {
   */
   static private ShimAWT instance;
 
-  private final GraphicsDevice[] displayDevices;
+  private GraphicsDevice[] displayDevices;
 
   private final int displayWidth;
   private final int displayHeight;
@@ -265,6 +265,7 @@ public class ShimAWT implements PConstants {
     System.err.println("Could not find a method to load " + filename);
     return null;
   }
+
 
   static protected String[] loadImageFormats;
 

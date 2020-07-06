@@ -62,6 +62,7 @@ public class PMatrix2D implements PMatrix {
   }
 
 
+  @Override
   public void reset() {
     set(1, 0, 0,
         0, 1, 0);
@@ -71,6 +72,7 @@ public class PMatrix2D implements PMatrix {
   /**
    * Returns a copy of this PMatrix.
    */
+  @Override
   public PMatrix2D get() {
     PMatrix2D outgoing = new PMatrix2D();
     outgoing.set(this);
@@ -83,6 +85,7 @@ public class PMatrix2D implements PMatrix {
    * If target is null (or not the correct size), a new array will be created.
    * Returned in the order {@code {m00, m01, m02, m10, m11, m12}}.
    */
+  @Override
   public float[] get(float[] target) {
     if ((target == null) || (target.length != 6)) {
       target = new float[6];
@@ -101,7 +104,7 @@ public class PMatrix2D implements PMatrix {
 
   /**
    * If matrix is a PMatrix2D, sets this matrix to be a copy of it.
-   * @throws IllegalArgumentException If <code>matrix</code> is not 2D.
+   * @throws IllegalArgumentException If <tt>matrix</tt> is not 2D.
    */
   public void set(PMatrix matrix) {
     if (matrix instanceof PMatrix2D) {
@@ -121,6 +124,7 @@ public class PMatrix2D implements PMatrix {
   }
 
 
+  @Override
   public void set(float[] source) {
     m00 = source[0];
     m01 = source[1];
@@ -135,6 +139,7 @@ public class PMatrix2D implements PMatrix {
   /**
    * Sets the matrix content.
    */
+  @Override
   public void set(float m00, float m01, float m02,
                   float m10, float m11, float m12) {
     this.m00 = m00; this.m01 = m01; this.m02 = m02;
@@ -153,6 +158,7 @@ public class PMatrix2D implements PMatrix {
   }
 
 
+  @Override
   public void translate(float tx, float ty) {
     m02 = tx*m00 + ty*m01 + m02;
     m12 = tx*m10 + ty*m11 + m12;
@@ -163,12 +169,14 @@ public class PMatrix2D implements PMatrix {
    * Unavailable in 2D.
    * @throws IllegalArgumentException
    */
+  @Override
   public void translate(float x, float y, float z) {
     throw new IllegalArgumentException("Cannot use translate(x, y, z) on a PMatrix2D.");
   }
 
 
   // Implementation roughly based on AffineTransform.
+  @Override
   public void rotate(float angle) {
     float s = sin(angle);
     float c = cos(angle);
@@ -188,6 +196,7 @@ public class PMatrix2D implements PMatrix {
    * Unavailable in 2D.
    * @throws IllegalArgumentException
    */
+  @Override
   public void rotateX(float angle) {
     throw new IllegalArgumentException("Cannot use rotateX() on a PMatrix2D.");
   }
@@ -195,7 +204,6 @@ public class PMatrix2D implements PMatrix {
 
   /**
    * Unavailable in 2D.
-   * @param angle
    * @throws IllegalArgumentException
    */
   @Override
@@ -265,6 +273,7 @@ public class PMatrix2D implements PMatrix {
   }
 
 
+  @Override
   public void apply(PMatrix2D source) {
     apply(source.m00, source.m01, source.m02,
           source.m10, source.m11, source.m12);
@@ -275,11 +284,13 @@ public class PMatrix2D implements PMatrix {
    * Unavailable in 2D.
    * @throws IllegalArgumentException
    */
+  @Override
   public void apply(PMatrix3D source) {
     throw new IllegalArgumentException("Cannot use apply(PMatrix3D) on a PMatrix2D.");
   }
 
 
+  @Override
   public void apply(float n00, float n01, float n02,
                     float n10, float n11, float n12) {
     float t0 = m00;
@@ -311,6 +322,7 @@ public class PMatrix2D implements PMatrix {
   /**
    * Apply another matrix to the left of this one.
    */
+  @Override
   public void preApply(PMatrix source) {
     if (source instanceof PMatrix2D) {
       preApply((PMatrix2D) source);
@@ -320,6 +332,7 @@ public class PMatrix2D implements PMatrix {
   }
 
 
+  @Override
   public void preApply(PMatrix2D left) {
     preApply(left.m00, left.m01, left.m02,
              left.m10, left.m11, left.m12);
@@ -330,11 +343,13 @@ public class PMatrix2D implements PMatrix {
    * Unavailable in 2D.
    * @throws IllegalArgumentException
    */
+  @Override
   public void preApply(PMatrix3D left) {
     throw new IllegalArgumentException("Cannot use preApply(PMatrix3D) on a PMatrix2D.");
   }
 
 
+  @Override
   public void preApply(float n00, float n01, float n02,
                        float n10, float n11, float n12) {
     float t0 = m02;
@@ -434,6 +449,7 @@ public class PMatrix2D implements PMatrix {
   /**
    * Unavailable in 2D. Does nothing.
    */
+  @Override
   public void transpose() {
   }
 
@@ -441,6 +457,7 @@ public class PMatrix2D implements PMatrix {
   /*
    * Implementation stolen from OpenJDK.
    */
+  @Override
   public boolean invert() {
     float determinant = determinant();
     if (Math.abs(determinant) <= Float.MIN_VALUE) {
@@ -523,23 +540,23 @@ public class PMatrix2D implements PMatrix {
   //////////////////////////////////////////////////////////////
 
 
-  static private final float max(float a, float b) {
+  private static float max(float a, float b) {
     return (a > b) ? a : b;
   }
 
-  static private final float abs(float a) {
+  private static float abs(float a) {
     return (a < 0) ? -a : a;
   }
 
-  static private final float sin(float angle) {
+  private static float sin(float angle) {
     return (float)Math.sin(angle);
   }
 
-  static private final float cos(float angle) {
+  private static float cos(float angle) {
     return (float)Math.cos(angle);
   }
 
-  static private final float tan(float angle) {
+  private static float tan(float angle) {
     return (float)Math.tan(angle);
   }
 }

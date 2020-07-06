@@ -245,6 +245,7 @@ public class PShapeJava2D extends PShapeSVG {
       this.opacity = opacity;
     }
 
+    @Override
     public PaintContext createContext(ColorModel cm,
                                       Rectangle deviceBounds, Rectangle2D userBounds,
                                       AffineTransform xform, RenderingHints hints) {

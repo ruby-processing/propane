@@ -47,13 +47,17 @@ public class PGraphicsOpenGL extends PGraphics {
   /** Font cache for texture objects. */
   protected WeakHashMap<PFont, FontTexture> fontMap;
 
+  // Blocking save
+  protected volatile Object saveBlocker;
+  private volatile Optional<String> saveTargetMaybe;
+
   // ........................................................
 
   // Disposal of native resources
   // Using the technique alternative to finalization described in:
   // http://www.oracle.com/technetwork/articles/java/finalization-137655.html
-  private static ReferenceQueue<Object> refQueue = new ReferenceQueue<>();
-  private static List<Disposable<?>> reachableWeakReferences =
+  private static final ReferenceQueue<Object> refQueue = new ReferenceQueue<>();
+  private static final List<Disposable<?>> reachableWeakReferences =
     new LinkedList<>();
 
   static final private int MAX_DRAIN_GLRES_ITERATIONS = 10;
@@ -568,6 +572,9 @@ public class PGraphicsOpenGL extends PGraphics {
   public PGraphicsOpenGL() {
     pgl = createPGL(this);
 
+    saveTargetMaybe = Optional.empty();
+    saveBlocker = new Object();
+
     if (intBuffer == null) {
       intBuffer = PGL.allocateIntBuffer(2);
       floatBuffer = PGL.allocateFloatBuffer(2);
@@ -709,7 +716,7 @@ public class PGraphicsOpenGL extends PGraphics {
 
   // Factory method
   protected PGL createPGL(PGraphicsOpenGL pg) {
-    return new PJOGL(pg);
+    return new PJOGL(pg, () -> { onRender(); });
 //    return new PGLES(pg);
   }
 
@@ -756,17 +763,29 @@ public class PGraphicsOpenGL extends PGraphics {
 //    return super.save(filename); // ASYNC save frame using PBOs not yet available on Android
 
     if (getHint(DISABLE_ASYNC_SAVEFRAME)) {
-      // Act as an opaque surface for the purposes of saving.
-      if (primaryGraphics) {
-        int prevFormat = format;
-        format = RGB;
-        boolean result = super.save(filename);
-        format = prevFormat;
-        return result;
-      }
+      saveTargetMaybe = Optional.of(filename);
 
-      return super.save(filename);
+      if (!drawing) {
+        beginDraw();
+      }
+      flush();
+      updatePixelSize();
+      endDraw(); // Briefly stop drawing
+
+      synchronized(saveBlocker) {
+        try {
+          while (saveTargetMaybe.isPresent()) {
+            saveBlocker.wait();
+          }
+          beginDraw(); // Resume drawing
+          return true;
+        } catch (InterruptedException e) {
+          return false;
+        }
+      }
     }
+
+    boolean needEndDraw = false;
 
     if (asyncImageSaver == null) {
       asyncImageSaver = new AsyncImageSaver();
@@ -781,7 +800,6 @@ public class PGraphicsOpenGL extends PGraphics {
     }
 
     if (asyncPixelReader != null && !loaded) {
-      boolean needEndDraw = false;
       if (!drawing) {
         beginDraw();
         needEndDraw = true;
@@ -807,6 +825,21 @@ public class PGraphicsOpenGL extends PGraphics {
     }
 
     return true;
+  }
+
+
+  private void onRender() {
+    if (saveTargetMaybe.isEmpty()) {
+      return; // Nothing to save
+    }
+
+    PImage outputImage = pgl.screenshot();
+    outputImage.save(saveTargetMaybe.get());
+    saveTargetMaybe = Optional.empty();
+
+    synchronized(saveBlocker) {
+      saveBlocker.notify();
+    }
   }
 
 
@@ -920,7 +953,7 @@ public class PGraphicsOpenGL extends PGraphics {
     int glId;
 
     private PGL pgl;
-    private int context;
+    private final int context;
 
     public GLResourceVertexBuffer(VertexBuffer vbo) {
       super(vbo);
@@ -971,7 +1004,7 @@ public class PGraphicsOpenGL extends PGraphics {
     int glFragment;
 
     private PGL pgl;
-    private int context;
+    private final int context;
 
     public GLResourceShader(PShader sh) {
       super(sh);
@@ -1039,7 +1072,7 @@ public class PGraphicsOpenGL extends PGraphics {
     int glMultisample;
 
     private PGL pgl;
-    private int context;
+    private final int context;
 
     public GLResourceFrameBuffer(FrameBuffer fb) {
       super(fb);
@@ -4558,11 +4591,11 @@ public class PGraphicsOpenGL extends PGraphics {
    * Calls perspective() with Processing's standard coordinate projection.
    * <P>
    * Projection functions:
-   * <ul>
-   * <li>frustrum()
-   * <li>ortho()
-   * <li>perspective()
-   * </ul>
+   * <UL>
+   * <LI>frustrum()
+   * <LI>ortho()
+   * <LI>perspective()
+   * </UL>
    * Each of these three functions completely replaces the projection matrix
    * with a new one. They can be called inside setup(), and their effects will
    * be felt inside draw(). At the top of draw(), the projection matrix is not
@@ -4598,6 +4631,8 @@ public class PGraphicsOpenGL extends PGraphics {
    * against) the current perspective matrix.
    * <P>
    * Implementation based on the explanation in the OpenGL blue book.
+   * @param znear
+   * @param zfar
    */
   @Override
   public void frustum(float left, float right, float bottom, float top,
@@ -6938,15 +6973,16 @@ public class PGraphicsOpenGL extends PGraphics {
     maxTextureSize = intBuffer.get(0);
 
     // work around runtime exceptions in Broadcom's VC IV driver
-    if (false == OPENGL_RENDERER.equals("VideoCore IV HW")) {
-      pgl.getIntegerv(PGL.MAX_SAMPLES, intBuffer);
-      maxSamples = intBuffer.get(0);
-    }
+   // if (false == OPENGL_RENDERER.equals("VideoCore IV HW")) {
+    pgl.getIntegerv(PGL.MAX_SAMPLES, intBuffer);
+    maxSamples = intBuffer.get(0);
+   // }
 
     if (anisoSamplingSupported) {
       pgl.getFloatv(PGL.MAX_TEXTURE_MAX_ANISOTROPY, floatBuffer);
       maxAnisoAmount = floatBuffer.get(0);
     }
+
     glParamsRead = true;
   }
 
@@ -7073,15 +7109,21 @@ public class PGraphicsOpenGL extends PGraphics {
   @Override
   public void resetShader(int kind) {
     flush(); // Flushing geometry drawn with a different shader.
-
-    if (kind == TRIANGLES || kind == QUADS || kind == POLYGON) {
-      polyShader = null;
-    } else if (kind == LINES) {
-      lineShader = null;
-    } else if (kind == POINTS) {
-      pointShader = null;
-    } else {
-      PGraphics.showWarning(UNKNOWN_SHADER_KIND_ERROR);
+    switch (kind) {
+      case TRIANGLES:
+      case QUADS:
+      case POLYGON:
+        polyShader = null;
+        break;
+      case LINES:
+        lineShader = null;
+        break;
+      case POINTS:
+        pointShader = null;
+        break;
+      default:
+        PGraphics.showWarning(UNKNOWN_SHADER_KIND_ERROR);
+        break;
     }
   }
 
@@ -7450,7 +7492,7 @@ public class PGraphicsOpenGL extends PGraphics {
       allocate();
     }
 
-    void allocate() {
+    final void allocate() {
       textures = new PImage[PGL.DEFAULT_IN_TEXTURES];
       firstIndex = new int[PGL.DEFAULT_IN_TEXTURES];
       lastIndex = new int[PGL.DEFAULT_IN_TEXTURES];
@@ -7567,7 +7609,7 @@ public class PGraphicsOpenGL extends PGraphics {
       allocate();
     }
 
-    void allocate() {
+    final void allocate() {
       size = 0;
       indexCount = new int[2];
       indexOffset = new int[2];
@@ -7734,7 +7776,7 @@ public class PGraphicsOpenGL extends PGraphics {
       edgeCount = 0;
     }
 
-    void allocate() {
+    final void allocate() {
       vertices = new float[3 * PGL.DEFAULT_IN_VERTICES];
       colors = new int[PGL.DEFAULT_IN_VERTICES];
       normals = new float[3 * PGL.DEFAULT_IN_VERTICES];
@@ -8384,7 +8426,7 @@ public class PGraphicsOpenGL extends PGraphics {
 
         vert[R] = ((colors[i] >> 16) & 0xFF) / 255.0f;
         vert[G] = ((colors[i] >>  8) & 0xFF) / 255.0f;
-        vert[B] = ((colors[i] >>  0) & 0xFF) / 255.0f;
+        vert[B] = ((colors[i]) & 0xFF) / 255.0f;
         vert[A] = ((colors[i] >> 24) & 0xFF) / 255.0f;
 
         vert[U] = texcoords[2 * i + 0];
@@ -10661,31 +10703,32 @@ public class PGraphicsOpenGL extends PGraphics {
         polyEmissive[tessIdx] = in.emissive[inIdx];
         polyShininess[tessIdx] = in.shininess[inIdx];
 
-        for (String name: polyAttribs.keySet()) {
+        polyAttribs.keySet().forEach((name) -> {
           VertexAttribute attrib = polyAttribs.get(name);
-          if (attrib.isPosition() || attrib.isNormal()) continue;
-          int index0 = attrib.size * inIdx;
-          int index1 = attrib.size * tessIdx;
-          if (attrib.isFloat()) {
-            float[] inValues = in.fattribs.get(name);
-            float[] tessValues = fpolyAttribs.get(name);
-            for (int n = 0; n < attrib.size; n++) {
-              tessValues[index1++] = inValues[index0++];
-            }
-          } else if (attrib.isInt()) {
-            int[] inValues = in.iattribs.get(name);
-            int[] tessValues = ipolyAttribs.get(name);
-            for (int n = 0; n < attrib.size; n++) {
-              tessValues[index1++] = inValues[index0++];
-            }
-          } else if (attrib.isBool()) {
-            byte[] inValues = in.battribs.get(name);
-            byte[] tessValues = bpolyAttribs.get(name);
-            for (int n = 0; n < attrib.size; n++) {
-              tessValues[index1++] = inValues[index0++];
+          if (!(attrib.isPosition() || attrib.isNormal())) {
+            int index0 = attrib.size * inIdx;
+            int index1 = attrib.size * tessIdx;
+            if (attrib.isFloat()) {
+              float[] inValues = in.fattribs.get(name);
+              float[] tessValues = fpolyAttribs.get(name);
+              for (int n = 0; n < attrib.size; n++) {
+                tessValues[index1++] = inValues[index0++];
+              }
+            } else if (attrib.isInt()) {
+              int[] inValues = in.iattribs.get(name);
+              int[] tessValues = ipolyAttribs.get(name);
+              for (int n = 0; n < attrib.size; n++) {
+                tessValues[index1++] = inValues[index0++];
+              }
+            } else if (attrib.isBool()) {
+              byte[] inValues = in.battribs.get(name);
+              byte[] tessValues = bpolyAttribs.get(name);
+              for (int n = 0; n < attrib.size; n++) {
+                tessValues[index1++] = inValues[index0++];
+              }
             }
           }
-        }
+        });
       }
     }
 
@@ -12910,7 +12953,7 @@ public class PGraphicsOpenGL extends PGraphics {
       r[j++] = (fcol >> 24) & 0xFF; // fa
       r[j++] = (fcol >> 16) & 0xFF; // fr
       r[j++] = (fcol >>  8) & 0xFF; // fg
-      r[j++] = (fcol >>  0) & 0xFF; // fb
+      r[j++] = (fcol) & 0xFF; // fb
 
       r[j++] = in.normals[3*i + 0]; // nx
       r[j++] = in.normals[3*i + 1]; // ny
@@ -13135,6 +13178,7 @@ public class PGraphicsOpenGL extends PGraphics {
         }
       }
 
+      @Override
       public void begin(int type) {
         cacheIndex = cache.getLast();
         if (firstPolyIndexCache == -1) {
@@ -13153,6 +13197,7 @@ public class PGraphicsOpenGL extends PGraphics {
         else if (type == PGL.TRIANGLES) primitive = TRIANGLES;
       }
 
+      @Override
       public void end() {
         if (PGL.MAX_VERTEX_INDEX1 <= vertFirst + vertCount) {
           // We need a new index block for the new batch of
@@ -13228,6 +13273,7 @@ public class PGraphicsOpenGL extends PGraphics {
                             vertFirst + vertOffset + tessIdx2);
       }
 
+      @Override
       public void vertex(Object data) {
         if (data instanceof double[]) {
           double[] d = (double[]) data;

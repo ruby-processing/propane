@@ -143,8 +143,9 @@ public class Texture implements PConstants {
 
 
   /**
-   * Creates an instance of PTexture with size width x height. The texture is
-   * initialized (empty) to that size.
+   * Creates an instance of PTexture with size width x height.The texture is
+ initialized (empty) to that size.
+   * @param pg
    * @param width  int
    * @param height  int
    */
@@ -155,7 +156,8 @@ public class Texture implements PConstants {
 
   /**
    * Creates an instance of PTexture with size width x height and with the
-   * specified parameters. The texture is initialized (empty) to that size.
+   * specified parameters.The texture is initialized (empty) to that size.
+   * @param pg
    * @param width int
    * @param height int
    * @param params Parameters
@@ -436,7 +438,8 @@ public class Texture implements PConstants {
 
 
   /**
-   * Copy texture to pixels. Involves video memory to main memory transfer (slow).
+   * Copy texture to pixels.Involves video memory to main memory transfer (slow).
+   * @param pixels
    */
   public void get(int[] pixels) {
     if (pixels == null) {

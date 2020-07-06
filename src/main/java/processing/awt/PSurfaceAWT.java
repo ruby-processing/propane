@@ -595,7 +595,8 @@ public class PSurfaceAWT extends PSurfaceNone {
 //  }
 
 
-  /** Set the window (and dock, or whatever necessary) title. */
+  /** Set the window (and dock, or whatever necessary) title.
+   * @param title */
   @Override
   public void setTitle(String title) {
     frame.setTitle(title);
@@ -610,7 +611,8 @@ public class PSurfaceAWT extends PSurfaceNone {
   }
 
 
-  /** Set true if we want to resize things (default is not resizable) */
+  /** Set true if we want to resize things (default is not resizable)
+   * @param resizable */
   @Override
   public void setResizable(boolean resizable) {
     //this.resizable = resizable;  // really only used for canvas
@@ -1213,7 +1215,7 @@ public class PSurfaceAWT extends PSurfaceNone {
 //    } catch (ClassNotFoundException cnfe) {
 //      // ignored
 //    } catch (Exception e) {
-//
+//      e.printStackTrace();
 //    }
 //  }
 //
@@ -1236,7 +1238,7 @@ public class PSurfaceAWT extends PSurfaceNone {
 //    } catch (ClassNotFoundException cnfe) {
 //      // ignored
 //    } catch (Exception e) {
-//
+//      e.printStackTrace();
 //    }
 //  }
 
@@ -1261,9 +1263,9 @@ public class PSurfaceAWT extends PSurfaceNone {
 
 
   /**
-   * Figure out how to process a mouse event. When loop() has been
-   * called, the events will be queued up until drawing is complete.
-   * If noLoop() has been called, then events will happen immediately.
+   * Figure out how to process a mouse event.When loop() has been
+ called, the events will be queued up until drawing is complete. If noLoop() has been called, then events will happen immediately.
+   * @param nativeEvent
    */
   protected void nativeMouseEvent(java.awt.event.MouseEvent nativeEvent) {
     // the 'amount' is the number of button clicks for a click event,
