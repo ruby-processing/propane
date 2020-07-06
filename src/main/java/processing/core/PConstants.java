@@ -135,7 +135,7 @@ public interface PConstants {
    * useful in combination with the trigonometric functions <b>sin()</b> and
    * <b>cos()</b>.
    *
-   * 
+   * ( end auto-generated )
    * @webref constants
    * @see PConstants#TWO_PI
    * @see PConstants#TAU
@@ -152,7 +152,7 @@ public interface PConstants {
    * circle to its diameter. It is useful in combination with the
    * trigonometric functions <b>sin()</b> and <b>cos()</b>.
    *
-   * 
+   * ( end auto-generated )
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TWO_PI
@@ -169,7 +169,7 @@ public interface PConstants {
    * It is useful in combination with the trigonometric functions
    * <b>sin()</b> and <b>cos()</b>.
    *
-   * 
+   * ( end auto-generated )
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TWO_PI
@@ -185,7 +185,7 @@ public interface PConstants {
    * It is useful in combination with the trigonometric functions
    * <b>sin()</b> and <b>cos()</b>.
    *
-   * 
+   * ( end auto-generated )
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TAU
@@ -201,7 +201,7 @@ public interface PConstants {
    * of a circle to its diameter. It is useful in combination with the
    * trigonometric functions <b>sin()</b> and <b>cos()</b>.
    *
-   * 
+   * ( end auto-generated )
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TWO_PI

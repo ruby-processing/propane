@@ -23,6 +23,8 @@ public class PShapeOBJ extends PShape {
 
   /**
    * Initializes a new OBJ Object with the given filename.
+   * @param parent
+   * @param filename
    */
   public PShapeOBJ(PApplet parent, String filename) {
     this(parent, parent.createReader(filename), getBasePath(parent, filename));

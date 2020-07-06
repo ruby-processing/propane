@@ -33,12 +33,12 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
+import processing.core.PImage;
 
 
 /**
@@ -56,6 +56,7 @@ public abstract class PGL {
   /** The PGraphics and PApplet objects using this interface */
   protected PGraphicsOpenGL graphics;
   protected PApplet sketch;
+  protected RenderCallback renderCallback;
 
   /** OpenGL thread */
   protected Thread glThread;
@@ -96,8 +97,8 @@ public abstract class PGL {
    * shorts as primitive type we have 2^15 = 32768 as the maximum number of
    * vertices that can be referred to within a single VBO.
    */
-  protected static int MAX_VERTEX_INDEX  = 32767;
-  protected static int MAX_VERTEX_INDEX1 = MAX_VERTEX_INDEX + 1;
+  protected static final int MAX_VERTEX_INDEX  = 32767;
+  protected static final int MAX_VERTEX_INDEX1 = MAX_VERTEX_INDEX + 1;
 
   /** Count of tessellated fill, line or point vertices that will
    * trigger a flush in the immediate mode. It doesn't necessarily
@@ -170,9 +171,12 @@ public abstract class PGL {
    * Defines if FBO Layer is allowed in the given environment.
    * Using FBO can cause a fatal error during runtime for
    * Intel HD Graphics 3000 chipsets (commonly used on older MacBooks)
-   * <a href="https://github.com/processing/processing/issues/4104">#4104</a>
+   * <a href="https://github.com/processing/processing/issues/4104">#4104</a>.
+   * Changed to private because needs to be accessed via isFboAllowed().
+   * <a href="https://github.com/processing/processing4/pull/76">#76</a> and
+   * <a href="https://github.com/processing/processing4/issues/50">#50</a>
    */
-  private Optional<Boolean> fboAllowed = Optional.empty();
+  private Boolean fboAllowed = true;
 
   // ........................................................
 
@@ -330,7 +334,7 @@ public abstract class PGL {
   // Constants
 
   /** Size of different types in bytes */
-  protected static int SIZEOF_SHORT = Short.SIZE / 8;
+  protected static final int SIZEOF_SHORT = Short.SIZE / 8;
   protected static int SIZEOF_INT   = Integer.SIZE / 8;
   protected static int SIZEOF_FLOAT = Float.SIZE / 8;
   protected static int SIZEOF_BYTE  = Byte.SIZE / 8;
@@ -398,11 +402,26 @@ public abstract class PGL {
   // Initialization, finalization
 
 
-  public PGL() { }
+  public PGL() {
+    this.renderCallback = () -> {};
+  }
 
 
   public PGL(PGraphicsOpenGL pg) {
     this.graphics = pg;
+    this.renderCallback = () -> {};
+    initGraphics();
+  }
+
+
+  public PGL(PGraphicsOpenGL pg, RenderCallback newCallback) {
+    this.graphics = pg;
+    this.renderCallback = newCallback;
+    initGraphics();
+  }
+
+
+  private void initGraphics() {
     if (glColorTex == null) {
       glColorFbo = allocateIntBuffer(1);
       glColorTex = allocateIntBuffer(2);
@@ -461,6 +480,9 @@ public abstract class PGL {
 
 
   abstract protected void registerListeners();
+
+
+  abstract protected PImage screenshot();
 
 
   protected int getReadFramebuffer()  {
@@ -525,14 +547,14 @@ public abstract class PGL {
   protected boolean getDepthTest() {
     intBuffer.rewind();
     getBooleanv(DEPTH_TEST, intBuffer);
-    return intBuffer.get(0) != 0;
+    return intBuffer.get(0) == 0 ? false : true;
   }
 
 
   protected boolean getDepthWriteMask() {
     intBuffer.rewind();
     getBooleanv(DEPTH_WRITEMASK, intBuffer);
-    return intBuffer.get(0) != 0;
+    return intBuffer.get(0) == 0 ? false : true;
   }
 
 
@@ -809,13 +831,13 @@ public abstract class PGL {
             float ba = ((stopButtonColor >> 24) & 0xFF) / 255f;
             float br = ((stopButtonColor >> 16) & 0xFF) / 255f;
             float bg = ((stopButtonColor >>  8) & 0xFF) / 255f;
-            float bb = ((stopButtonColor >>  0) & 0xFF) / 255f;
+            float bb = ((stopButtonColor) & 0xFF) / 255f;
             for (int i = 0; i < color.length; i++) {
               int c = closeButtonPix[i];
               int a = (int)(ba * ((c >> 24) & 0xFF));
               int r = (int)(br * ((c >> 16) & 0xFF));
               int g = (int)(bg * ((c >>  8) & 0xFF));
-              int b = (int)(bb * ((c >>  0) & 0xFF));
+              int b = (int)(bb * ((c) & 0xFF));
               color[i] = javaToNativeARGB((a << 24) | (r << 16) | (g << 8) | b);
             }
             IntBuffer buf = allocateIntBuffer(color);
@@ -862,7 +884,7 @@ public abstract class PGL {
         saveFirstFrame();
       }
 
-      if (getIsFboAllowed()) {
+      if (isFboAllowed()) {
         if (!clearColor && 0 < sketch.frameCount || !sketch.isLooping()) {
           enableFBOLayer();
           if (SINGLE_BUFFERED) {
@@ -871,6 +893,8 @@ public abstract class PGL {
         }
       }
     }
+
+    renderCallback.onRender();
   }
 
 
@@ -1117,12 +1141,18 @@ public abstract class PGL {
 
       if (0 < stencilBits) {
         int stencilIndex = STENCIL_INDEX1;
-        if (stencilBits == 8) {
-          stencilIndex = STENCIL_INDEX8;
-        } else if (stencilBits == 4) {
-          stencilIndex = STENCIL_INDEX4;
-        } else if (stencilBits == 1) {
-          stencilIndex = STENCIL_INDEX1;
+        switch (stencilBits) {
+          case 8:
+            stencilIndex = STENCIL_INDEX8;
+            break;
+          case 4:
+            stencilIndex = STENCIL_INDEX4;
+            break;
+          case 1:
+            stencilIndex = STENCIL_INDEX1;
+            break;
+          default:
+            break;
         }
 
         IntBuffer stencilBuf = multisample ? glMultiStencil : glStencil;
@@ -1615,6 +1645,8 @@ public abstract class PGL {
   /**
    * Converts input native OpenGL value (RGBA on big endian, ABGR on little
    * endian) to Java ARGB.
+   * @param color
+   * @return 
    */
   protected static int nativeToJavaARGB(int color) {
     if (BIG_ENDIAN) { // RGBA to ARGB
@@ -1791,10 +1823,11 @@ public abstract class PGL {
     }
   }
 
-
   /**
    * Converts input Java ARGB value to native OpenGL format (RGBA on big endian,
    * BGRA on little endian), setting alpha component to opaque (255).
+   * @param color
+   * @return 
    */
   protected static int javaToNativeRGB(int color) {
     if (BIG_ENDIAN) { // ARGB to RGB
@@ -2307,39 +2340,26 @@ public abstract class PGL {
     return intBuffer.get(0);
   }
 
-
-  /**
-   * Determine if the renderer / hardware supports frame buffer objects (FBOs).
-   *
-   * @return True if confirmed that FBOs are supported by the renderer on the current hardware. Will
-   *    be false if the support status has not been confirmed yet (for example, because the graphics
-   *    context has not been itiliazed) or if it is confirmed that the renderer / hardware
-   *    combination do not support FBOs.
-   */
-  protected boolean getIsFboAllowed() {
-
-    // If not yet determined, try to find.
-    if (fboAllowed.isEmpty()) {
-      boolean isNoFboRenderer;
+  
+  public boolean isFboAllowed() {
+    if (fboAllowed == null) {
       if (PApplet.platform == PConstants.MACOS) {
-        String rendererName;
         try {
-          rendererName = getString(PGL.RENDERER);
-          isNoFboRenderer = String.valueOf(rendererName).contains("Intel HD Graphics 3000");
+          String hardware = getString(PGL.RENDERER);
+          if (hardware != null && hardware.contains("Intel HD Graphics 3000")) {
+            fboAllowed = false;
+            return false;
+          }
         } catch (RuntimeException e) {
           System.err.println("Could not read renderer name. FBOs disabled. Reason: " + e);
-          return false; // Try again later.
+          // disable for now, but will try again on next isFboAllowed() call
+          return false;
         }
-      } else {
-        isNoFboRenderer = false;
       }
-
-      // Cache value.
-      fboAllowed = Optional.of(!isNoFboRenderer);
+      // all other scenarios allow for FBOs
+      fboAllowed = true;
     }
-
-    // Return cached value.
-    return fboAllowed.get();
+    return fboAllowed;
   }
 
 
@@ -2723,6 +2743,13 @@ public abstract class PGL {
 
   abstract protected Object getDerivedFont(Object font, float size);
 
+  ///////////////////////////////////////////////////////////
+
+  protected interface RenderCallback {
+
+    void onRender();
+
+  }
 
   ///////////////////////////////////////////////////////////
 

@@ -19,9 +19,8 @@
 */ 
 package japplemenubar;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+
 import processing.core.PApplet;
 
 
@@ -59,6 +58,7 @@ public class JAppleMenuBar {
 	    }
 	  } catch (IOException e) {
 	    sadness("Unknown error, here's the stack trace.");
+	    e.printStackTrace();
 	  }
 	}
 	
