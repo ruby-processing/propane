@@ -1,8 +1,18 @@
-**v2.9.4** Bump for jruby-9.2.5.0.
+**v3.5.0** Rebase processing core code around Sam Pottinhgers latest fixes for JOGL an image save, does mean breaking some of Diwis and Joshua Davis examples, but one hopes codeanticode knows what he's doing.
 
-**v2.9.3** Bump for jruby-9.2.4.1.
+**v3.4.3** Use Map.of to initialize HashMap bump processing version in build bump to jruby-9.2.11.0
 
-**v2.9.2** Bump for jruby-9.2.3.0.
+**v3.4.2** Fix native library bug on windows (thanks to Jay Scott). Add minim library examples
+
+**v3.4.1** Update to jruby-9.2.9.0
+
+**v3.4.0** Experimental refactoring of ThinkDifferent, and some other processing classes
+
+**v3.3.1** Reflection makes refactoring a nightmare DesktopHandler => ThinkDifferent
+
+**v3.3.0** Compile with jdk12\. Changed AppRender to GfxRender (PGraphics instead of PApplet). Attempt fix for macOS icons
+
+**v3.2.0** Now is the time for some serious refactoring for jdk11\. Might even work on MacOS and Windows, ahead of vanilla processing.
 
 **v2.9.1** Attempt to bring 64 bit Windows users to party. Use non versioned jogl/opengl jars from processing distro, including processing.org apple.jar in case it's needed, MacOS users are being very opaque on this.
 
@@ -26,7 +36,7 @@
 
 **v2.6.1** Bump processing version, bump recommended jruby version.
 
-**v2.6.0** Refactored `LibraryLoader` knows less about `Library` class.  The library class _knows_ about paths, and checks that they exist. Currently has ability to load `GLVideo` library, that will eventually become the new video libary (supports gstreamer-1.0 instead of gstreamer-0.1.0 that has already been dropped by some linux distros).
+**v2.6.0** Refactored `LibraryLoader` knows less about `Library` class. The library class _knows_ about paths, and checks that they exist. Currently has ability to load `GLVideo` library, that will eventually become the new video libary (supports gstreamer-1.0 instead of gstreamer-0.1.0 that has already been dropped by some linux distros).
 
 **v2.5.5** Intermediate `refactored_library` loader, can be release if required but still not there as regards refactor goals.
 
@@ -64,13 +74,13 @@
 
 **v2.0.0** Refactored to work with processing-3.0, `--install samples` and/or vanilla processing `sound` and `video` libraries
 
-**v0.9.0** Implements `data_path` in ruby, you should use this method to return the absolute path to the `data` folder (read and write).  Prefer JRubyArt methods, in the main.
+**v0.9.0** Implements `data_path` in ruby, you should use this method to return the absolute path to the `data` folder (read and write). Prefer JRubyArt methods, in the main.
 
 **v0.8.0** Complete samples refactored to `data_path` folder, no longer require jruby-complete to run because we provide an absolute path to `data` folder, but it still probably requires that you run the sketch from the directory. Future direction might be to create a `~/.propane` folder, which would support additionalvanilla processing libraries, also integration with `atom` editor.
 
 **v0.7.0** Update to JRuby-Complete-9.1.2.0.
 
-**v0.6.0** Includes a sketch creator utility 3D still only for linux64 and macosx, any Windows developers are welcome to extend to windows (should be easy), includes slider in sketch library, change to requiring jdk8. Update to JRuby-Complete-9.1.0.0, request updated arcball (to run samples).
+**v0.6.0** Includes a sketch creator utility 3D still only for linux64 and macosx, any Windows developers are welcome to extend to windows (should be easy), includes slider in sketch library, change to requiring jdk8\. Update to JRuby-Complete-9.1.0.0, request updated arcball (to run samples).
 
 **v0.5.0** Includes a sketch creator utility 3D still only for linux64 and macosx, any Windows developers are welcome to extend to windows (should be easy).
 

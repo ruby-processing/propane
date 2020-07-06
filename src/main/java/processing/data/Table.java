@@ -437,7 +437,7 @@ public class Table {
             // Sleep this thread so that the GC can catch up
             Thread.sleep(10);
           } catch (InterruptedException e) {
-            e.printStackTrace();
+      
           }
         }
       }
@@ -835,7 +835,7 @@ public class Table {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+
     }
     return null;
   }
@@ -873,13 +873,13 @@ public class Table {
         }
       }
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+
     } catch (IOException e) {
-      e.printStackTrace();
+
     } catch (ParserConfigurationException e) {
-      e.printStackTrace();
+
     } catch (SAXException e) {
-      e.printStackTrace();
+
     }
   }
 
@@ -1047,9 +1047,9 @@ public class Table {
         outgoing = Array.newInstance(target, getRowCount());
       }
     } catch (NoSuchFieldException e) {
-      e.printStackTrace();
+
     } catch (SecurityException e) {
-      e.printStackTrace();
+
     }
 
 //    Object enclosingObject = sketch;
@@ -1062,17 +1062,17 @@ public class Table {
         con = target.getDeclaredConstructor();  //new Class[] { });
 //        PApplet.println("no enclosing class");
       } else {
-        con = target.getDeclaredConstructor(new Class[] { enclosingClass });
+        con = target.getDeclaredConstructor(enclosingClass);
 //        PApplet.println("enclosed by " + enclosingClass.getName());
       }
-      if (!con.isAccessible()) {
+      if (!con.canAccess(null)) {
 //        System.out.println("setting constructor to public");
         con.setAccessible(true);
       }
     } catch (SecurityException e) {
-      e.printStackTrace();
+
     } catch (NoSuchMethodException e) {
-      e.printStackTrace();
+
     }
 
     Field[] fields = target.getDeclaredFields();
@@ -1080,11 +1080,6 @@ public class Table {
     for (Field field : fields) {
       String name = field.getName();
       if (getColumnIndex(name, false) != -1) {
-//        System.out.println("found field " + name);
-        if (!field.isAccessible()) {
-//          PApplet.println("  changing field access");
-          field.setAccessible(true);
-        }
         inuse.add(field);
       } else {
 //        System.out.println("skipping field " + name);
@@ -1099,12 +1094,23 @@ public class Table {
           //item = target.newInstance();
           item = con.newInstance();
         } else {
-          item = con.newInstance(new Object[] { enclosingObject });
+          item = con.newInstance(enclosingObject);
         }
+
+        // Only needed once
+        if (index == 0) {
+          for (Field field : inuse) {
+            if (!field.canAccess(item)) {
+              // PApplet.println("  changing field access");
+              field.setAccessible(true);
+            }
+          }
+        }
+
         //Object item = defaultCons.newInstance(new Object[] { });
         for (Field field : inuse) {
           String name = field.getName();
-          //PApplet.println("gonna set field " + name);
+          // PApplet.println("gonna set field " + name);
 
           if (field.getType() == String.class) {
             field.set(item, row.getString(name));
@@ -1151,7 +1157,7 @@ public class Table {
 //        list.add(item);
         Array.set(outgoing, index++, item);
       }
-      if (!targetField.isAccessible()) {
+      if (!targetField.canAccess(enclosingObject)) {
 //        PApplet.println("setting target field to public");
         targetField.setAccessible(true);
       }
@@ -1160,13 +1166,13 @@ public class Table {
       targetField.set(enclosingObject, outgoing);
 
     } catch (InstantiationException e) {
-      e.printStackTrace();
+
     } catch (IllegalAccessException e) {
-      e.printStackTrace();
+
     } catch (IllegalArgumentException e) {
-      e.printStackTrace();
+
     } catch (InvocationTargetException e) {
-      e.printStackTrace();
+
     }
   }
 
@@ -1207,7 +1213,7 @@ public class Table {
       try {
         saveODS(output);
       } catch (IOException e) {
-        e.printStackTrace();
+  
         return false;
       }
     } else if (extension.equals("html")) {
@@ -1216,7 +1222,7 @@ public class Table {
       try {
         saveBinary(output);
       } catch (IOException e) {
-        e.printStackTrace();
+  
         return false;
       }
     }
@@ -1503,17 +1509,15 @@ public class Table {
     entry = new ZipEntry("content.xml");
     zos.putNextEntry(entry);
     //lines = new String[] {
-    writeUTF(zos, new String[] {
-      xmlHeader,
-      "<office:document-content" +
-        " xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\"" +
-        " xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\"" +
-        " xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\"" +
-        " office:version=\"1.2\">",
-     "  <office:body>",
-     "    <office:spreadsheet>",
-     "      <table:table table:name=\"Sheet1\" table:print=\"false\">"
-    });
+    writeUTF(zos, xmlHeader,
+            "<office:document-content" +
+              " xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\"" +
+              " xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\"" +
+              " xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\"" +
+              " office:version=\"1.2\">",
+            "  <office:body>",
+            "    <office:spreadsheet>",
+            "      <table:table table:name=\"Sheet1\" table:print=\"false\">");
     //zos.write(PApplet.join(lines, "\n").getBytes());
 
     byte[] rowStart = "        <table:table-row>\n".getBytes();
@@ -1540,12 +1544,10 @@ public class Table {
     }
 
     //lines = new String[] {
-    writeUTF(zos, new String[] {
-      "      </table:table>",
-      "    </office:spreadsheet>",
-      "  </office:body>",
-      "</office:document-content>"
-    });
+    writeUTF(zos, "      </table:table>",
+            "    </office:spreadsheet>",
+            "  </office:body>",
+            "</office:document-content>");
     //zos.write(PApplet.join(lines, "\n").getBytes());
     zos.closeEntry();
 
@@ -1712,19 +1714,19 @@ public class Table {
         columns[column] = new int[rowCount];
         break;
       case LONG:
-        columns[column] = new long[rowCount];;
+        columns[column] = new long[rowCount];
         break;
       case FLOAT:
-        columns[column] = new float[rowCount];;
+        columns[column] = new float[rowCount];
         break;
       case DOUBLE:
-        columns[column] = new double[rowCount];;
+        columns[column] = new double[rowCount];
         break;
       case STRING:
-        columns[column] = new String[rowCount];;
+        columns[column] = new String[rowCount];
         break;
       case CATEGORY:
-        columns[column] = new int[rowCount];;
+        columns[column] = new int[rowCount];
         break;
       default:
         throw new IllegalArgumentException(newType + " is not a valid column type.");
@@ -2298,7 +2300,7 @@ public class Table {
           try {
             Thread.sleep(10);  // gc time!
           } catch (InterruptedException e) {
-            e.printStackTrace();
+      
           }
         }
       }
@@ -3019,7 +3021,7 @@ public class Table {
             try {
               return rs.getMetaData().getColumnCount();
             } catch (SQLException e) {
-              e.printStackTrace();
+        
               return -1;
             }
           }
@@ -3432,7 +3434,7 @@ public class Table {
 //    try {
 //      return excelDateFormat.parse(timestamp).getTime();
 //    } catch (ParseException e) {
-//      e.printStackTrace();
+//
 //      return -1;
 //    }
 //  }
@@ -4776,7 +4778,7 @@ public class Table {
 //        try {
 //          Thread.sleep(5);
 //        } catch (InterruptedException e) {
-//          e.printStackTrace();
+//    
 //        }
       }
     }

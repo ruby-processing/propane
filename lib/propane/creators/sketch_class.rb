@@ -5,7 +5,10 @@ class SketchClass
   attr_reader :name, :width, :height, :mode
 
   def initialize(name:, width: 150, height: 150, mode: nil)
-    @name, @width, @height, @mode = name, width, height, mode
+    @name = name
+    @width = width
+    @height = height
+    @mode = mode
   end
 
   def class_sketch
@@ -26,6 +29,7 @@ class SketchClass
 
   def size
     return format('    size %d, %d', width.to_i, height.to_i) unless mode
+
     format('    size %d, %d, %s', width.to_i, height.to_i, mode.upcase)
   end
 
@@ -36,6 +40,7 @@ class SketchClass
 
   def method_lines(name, content = nil)
     return [format('  def %s', name), '', '  end'] unless content
+
     [format('  def %s', name), content, '  end', '']
   end
 
@@ -43,6 +48,7 @@ class SketchClass
     lines = [
       '#!/usr/bin/env jruby',
       '# frozen_string_literal: false',
+      '',
       "require 'propane'",
       '',
       class_sketch

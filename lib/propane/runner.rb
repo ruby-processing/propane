@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 require 'optparse'
 require_relative 'version'
 
@@ -40,7 +41,7 @@ module Propane
         end
 
         options[:install] = false
-        message = '<Samples><GLVideo><Video><Sound> Install samples or library'
+        message = '<Samples><Video><Sound> Install samples or library'
         opts.on('-i', '--install', message) do
           options[:install] = true
         end
@@ -67,7 +68,15 @@ module Propane
     end
 
     def show_version
+      v_format = "Propane version %s\nJRuby version %s"
+      puts format(v_format, Propane::VERSION, JRUBY_VERSION)
+    end
+
+    def show_version
       require 'erb'
+      require_relative 'helpers/version_error'
+      raise JDKVersionError if ENV_JAVA['java.specification.version'] < '11'
+
       template = ERB.new <<-EOF
         propane version <%= Propane::VERSION %>
         JRuby version <%= JRUBY_VERSION %>
@@ -78,8 +87,13 @@ module Propane
     def install(library)
       choice = library.downcase
       valid = Regexp.union('samples', 'sound', 'video', 'glvideo')
-      return warn format('No installer for %s', choice) unless valid =~ choice
+      unless valid.match?(choice)
+        return warn format('No installer for %<lib>s', lib: choice)
+      end
+
       system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_#{choice}"
     end
-  end # class Runner
-end # module Propane
+  end
+  # class Runner
+end
+# module Propane

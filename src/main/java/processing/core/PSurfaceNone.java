@@ -22,6 +22,9 @@
 
 package processing.core;
 
+import java.io.File;
+
+import processing.awt.ShimAWT;
 
 /**
  * Surface that's not really visible. Used for PDF and friends, or as a base
@@ -41,6 +44,40 @@ public class PSurfaceNone implements PSurface {
 
   public PSurfaceNone(PGraphics graphics) {
     this.graphics = graphics;
+  }
+
+
+  public int displayDensity() {
+    return 1;
+  }
+
+
+  public int displayDensity(int display) {
+    return 1;
+  }
+
+
+  @Override
+  public PImage loadImage(String path, Object... args) {
+    return ShimAWT.loadImage(sketch, path, args);
+  }
+
+
+  @Override
+  public void selectInput(String prompt, String callback, File file,
+                          Object callbackObject) {
+  }
+
+
+  @Override
+  public void selectOutput(String prompt, String callback, File file,
+                           Object callbackObject) {
+  }
+
+
+  @Override
+  public void selectFolder(String prompt, String callback, File file,
+                           Object callbackObject) {
   }
 
 
@@ -64,6 +101,7 @@ public class PSurfaceNone implements PSurface {
   }
 
 
+  @Override
   public Object getNative() {
     return null;
   }
@@ -166,13 +204,26 @@ public class PSurfaceNone implements PSurface {
 //    // TODO Auto-generated method stub
 //  }
 
+  @Override
   public void setCursor(int kind) { }
 
+  @Override
   public void setCursor(PImage image, int hotspotX, int hotspotY) { }
 
+  @Override
   public void showCursor() { }
 
+  @Override
   public void hideCursor() { }
+
+
+  //
+
+
+  @Override
+  public boolean openLink(String url) {
+    return false;
+  }
 
 
   //
@@ -183,6 +234,7 @@ public class PSurfaceNone implements PSurface {
   }
 
 
+  @Override
   public void startThread() {
     if (thread == null) {
       thread = createThread();
@@ -194,6 +246,7 @@ public class PSurfaceNone implements PSurface {
   }
 
 
+  @Override
   public boolean stopThread() {
     if (thread == null) {
       return false;
@@ -203,12 +256,14 @@ public class PSurfaceNone implements PSurface {
   }
 
 
+  @Override
   public boolean isStopped() {
     return thread == null || !thread.isAlive();
   }
 
 
   // sets a flag to pause the thread when ready
+  @Override
   public void pauseThread() {
     PApplet.debug("PApplet.run() paused, calling object wait...");
     paused = true;
@@ -231,6 +286,7 @@ public class PSurfaceNone implements PSurface {
   }
 
 
+  @Override
   public void resumeThread() {
     paused = false;
     synchronized (pauseObject) {
@@ -259,7 +315,7 @@ public class PSurfaceNone implements PSurface {
 
     /**
      * Main method for the primary animation thread.
-     * <A HREF="http://java.sun.com/products/jfc/tsc/articles/painting/">Painting in AWT and Swing</A>
+     * <a href="http://java.sun.com/products/jfc/tsc/articles/painting/">Painting in AWT and Swing</a>
      */
     @Override
     public void run() {  // not good to make this synchronized, locks things up

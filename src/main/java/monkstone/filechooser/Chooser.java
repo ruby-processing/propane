@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-19 Martin Prout
+ * Copyright (c) 2015-20 Martin Prout
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,21 +23,16 @@ import java.io.File;
 
 /**
  * This interface makes it easier/possible to use the reflection methods
- * selectInput
- * def setup
- *   java_signature 'void selectInput(String, String)'
- *   selectInput('Select a file to process:', 'fileSelected')
- * end
+ * selectInput def setup java_signature 'void selectInput(String, String)'
+ * selectInput('Select a file to process:', 'fileSelected') end
  *
- * def file_selected(selection)
- *   if selection.nil?
- *     puts 'Window was closed or the user hit cancel.'
- *   else
- *     puts format('User selected %s', selection.get_absolute_path)
- *   end
- * end
+ * def file_selected(selection) if selection.nil? puts 'Window was closed or the
+ * user hit cancel.' else puts format('User selected %s',
+ * selection.get_absolute_path) end end
+ *
  * @author Martin Prout
  */
+@FunctionalInterface 
 public interface Chooser {
 
     public void file_selected(File selection);

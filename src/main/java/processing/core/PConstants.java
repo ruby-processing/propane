@@ -80,8 +80,12 @@ public interface PConstants {
 
   static final int OTHER   = 0;
   static final int WINDOWS = 1;
-  static final int MACOSX  = 2;
+  static final int MACOS   = 2;
   static final int LINUX   = 3;
+
+  /** @deprecated Marketers gonna market, use {@link #MACOS} */
+  @Deprecated
+  static final int MACOSX  = 2;
 
   static final String[] platformNames = {
     "other", "windows", "macosx", "linux"
@@ -131,7 +135,7 @@ public interface PConstants {
    * useful in combination with the trigonometric functions <b>sin()</b> and
    * <b>cos()</b>.
    *
-   * ( end auto-generated )
+   * 
    * @webref constants
    * @see PConstants#TWO_PI
    * @see PConstants#TAU
@@ -148,7 +152,7 @@ public interface PConstants {
    * circle to its diameter. It is useful in combination with the
    * trigonometric functions <b>sin()</b> and <b>cos()</b>.
    *
-   * ( end auto-generated )
+   * 
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TWO_PI
@@ -165,7 +169,7 @@ public interface PConstants {
    * It is useful in combination with the trigonometric functions
    * <b>sin()</b> and <b>cos()</b>.
    *
-   * ( end auto-generated )
+   * 
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TWO_PI
@@ -181,7 +185,7 @@ public interface PConstants {
    * It is useful in combination with the trigonometric functions
    * <b>sin()</b> and <b>cos()</b>.
    *
-   * ( end auto-generated )
+   * 
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TAU
@@ -197,7 +201,7 @@ public interface PConstants {
    * of a circle to its diameter. It is useful in combination with the
    * trigonometric functions <b>sin()</b> and <b>cos()</b>.
    *
-   * ( end auto-generated )
+   * 
    * @webref constants
    * @see PConstants#PI
    * @see PConstants#TWO_PI
@@ -255,7 +259,7 @@ public interface PConstants {
   // @see processing.core.PImage#blendColor(int,int,int)
 
   public final static int REPLACE    = 0;
-  public final static int BLEND      = 1 << 0;
+  public final static int BLEND      = 1;
   public final static int ADD        = 1 << 1;
   public final static int SUBTRACT   = 1 << 2;
   public final static int LIGHTEST   = 1 << 3;
@@ -392,7 +396,7 @@ public interface PConstants {
   /**
    * textMode(MODEL) is the default, meaning that characters
    * will be affected by transformations like any other shapes.
-   * <p/>
+   * 
    * Changed value in 0093 to not interfere with LEFT, CENTER, and RIGHT.
    */
   static final int MODEL = 4;
@@ -403,7 +407,7 @@ public interface PConstants {
    * not available, then textMode(SHAPE) will be ignored and textMode(MODEL)
    * will be used instead. For this reason, be sure to call textMode()
    * <EM>after</EM> calling textFont().
-   * <p/>
+   * 
    * Currently, textMode(SHAPE) is only supported by OPENGL mode.
    * It also requires Java 1.2 or higher (OPENGL requires 1.4 anyway)
    */
@@ -415,7 +419,7 @@ public interface PConstants {
 
   // stroke modes
 
-  static final int SQUARE   = 1 << 0;  // called 'butt' in the svg spec
+  static final int SQUARE   = 1;  // called 'butt' in the svg spec
   static final int ROUND    = 1 << 1;
   static final int PROJECT  = 1 << 2;  // called 'square' in the svg spec
   static final int MITER    = 1 << 3;

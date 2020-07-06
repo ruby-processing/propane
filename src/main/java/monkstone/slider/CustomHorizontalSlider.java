@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2016-19 Martin Prout
+ * Copyright (c) 2015-20 Martin Prout
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -82,7 +82,7 @@ public class CustomHorizontalSlider extends SliderBar {
             applet.text(String.format(lFormat, (int) vMax), pX + pW, pY - numberSize / 2);
         }
     }
-    
+
     @Override
     void drawGui() {
         if (backgroundVisible) {
@@ -91,7 +91,7 @@ public class CustomHorizontalSlider extends SliderBar {
         }
         applet.fill(sliderFill);
         applet.rect(pX, pY, pScaled, pH);
-    }    
+    }
 
     /**
      *
@@ -151,7 +151,7 @@ public class CustomHorizontalSlider extends SliderBar {
         }
         setValue(pValue + delta);
     }
-    
+
     /**
      *
      * @return

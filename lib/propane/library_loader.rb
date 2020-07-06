@@ -33,10 +33,12 @@ module Propane
 
     def loader(name)
       return true if @loaded_libraries.include?(name)
+
       fname = name.to_s
       library = Library.new(fname)
       library.locate
       return require_library(library, name) if library.ruby?
+
       warn("Not found library: #{fname}") unless library.exist?
       load_jars(library, name)
     end

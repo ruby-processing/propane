@@ -1,0 +1,9 @@
+language: java
+dist: bionic
+
+rvm:
+  - jruby-9.2.11.1
+jdk:
+  - openjdk11
+os:
+  - linux

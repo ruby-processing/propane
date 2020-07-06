@@ -324,7 +324,7 @@ public class LinePath {
 
 
   static public class PathIterator {
-    float floatCoords[];
+    float[] floatCoords;
 
     int typeIdx;
 
@@ -334,7 +334,7 @@ public class LinePath {
 
     LinePath path;
 
-    static final int curvecoords[] = { 2, 2, 0 };
+    static final int[] curvecoords = { 2, 2, 0 };
 
     PathIterator(LinePath p2df) {
       this.path = p2df;
@@ -352,7 +352,7 @@ public class LinePath {
         coords[numCoords + 0] = (color >> 24) & 0xFF;
         coords[numCoords + 1] = (color >> 16) & 0xFF;
         coords[numCoords + 2] = (color >>  8) & 0xFF;
-        coords[numCoords + 3] = (color >>  0) & 0xFF;
+        coords[numCoords + 3] = (color) & 0xFF;
       }
       return type;
     }
@@ -368,7 +368,7 @@ public class LinePath {
         coords[numCoords + 0] = (color >> 24) & 0xFF;
         coords[numCoords + 1] = (color >> 16) & 0xFF;
         coords[numCoords + 2] = (color >>  8) & 0xFF;
-        coords[numCoords + 3] = (color >>  0) & 0xFF;
+        coords[numCoords + 3] = (color) & 0xFF;
       }
       return type;
     }
@@ -470,7 +470,7 @@ public class LinePath {
 
 
   private static void pathTo(PathIterator pi, LineStroker lsink) {
-    float coords[] = new float[6];
+    float[] coords = new float[6];
     while (!pi.isDone()) {
       int color;
       switch (pi.currentSegment(coords)) {

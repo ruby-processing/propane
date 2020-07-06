@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 require 'java'
 require_relative 'test_helper'
 require_relative '../lib/propane'
 
-METHODS = %i(
+METHODS = %i[
   alpha
   ambient
   ambient_light
@@ -182,7 +183,7 @@ METHODS = %i(
   update_pixels
   vertex
   width
-)
+].freeze
 
 class TestSketch < Propane::App
   def settings

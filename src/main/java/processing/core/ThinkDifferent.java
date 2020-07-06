@@ -22,16 +22,13 @@
 
 package processing.core;
 
+import java.awt.Desktop;
 import java.awt.Image;
-
-import com.apple.eawt.AppEvent.QuitEvent;
-import com.apple.eawt.Application;
-import com.apple.eawt.QuitHandler;
-import com.apple.eawt.QuitResponse;
+import java.awt.Taskbar;
 
 
 /**
- * Deal with issues related to thinking differently.
+ * Deal with issues related to macOS application behavior.
  *
  * We have to register a quit handler to safely shut down the sketch,
  * otherwise OS X will just kill the sketch when a user hits Cmd-Q.
@@ -42,9 +39,8 @@ import com.apple.eawt.QuitResponse;
  * <a href="https://github.com/processing/processing/issues/3301">3301</a>.
  */
 public class ThinkDifferent {
-
-  // http://developer.apple.com/documentation/Java/Reference/1.4.2/appledoc/api/com/apple/eawt/Application.html
-  private static Application application;
+  static private Desktop desktop;
+  static private Taskbar taskbar;
 
   // True if user has tried to quit once. Prevents us from canceling the quit
   // call if the sketch is held up for some reason, like an exception that's
@@ -52,45 +48,68 @@ public class ThinkDifferent {
   static boolean attemptedQuit;
 
 
+  /**
+   * Initialize the sketch with the quit handler.
+   *
+   * Initialize the sketch with the quit handler such that, if there is no known
+   * crash, the application will not exit on its own if this is the first quit
+   * attempt.
+   *
+   * @param sketch The sketch whose quit handler callback should be set.
+   */
   static public void init(final PApplet sketch) {
-    if (application == null) {
-      application = Application.getApplication();
-    }
+    getDesktop().setQuitHandler((event, quitResponse) -> {
+      sketch.exit();
 
-    application.setQuitHandler(new QuitHandler() {
-      public void handleQuitRequestWith(QuitEvent event, QuitResponse response) {
-        sketch.exit();
-        if (PApplet.uncaughtThrowable == null &&  // no known crash
-            !attemptedQuit) {  // haven't tried yet
-          response.cancelQuit();  // tell OS X we'll handle this
-          attemptedQuit = true;
-        } else {
-          response.performQuit();  // just force it this time
-        }
+      boolean noKnownCrash = PApplet.uncaughtThrowable == null;
+
+      if (noKnownCrash && !attemptedQuit) {  // haven't tried yet
+        quitResponse.cancelQuit();  // tell OS X we'll handle this
+        attemptedQuit = true;
+      } else {
+        quitResponse.performQuit();  // just force it this time
       }
     });
   }
 
+
+  /**
+   * Remove the quit handler.
+   */
   static public void cleanup() {
-    if (application == null) {
-      application = Application.getApplication();
-    }
-    application.setQuitHandler(null);
+    getDesktop().setQuitHandler(null);
   }
 
-  // Called via reflection from PSurfaceAWT and others
+
+  /**
+   * Called via reflection from PSurfaceAWT and others, set the dock icon image.
+   * @param image The image to provide for Processing icon.
+   */
   static public void setIconImage(Image image) {
-    // When already set, is a sun.awt.image.MultiResolutionCachedImage on OS X
-//    Image current = application.getDockIconImage();
-//    System.out.println("current dock icon image is " + current);
-//    System.out.println("changing to " + image);
-
-    application.setDockIconImage(image);
+    getTaskbar().setIconImage(image);
   }
 
 
-  // Instead, just use Application.getApplication() inside your app
-//  static public Application getApplication() {
-//    return application;
-//  }
+  /**
+   * Get the taskbar where OS visual settings can be provided.
+   * @return Cached taskbar singleton instance.
+   */
+  static private Taskbar getTaskbar() {
+    if (taskbar == null) {
+      taskbar = Taskbar.getTaskbar();
+    }
+    return taskbar;
+  }
+
+
+  /**
+   * Get the desktop where OS behavior can be provided.
+   * @return Cached desktop singleton instance.
+   */
+  static private Desktop getDesktop() {
+    if (desktop == null) {
+      desktop = Desktop.getDesktop();
+    }
+    return desktop;
+  }
 }

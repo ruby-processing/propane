@@ -93,6 +93,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   /**
    * Returns a copy of this PMatrix.
    */
+  @Override
   public PMatrix3D get() {
     PMatrix3D outgoing = new PMatrix3D();
     outgoing.set(this);
@@ -227,6 +228,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void rotateY(float angle) {
     float c = cos(angle);
     float s = sin(angle);
@@ -234,6 +236,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void rotateZ(float angle) {
     float c = cos(angle);
     float s = sin(angle);
@@ -241,6 +244,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void rotate(float angle, float v0, float v1, float v2) {
     float norm2 = v0 * v0 + v1 * v1 + v2 * v2;
     if (norm2 < PConstants.EPSILON) {
@@ -635,6 +639,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
    * map more than one point to the same image point, and so are irreversible.
    * @return true if successful
    */
+  @Override
   public boolean invert() {
     float determinant = determinant();
     if (determinant == 0) {
@@ -706,6 +711,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   /**
    * @return the determinant of the matrix
    */
+  @Override
   public float determinant() {
     float f =
       m00
