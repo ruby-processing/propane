@@ -541,7 +541,7 @@ public class PGraphicsJava2D extends PGraphics {
 //        try {
 //          ImageIO.write(image, "jpg", new java.io.File("/Users/fry/Desktop/buff.jpg"));
 //        } catch (IOException e) {
-//    
+//          e.printStackTrace();
 //        }
 //      }
 //        }
@@ -994,10 +994,9 @@ public class PGraphicsJava2D extends PGraphics {
   // BLEND
 
   /**
+   * ( begin auto-generated from blendMode.xml )
    *
-   * This is a new reference entry for Processing 2.0.It will be updated shortly.
-   *
-   * 
+   * This is a new reference entry for Processing 2.0.It will be updated shortly. ( end auto-generated )
    *
    * @webref Rendering
    */
@@ -1565,15 +1564,6 @@ public class PGraphicsJava2D extends PGraphics {
 
   /**
    * Handle renderer-specific image drawing.
-   * @param who
-   * @param x1
-   * @param y1
-   * @param x2
-   * @param y2
-   * @param u1
-   * @param v1
-   * @param u2
-   * @param v2
    */
   @Override
   protected void imageImpl(PImage who,
@@ -3042,8 +3032,9 @@ public class PGraphicsJava2D extends PGraphics {
   // SAVE
 
 
-//  public void save(String filename) {
-//    loadPixels();
-//    super.save(filename);
-//  }
+  @Override
+  public boolean save(String filename) {
+    PImageAWT outImage = new PImageAWT(image);
+    return outImage.save(filename);
+  }
 }

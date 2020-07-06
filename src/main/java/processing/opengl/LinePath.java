@@ -219,6 +219,7 @@ public class LinePath {
    *          the specified X coordinate
    * @param y
    *          the specified Y coordinate
+   * @param c
    * @see LinePath#moveTo
    */
   public final void moveTo(float x, float y, int c) {
@@ -247,6 +248,7 @@ public class LinePath {
    *          the specified X coordinate
    * @param y
    *          the specified Y coordinate
+   * @param c
    * @see LinePath#lineTo
    */
   public final void lineTo(float x, float y, int c) {
@@ -263,6 +265,7 @@ public class LinePath {
    * the {@code LinePath} class does not guarantee that modifications to the
    * geometry of this {@code LinePath} object do not affect any iterations of that
    * geometry that are already in process.
+   * @return 
    */
   public PathIterator getPathIterator() {
     return new PathIterator(this);
@@ -421,6 +424,7 @@ public class LinePath {
    *          the decoration applied where path segments meet
    * @param miterlimit
    * @param transform
+   * @return 
    *
    */
   static public LinePath createStrokedPath(LinePath src, float weight,

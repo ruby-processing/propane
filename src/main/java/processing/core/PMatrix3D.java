@@ -93,7 +93,6 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   /**
    * Returns a copy of this PMatrix.
    */
-  @Override
   public PMatrix3D get() {
     PMatrix3D outgoing = new PMatrix3D();
     outgoing.set(this);
@@ -150,6 +149,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void set(float[] source) {
     if (source.length == 6) {
       set(source[0], source[1], source[2],
@@ -179,6 +179,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void set(float m00, float m01, float m02,
                   float m10, float m11, float m12) {
     set(m00, m01, 0, m02,
@@ -188,6 +189,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void set(float m00, float m01, float m02, float m03,
                   float m10, float m11, float m12, float m13,
                   float m20, float m21, float m22, float m23,
@@ -199,6 +201,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void translate(float tx, float ty) {
     translate(tx, ty, 0);
   }
@@ -208,6 +211,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
 //  }
 
 
+  @Override
   public void translate(float tx, float ty, float tz) {
     m03 += tx*m00 + ty*m01 + tz*m02;
     m13 += tx*m10 + ty*m11 + tz*m12;
@@ -216,11 +220,13 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   }
 
 
+  @Override
   public void rotate(float angle) {
     rotateZ(angle);
   }
 
 
+  @Override
   public void rotateX(float angle) {
     float c = cos(angle);
     float s = sin(angle);
@@ -623,6 +629,7 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   /**
    * Transpose this matrix; rows become columns and columns rows.
    */
+  @Override
   public void transpose() {
     float temp;
     temp = m01; m01 = m10; m10 = temp;
@@ -865,19 +872,19 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
   //////////////////////////////////////////////////////////////
 
 
-  static private final float max(float a, float b) {
+  private static float max(float a, float b) {
     return (a > b) ? a : b;
   }
 
-  static private final float abs(float a) {
+  private static float abs(float a) {
     return (a < 0) ? -a : a;
   }
 
-  static private final float sin(float angle) {
+  private static float sin(float angle) {
     return (float) Math.sin(angle);
   }
 
-  static private final float cos(float angle) {
+  private static float cos(float angle) {
     return (float) Math.cos(angle);
   }
 }

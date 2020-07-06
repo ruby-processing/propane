@@ -107,7 +107,8 @@ public class PSurfaceNone implements PSurface {
   }
 
 
-  /** Set the window (and dock, or whatever necessary) title. */
+  /** Set the window (and dock, or whatever necessary) title.
+   * @param title */
   @Override
   public void setTitle(String title) {
     // You're in a utopian PSurface implementation where titles don't exist.
@@ -120,14 +121,16 @@ public class PSurfaceNone implements PSurface {
   }
 
 
-  /** Show or hide the window. */
+  /** Show or hide the window.
+   * @param visible */
   @Override
   public void setVisible(boolean visible) {
     // I'm always invisible. You can't catch me.
   }
 
 
-  /** Set true if we want to resize things (default is not resizable) */
+  /** Set true if we want to resize things (default is not resizable)
+   * @param resizable */
   @Override
   public void setResizable(boolean resizable) {
     // I don't need size to know my worth.
@@ -295,6 +298,7 @@ public class PSurfaceNone implements PSurface {
   }
 
 
+  @Override
   public void setFrameRate(float fps) {
     frameRateTarget = fps;
     frameRatePeriod = (long) (1000000000.0 / frameRateTarget);
@@ -315,7 +319,7 @@ public class PSurfaceNone implements PSurface {
 
     /**
      * Main method for the primary animation thread.
-     * <a href="http://java.sun.com/products/jfc/tsc/articles/painting/">Painting in AWT and Swing</a>
+     * <A HREF="http://java.sun.com/products/jfc/tsc/articles/painting/">Painting in AWT and Swing</A>
      */
     @Override
     public void run() {  // not good to make this synchronized, locks things up

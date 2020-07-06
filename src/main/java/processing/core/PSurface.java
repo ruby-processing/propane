@@ -71,12 +71,13 @@ public interface PSurface {
   //
 
   /**
-   * Get the native window object associated with this drawing surface.
-   * For Java2D, this will be an AWT Frame object. For OpenGL, the window.
-   * The data returned here is subject to the whims of the renderer,
-   * and using this method means you're willing to deal with underlying
-   * implementation changes and that you won't throw a fit like a toddler
-   * if your code breaks sometime in the future.
+   * Get the native window object associated with this drawing surface.For Java2D, this will be an AWT Frame object.
+   * For OpenGL, the window.
+ The data returned here is subject to the whims of the renderer,
+ and using this method means you're willing to deal with underlying
+ implementation changes and that you won't throw a fit like a toddler
+ if your code breaks sometime in the future.
+   * @return 
    */
   public Object getNative();
 
@@ -86,16 +87,20 @@ public interface PSurface {
   // Silly, but prevents a lot of rewrite and extra methods for little benefit.
   // However, maybe prevents us from having to document the 'frame' variable?
 
-  /** Set the window (and dock, or whatever necessary) title. */
+  /** Set the window (and dock, or whatever necessary) title.
+   * @param title */
   public void setTitle(String title);
 
-  /** Show or hide the window. */
+  /** Show or hide the window.
+   * @param visible */
   public void setVisible(boolean visible);
 
-  /** Set true if we want to resize things (default is not resizable) */
+  /** Set true if we want to resize things (default is not resizable)
+   * @param resizable */
   public void setResizable(boolean resizable);
 
-  /** Dumb name, but inherited from Frame and no better ideas. */
+  /** Dumb name, but inherited from Frame and no better ideas.
+   * @param always */
   public void setAlwaysOnTop(boolean always);
 
   public void setIcon(PImage icon);

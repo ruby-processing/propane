@@ -24,24 +24,12 @@
 
 package processing.core;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.PathIterator;
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.awt.image.*;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -198,7 +186,7 @@ public class PFont implements PConstants {
    * <b>createFont()</b> function for dynamically converting fonts into a
    * format to use with Processing.
    *
-   * 
+   * ( end auto-generated )
    *
    * @nowebref
    * @param font font the font object to create from
@@ -890,7 +878,7 @@ public class PFont implements PConstants {
    * fonts. This function is meant as a tool for programming local
    * applications and is not recommended for use in applets.
    *
-   * 
+   * ( end auto-generated )
    *
    * @webref pfont
    * @usage application

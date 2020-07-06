@@ -258,9 +258,7 @@ public class FrameBuffer implements PConstants {
                                  "buffers.");
     }
 
-    for (int i = 0; i < numColorBuffers; i++) {
-      colorBufferTex[i] = textures[i];
-    }
+    System.arraycopy(textures, 0, colorBufferTex, 0, numColorBuffers);
 
     pg.pushFramebuffer();
     pg.setFramebuffer(this);
@@ -327,7 +325,7 @@ public class FrameBuffer implements PConstants {
   // Allocate/release framebuffer.
 
 
-  protected void allocate() {
+  protected final void allocate() {
     dispose(); // Just in the case this object is being re-allocated.
 
     context = pgl.getCurrentContext();

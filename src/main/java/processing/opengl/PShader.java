@@ -376,7 +376,6 @@ public class PShader implements PConstants {
 
   /**
    * Returns true if the shader is bound, false otherwise.
-   * @return 
    */
   public boolean bound() {
     return bound;
@@ -678,21 +677,14 @@ public class PShader implements PConstants {
                                   int length) {
     if (-1 < loc) {
       updateIntBuffer(vec);
-      switch (ncoords) {
-        case 1:
-          pgl.uniform1iv(loc, length, intBuffer);
-          break;
-        case 2:
-          pgl.uniform2iv(loc, length, intBuffer);
-          break;
-        case 3:
-          pgl.uniform3iv(loc, length, intBuffer);
-          break;
-        case 4:
-          pgl.uniform3iv(loc, length, intBuffer);
-          break;
-        default:
-          break;
+      if (ncoords == 1) {
+        pgl.uniform1iv(loc, length, intBuffer);
+      } else if (ncoords == 2) {
+        pgl.uniform2iv(loc, length, intBuffer);
+      } else if (ncoords == 3) {
+        pgl.uniform3iv(loc, length, intBuffer);
+      } else if (ncoords == 4) {
+        pgl.uniform3iv(loc, length, intBuffer);
       }
     }
   }
@@ -702,21 +694,14 @@ public class PShader implements PConstants {
                                   int length) {
     if (-1 < loc) {
       updateFloatBuffer(vec);
-      switch (ncoords) {
-        case 1:
-          pgl.uniform1fv(loc, length, floatBuffer);
-          break;
-        case 2:
-          pgl.uniform2fv(loc, length, floatBuffer);
-          break;
-        case 3:
-          pgl.uniform3fv(loc, length, floatBuffer);
-          break;
-        case 4:
-          pgl.uniform4fv(loc, length, floatBuffer);
-          break;
-        default:
-          break;
+      if (ncoords == 1) {
+        pgl.uniform1fv(loc, length, floatBuffer);
+      } else if (ncoords == 2) {
+        pgl.uniform2fv(loc, length, floatBuffer);
+      } else if (ncoords == 3) {
+        pgl.uniform3fv(loc, length, floatBuffer);
+      } else if (ncoords == 4) {
+        pgl.uniform4fv(loc, length, floatBuffer);
       }
     }
   }
@@ -725,18 +710,12 @@ public class PShader implements PConstants {
   protected void setUniformMatrix(int loc, float[] mat) {
     if (-1 < loc) {
       updateFloatBuffer(mat);
-      switch (mat.length) {
-        case 4:
-          pgl.uniformMatrix2fv(loc, 1, false, floatBuffer);
-          break;
-        case 9:
-          pgl.uniformMatrix3fv(loc, 1, false, floatBuffer);
-          break;
-        case 16:
-          pgl.uniformMatrix4fv(loc, 1, false, floatBuffer);
-          break;
-        default:
-          break;
+      if (mat.length == 4) {
+        pgl.uniformMatrix2fv(loc, 1, false, floatBuffer);
+      } else if (mat.length == 9) {
+        pgl.uniformMatrix3fv(loc, 1, false, floatBuffer);
+      } else if (mat.length == 16) {
+        pgl.uniformMatrix4fv(loc, 1, false, floatBuffer);
       }
     }
   }
@@ -850,7 +829,7 @@ public class PShader implements PConstants {
           if (textures == null) textures = new HashMap<>();
           textures.put(loc, tex);
 
-          if (texUnits == null) texUnits = new HashMap<>();
+          if (texUnits == null) texUnits = new HashMap<Integer, Integer>();
           if (texUnits.containsKey(loc)) {
             unit = texUnits.get(loc);
             pgl.uniform1i(loc, unit);
@@ -878,7 +857,7 @@ public class PShader implements PConstants {
 
   protected void bindTextures() {
     if (textures != null && texUnits != null) {
-      textures.keySet().forEach((loc) -> {
+      for (int loc: textures.keySet()) {
         Texture tex = textures.get(loc);
         Integer unit = texUnits.get(loc);
         if (unit != null) {
@@ -887,7 +866,7 @@ public class PShader implements PConstants {
         } else {
           throw new RuntimeException("Cannot find unit for texture " + tex);
         }
-      });
+      }
     }
   }
 
@@ -997,7 +976,7 @@ public class PShader implements PConstants {
     pgl.compileShader(glVertex);
 
     pgl.getShaderiv(glVertex, PGL.COMPILE_STATUS, intBuffer);
-    boolean compiled = intBuffer.get(0) != 0;
+    boolean compiled = intBuffer.get(0) == 0 ? false : true;
     if (!compiled) {
       PGraphics.showException("Cannot compile vertex shader:\n" +
                               pgl.getShaderInfoLog(glVertex));

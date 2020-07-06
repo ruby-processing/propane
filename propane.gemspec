@@ -27,7 +27,7 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/jogl-all-natives-windows-amd64.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.add_development_dependency 'minitest', '~> 5.11'
+  gem.add_development_dependency 'minitest', '~> 5.14'
   gem.add_development_dependency 'rake', '~> 12.3'
   gem.add_runtime_dependency 'arcball', '~> 1.0', '>= 1.0.0'
   gem.require_paths = ['lib']
