@@ -8,7 +8,7 @@ WARNING = <<-WGET
 WGET
 SOUND = 'sound.zip'
 PROCESSING_GITHUB = 'https://github.com/processing'
-PROPANE_GITHUB = 'https://github.com/ruby-processing'
+PROPANE_EXAMPLES = 'https://github.com/ruby-processing/propane-examples'
 VIDEO = 'video.zip'
 DOWNLOAD = 'releases/download/latest'
 EXAMPLES = '2.9'
@@ -25,7 +25,7 @@ task download_and_copy_samples: %i[download_examples copy_examples]
 
 task :download_examples
 file_name = MAC_OR_LINUX.nil? ? "#{EXAMPLES}.zip" : "#{EXAMPLES}.tar.gz"
-wget_base = 'wget https://github.com/ruby-processing/propane-examples'
+wget_base = ['wget', PROPANE_EXAMPLES].join(' ')
 wget_string = [wget_base, 'archive', file_name].join('/')
 file file_name do
   begin

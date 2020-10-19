@@ -55,6 +55,8 @@ module Propane
         # assumed to have this option.
         opts.on('-h', '--help', 'Display this screen') do
           puts opts
+          puts ''
+          puts 'Run a sketch: jruby [--dev] [<sketch.rb>]'
           exit
         end
       end
