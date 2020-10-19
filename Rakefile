@@ -22,7 +22,7 @@ end
 
 desc 'Gem'
 task :gem do
-  sh 'gem build propane.gemspec'
+  sh 'jgem build propane.gemspec'
 end
 
 desc 'Document'
