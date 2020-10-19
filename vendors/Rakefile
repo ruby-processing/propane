@@ -15,7 +15,7 @@ EXAMPLES = '2.9'
 HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/.match?(RbConfig::CONFIG['host_os'])
 
-CLOBBER.include(EXAMPLES, SOUND, GLVIDEO, VIDEO)
+CLOBBER.include(EXAMPLES, SOUND, VIDEO)
 
 desc 'download, and copy propane examples'
 task default: [:download_and_copy_samples]
@@ -44,7 +44,7 @@ task download_and_copy_video: %i[init_dir download_video copy_video clobber]
 desc 'download sound library'
 task :download_sound do
   wget_base = ['wget', PROCESSING_GITHUB].join(' ')
-  wget_string = [wget_base, SOUND].join('/')
+  wget_string = [wget_base, 'processing-sound', DOWNLOAD, SOUND].join('/')
   begin
     sh wget_string
   rescue StandardError
@@ -55,7 +55,7 @@ end
 desc 'download video library'
 task :download_video do
   wget_base = ['wget', PROCESSING_GITHUB].join(' ')
-  wget_string = [wget_base, VIDEO].join('/')
+  wget_string = [wget_base, 'processing-video', DOWNLOAD, VIDEO].join('/')
   begin
     sh wget_string
   rescue StandardError
