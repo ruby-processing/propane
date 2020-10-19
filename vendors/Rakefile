@@ -7,10 +7,10 @@ WARNING = <<-WGET
    the correct version of propane-examples (see EXAMPLES vendors directory)
 WGET
 SOUND = 'sound.zip'
-SOUND_VERSION = 'v1.3.2' # version 1.3.2
-GLVIDEO = 'processing-glvideo.zip'
-VIDEO = 'video-2.0-beta4.zip'
-VIDEO_VERSION = 'r6-v2.0-beta4'
+PROCESSING_GITHUB = 'https://github.com/processing'
+PROPANE_GITHUB = 'https://github.com/ruby-processing'
+VIDEO = 'video.zip'
+DOWNLOAD = 'releases/download/latest'
 EXAMPLES = '2.9'
 HOME_DIR = ENV['HOME']
 MAC_OR_LINUX = /linux|mac|darwin/.match?(RbConfig::CONFIG['host_os'])
@@ -43,8 +43,8 @@ task download_and_copy_video: %i[init_dir download_video copy_video clobber]
 
 desc 'download sound library'
 task :download_sound do
-  wget_base = 'wget https://github.com/processing/processing-sound'
-  wget_string = [wget_base, 'releases/download', SOUND_VERSION, SOUND].join('/')
+  wget_base = ['wget', PROCESSING_GITHUB].join(' ')
+  wget_string = [wget_base, SOUND].join('/')
   begin
     sh wget_string
   rescue StandardError
@@ -54,8 +54,8 @@ end
 
 desc 'download video library'
 task :download_video do
-  wget_base = 'wget https://github.com/processing/processing-video'
-  wget_string = [wget_base, 'releases/download', VIDEO_VERSION, VIDEO].join('/')
+  wget_base = ['wget', PROCESSING_GITHUB].join(' ')
+  wget_string = [wget_base, VIDEO].join('/')
   begin
     sh wget_string
   rescue StandardError
