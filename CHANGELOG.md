@@ -1,4 +1,4 @@
-**v3.6.0** Recommend JRuby-9.2.13.0, update to video-2.0 release, add run instruction to help.
+**v3.6.0** Recommend JRuby-9.2.14.0 use video-2.0 release
 
 **v3.5.0** Rebase processing core code around Sam Pottingers latest fixes for JOGL an image save, does mean breaking some of Diwis and Joshua Davis examples, but one hopes codeanticode knows what he's doing.
 

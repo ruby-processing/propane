@@ -8,4 +8,5 @@ end
 Dir["#{PROPANE_ROOT}/lib/*.jar"].sort.each do |jar|
   require jar
 end
-require_relative 'propane/app'
+require "#{PROPANE_ROOT}/lib/propane/app"
+require "#{PROPANE_ROOT}/lib/propane/helpers/numeric"
