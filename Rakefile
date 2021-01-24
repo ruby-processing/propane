@@ -8,7 +8,7 @@ task default: %i[init compile install test gem]
 desc 'Copy Jars'
 task :init do
   jogl24 = File.join(ENV['HOME'], 'jogl24')
-  opengl = Dir.entries(jogl24).grep(/amd64|universal/).select { |jar| jar =~ /linux|windows|macosx/ }
+  opengl = Dir.entries(jogl24).grep(/amd64|universal|arm64/).select { |jar| jar =~ /linux|windows|macosx|ios|/ }
   opengl.concat %w[jogl-all.jar gluegen-rt.jar]
   opengl.each do |gl|
     FileUtils.cp(File.join(jogl24, gl), File.join('.', 'lib'))

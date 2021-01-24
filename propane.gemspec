@@ -21,9 +21,11 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/jogl-all.jar'
   gem.files << 'lib/gluegen-rt-natives-linux-amd64.jar'
   gem.files << 'lib/gluegen-rt-natives-macosx-universal.jar'
+  gem.files << 'lib/gluegen-rt-natives-ios-arm64.jar'
   gem.files << 'lib/gluegen-rt-natives-windows-amd64.jar'
   gem.files << 'lib/jogl-all-natives-linux-amd64.jar'
-  gem.files << 'lib/jogl-all-natives-macosx-universal.jar'
+  gem.files << 'lib/gluegen-rt-natives-macosx-universal.jar'
+  gem.files << 'lib/jogl-all-natives-ios-arm64.jar'
   gem.files << 'lib/jogl-all-natives-windows-amd64.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
@@ -33,5 +35,5 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'arcball', '~> 1.0', '>= 1.0.2'
   gem.require_paths = ['lib']
   gem.platform      = 'java'
-  gem.requirements << 'java runtime >= 11.0.2+'
+  gem.requirements << 'java runtime >= 11.0.7+'
 end
