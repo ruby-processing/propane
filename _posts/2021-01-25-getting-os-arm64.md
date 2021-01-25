@@ -22,7 +22,7 @@ Although there are some drawbacks to using the Ruby version Processing (slower s
 
 #### Native Support ####
 
-It is quite possible that P2D and P3D sketches won't run in Rosetta emulation of Intel on Mac Silica. But it will there is no need for to follow instructions here.
+It is quite possible that P2D and P3D sketches won't run in Rosetta emulation of Intel on Mac Silica. But it works OK there is no to follow instructions here.
 
 #### Java ####
 
