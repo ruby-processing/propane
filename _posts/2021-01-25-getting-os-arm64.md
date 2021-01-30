@@ -22,7 +22,7 @@ Although there are some drawbacks to using the Ruby version Processing (slower s
 
 #### Native Support ####
 
-It is quite possible that P2D and P3D sketches won't run in Rosetta emulation of Intel on Mac Silica. But it works OK there is no to follow instructions here.
+It is quite possible that P2D and P3D sketches won't run in Rosetta emulation of Intel on Mac Silica. But if it works OK there is no to follow instructions here. However there are known issues with [vanilla-processing][forum].
 
 #### Java ####
 
@@ -116,3 +116,4 @@ Read more about using the [processing api here][api]
 [video]:https://monkstone.github.io/_posts/create_video
 [casey]:https://github.com/processing/processing/wiki/FAQ
 [wget]:http://gnuwin32.sourceforge.net/packages/wget.htm
+[forum]:https://discourse.processing.org/t/problems-with-p2d-and-p3d-renderers-with-new-apple-m1-processor/27287
