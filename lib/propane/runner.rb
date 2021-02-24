@@ -70,30 +70,28 @@ module Propane
     end
 
     def show_version
-      v_format = "Propane version %s\nJRuby version %s"
-      puts format(v_format, Propane::VERSION, JRUBY_VERSION)
-    end
-
-    def show_version
       require 'erb'
       require_relative 'helpers/version_error'
       raise JDKVersionError if ENV_JAVA['java.specification.version'] < '11'
 
-      template = ERB.new <<-EOF
+      template = ERB.new <<-VERSION
         propane version <%= Propane::VERSION %>
         JRuby version <%= JRUBY_VERSION %>
-      EOF
+      VERSION
       puts template.result(binding)
     end
 
     def install(library)
+      library ||= 'new'
       choice = library.downcase
-      valid = Regexp.union('samples', 'sound', 'video', 'glvideo')
-      unless valid.match?(choice)
-        return warn format('No installer for %<lib>s', lib: choice)
+      case choice
+      when /samples|sound|video/
+        system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_#{choice}"
+      when /new/
+        system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_samples"
+      else
+        warn format('No installer for %<lib>s', lib: choice)
       end
-
-      system "cd #{PROPANE_ROOT}/vendors && rake download_and_copy_#{choice}"
     end
   end
   # class Runner
