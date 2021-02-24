@@ -2,7 +2,7 @@
 
 project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane:3.6.0'
+  id 'propane:propane:3.7.1'
   packaging 'jar'
 
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
@@ -65,7 +65,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                     'manifestEntries' => {
                       'Automatic-Module-Name' => 'processing.core'
                     }
-                    })                    
+                    })
                   end
                   build do
                     resource do
