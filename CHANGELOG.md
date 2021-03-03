@@ -1,3 +1,5 @@
+**v3.8.0** Refactor noise to delegate pattern, improve default implementation and add simplex noise option
+
 **v3.7.1** Recommend JRuby-9.2.15.0 use
 
 **v3.5.0** Rebase processing core code around Sam Pottingers latest fixes for JOGL an image save, does mean breaking some of Diwis and Joshua Davis examples, but one hopes codeanticode knows what he's doing.
