@@ -46,7 +46,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'jogl.version' => '2.3.2', # for compiling actual included 2.4.0-rc
       'jruby.api' => 'http://jruby.org/apidocs/')
 
-    pom 'org.jruby:jruby:9.2.15.0'
+    pom 'org.jruby:jruby:9.2.16.0'
       jar 'org.processing:video:3.3.7' # only for compiling
       jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'

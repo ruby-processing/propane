@@ -121,7 +121,7 @@ public class PApplet implements PConstants {
      */
     static public boolean useNativeSelect = true;
     
-    Noise noiseGenerator = new NoiseGenerator(new ValueNoise());
+    Noise noiseGenerator = new NoiseGenerator();
 
     /**
      * The PGraphics renderer associated with this PApplet
@@ -4911,11 +4911,15 @@ public class PApplet implements PConstants {
         }
         internalRandom.setSeed(seed);
     }
+    
+    public void simplexNoise(boolean simplex){
+        Noise implement = (simplex) ? new SimplexNoise() : new ValueNoise();
+        noiseGenerator = new NoiseGenerator(implement);
+    }
 
     /**
      */
     public float noise(float x) {
-        // is this legit? it's a dumb way to do it (but repair it later)
         return noiseGenerator.noise(x);
     }
 
