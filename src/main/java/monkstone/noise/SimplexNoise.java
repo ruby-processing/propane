@@ -274,7 +274,17 @@ public class SimplexNoise implements Noise{  // Simplex noise in 2D, 3D and 4D
     }
 
     // 4D simplex noise, better simplex rank ordering method 2012-03-09
-    public static float noise(float x, float y, float z, float w) {
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @param w
+     * @return
+     */
+    @Override
+    public float noise(float x, float y, float z, float w) {
 
         float n0, n1, n2, n3, n4; // Noise contributions from the five corners
         // Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in

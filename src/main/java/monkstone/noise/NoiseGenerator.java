@@ -26,6 +26,11 @@ public class NoiseGenerator implements Noise{
     public float noise(float x, float y, float z) {
         return implementation.noise(x, y, z);
     }
+    
+        @Override
+    public float noise(float x, float y, float z, float w) {
+        return implementation.noise(x, y, z, w);
+    }
 
     @Override
     public void noiseDetail(int lod) {

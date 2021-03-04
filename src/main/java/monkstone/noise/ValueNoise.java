@@ -131,6 +131,8 @@ public class ValueNoise implements Noise {
         }
         return r;
     }
+    
+
 
     @Override
     public void noiseDetail(int lod) {
@@ -156,5 +158,11 @@ public class ValueNoise implements Noise {
         }
         perlinRandom.setSeed(seed);
         perlin = null;
+    }
+
+    @Override
+    public float noise(float x, float y, float z, float w) {
+        String message = "Use Simplex Noise for 4D noise";
+        throw new UnsupportedOperationException(message); 
     }
 }
