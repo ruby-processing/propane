@@ -443,6 +443,11 @@ public class SimplexNoise implements Noise{  // Simplex noise in 2D, 3D and 4D
                 
     }
 
+    @Override
+    public void noiseMode(NoiseMode mode) {
+        
+    }
+
     // Inner class to speed upp gradient computations
     // (In Java, array access is a lot slower than member access)
     private static class Grad {

@@ -39,7 +39,7 @@ import java.util.zip.*;
 
 // loadXML() error handling
 import javax.xml.parsers.ParserConfigurationException;
-import monkstone.fastmath.DegLutTables;
+import monkstone.noise.NoiseMode;
 import monkstone.noise.Noise;
 import org.xml.sax.SAXException;
 
@@ -4912,9 +4912,8 @@ public class PApplet implements PConstants {
         internalRandom.setSeed(seed);
     }
     
-    public void simplexNoise(boolean simplex){
-        Noise implement = (simplex) ? new SimplexNoise() : new ValueNoise();
-        noiseGenerator = new NoiseGenerator(implement);
+    public void noiseMode(NoiseMode mode){
+        noiseGenerator.noiseMode(mode);
     }
 
     /**
@@ -4932,12 +4931,13 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from noise.xml )
      *
-     * Returns the Perlin noise value at specified coordinates.Perlin noise is
- a random sequence generator producing a more natural ordered, harmonic
- succession of numbers compared to the standard <b>random()</b> function. It was invented by Ken Perlin in the 1980s and been used since in
- graphical applications to produce procedural textures, natural motion,
- shapes, terrains etc. The main difference to the
- <b>random()</b> function is that Perlin noise is defined in an infinite
+     * Returns the Perlin noise value at specified coordinates. Perlin noise is
+     * a random sequence generator producing a more natural ordered, harmonic
+     * succession of numbers compared to the standard <b>random()</b> function.
+     * It was invented by Ken Perlin in the 1980s and been used since in
+     * graphical applications to produce procedural textures, natural motion,
+     * shapes, terrains etc. The main difference to the
+     * <b>random()</b> function is that Perlin noise is defined in an infinite
      * n-dimensional space where each pair of coordinates corresponds to a fixed
      * semi-random value (fixed only for the lifespan of the program). The
      * resulting value will always be between 0.0 and 1.0. Processing can
@@ -4958,7 +4958,6 @@ public class PApplet implements PConstants {
      *
      * ( end auto-generated )
      *
-     * @return 
      * @webref math:random
      * @param x x-coordinate in noise space
      * @param y y-coordinate in noise space
@@ -4971,17 +4970,6 @@ public class PApplet implements PConstants {
         return noiseGenerator.noise(x, y, z);
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @param w
-     * @return
-     */
-    public float noise(float x, float y, float z, float w) {
-        return noiseGenerator.noise(x, y, z, w);
-    }
 
 
     // [toxi 040903]

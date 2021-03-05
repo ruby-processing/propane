@@ -16,6 +16,9 @@ module Propane
     java_import 'monkstone.vecmath.ShapeRender'
   end
 
+  PROCESSING = Java::MonkstoneNoise::NoiseMode::PERLIN
+  SIMPLEX = Java::MonkstoneNoise::NoiseMode::SIMPLEX
+
   # This class is the base class the user should inherit from when making
   # their own sketch.
   #

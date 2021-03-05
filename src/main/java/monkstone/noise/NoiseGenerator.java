@@ -9,26 +9,39 @@ package monkstone.noise;
  *
  * @author Martin Prout
  */
-public class NoiseGenerator implements Noise{
-    
-    private final Noise implementation;
-    
-    public NoiseGenerator(){
+public class NoiseGenerator implements Noise {
+
+    private Noise implementation;
+    private NoiseMode mode;
+
+    public NoiseGenerator() {
         this.implementation = new ValueNoise();
-           
+        this.mode = NoiseMode.PERLIN;
     }
-    
-    public NoiseGenerator(Noise implementation){
-        this.implementation = implementation;
-       }
-    
+
+    public void noiseMode(NoiseMode mode) {
+        if (this.mode != mode && this.mode != NoiseMode.PERLIN) {
+            this.implementation = new ValueNoise();
+            this.mode = NoiseMode.PERLIN;
+        }
+        if (this.mode != mode && this.mode != NoiseMode.SIMPLEX) {
+            this.implementation = new SimplexNoise();
+            this.mode = NoiseMode.SIMPLEX;
+        }
+    }
+
+    public NoiseMode noiseMode(){
+        return this.mode;
+    }
+
     @Override
     public float noise(float x, float y, float z) {
         return implementation.noise(x, y, z);
     }
-    
-        @Override
+
+    @Override
     public float noise(float x, float y, float z, float w) {
+      if (mode == NoiseMode.PERLIN) { return 0.5f;}
         return implementation.noise(x, y, z, w);
     }
 
@@ -46,5 +59,5 @@ public class NoiseGenerator implements Noise{
     public void noiseSeed(long seed) {
         implementation.noiseSeed(seed);
     }
-    
+
 }
