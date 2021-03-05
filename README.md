@@ -8,12 +8,10 @@ adjust above for your OS/distro setup.
 
 ## Requirements
 
-There may be a linker issue with P2D or P3D sketches with stock openjdk with some linux distros, in which case you might find [Adopt open jdk binaries][adopt] will work for you.
+Previously there has been linker issue with P2D or P3D sketches with stock openjdk with some linux distros, but that seems to have gone away. [Adopt open jdk binaries][adopt] have always worked.
 
 - `jdk-11.0.7+`
-- `jruby-9.2.14.0`
-
-Currently you can ignore `illegal reflective access` warnings, see [here how to suppress them][warning].
+- `jruby-9.2.16.0`
 
 ## Building and testing
 
@@ -27,10 +25,10 @@ rake javadoc
 
 ```bash
 jgem install propane # from rubygems
-jgem install propane-3.6.0-java.gem # local install
+jgem install propane-3.8.0-java.gem # local install
 # Alternative
 jruby -S gem install propane # from rubygems
-jruby -S gem install propane-3.6.0-java.gem # local install
+jruby -S gem install propane-3.8.0-java.gem # local install
 ```
 
 ## Check Install
@@ -39,11 +37,6 @@ To check version and confirm gem bin files are on your path (also checks JDK ver
 ```bash
 propane --version
 ```
-
-## Suppressing Reflective Access warnings
-
-Since propane-3.5.0 it is possible to suppress reflective access warnings by setting JAVA_HOME environmental variable jruby does the rest.
-
 ## Usage
 
 A propane sketch:-
@@ -100,7 +93,7 @@ See [gh-pages][gh-pages] for more detailed instructions and much more.
 ```bash
 propane --install samples
 ```
- please move existing `propane_samples` if you wish to keep them. The current release features several PixelFlow glsl library examples, including a few shadertoy demos as sketches.
+ please move existing `propane_samples` if you wish to keep them. The current release features some noise sketches that exploit the new choice of noise implementation.
 
 [adopt]: https://adoptopenjdk.net/
 [building]:http://ruby-processing.github.io/building/building/

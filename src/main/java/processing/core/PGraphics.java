@@ -626,8 +626,8 @@ public class PGraphics extends PImage implements PConstants {
     sinLUT = new float[SINCOS_LENGTH];
     cosLUT = new float[SINCOS_LENGTH];
     for (int i = 0; i < SINCOS_LENGTH; i++) {
-      sinLUT[i] = (float) Math.sin(i * DEG_TO_RAD * SINCOS_PRECISION);
-      cosLUT[i] = (float) Math.cos(i * DEG_TO_RAD * SINCOS_PRECISION);
+      sinLUT[i] = (float) Math.sin(Math.toRadians(i * SINCOS_PRECISION));
+      cosLUT[i] = (float) Math.cos(Math.toRadians(i * SINCOS_PRECISION));
     }
   }
 
