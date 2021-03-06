@@ -120,7 +120,7 @@ public class PApplet implements PConstants {
      * For 3.3.5, this defaults to true on all platforms.
      */
     static public boolean useNativeSelect = true;
-    
+
     Noise noiseGenerator = new NoiseGenerator();
 
     /**
@@ -4911,7 +4911,7 @@ public class PApplet implements PConstants {
         }
         internalRandom.setSeed(seed);
     }
-    
+
     public void noiseMode(NoiseMode mode){
         noiseGenerator.noiseMode(mode);
     }
@@ -4970,6 +4970,9 @@ public class PApplet implements PConstants {
         return noiseGenerator.noise(x, y, z);
     }
 
+    public float noise(float x, float y, float z, float w) {
+        return noiseGenerator.noise(x, y, z, w);
+    }
 
 
     // [toxi 040903]
@@ -5029,7 +5032,7 @@ public class PApplet implements PConstants {
      * @see PApplet#random(float,float)
      * @see PApplet#randomSeed(long)
      */
-    
+
     public void noiseSeed(long seed) {
         noiseGenerator.noiseSeed(seed);
     }
