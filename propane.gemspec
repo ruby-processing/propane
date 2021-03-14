@@ -27,6 +27,7 @@ Gem::Specification.new do |gem|
   gem.files << 'lib/jogl-all-natives-macosx-universal.jar'
 #  gem.files << 'lib/jogl-all-natives-ios-arm64.jar'
   gem.files << 'lib/jogl-all-natives-windows-amd64.jar'
+  gem.files << 'lib/itextpdf-5.5.13.2.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.add_development_dependency 'jruby-openssl', '~> 0.1.0', '>=0.1.3'

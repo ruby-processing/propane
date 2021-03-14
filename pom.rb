@@ -44,18 +44,32 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'polyglot.dump.pom' => 'pom.xml',
       'project.build.sourceEncoding' => 'utf-8',
       'jogl.version' => '2.3.2', # for compiling actual included 2.4.0-rc
+      'itextpdf.version' => '5.5.13.2',
       'jruby.api' => 'http://jruby.org/apidocs/')
 
-    pom 'org.jruby:jruby:9.2.16.0'
+      pom 'org.jruby:jruby:9.2.16.0'
       jar 'org.processing:video:3.3.7' # only for compiling
       jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
+      jar 'com.itextpdf:itextpdf:${itextpdf.version}'
 
       overrides do
         plugin('org.codehaus.mojo:versions-maven-plugin:2.7',
           'generateBackupPoms' => 'false')
           plugin(:compiler, '3.8.1',
             'release' => '11')
+            plugin :dependency, '3.1.2' do
+              execute_goals( id: 'default-cli',
+                artifactItems:[
+                  { groupId: 'com.itextpdf',
+                    artifactId: 'itextpdf',
+                    version: '${itextpdf.version}',
+                    type: 'jar',
+                    outputDirectory: '${propane.basedir}/lib'
+                  }
+                ]
+              )
+            end
             plugin(:javadoc, '3.2.0',
               'detectOfflineLinks' => 'false',
               'links' => ['${jruby.api}',
