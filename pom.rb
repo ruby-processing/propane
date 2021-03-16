@@ -67,7 +67,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                     artifactId: 'itextpdf',
                     version: '${itextpdf.version}',
                     type: 'jar',
-                    outputDirectory: '${propane.basedir}/lib'
+                    outputDirectory: '${propane.basedir}/library/pdf'
                   },
                   { groupId: 'org.apache.xmlgraphics',
                     artifactId: 'batik-all',

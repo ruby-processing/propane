@@ -1,3 +1,5 @@
+**v3.9.0** Make OpenSimplex2 noise default noise, implement pdf and svg export libraries.
+
 **v3.8.0** Refactor noise to delegate pattern, improve default implementation and add simplex noise option
 
 **v3.7.1** Recommend JRuby-9.2.15.0 use
