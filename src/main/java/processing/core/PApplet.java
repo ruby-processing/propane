@@ -50,8 +50,6 @@ import processing.data.*;
 import processing.event.*;
 import processing.opengl.*;
 import monkstone.noise.NoiseGenerator;
-import monkstone.noise.SimplexNoise;
-import monkstone.noise.ValueNoise;
 
 /**
  * Base class for all sketches that use processing.core.
@@ -6786,7 +6784,6 @@ public class PApplet implements PConstants {
             return new BufferedOutputStream(output);
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -6863,12 +6860,13 @@ public class PApplet implements PConstants {
                     System.err.println("Could not rename temporary file " + tempFile);
                 }
             }
-            e.printStackTrace();
             return false;
         }
     }
 
     /**
+     * @param target
+     * @param source
      * @nowebref
      */
     static public void saveStream(OutputStream target,
@@ -6978,11 +6976,12 @@ public class PApplet implements PConstants {
                     System.err.println("Could not delete temporary file " + tempFile);
                 }
             }
-            e.printStackTrace();
         }
     }
 
     /**
+     * @param output
+     * @param data
      * @nowebref Spews a buffer of bytes to an OutputStream.
      */
     static public void saveBytes(OutputStream output, byte[] data) {
@@ -6991,7 +6990,6 @@ public class PApplet implements PConstants {
             output.flush();
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -7036,15 +7034,17 @@ public class PApplet implements PConstants {
     }
 
     /**
+     * @param output
+     * @param data
      * @nowebref
      */
     static public void saveStrings(OutputStream output, String[] data) {
-        PrintWriter writer = createWriter(output);
-        for (int i = 0; i < data.length; i++) {
-            writer.println(data[i]);
+        try (PrintWriter writer = createWriter(output)) {
+            for (String data1 : data) {
+                writer.println(data1);
+            }
+            writer.flush();
         }
-        writer.flush();
-        writer.close();
     }
 
     //////////////////////////////////////////////////////////////
@@ -7424,45 +7424,19 @@ public class PApplet implements PConstants {
         System.arraycopy(src, 0, dst, 0, Array.getLength(src));
     }
 
-    /**
-     * Use arrayCopy() instead.
-     */
-    @Deprecated
-    static public void arraycopy(Object src, int srcPosition,
-            Object dst, int dstPosition,
-            int length) {
-        System.arraycopy(src, srcPosition, dst, dstPosition, length);
-    }
-
-    /**
-     * Use arrayCopy() instead.
-     */
-    @Deprecated
-    static public void arraycopy(Object src, Object dst, int length) {
-        System.arraycopy(src, 0, dst, 0, length);
-    }
-
-    /**
-     * Use arrayCopy() instead.
-     */
-    @Deprecated
-    static public void arraycopy(Object src, Object dst) {
-        System.arraycopy(src, 0, dst, 0, Array.getLength(src));
-    }
 
     /**
      * ( begin auto-generated from expand.xml )
      *
-     * Increases the size of an array. By default, this function doubles the
-     * size of the array, but the optional <b>newSize</b> parameter provides
-     * precise control over the increase in size.
-     *
-     * When using an array of objects, the data returned from the function must
-     * be cast to the object array's data type. For example: <em>SomeClass[]
+     * Increases the size of an array.By default, this function doubles the
+ size of the array, but the optional <b>newSize</b> parameter provides
+ precise control over the increase in size. When using an array of objects, the data returned from the function must
+ be cast to the object array's data type. For example: <em>SomeClass[]
      * items = (SomeClass[]) expand(originalArray)</em>.
      *
      * ( end auto-generated )
      *
+     * @return 
      * @webref data:array_functions
      * @param list the array to expand
      * @see PApplet#shorten(boolean[])
@@ -7472,7 +7446,9 @@ public class PApplet implements PConstants {
     }
 
     /**
+     * @param list
      * @param newSize new size for the array
+     * @return 
      */
     static public boolean[] expand(boolean[] list, int newSize) {
         boolean[] temp = new boolean[newSize];

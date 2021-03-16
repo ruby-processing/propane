@@ -30,9 +30,11 @@ import java.awt.Color;
 
 // Used for the 'image' object that's been here forever
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.HashMap;
@@ -1984,35 +1986,32 @@ public class PGraphics extends PImage implements PConstants {
    * @param d height of the rectangle, by default
    */
   public void clip(float a, float b, float c, float d) {
-    if (imageMode == CORNER) {
-      if (c < 0) {  // reset a negative width
-        a += c; c = -c;
+      switch (imageMode) {
+          case CORNER:
+              if (c < 0) {  // reset a negative width
+                  a += c; c = -c;
+              }       if (d < 0) {  // reset a negative height
+                  b += d; d = -d;
+              }       clipImpl(a, b, a + c, b + d);
+              break;
+          case CORNERS:
+              if (c < a) {  // reverse because x2 < x1
+                  float temp = a; a = c; c = temp;
+              }       if (d < b) {  // reverse because y2 < y1
+                  float temp = b; b = d; d = temp;
+              }       clipImpl(a, b, c, d);
+              break;
+          case CENTER:
+              // c and d are width/height
+              if (c < 0) c = -c;
+              if (d < 0) d = -d;
+              float x1 = a - c/2;
+              float y1 = b - d/2;
+              clipImpl(x1, y1, x1 + c, y1 + d);
+              break;
+          default:
+              break;
       }
-      if (d < 0) {  // reset a negative height
-        b += d; d = -d;
-      }
-
-      clipImpl(a, b, a + c, b + d);
-
-    } else if (imageMode == CORNERS) {
-      if (c < a) {  // reverse because x2 < x1
-        float temp = a; a = c; c = temp;
-      }
-      if (d < b) {  // reverse because y2 < y1
-        float temp = b; b = d; d = temp;
-      }
-
-      clipImpl(a, b, c, d);
-
-    } else if (imageMode == CENTER) {
-      // c and d are width/height
-      if (c < 0) c = -c;
-      if (d < 0) d = -d;
-      float x1 = a - c/2;
-      float y1 = b - d/2;
-
-      clipImpl(x1, y1, x1 + c, y1 + d);
-    }
   }
 
 
@@ -2811,20 +2810,24 @@ public class PGraphics extends PImage implements PConstants {
     float w = c;
     float h = d;
 
-    if (ellipseMode == CORNERS) {
-      w = c - a;
-      h = d - b;
-
-    } else if (ellipseMode == RADIUS) {
-      x = a - c;
-      y = b - d;
-      w = c * 2;
-      h = d * 2;
-
-    } else if (ellipseMode == DIAMETER) {
-      x = a - c/2f;
-      y = b - d/2f;
-    }
+      switch (ellipseMode) {
+          case CORNERS:
+              w = c - a;
+              h = d - b;
+              break;
+          case RADIUS:
+              x = a - c;
+              y = b - d;
+              w = c * 2;
+              h = d * 2;
+              break;
+          case DIAMETER:
+              x = a - c/2f;
+              y = b - d/2f;
+              break;
+          default:
+              break;
+      }
 
     if (w < 0) {  // undo negative width
       x += w;
@@ -2881,20 +2884,24 @@ public class PGraphics extends PImage implements PConstants {
     float w = c;
     float h = d;
 
-    if (ellipseMode == CORNERS) {
-      w = c - a;
-      h = d - b;
-
-    } else if (ellipseMode == RADIUS) {
-      x = a - c;
-      y = b - d;
-      w = c * 2;
-      h = d * 2;
-
-    } else if (ellipseMode == CENTER) {
-      x = a - c/2f;
-      y = b - d/2f;
-    }
+      switch (ellipseMode) {
+          case CORNERS:
+              w = c - a;
+              h = d - b;
+              break;
+          case RADIUS:
+              x = a - c;
+              y = b - d;
+              w = c * 2;
+              h = d * 2;
+              break;
+          case CENTER:
+              x = a - c/2f;
+              y = b - d/2f;
+              break;
+          default:
+              break;
+      }
 
     // make sure the loop will exit before starting while
     if (!Float.isInfinite(start) && !Float.isInfinite(stop)) {
@@ -3854,41 +3861,38 @@ public class PGraphics extends PImage implements PConstants {
     // loadImageAsync() sets width and height to -1 when loading fails.
     if (img.width == -1 || img.height == -1) return;
 
-    if (imageMode == CORNER) {
-      if (c < 0) {  // reset a negative width
-        a += c; c = -c;
+      switch (imageMode) {
+          case CORNER:
+              if (c < 0) {  // reset a negative width
+                  a += c; c = -c;
+              }       if (d < 0) {  // reset a negative height
+                  b += d; d = -d;
+              }       imageImpl(img,
+                      a, b, a + c, b + d,
+                      u1, v1, u2, v2);
+              break;
+          case CORNERS:
+              if (c < a) {  // reverse because x2 < x1
+                  float temp = a; a = c; c = temp;
+              }       if (d < b) {  // reverse because y2 < y1
+                  float temp = b; b = d; d = temp;
+              }       imageImpl(img,
+                      a, b, c, d,
+                      u1, v1, u2, v2);
+              break;
+          case CENTER:
+              // c and d are width/height
+              if (c < 0) c = -c;
+              if (d < 0) d = -d;
+              float x1 = a - c/2;
+              float y1 = b - d/2;
+              imageImpl(img,
+                      x1, y1, x1 + c, y1 + d,
+                      u1, v1, u2, v2);
+              break;
+          default:
+              break;
       }
-      if (d < 0) {  // reset a negative height
-        b += d; d = -d;
-      }
-
-      imageImpl(img,
-                a, b, a + c, b + d,
-                u1, v1, u2, v2);
-
-    } else if (imageMode == CORNERS) {
-      if (c < a) {  // reverse because x2 < x1
-        float temp = a; a = c; c = temp;
-      }
-      if (d < b) {  // reverse because y2 < y1
-        float temp = b; b = d; d = temp;
-      }
-
-      imageImpl(img,
-                a, b, c, d,
-                u1, v1, u2, v2);
-
-    } else if (imageMode == CENTER) {
-      // c and d are width/height
-      if (c < 0) c = -c;
-      if (d < 0) d = -d;
-      float x1 = a - c/2;
-      float y1 = b - d/2;
-
-      imageImpl(img,
-                x1, y1, x1 + c, y1 + d,
-                u1, v1, u2, v2);
-    }
   }
 
 
@@ -4062,6 +4066,7 @@ public class PGraphics extends PImage implements PConstants {
 
 
   /**
+     * @param shape
    * @param a x-coordinate of the shape
    * @param b y-coordinate of the shape
    * @param c width to display the shape
@@ -4073,23 +4078,26 @@ public class PGraphics extends PImage implements PConstants {
 
       pushMatrix();
 
-      if (shapeMode == CENTER) {
-        // x and y are center, c and d refer to a diameter
-        translate(a - c/2f, b - d/2f);
-        scale(c / shape.getWidth(), d / shape.getHeight());
-
-      } else if (shapeMode == CORNER) {
-        translate(a, b);
-        scale(c / shape.getWidth(), d / shape.getHeight());
-
-      } else if (shapeMode == CORNERS) {
-        // c and d are x2/y2, make them into width/height
-        c -= a;
-        d -= b;
-        // then same as above
-        translate(a, b);
-        scale(c / shape.getWidth(), d / shape.getHeight());
-      }
+        switch (shapeMode) {
+            case CENTER:
+                // x and y are center, c and d refer to a diameter
+                translate(a - c/2f, b - d/2f);
+                scale(c / shape.getWidth(), d / shape.getHeight());
+                break;
+            case CORNER:
+                translate(a, b);
+                scale(c / shape.getWidth(), d / shape.getHeight());
+                break;
+            case CORNERS:
+                // c and d are x2/y2, make them into width/height
+                c -= a; d -= b;
+                // then same as above
+                translate(a, b);
+                scale(c / shape.getWidth(), d / shape.getHeight());
+                break;
+            default:
+                break;
+        }
       shape.draw(this);
 
       popMatrix();
@@ -4141,9 +4149,8 @@ public class PGraphics extends PImage implements PConstants {
       }
       return createFont(baseFont, size, smooth, charset, stream != null);
 
-    } catch (Exception e) {
+    } catch (FontFormatException | IOException e) {
       System.err.println("Problem with createFont(\"" + name + "\")");
-      e.printStackTrace();
       return null;
     }
   }

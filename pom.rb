@@ -2,7 +2,7 @@
 
 project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane:3.8.0'
+  id 'propane:propane:3.9.0'
   packaging 'jar'
 
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
@@ -44,14 +44,16 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'polyglot.dump.pom' => 'pom.xml',
       'project.build.sourceEncoding' => 'utf-8',
       'jogl.version' => '2.3.2', # for compiling actual included 2.4.0-rc
+      'batik.version' => '1.14',
       'itextpdf.version' => '5.5.13.2',
       'jruby.api' => 'http://jruby.org/apidocs/')
 
       pom 'org.jruby:jruby:9.2.16.0'
+      jar 'org.apache.xmlgraphics:batik-all:${batik.version}'
+      jar 'com.itextpdf:itextpdf:${itextpdf.version}'
       jar 'org.processing:video:3.3.7' # only for compiling
       jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
-      jar 'com.itextpdf:itextpdf:${itextpdf.version}'
 
       overrides do
         plugin('org.codehaus.mojo:versions-maven-plugin:2.7',
@@ -66,6 +68,12 @@ project 'propane', 'https://github.com/monkstone/propane' do
                     version: '${itextpdf.version}',
                     type: 'jar',
                     outputDirectory: '${propane.basedir}/lib'
+                  },
+                  { groupId: 'org.apache.xmlgraphics',
+                    artifactId: 'batik-all',
+                    version: '${batik.version}',
+                    type: 'jar',
+                    outputDirectory: '${propane.basedir}/library/svg'
                   }
                 ]
               )
