@@ -159,12 +159,39 @@ public class PGraphicsPDF extends PGraphicsJava2D {
         vertexCount = 0;
         pushMatrix();
     }
+    
+    /** endDraw() needs to be overridden so that the endDraw() from
+     * PGraphicsJava2D is not inherited (it calls loadPixels).
+     * http://dev.processing.org/bugs/show_bug.cgi?id=1169
+     */ 
+    @Override
+    public void endDraw() {
+     // Also need to pop the matrix since the matrix doesn't reset on each run
+     // http://dev.processing.org/bugs/show_bug.cgi?id=1227
+       popMatrix();    
+  }
+    
+  /**
+   * Call to explicitly go to the next page from within a single draw().
+   */
+  public void nextPage() {
+    PStyle savedStyle = getStyle();
+    endDraw();
+    g2.dispose();
+
+    try {
+//    writer.setPageEmpty(false);  // maybe useful later
+      document.newPage();  // is this bad if no addl pages are made?
+    } catch (Exception e) {
+    }
+    g2 = new PdfGraphics2D(content, width, height);
+    beginDraw();
+    style(savedStyle);
+  }
 
     static protected DefaultFontMapper getMapper() {
         if (mapper == null) {
-//      long t = System.currentTimeMillis();
             mapper = new DefaultFontMapper();
-
             switch (PApplet.platform) {
                 case PConstants.MACOS:
                 try {

@@ -259,13 +259,13 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from pixelWidth.xml )
      *
-     * When <b>pixelDensity(2)</d> is used to make use of a high resolution
+     * When <b>pixelDensity(2)</b> is used to make use of a high resolution
      * display (called a Retina display on OS X or high-dpi on Windows and
      * Linux), the width and height of the sketch do not change, but the number
      * of pixels is doubled. As a result, all operations that use pixels (like
      * <b>loadPixels()</b>, <b>get()</b>, <b>set()</b>, etc.) happen in this
      * doubled space. As a convenience, the variables <b>pixelWidth</b>
-     * and <b>pixelHeight<b> hold the actual width and height of the sketch in
+     * and <b>pixelHeight</b> hold the actual width and height of the sketch in
      * pixels. This is useful for any sketch that uses the <b>pixels[]</b>
      * array, for instance, because the number of elements in the array will be
      * <b>pixelWidth*pixelHeight</b>, not <b>width*height</b>.
@@ -282,13 +282,13 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from pixelHeight.xml )
      *
-     * When <b>pixelDensity(2)</d> is used to make use of a high resolution
+     * When <b>pixelDensity(2)</b> is used to make use of a high resolution
      * display (called a Retina display on OS X or high-dpi on Windows and
      * Linux), the width and height of the sketch do not change, but the number
      * of pixels is doubled. As a result, all operations that use pixels (like
      * <b>loadPixels()</b>, <b>get()</b>, <b>set()</b>, etc.) happen in this
      * doubled space. As a convenience, the variables <b>pixelWidth</b>
-     * and <b>pixelHeight<b> hold the actual width and height of the sketch in
+     * and <b>pixelHeight</b> hold the actual width and height of the sketch in
      * pixels. This is useful for any sketch that uses the <b>pixels[]</b>
      * array, for instance, because the number of elements in the array will be
      * <b>pixelWidth*pixelHeight</b>, not <b>width*height</b>.
@@ -370,8 +370,8 @@ public class PApplet implements PConstants {
      * <b>draw()</b>). But, inside mouse events, they update each time the event
      * is called. If they weren't separated, then the mouse would be read only
      * once per frame, making response choppy. If the mouse variables were
-     * always updated multiple times per frame, using <NOBR><b>line(pmouseX,
-     * pmouseY, mouseX, mouseY)</b></NOBR> inside <b>draw()</b> would have lots
+     * always updated multiple times per frame, using <b>line(pmouseX,
+     * pmouseY, mouseX, mouseY)</b> inside <b>draw()</b> would have lots
      * of gaps, because <b>pmouseX</b> may have changed several times in between
      * the calls to <b>line()</b>. Use <b>pmouseX</b> and
      * <b>pmouseY</b> inside <b>draw()</b> if you want values relative to the
@@ -967,11 +967,10 @@ public class PApplet implements PConstants {
      *
      * This function returns the number "2" if the screen is a high-density
      * screen (called a Retina display on OS X or high-dpi on Windows and Linux)
-     * and a "1" if not. This information is useful for a program to adapt to
-     * run at double the pixel density on a screen that supports it.
+     * and a "1" if not.This information is useful for a program to adapt to
+ run at double the pixel density on a screen that supports it. ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref environment
      * @see PApplet#pixelDensity(int)
      * @see PApplet#size(int,int)
@@ -1001,6 +1000,7 @@ public class PApplet implements PConstants {
     /**
      * @param display the display number to check (1-indexed to match the
      * Preferences dialog box)
+     * @return 
      */
     public int displayDensity(int display) {
         if (!disableAWT) {
@@ -1055,6 +1055,8 @@ public class PApplet implements PConstants {
     /**
      * Called by PSurface objects to set the width and height variables, and
      * update the pixelWidth and pixelHeight variables.
+     * @param width
+     * @param height
      */
     public void setSize(int width, int height) {
         this.width = width;
@@ -1320,7 +1322,7 @@ public class PApplet implements PConstants {
      * <li>resume – called when the sketch is resumed
      * <li>dispose – when the sketch is shutting down (definitely not safe to
      * draw)
-     * <ul>
+     * </ul>
      * In addition, the new (for 2.0) processing.event classes are passed to the
      * following event types:
      * <ul>
@@ -1681,6 +1683,7 @@ public class PApplet implements PConstants {
     }
 
     /**
+     * @param renderer
      * @param display the screen to run the sketch on (1, 2, 3, etc. or on
      * multiple screens using SPAN)
      */
@@ -1800,6 +1803,10 @@ public class PApplet implements PConstants {
     }
 
     /**
+     * @param width
+     * @param height
+     * @param renderer
+     * @param path
      * @nowebref
      */
     public void size(int width, int height, String renderer, String path) {
@@ -1891,9 +1898,9 @@ public class PApplet implements PConstants {
      * ( begin auto-generated from createGraphics.xml )
      *
      * Creates and returns a new <b>PGraphics</b> object of the types P2D or
-     * P3D. Use this class if you need to draw into an off-screen graphics
-     * buffer. The PDF renderer requires the filename parameter. The DXF
-     * renderer should not be used with <b>createGraphics()</b>, it's only built
+     * P3D.Use this class if you need to draw into an off-screen graphics
+ buffer. The PDF renderer requires the filename parameter. The DXF
+ renderer should not be used with <b>createGraphics()</b>, it's only built
      * for use with <b>beginRaw()</b> and <b>endRaw()</b>.
      *
      * It's important to call any drawing functions between <b>beginDraw()</b>
@@ -1955,6 +1962,7 @@ public class PApplet implements PConstants {
      * <A HREF="http://dev.processing.org/reference/core/javadoc/processing/core/PImage.html#save(java.lang.String)">PImage.save()</A>.
      * </UL>
      *
+     * @return 
      * @webref rendering
      * @param w width in pixels
      * @param h height in pixels
@@ -1970,7 +1978,11 @@ public class PApplet implements PConstants {
      * Create an offscreen graphics surface for drawing, in this case for a
      * renderer that writes to a file (such as PDF or DXF).
      *
+     * @param w
      * @param path the name of the file (can be an absolute or relative path)
+     * @param renderer
+     * @param h
+     * @return 
      */
     public PGraphics createGraphics(int w, int h,
             String renderer, String path) {
@@ -1993,8 +2005,13 @@ public class PApplet implements PConstants {
     /**
      * Version of createGraphics() used internally.
      *
+     * @param w
+     * @param h
+     * @param renderer
      * @param path A path (or null if none), can be absolute or relative
      * ({@link PApplet#savePath} will be called)
+     * @param primary
+     * @return 
      */
     protected PGraphics makeGraphics(int w, int h,
             String renderer, String path,
@@ -2039,7 +2056,7 @@ public class PApplet implements PConstants {
         } catch (InvocationTargetException ite) {
             String msg = ite.getTargetException().getMessage();
             if ((msg != null)
-                    && (msg.indexOf("no jogl in java.library.path") != -1)) {
+                    && (msg.contains("no jogl in java.library.path"))) {
                 // Is this true anymore, since the JARs contain the native libs?
                 throw new RuntimeException("The jogl library folder needs to be "
                         + "specified with -Djava.library.path=/path/to/jogl");
@@ -2931,16 +2948,15 @@ public class PApplet implements PConstants {
      * ( begin auto-generated from millis.xml )
      *
      * Returns the number of milliseconds (thousandths of a second) since
-     * starting an applet. This information is often used for timing animation
-     * sequences.
-     *
-     * ( end auto-generated )
-     *
-     * <h3>Advanced</h3>
+     * starting an applet.This information is often used for timing animation
+ sequences. ( end auto-generated )
+
+ <h3>Advanced</h3>
      * <p>
      * This is a function, rather than a variable, because it may change
      * multiple times per frame.
      *
+     * @return 
      * @webref input:time_date
      * @see PApplet#second()
      * @see PApplet#minute()
@@ -2957,12 +2973,11 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from second.xml )
      *
-     * Processing communicates with the clock on your computer. The
-     * <b>second()</b> function returns the current second as a value from 0 -
-     * 59.
+     * Processing communicates with the clock on your computer.The
+    <b>second()</b> function returns the current second as a value from 0 -
+ 59. ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref input:time_date
      * @see PApplet#millis()
      * @see PApplet#minute()
@@ -2970,7 +2985,7 @@ public class PApplet implements PConstants {
      * @see PApplet#day()
      * @see PApplet#month()
      * @see PApplet#year()
-   *
+     *
      */
     static public int second() {
         return Calendar.getInstance().get(Calendar.SECOND);
@@ -2979,12 +2994,11 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from minute.xml )
      *
-     * Processing communicates with the clock on your computer. The
-     * <b>minute()</b> function returns the current minute as a value from 0 -
-     * 59.
+     * Processing communicates with the clock on your computer.The
+    <b>minute()</b> function returns the current minute as a value from 0 -
+ 59. ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref input:time_date
      * @see PApplet#millis()
      * @see PApplet#second()
@@ -3002,11 +3016,10 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from hour.xml )
      *
-     * Processing communicates with the clock on your computer. The
-     * <b>hour()</b> function returns the current hour as a value from 0 - 23.
+     * Processing communicates with the clock on your computer.The
+    <b>hour()</b> function returns the current hour as a value from 0 - 23. ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref input:time_date
      * @see PApplet#millis()
      * @see PApplet#second()
@@ -3048,11 +3061,10 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from month.xml )
      *
-     * Processing communicates with the clock on your computer. The
-     * <b>month()</b> function returns the current month as a value from 1 - 12.
+     * Processing communicates with the clock on your computer.The
+    <b>month()</b> function returns the current month as a value from 1 - 12. ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref input:time_date
      * @see PApplet#millis()
      * @see PApplet#second()
@@ -3988,9 +4000,10 @@ public class PApplet implements PConstants {
   }
      */
     /**
-     * For arrays, use printArray() instead. This function causes a warning
+     * For arrays, use printArray() instead.This function causes a warning
      * because the new print(Object...) and println(Object...) functions can't
      * be reliably bound by the compiler.
+     * @param what
      */
     static public void println(Object what) {
         if (what == null) {
@@ -4910,20 +4923,25 @@ public class PApplet implements PConstants {
         internalRandom.setSeed(seed);
     }
 
-    public void noiseMode(NoiseMode mode){
+    public void noiseMode(NoiseMode mode) {
         noiseGenerator.noiseMode(mode);
     }
 
     /**
+     * @param x
+     * @return 
      */
     public float noise(float x) {
         return noiseGenerator.noise(x);
     }
 
-    /**
+     /**
+     * @param x
+     * @param y
+     * @return 
      */
     public float noise(float x, float y) {
-        return  noiseGenerator.noise(x, y);
+        return noiseGenerator.noise(x, y);
     }
 
     /**
@@ -4960,57 +4978,39 @@ public class PApplet implements PConstants {
      * @param x x-coordinate in noise space
      * @param y y-coordinate in noise space
      * @param z z-coordinate in noise space
-     * @see PApplet#noiseSeed(long)
-     * @see PApplet#noiseDetail(int, float)
-     * @see PApplet#random(float,float)
      */
     public float noise(float x, float y, float z) {
         return noiseGenerator.noise(x, y, z);
     }
-
+    /**
+     * 4D noise where typically w is time
+     * @param x
+     * @param y
+     * @param z
+     * @param w
+     * @return 
+     */
     public float noise(float x, float y, float z, float w) {
         return noiseGenerator.noise(x, y, z, w);
     }
 
-
-    // [toxi 040903]
-    // make perlin noise quality user controlled to allow
-    // for different levels of detail. lower values will produce
-    // smoother results as higher octaves are surpressed
     /**
-     * ( begin auto-generated from noiseDetail.xml )
      *
-     * Adjusts the character and level of detail produced by the Perlin noise
-     * function. Similar to harmonics in physics, noise is computed over several
-     * octaves. Lower octaves contribute more to the output signal and as such
-     * define the overal intensity of the noise, whereas higher octaves create
-     * finer grained details in the noise sequence. By default, noise is
-     * computed over 4 octaves with each octave contributing exactly half than
-     * its predecessor, starting at 50% strength for the 1st octave. This
-     * falloff amount can be changed by adding an additional function parameter.
-     * Eg. a falloff factor of 0.75 means each octave will now have 75% impact
-     * (25% less) of the previous lower octave. Any value between 0.0 and 1.0 is
-     * valid, however note that values greater than 0.5 might result in greater
-     * than 1.0 values returned by <b>noise()</b>.<br
-     * />By changing these parameters, the signal created by the <b>noise()</b>
-     * function can be adapted to fit very specific needs and characteristics.
-     *
-     * ( end auto-generated )
-     *
-     * @webref math:random
-     * @param lod number of octaves to be used by the noise
-     * @see PApplet#noise(float, float, float)
+     * @param lod
+     * @deprecated
      */
+    @Deprecated
     public void noiseDetail(int lod) {
-        noiseGenerator.noiseDetail(lod);
     }
 
     /**
-     * @see #noiseDetail(int)
-     * @param falloff falloff factor for each octave
+     *
+     * @param lod
+     * @param falloff
+     * @deprecated
      */
+    @Deprecated
     public void noiseDetail(int lod, float falloff) {
-        noiseGenerator.noiseDetail(lod, falloff);
     }
 
     /**
@@ -5030,7 +5030,6 @@ public class PApplet implements PConstants {
      * @see PApplet#random(float,float)
      * @see PApplet#randomSeed(long)
      */
-
     public void noiseSeed(long seed) {
         noiseGenerator.noiseSeed(seed);
     }
@@ -7039,7 +7038,7 @@ public class PApplet implements PConstants {
      * @nowebref
      */
     static public void saveStrings(OutputStream output, String[] data) {
-        try (PrintWriter writer = createWriter(output)) {
+        try ( PrintWriter writer = createWriter(output)) {
             for (String data1 : data) {
                 writer.println(data1);
             }
@@ -7424,19 +7423,19 @@ public class PApplet implements PConstants {
         System.arraycopy(src, 0, dst, 0, Array.getLength(src));
     }
 
-
     /**
      * ( begin auto-generated from expand.xml )
      *
-     * Increases the size of an array.By default, this function doubles the
- size of the array, but the optional <b>newSize</b> parameter provides
- precise control over the increase in size. When using an array of objects, the data returned from the function must
- be cast to the object array's data type. For example: <em>SomeClass[]
-     * items = (SomeClass[]) expand(originalArray)</em>.
+     * Increases the size of an array.By default, this function doubles the size
+     * of the array, but the optional <b>newSize</b> parameter provides precise
+     * control over the increase in size. When using an array of objects, the
+     * data returned from the function must be cast to the object array's data
+     * type. For example: <em>SomeClass[] items = (SomeClass[])
+     * expand(originalArray)</em>.
      *
      * ( end auto-generated )
      *
-     * @return 
+     * @return
      * @webref data:array_functions
      * @param list the array to expand
      * @see PApplet#shorten(boolean[])
@@ -7448,7 +7447,7 @@ public class PApplet implements PConstants {
     /**
      * @param list
      * @param newSize new size for the array
-     * @return 
+     * @return
      */
     static public boolean[] expand(boolean[] list, int newSize) {
         boolean[] temp = new boolean[newSize];
@@ -14607,7 +14606,8 @@ public class PApplet implements PConstants {
      * function is easy to use and undestand, but is slower than another
      * technique. To achieve the same results when working in <b>colorMode(RGB,
      * 255)</b>, but with greater speed, use the &gt;&gt; (right shift) operator
-     * with a bit mask. For example, the following two lines of code are equivalent:
+     * with a bit mask. For example, the following two lines of code are
+     * equivalent:
      * <pre>float r1 = green(myColor);float r2 =
      * myColor &gt;&gt; 8 &amp; 0xFF;</pre>
      *
@@ -14638,7 +14638,7 @@ public class PApplet implements PConstants {
      * technique. To achieve the same results when working in <b>colorMode(RGB,
      * 255)</b>, but with greater speed, use a bit mask to remove the other
      * color components. For example, the following two lines of code are
-   * equivalent:
+     * equivalent:
      * <pre>float r1 = blue(myColor);float r2 = myColor
      * &amp; 0xFF;</pre>
      *

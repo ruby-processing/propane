@@ -11,7 +11,7 @@ DO NOT MODIFY - GENERATED CODE
   <modelVersion>4.0.0</modelVersion>
   <groupId>propane</groupId>
   <artifactId>propane</artifactId>
-  <version>3.8.0</version>
+  <version>3.9.0</version>
   <name>propane</name>
   <description>An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.</description>
   <url>https://github.com/monkstone/propane</url>
@@ -155,7 +155,7 @@ DO NOT MODIFY - GENERATED CODE
                     <artifactId>itextpdf</artifactId>
                     <version>${itextpdf.version}</version>
                     <type>jar</type>
-                    <outputDirectory>${propane.basedir}/lib</outputDirectory>
+                    <outputDirectory>${propane.basedir}/library/pdf</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.apache.xmlgraphics</groupId>

@@ -13,24 +13,48 @@ public class NoiseGenerator implements Noise {
 
     private Noise implementation;
     private NoiseMode mode;
+    private Long seed;
 
     public NoiseGenerator() {
-        this.implementation = new ValueNoise();
-        this.mode = NoiseMode.PERLIN;
+        seed = System.currentTimeMillis();
+        this.implementation = new OpenSimplex2F(seed);
+        this.mode = NoiseMode.DEFAULT;
     }
 
+    @Override
     public void noiseMode(NoiseMode mode) {
-        if (this.mode != mode && this.mode != NoiseMode.PERLIN) {
-            this.implementation = new ValueNoise();
-            this.mode = NoiseMode.PERLIN;
-        }
-        if (this.mode != mode && this.mode != NoiseMode.SIMPLEX) {
-            this.implementation = new SimplexNoise();
-            this.mode = NoiseMode.SIMPLEX;
+        switch (mode) {
+            case DEFAULT:
+                if (this.mode != NoiseMode.DEFAULT) {
+                    this.implementation = new OpenSimplex2F(seed);
+                    this.mode = NoiseMode.DEFAULT;
+                }
+                break;
+            case OPEN_SMOOTH:
+                if (this.mode != NoiseMode.OPEN_SMOOTH) {
+                    this.implementation = new OpenSimplex2S(seed);
+                    this.mode = NoiseMode.OPEN_SMOOTH;
+                    break;
+                }
+            case SMOOTH_TERRAIN:
+                if (this.mode != NoiseMode.SMOOTH_TERRAIN) {
+                    this.implementation = new SmoothTerrain(seed);
+                    this.mode = NoiseMode.SMOOTH_TERRAIN;
+                }
+                break;
+            case FAST_TERRAIN:
+                if (this.mode != NoiseMode.FAST_TERRAIN) {
+                    this.implementation = new FastTerrain(seed);
+                    this.mode = NoiseMode.FAST_TERRAIN;
+                }
+                break;
+            default:
+                this.implementation = new OpenSimplex2F(seed);
+                this.mode = NoiseMode.DEFAULT;
         }
     }
 
-    public NoiseMode noiseMode(){
+    public NoiseMode noiseMode() {
         return this.mode;
     }
 
@@ -41,23 +65,11 @@ public class NoiseGenerator implements Noise {
 
     @Override
     public float noise(float x, float y, float z, float w) {
-      if (mode == NoiseMode.PERLIN) { return 0.5f;}
         return implementation.noise(x, y, z, w);
     }
 
     @Override
-    public void noiseDetail(int lod) {
-        implementation.noiseDetail(lod);
-    }
-
-    @Override
-    public void noiseDetail(int lod, float falloff) {
-        implementation.noiseDetail(lod, falloff);
-    }
-
-    @Override
     public void noiseSeed(long seed) {
-        implementation.noiseSeed(seed);
+        this.seed = seed;
     }
-
 }
