@@ -25,10 +25,10 @@ rake javadoc
 
 ```bash
 jgem install propane # from rubygems
-jgem install propane-3.8.0-java.gem # local install
+jgem install propane-3.9.0-java.gem # local install
 # Alternative
 jruby -S gem install propane # from rubygems
-jruby -S gem install propane-3.8.0-java.gem # local install
+jruby -S gem install propane-3.9.0-java.gem # local install
 ```
 
 ## Check Install
