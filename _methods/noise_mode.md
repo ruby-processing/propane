@@ -31,20 +31,20 @@ class TestNoise < Propane::App
   end
 
   def mouse_pressed
-    mode = Propane::SIMPLEX
+    mode = NoiseMode::SIMPLEX_SMOOTH
     noise_mode mode
-    sketch_title "#{mode}"
+    sketch_title "#{mode.description}"
   end
 
   def mouse_released
-    mode = Propane::VALUE # default mode "Perlin Noise" in vanilla processing
+    mode =  NoiseMode::DEFAULT # default mode "Fast OpenSimplex2" in vanilla processing
     noise_mode(mode)
-    sketch_title "#{mode}"
+    sketch_title "#{mode.description}"
   end
 
 
   def arrow(x, y, ang)
-    pushMatrix()
+    push_matrix
     translate(x, y)
     rotate(ang)
     line(0, 0, 20, 0)
@@ -53,7 +53,7 @@ class TestNoise < Propane::App
     line(0, 0, 5, 0)
     rotate(-0.8)
     line(0, 0, 5, 0)
-    popMatrix()
+    pop_matrix
   end
 
   def settings
