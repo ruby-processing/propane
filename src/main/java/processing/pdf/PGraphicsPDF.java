@@ -29,6 +29,7 @@ import com.itextpdf.text.pdf.ByteBuffer;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -51,12 +52,8 @@ import processing.core.PSurfaceNone;
 /**
  * Thin wrapper for the iText PDF library that handles writing PDF files. The
  * majority of the work in this library is done by
- * <a href="http://www.lowagie.com/iText/">iText</a>. This is currently using
- * iText 2.1.7. The issue is that versions from the 5.x series were slow to
- * handle lots of fonts with the DefaultFontMapper. 2.x seemed a little slower
- * than 1.x, but 5.x took up to 10 times the time to load, meaning a lag of
- * several seconds when starting sketches on a machine that had a good handful
- * of fonts installed. (Like, say, anyone in our target audience. Or me.)
+ * <a href="https://github.com/itext/itextpdf">itextpdf</a>. This is currently using
+ * itextpdf-5.5.13.2.
  */
 public class PGraphicsPDF extends PGraphicsJava2D {
 
@@ -79,10 +76,6 @@ public class PGraphicsPDF extends PGraphicsJava2D {
     static protected DefaultFontMapper mapper;
     static protected String[] fontList;
 
-    /**
-     *
-     * @param path
-     */
     @Override
     public void setPath(String path) {
         this.path = path;
@@ -100,7 +93,6 @@ public class PGraphicsPDF extends PGraphicsJava2D {
 
     /**
      * Set the library to write to an output stream instead of a file.
-     *
      * @param output
      */
     public void setOutput(OutputStream output) {
@@ -154,40 +146,14 @@ public class PGraphicsPDF extends PGraphicsJava2D {
             }
             g2 = new PdfGraphics2D(content, width, height);
         }
+
+        // super in Java2D now creates an image buffer, don't do that
+        //super.beginDraw();
         checkSettings();
         resetMatrix(); // reset model matrix
         vertexCount = 0;
         pushMatrix();
     }
-    
-    /** endDraw() needs to be overridden so that the endDraw() from
-     * PGraphicsJava2D is not inherited (it calls loadPixels).
-     * http://dev.processing.org/bugs/show_bug.cgi?id=1169
-     */ 
-    @Override
-    public void endDraw() {
-     // Also need to pop the matrix since the matrix doesn't reset on each run
-     // http://dev.processing.org/bugs/show_bug.cgi?id=1227
-       popMatrix();    
-  }
-    
-  /**
-   * Call to explicitly go to the next page from within a single draw().
-   */
-  public void nextPage() {
-    PStyle savedStyle = getStyle();
-    endDraw();
-    g2.dispose();
-
-    try {
-//    writer.setPageEmpty(false);  // maybe useful later
-      document.newPage();  // is this bad if no addl pages are made?
-    } catch (Exception e) {
-    }
-    g2 = new PdfGraphics2D(content, width, height);
-    beginDraw();
-    style(savedStyle);
-  }
 
     static protected DefaultFontMapper getMapper() {
         if (mapper == null) {
@@ -277,6 +243,63 @@ public class PGraphicsPDF extends PGraphicsJava2D {
             }
         }
     }
+    
+    // endDraw() needs to be overridden so that the endDraw() from
+    // PGraphicsJava2D is not inherited (it calls loadPixels).
+    // http://dev.processing.org/bugs/show_bug.cgi?id=1169
+    @Override
+    public void endDraw() {
+        // Also need to pop the matrix since the matrix doesn't reset on each run
+        // http://dev.processing.org/bugs/show_bug.cgi?id=1227
+        popMatrix();
+    }
+
+    /**
+     * Call to explicitly go to the next page from within a single draw().
+     */
+    public void nextPage() {
+        PStyle savedStyle = getStyle();
+        endDraw();
+        g2.dispose();
+
+        try {
+//    writer.setPageEmpty(false);  // maybe useful later
+            document.newPage();  // is this bad if no addl pages are made?
+        } catch (Exception e) {
+        }
+        g2 = createGraphics();
+        beginDraw();
+        style(savedStyle);
+    }
+
+    protected Graphics2D createGraphics() {
+        if (textMode == SHAPE) {
+          return new PdfGraphics2D(content, width, height);
+        } else if (textMode == MODEL) {
+            return new PdfGraphics2D(content, width, height, getMapper());
+        }
+        // Should not be reachable...
+        throw new RuntimeException("Invalid textMode() selected for PDF.");
+    }
+
+    @Override
+    public void dispose() {
+        if (document != null) {
+            g2.dispose();
+            document.close();  // can't be done in finalize, not always called
+            document = null;
+        }
+        //new Exception().printStackTrace(System.out);
+    }
+
+    /**
+     * Don't open a window for this renderer, it won't be used.
+     * @return
+     */
+    @Override
+    public boolean displayable() {
+        return false;
+    }
 
     @Override
     protected void imageImpl(PImage image,
@@ -311,27 +334,27 @@ public class PGraphicsPDF extends PGraphicsJava2D {
      * or anything. Unlike other renderers, use textMode() directly after the
      * size() command.
      */
-    @Override
-    public void textMode(int mode) {
-        if (textMode != mode) {
-            switch (mode) {
-                case SHAPE:
-                    textMode = SHAPE;
-                    g2.dispose();
-                    g2 = new PdfGraphics2D(content, width, height);
-                    break;
-                case MODEL:
-                    textMode = MODEL;
-                    g2.dispose();
-                    g2 = new PdfGraphics2D(content, width, height, getMapper());
-                    break;
-                case SCREEN:
-                    throw new RuntimeException("textMode(SCREEN) not supported with PDF");
-                default:
-                    throw new RuntimeException("That textMode() does not exist");
-            }
-        }
-    }
+     @Override
+     public void textMode(int mode) {
+         if (textMode != mode) {
+             switch (mode) {
+                 case SHAPE:
+                     textMode = SHAPE;
+                     g2.dispose();
+                     g2 = createGraphics();
+                     break;
+                 case MODEL:
+                     textMode = MODEL;
+                     g2.dispose();
+                     g2 = createGraphics();
+                     break;
+                 case SCREEN:
+                     throw new RuntimeException("textMode(SCREEN) not supported with PDF");
+                 default:
+                     throw new RuntimeException("That textMode() does not exist");
+             }
+         }
+     }
 
     @Override
     protected void textLineImpl(char buffer[], int start, int stop,
