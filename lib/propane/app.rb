@@ -118,7 +118,7 @@ module Propane
 
     def initialize(options = {}, arguments = [])
       # Guard against invalid input.
-      proxy_java_fields
+      proxy_java_fields # see helper_methods
       raise TypeError unless options.is_a? Hash
       raise TypeError unless arguments.is_a? Array
 
@@ -157,17 +157,11 @@ module Propane
 
     def import_opengl
       # Include processing opengl classes that we'd like to use:
-      %w[FontTexture FrameBuffer LinePath LineStroker PGL
-         PGraphics2D PGraphics3D PGraphicsOpenGL PShader
-         PShapeOpenGL Texture].each do |klass|
+      %w[FontTexture FrameBuffer LinePath LineStroker PGL PGraphics2D
+         PGraphics3D PGraphicsOpenGL PJOGL PShader PSurfaceJOGL
+         VertexBuffer PShapeOpenGL Texture].each do |klass|
         java_import "processing.opengl.#{klass}"
       end
-    end
-
-    def proxy_java_fields
-      fields = %w[sketchPath key frameRate mousePressed keyPressed]
-      methods = fields.map { |field| java_class.declared_field(field) }
-      @declared_fields = Hash[fields.zip(methods)]
     end
 
     # When certain special methods get added to the sketch, we need to let

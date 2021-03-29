@@ -62,10 +62,6 @@ public interface PConstants {
   static final String P2D = "processing.opengl.PGraphics2D";
   static final String P3D = "processing.opengl.PGraphics3D";
 
-  // When will it be time to remove this?
-  @Deprecated
-  static final String OPENGL = P3D;
-
   // Experimental, higher-performance Java 2D renderer (but no pixel ops)
 //  static final String E2D = PGraphicsDanger2D.class.getName();
 
@@ -83,12 +79,8 @@ public interface PConstants {
   static final int MACOS   = 2;
   static final int LINUX   = 3;
 
-  /** @deprecated Marketers gonna market, use {@link #MACOS} */
-  @Deprecated
-  static final int MACOSX  = 2;
-
-  static final String[] platformNames = {
-    "other", "windows", "macosx", "linux"
+    static final String[] platformNames = {
+    "other", "windows", "macos", "linux"
   };
 
 
@@ -396,7 +388,7 @@ public interface PConstants {
   /**
    * textMode(MODEL) is the default, meaning that characters
    * will be affected by transformations like any other shapes.
-   * 
+   *
    * Changed value in 0093 to not interfere with LEFT, CENTER, and RIGHT.
    */
   static final int MODEL = 4;
@@ -407,7 +399,7 @@ public interface PConstants {
    * not available, then textMode(SHAPE) will be ignored and textMode(MODEL)
    * will be used instead. For this reason, be sure to call textMode()
    * <EM>after</EM> calling textFont().
-   * 
+   *
    * Currently, textMode(SHAPE) is only supported by OPENGL mode.
    * It also requires Java 1.2 or higher (OPENGL requires 1.4 anyway)
    */

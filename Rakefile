@@ -17,8 +17,8 @@ end
 
 desc 'Install'
 task :install do
-  sh "mvn dependency:copy"
-  sh "mv target/propane-#{Propane::VERSION}.jar lib"
+  sh 'mvn dependency:copy'
+  sh 'mv target/propane-#{Propane::VERSION}.jar lib'
 end
 
 desc 'Gem'
@@ -54,7 +54,7 @@ end
 desc 'clean'
 task :clean do
   Dir['./**/*.{jar,gem}'].each do |path|
-    puts "Deleting #{path} ..."
+    puts 'Deleting #{path} ...'
     File.delete(path)
   end
   FileUtils.rm_rf('./target')

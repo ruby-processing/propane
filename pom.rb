@@ -48,7 +48,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'itextpdf.version' => '5.5.13.2',
       'jruby.api' => 'http://jruby.org/apidocs/')
 
-      pom 'org.jruby:jruby:9.2.16.0'
+      pom 'org.jruby:jruby:9.2.17.0'
       jar 'org.apache.xmlgraphics:batik-all:${batik.version}'
       jar 'com.itextpdf:itextpdf:${itextpdf.version}'
       jar 'org.processing:video:3.3.7' # only for compiling

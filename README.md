@@ -11,7 +11,7 @@ adjust above for your OS/distro setup.
 Previously there has been linker issue with P2D or P3D sketches with stock openjdk with some linux distros, but that seems to have gone away. [Adopt open jdk binaries][adopt] have always worked.
 
 - `jdk-11.0.7+`
-- `jruby-9.2.16.0`
+- `jruby-9.2.17.0`
 
 ## Building and testing
 
