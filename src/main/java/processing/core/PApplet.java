@@ -39,8 +39,8 @@ import java.util.zip.*;
 
 // loadXML() error handling
 import javax.xml.parsers.ParserConfigurationException;
-import monkstone.noise.NoiseMode;
-import monkstone.noise.Noise;
+// import monkstone.noise.NoiseMode;
+// import monkstone.noise.Noise;
 import org.xml.sax.SAXException;
 
 // TODO have this removed by 4.0 final
@@ -49,7 +49,7 @@ import processing.awt.ShimAWT;
 import processing.data.*;
 import processing.event.*;
 import processing.opengl.*;
-import monkstone.noise.NoiseGenerator;
+// import monkstone.noise.NoiseGenerator;
 
 /**
  * Base class for all sketches that use processing.core.
@@ -119,7 +119,7 @@ public class PApplet implements PConstants {
      */
     static public boolean useNativeSelect = true;
 
-    Noise noiseGenerator = new NoiseGenerator();
+  //  Noise noiseGenerator = new NoiseGenerator();
 
     /**
      * The PGraphics renderer associated with this PApplet
@@ -1000,7 +1000,7 @@ public class PApplet implements PConstants {
     /**
      * @param display the display number to check (1-indexed to match the
      * Preferences dialog box)
-     * @return 
+     * @return
      */
     public int displayDensity(int display) {
         if (!disableAWT) {
@@ -1962,7 +1962,7 @@ public class PApplet implements PConstants {
      * <A HREF="http://dev.processing.org/reference/core/javadoc/processing/core/PImage.html#save(java.lang.String)">PImage.save()</A>.
      * </UL>
      *
-     * @return 
+     * @return
      * @webref rendering
      * @param w width in pixels
      * @param h height in pixels
@@ -1982,7 +1982,7 @@ public class PApplet implements PConstants {
      * @param path the name of the file (can be an absolute or relative path)
      * @param renderer
      * @param h
-     * @return 
+     * @return
      */
     public PGraphics createGraphics(int w, int h,
             String renderer, String path) {
@@ -2011,7 +2011,7 @@ public class PApplet implements PConstants {
      * @param path A path (or null if none), can be absolute or relative
      * ({@link PApplet#savePath} will be called)
      * @param primary
-     * @return 
+     * @return
      */
     protected PGraphics makeGraphics(int w, int h,
             String renderer, String path,
@@ -2956,7 +2956,7 @@ public class PApplet implements PConstants {
      * This is a function, rather than a variable, because it may change
      * multiple times per frame.
      *
-     * @return 
+     * @return
      * @webref input:time_date
      * @see PApplet#second()
      * @see PApplet#minute()
@@ -4916,83 +4916,83 @@ public class PApplet implements PConstants {
      * @see PApplet#noise(float, float, float)
      * @see PApplet#noiseSeed(long)
      */
-    public final void randomSeed(long seed) {
-        if (internalRandom == null) {
-            internalRandom = new Random();
-        }
-        internalRandom.setSeed(seed);
-    }
-
-    public void noiseMode(NoiseMode mode) {
-        noiseGenerator.noiseMode(mode);
-    }
-
-    /**
-     * @param x
-     * @return 
-     */
-    public float noise(float x) {
-        return noiseGenerator.noise(x);
-    }
-
-     /**
-     * @param x
-     * @param y
-     * @return 
-     */
-    public float noise(float x, float y) {
-        return noiseGenerator.noise(x, y);
-    }
-
-    /**
-     * ( begin auto-generated from noise.xml )
-     *
-     * Returns the Perlin noise value at specified coordinates. Perlin noise is
-     * a random sequence generator producing a more natural ordered, harmonic
-     * succession of numbers compared to the standard <b>random()</b> function.
-     * It was invented by Ken Perlin in the 1980s and been used since in
-     * graphical applications to produce procedural textures, natural motion,
-     * shapes, terrains etc. The main difference to the
-     * <b>random()</b> function is that Perlin noise is defined in an infinite
-     * n-dimensional space where each pair of coordinates corresponds to a fixed
-     * semi-random value (fixed only for the lifespan of the program). The
-     * resulting value will always be between 0.0 and 1.0. Processing can
-     * compute 1D, 2D and 3D noise, depending on the number of coordinates
-     * given. The noise value can be animated by moving through the noise space
-     * as demonstrated in the example above. The 2nd and 3rd dimension can also
-     * be interpreted as time.The actual noise is structured similar to an audio
-     * signal, in respect to the function's use of frequencies. Similar to the
-     * concept of harmonics in physics, perlin noise is computed over several
-     * octaves which are added together for the final result. Another way to
-     * adjust the character of the resulting sequence is the scale of the input
-     * coordinates. As the function works within an infinite space the value of
-     * the coordinates doesn't matter as such, only the distance between
-     * successive coordinates does (eg. when using <b>noise()</b> within a
-     * loop). As a general rule the smaller the difference between coordinates,
-     * the smoother the resulting noise sequence will be. Steps of 0.005-0.03
-     * work best for most applications, but this will differ depending on use.
-     *
-     * ( end auto-generated )
-     *
-     * @webref math:random
-     * @param x x-coordinate in noise space
-     * @param y y-coordinate in noise space
-     * @param z z-coordinate in noise space
-     */
-    public float noise(float x, float y, float z) {
-        return noiseGenerator.noise(x, y, z);
-    }
-    /**
-     * 4D noise where typically w is time
-     * @param x
-     * @param y
-     * @param z
-     * @param w
-     * @return 
-     */
-    public float noise(float x, float y, float z, float w) {
-        return noiseGenerator.noise(x, y, z, w);
-    }
+    // public final void randomSeed(long seed) {
+    //     if (internalRandom == null) {
+    //         internalRandom = new Random();
+    //     }
+    //     internalRandom.setSeed(seed);
+    // }
+    //
+    // public void noiseMode(NoiseMode mode) {
+    //     noiseGenerator.noiseMode(mode);
+    // }
+    //
+    // /**
+    //  * @param x
+    //  * @return
+    //  */
+    // public float noise(float x) {
+    //     return noiseGenerator.noise(x);
+    // }
+    //
+    //  /**
+    //  * @param x
+    //  * @param y
+    //  * @return
+    //  */
+    // public float noise(float x, float y) {
+    //     return noiseGenerator.noise(x, y);
+    // }
+    //
+    // /**
+    //  * ( begin auto-generated from noise.xml )
+    //  *
+    //  * Returns the Perlin noise value at specified coordinates. Perlin noise is
+    //  * a random sequence generator producing a more natural ordered, harmonic
+    //  * succession of numbers compared to the standard <b>random()</b> function.
+    //  * It was invented by Ken Perlin in the 1980s and been used since in
+    //  * graphical applications to produce procedural textures, natural motion,
+    //  * shapes, terrains etc. The main difference to the
+    //  * <b>random()</b> function is that Perlin noise is defined in an infinite
+    //  * n-dimensional space where each pair of coordinates corresponds to a fixed
+    //  * semi-random value (fixed only for the lifespan of the program). The
+    //  * resulting value will always be between 0.0 and 1.0. Processing can
+    //  * compute 1D, 2D and 3D noise, depending on the number of coordinates
+    //  * given. The noise value can be animated by moving through the noise space
+    //  * as demonstrated in the example above. The 2nd and 3rd dimension can also
+    //  * be interpreted as time.The actual noise is structured similar to an audio
+    //  * signal, in respect to the function's use of frequencies. Similar to the
+    //  * concept of harmonics in physics, perlin noise is computed over several
+    //  * octaves which are added together for the final result. Another way to
+    //  * adjust the character of the resulting sequence is the scale of the input
+    //  * coordinates. As the function works within an infinite space the value of
+    //  * the coordinates doesn't matter as such, only the distance between
+    //  * successive coordinates does (eg. when using <b>noise()</b> within a
+    //  * loop). As a general rule the smaller the difference between coordinates,
+    //  * the smoother the resulting noise sequence will be. Steps of 0.005-0.03
+    //  * work best for most applications, but this will differ depending on use.
+    //  *
+    //  * ( end auto-generated )
+    //  *
+    //  * @webref math:random
+    //  * @param x x-coordinate in noise space
+    //  * @param y y-coordinate in noise space
+    //  * @param z z-coordinate in noise space
+    //  */
+    // public float noise(float x, float y, float z) {
+    //     return noiseGenerator.noise(x, y, z);
+    // }
+    // /**
+    //  * 4D noise where typically w is time
+    //  * @param x
+    //  * @param y
+    //  * @param z
+    //  * @param w
+    //  * @return
+    //  */
+    // public float noise(float x, float y, float z, float w) {
+    //     return noiseGenerator.noise(x, y, z, w);
+    // }
 
     /**
      *
@@ -5030,9 +5030,9 @@ public class PApplet implements PConstants {
      * @see PApplet#random(float,float)
      * @see PApplet#randomSeed(long)
      */
-    public void noiseSeed(long seed) {
-        noiseGenerator.noiseSeed(seed);
-    }
+  //  public void noiseSeed(long seed) {
+  //      noiseGenerator.noiseSeed(seed);
+  //  }
 
     // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     /**

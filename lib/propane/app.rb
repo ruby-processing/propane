@@ -16,9 +16,9 @@ module Propane
     java_import 'monkstone.vecmath.ShapeRender'
   end
 
-  module NoiseModule
-    java_import 'monkstone.noise.NoiseMode'
-  end
+  # module NoiseModule
+  #   java_import 'monkstone.noise.NoiseMode'
+  # end
 
   # This class is the base class the user should inherit from when making
   # their own sketch.
@@ -59,6 +59,7 @@ module Propane
     include Math
     include MathTool
     include Render
+    include FastNoise
     # Alias some methods for familiarity for Shoes coders.
     alias oval ellipse
     alias stroke_width stroke_weight
