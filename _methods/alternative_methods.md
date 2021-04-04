@@ -28,9 +28,10 @@ Here is a list of ruby alternatives to some 'processing' convenience methods; wh
 |               |`second`                |`t.second`           |
 |               |`year`                  |`t.year`             |
 |custom math    |`map(x, b0, eo, b1, e1)`|`map1d(x, (b0..e0), (b1..e1))`|
-|               |`map(x, b0, eo, b1, e1)`|`p5map(x, b0, e0, b1, e1)`|
-|               |`max(array)            `|`array.max`        |
-|               |`min(array)            `|`array.min`        |
+|               |`map(x, b0, eo, b1, e1)`|`p5map(x, b0, e0, b1, e1)` |
+|               |`constrain(x, min, max)`|`x.clamp(min,max)`         |
+|               |`max(array)            `| `array.max`               |
+|               |`min(array)   `         | `array.min`               |
 |conversion     |`degrees(theta)`        |`theta.degrees`    |
 |conversion     |`radians(theta)`        |`theta.radians`    |
 |conversion     |`hex(string)`           |`string.hex`       |
