@@ -58,6 +58,12 @@ For example of `kamera` usage see [kamera][kamera]. To use `selectInput` see lin
 
 NB: if you have any trouble with `save` or `save_frame` then use the option of providing an absolute path.  You can easily do this using the `data_path` wrapper that does it for you see [data_path method][data_path].
 
+Since propane-3.9.0 processing noise has been replaced by a wrapper around SimplexNoise, the FastNoise module is included as a default generator. To use the smooth alternative SmoothNoise module call it directly:-
+```ruby
+SmoothNoise.noise(...) # classic noise
+SmoothNoise.tnoise(...) # more suitable for terrain etc
+```
+
 [data_path]:{{site.github.url}}/data_path/
 [time]:https://monkstone.github.io/time
 [timestamp]:https://monkstone.github.io/timestamp/
