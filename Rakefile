@@ -18,7 +18,7 @@ end
 desc 'Install'
 task :install do
   sh 'mvn dependency:copy'
-  sh 'mv target/propane-#{Propane::VERSION}.jar lib'
+  sh "mv target/propane-#{Propane::VERSION}.jar lib"
 end
 
 desc 'Gem'
