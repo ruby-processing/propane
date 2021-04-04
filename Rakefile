@@ -18,7 +18,7 @@ end
 desc 'Install'
 task :install do
   sh 'mvn dependency:copy'
-  sh "mv target/propane-#{Propane::VERSION}.jar lib"
+  FileUtils.mv("target/propane-#{Propane::VERSION}.jar", 'lib')
 end
 
 desc 'Gem'
@@ -34,11 +34,6 @@ end
 desc 'Compile'
 task :compile do
   sh './mvnw package'
-end
-
-desc 'JRuby-Complete'
-task :install_complete do
-  sh 'cd vendors && rake'
 end
 
 desc 'Test'
