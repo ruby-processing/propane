@@ -28,6 +28,8 @@ public class PropaneLibrary implements Library {
      */
     public static void load(final Ruby runtime) {
         MathToolModule.createMathToolModule(runtime);
+        FastNoiseModuleJava.createNoiseModule(runtime);
+        SmoothNoiseModuleJava.createNoiseModule(runtime);
         Deglut.createDeglut(runtime);
         Vec2.createVec2(runtime);
         Vec3.createVec3(runtime);

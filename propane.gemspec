@@ -31,7 +31,7 @@ Gem::Specification.new do |gem|
   gem.files << 'library/svg/batik-all-1.14.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.add_development_dependency 'jruby-openssl', '~> 0.1.0', '>=0.1.3'
+  gem.add_development_dependency 'jruby-openssl', '~> 0.10', '>=0.10.3'
   gem.add_development_dependency 'minitest', '~> 5.14'
   gem.add_runtime_dependency 'rake', '~> 12.3'
   gem.add_runtime_dependency 'arcball', '~> 1.0', '>= 1.0.2'
