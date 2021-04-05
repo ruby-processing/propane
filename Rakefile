@@ -36,6 +36,11 @@ task :compile do
   sh './mvnw package'
 end
 
+desc 'pmd'
+task :pmd do
+  sh './mvnw pmd:pmd'
+end
+
 desc 'Test'
 task :test do
   sh 'jruby test/helper_methods_test.rb'

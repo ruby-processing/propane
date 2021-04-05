@@ -194,4 +194,12 @@ DO NOT MODIFY - GENERATED CODE
       </plugins>
     </pluginManagement>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.14.0</version>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

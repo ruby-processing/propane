@@ -56,6 +56,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       jar 'org.jogamp.gluegen:gluegen-rt-main:${jogl.version}'
 
       overrides do
+
         plugin('org.codehaus.mojo:versions-maven-plugin:2.7',
           'generateBackupPoms' => 'false')
           plugin(:compiler, '3.8.1',
@@ -101,4 +102,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                       excludes
                     end
                   end
+                end
+                reporting do
+                  plugin('org.apache.maven.plugins:maven-pmd-plugin:3.14.0')
                 end
