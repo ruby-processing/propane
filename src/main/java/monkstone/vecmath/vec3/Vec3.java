@@ -65,7 +65,7 @@ public final class Vec3 extends RubyObject {
      * @return new Vec3 object (ruby)
      */
     @JRubyMethod(name = "new", meta = true, rest = true)
-    public final static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject... args) {
+    public static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject... args) {
         Vec3 vec = (Vec3) ((RubyClass) klazz).allocate();
         vec.init(context, args);
         return vec;
@@ -83,27 +83,27 @@ public final class Vec3 extends RubyObject {
     void init(ThreadContext context, IRubyObject... args) {
         int count = args.length;
         if (count >= 2) {
-            jx = (args[0] instanceof RubyFloat)
+            jx = args[0] instanceof RubyFloat
                     ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
-            jy = (args[1] instanceof RubyFloat)
+            jy = args[1] instanceof RubyFloat
                     ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
         }
         if (count == 3) {
-            jz = (args[2] instanceof RubyFloat)
+            jz = args[2] instanceof RubyFloat
                     ? ((RubyFloat) args[2]).getValue() : ((RubyFixnum) args[2]).getDoubleValue();
         } // allow ruby ducktyping in constructor
         if (count == 1) {
             if (!(args[0].respondsTo("x"))) {
                 throw context.runtime.newTypeError(args[0].getType() + " doesn't respond_to :x & :y");
             }
-            jx = ((args[0].callMethod(context, "x")) instanceof RubyFloat)
+            jx = (args[0].callMethod(context, "x")) instanceof RubyFloat
                     ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
-            jy = ((args[0].callMethod(context, "y")) instanceof RubyFloat)
+            jy = (args[0].callMethod(context, "y")) instanceof RubyFloat
                     ? ((RubyFloat) args[0].callMethod(context, "y")).getValue() : ((RubyFixnum) args[0].callMethod(context, "y")).getDoubleValue();
             if (!(args[0].respondsTo("z"))) {
                 return;
             } // allow promotion from 2D to 3D, sets jz = 0
-            jz = ((args[0].callMethod(context, "z")) instanceof RubyFloat) ? ((RubyFloat) args[0].callMethod(context, "z")).getValue() : ((RubyFixnum) args[0].callMethod(context, "z")).getDoubleValue();
+            jz = (args[0].callMethod(context, "z")) instanceof RubyFloat ? ((RubyFloat) args[0].callMethod(context, "z")).getValue() : ((RubyFixnum) args[0].callMethod(context, "z")).getDoubleValue();
         }
     }
 
@@ -598,9 +598,9 @@ public final class Vec3 extends RubyObject {
         double u = 0;
         double v = 0;
         if (count == 3) {
-            u = (args[1] instanceof RubyFloat)
+            u = args[1] instanceof RubyFloat
                     ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
-            v = (args[2] instanceof RubyFloat)
+            v = args[2] instanceof RubyFloat
                     ? ((RubyFloat) args[2]).getValue() : ((RubyFixnum) args[2]).getDoubleValue();
         }
         if (count == 2) {
@@ -662,9 +662,9 @@ public final class Vec3 extends RubyObject {
         }
         if (obj instanceof Vec3) {
             final Vec3 other = (Vec3) obj;
-            if ((Double.compare(jx, (Double) other.jx) == 0)
-                    && (Double.compare(jy, (Double) other.jy) == 0)
-                    && (Double.compare(jz, (Double) other.jz) == 0)) {
+            if (Double.compare(jx, (Double) other.jx) == 0
+                    && Double.compare(jy, (Double) other.jy) == 0
+                    && Double.compare(jz, (Double) other.jz) == 0) {
                 return true;
             }
 

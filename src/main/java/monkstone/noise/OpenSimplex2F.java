@@ -37,7 +37,7 @@ public class OpenSimplex2F {
 			seed = seed * 6364136223846793005L + 1442695040888963407L;
 			int r = (int)((seed + 31) % (i + 1));
 			if (r < 0)
-				r += (i + 1);
+				r += i + 1;
 			perm[i] = source[r];
 			permGrad2[i] = GRADIENTS_2D[perm[i]];
 			permGrad3[i] = GRADIENTS_3D[perm[i]];
@@ -302,7 +302,7 @@ public class OpenSimplex2F {
 		// If we're in the lower half, flip so we can repeat the code for the upper half. We'll flip back later.
 		double siSum = xsi + ysi + zsi + wsi;
 		double ssi = siSum * 0.309016994374947; // Prep for vertex contributions.
-		boolean inLowerHalf = (siSum < 2);
+		boolean inLowerHalf = siSum < 2;
 		if (inLowerHalf) {
 			xsi = 1 - xsi; ysi = 1 - ysi; zsi = 1 - zsi; wsi = 1 - wsi;
 			siSum = 4 - siSum;

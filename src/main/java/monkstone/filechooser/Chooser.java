@@ -35,5 +35,5 @@ import java.io.File;
 @FunctionalInterface 
 public interface Chooser {
 
-    public void file_selected(File selection);
+    void file_selected(File selection);
 }

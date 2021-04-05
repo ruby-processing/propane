@@ -89,6 +89,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                       'Automatic-Module-Name' => 'processing.core'
                     }
                     })
+                    plugin('org.apache.maven.plugins:maven-pmd-plugin:3.14.0')
                   end
                   build do
                     resource do
@@ -104,5 +105,5 @@ project 'propane', 'https://github.com/monkstone/propane' do
                   end
                 end
                 reporting do
-                  plugin('org.apache.maven.plugins:maven-pmd-plugin:3.14.0')
+                  plugin('org.apache.maven.plugins:maven-jxr-plugin:2.3')                  
                 end

@@ -182,7 +182,7 @@ public class PJOGL extends PGL {
   @Override
   protected PImage screenshot() {
     AWTGLReadBufferUtil util = new AWTGLReadBufferUtil(capabilities.getGLProfile(), false);
-    return new PImageAWT(util.readPixelsToBufferedImage​(gl, true));
+    return new PImageAWT(util.readPixelsToBufferedImage(gl, true));
   }
 
 

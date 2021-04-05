@@ -39,7 +39,7 @@ public class OpenSimplex2S {
             seed = seed * 6364136223846793005L + 1442695040888963407L;
             int r = (int) ((seed + 31) % (i + 1));
             if (r < 0) {
-                r += (i + 1);
+                r += i + 1;
             }
             perm[i] = source[r];
             permGrad2[i] = GRADIENTS_2D[perm[i]];

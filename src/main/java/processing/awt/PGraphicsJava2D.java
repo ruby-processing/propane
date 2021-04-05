@@ -1564,6 +1564,15 @@ public class PGraphicsJava2D extends PGraphics {
 
   /**
    * Handle renderer-specific image drawing.
+     * @param who
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param u1
+     * @param v1
+     * @param u2
+     * @param v2
    */
   @Override
   protected void imageImpl(PImage who,
@@ -2575,7 +2584,7 @@ public class PGraphicsJava2D extends PGraphics {
 //    WritableRaster raster = ((BufferedImage) image).getRaster();
 //    WritableRaster raster = image.getRaster();
     WritableRaster raster = getRaster();
-    if ((clearPixels == null) || (clearPixels.length < imageWidth)) {
+    if (clearPixels == null || clearPixels.length < imageWidth) {
       clearPixels = new int[imageWidth];
     }
     Arrays.fill(clearPixels, 0, imageWidth, backgroundColor);
@@ -2595,7 +2604,6 @@ public class PGraphicsJava2D extends PGraphics {
   public void backgroundImpl() {
     if (backgroundAlpha) {
       clearPixels(backgroundColor);
-
     } else {
       Color bgColor = new Color(backgroundColor);
       // seems to fire an additional event that causes flickering,
@@ -2798,7 +2806,7 @@ public class PGraphicsJava2D extends PGraphics {
   public void updatePixels(int x, int y, int c, int d) {
     //if ((x == 0) && (y == 0) && (c == width) && (d == height)) {
 //    System.err.format("%d %d %d %d .. w/h = %d %d .. pw/ph = %d %d %n", x, y, c, d, width, height, pixelWidth, pixelHeight);
-    if ((x != 0) || (y != 0) || (c != pixelWidth) || (d != pixelHeight)) {
+    if (x != 0 || y != 0 || c != pixelWidth || d != pixelHeight) {
       // Show a warning message, but continue anyway.
       showVariationWarning("updatePixels(x, y, w, h)");
 //      new Exception().printStackTrace(System.out);

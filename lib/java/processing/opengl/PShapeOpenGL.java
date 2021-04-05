@@ -1436,7 +1436,7 @@ public class PShapeOpenGL extends PShape {
                                         firstPolyVertex, lastPolyVertex);
       root.setModifiedPolyVertices(firstPolyVertex, lastPolyVertex);
       root.setModifiedPolyNormals(firstPolyVertex, lastPolyVertex);
-      polyAttribs.values().stream().filter((attrib) -> (attrib.isPosition() || attrib.isNormal())).forEachOrdered((attrib) -> {
+      polyAttribs.values().stream().filter((attrib) -> attrib.isPosition() || attrib.isNormal()).forEachOrdered((attrib) -> {
         root.setModifiedPolyAttrib(attrib, firstPolyVertex, lastPolyVertex);
       });
     }
@@ -1469,7 +1469,7 @@ public class PShapeOpenGL extends PShape {
         matrix = new PMatrix3D();
         matrixInv = new PMatrix3D();
       }
-    } else if (dimensions == 3 && (matrix instanceof PMatrix2D)) {
+    } else if (dimensions == 3 && matrix instanceof PMatrix2D) {
       matrix = new PMatrix3D(matrix);
       matrixInv = new PMatrix3D(matrixInv);
     }
