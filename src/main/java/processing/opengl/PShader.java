@@ -988,7 +988,7 @@ public class PShader implements PConstants {
 
 
   /**
-   * @return 
+   * @return
    */
   protected boolean compileFragmentShader() {
     pgl.shaderSource(glFragment, PApplet.join(fragmentShaderSource, "\n"));
@@ -1137,11 +1137,6 @@ public class PShader implements PConstants {
     specularLoc = getAttributeLoc("specular");
     emissiveLoc = getAttributeLoc("emissive");
     shininessLoc = getAttributeLoc("shininess");
-
-    directionLoc = getAttributeLoc("direction");
-
-    offsetLoc = getAttributeLoc("offset");
-
     directionLoc = getAttributeLoc("direction");
     offsetLoc = getAttributeLoc("offset");
 
