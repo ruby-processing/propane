@@ -169,6 +169,6 @@ Read more about using the [processing api here][api]
 [bitnami]:https://bitnami.com/stack/jruby/installer
 [sound]:https://monkstone.github.io/_posts/minim
 [video]:https://monkstone.github.io/_posts/create_video
-[adopt]:https://adoptopenjdk.net/
+[adopt]:https://adoptium.net/
 [download]:https://www.jruby.org/download
 [wget]:http://gnuwin32.sourceforge.net/packages/wget.htm

@@ -116,7 +116,7 @@ To run a sketch from editor see [editors][editors]
 [editor]:{{site.github.url}}/editors/
 [sound]:https://monkstone.github.io/_posts/minim
 [video]:https://monkstone.github.io/_posts/create_video
-[adopt]:https://adoptopenjdk.net/
+[adopt]:https://adoptium.net/
 [download]:https://www.jruby.org/download
 [propane]:http://ruby-processing.github.io/java/JRubyArt_propane/
 [jruby]:http://ruby-processing.github.io/jruby/propane/
