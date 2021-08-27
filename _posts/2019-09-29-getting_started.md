@@ -33,7 +33,7 @@ Why was ruby-processing not updated to use processing3.0+? The [major changes][c
 
 ### Java
 
-Use adoptopenjdk jdk11+ (Oracle jdk will probably work _untested_ stock openjdk plays badly with jogl). See [here][java]
+Use [Eclipse Temurin][adopt] jdk11+ (Oracle jdk will probably work _untested_ stock openjdk plays badly with jogl). See [here][java]
 
 ### JRuby
 
