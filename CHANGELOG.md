@@ -1,4 +1,4 @@
-**v3.11.0** Suggest use of JRuby-9.3.0.0+.
+**v3.11.0** Suggest use of JRuby-9.3.0.0+, some refactoring of GfxRender and ShapeRender.
 
 **v3.10.0** Default to using FastNoise module, with alternative of SmoothNoise module.
 
