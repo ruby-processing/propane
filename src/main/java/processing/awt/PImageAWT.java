@@ -262,7 +262,7 @@ public class PImageAWT extends PImage {
    * Use ImageIO functions from Java 1.4 and later to handle image save.
    * Various formats are supported, typically jpeg, png, bmp, and wbmp.
    * To get a list of the supported formats for writing, use: <BR>
-   * <TT>println(javax.imageio.ImageIO.getReaderFormatNames())</TT>
+   * <code>println(javax.imageio.ImageIO.getReaderFormatNames())</code>
    *
    * @path The path to which the file should be written.
    */

@@ -1567,24 +1567,24 @@ public class PImage implements PConstants, Cloneable {
    *     Sometimes called "Normal" or "Copy" in other software.
    *
    * <LI>BLEND - linear interpolation of colours:
-   *     <TT>C = A*factor + B</TT>
+   *     <code>C = A*factor + B</code>
    *
    * <LI>ADD - additive blending with white clip:
-   *     <TT>C = min(A*factor + B, 255)</TT>.
+   *     <code>C = min(A*factor + B, 255)</code>.
    *     Clipped to 0..255, Photoshop calls this "Linear Burn",
    *     and Director calls it "Add Pin".
    *
    * <LI>SUBTRACT - substractive blend with black clip:
-   *     <TT>C = max(B - A*factor, 0)</TT>.
+   *     <code>C = max(B - A*factor, 0)</code>.
    *     Clipped to 0..255, Photoshop calls this "Linear Dodge",
    *     and Director calls it "Subtract Pin".
    *
    * <LI>DARKEST - only the darkest colour succeeds:
-   *     <TT>C = min(A*factor, B)</TT>.
+   *     <code>C = min(A*factor, B)</code>.
    *     Illustrator calls this "Darken".
    *
    * <LI>LIGHTEST - only the lightest colour succeeds:
-   *     <TT>C = max(A*factor, B)</TT>.
+   *     <code>C = max(A*factor, B)</code>.
    *     Illustrator calls this "Lighten".
    *
    * <LI>DIFFERENCE - subtract colors from underlying image.
@@ -1615,12 +1615,12 @@ public class PImage implements PConstants, Cloneable {
    * <P>It is important to note that Processing uses "fast" code, not
    * necessarily "correct" code. No biggie, most software does. A nitpicker
    * can find numerous "off by 1 division" problems in the blend code where
-   * <TT>&gt;&gt;8</TT> or <TT>&gt;&gt;7</TT> is used when strictly speaking
-   * <TT>/255.0</TT> or <TT>/127.0</TT> should have been used.</P>
+   * <code>&gt;&gt;8</code> or <code>&gt;&gt;7</code> is used when strictly speaking
+   * <code>/255.0</code> or <code>/127.0</code> should have been used.</P>
    * <P>For instance, exclusion (not intended for real-time use) reads
-   * <TT>r1 + r2 - ((2 * r1 * r2) / 255)</TT> because <TT>255 == 1.0</TT>
-   * not <TT>256 == 1.0</TT>. In other words, <TT>(255*255)>>8</TT> is not
-   * the same as <TT>(255*255)/255</TT>. But for real-time use the shifts
+   * <code>r1 + r2 - ((2 * r1 * r2) / 255)</code> because <code>255 == 1.0</code>
+   * not <code>256 == 1.0</code>. In other words, <code>(255*255)>>8</code> is not
+   * the same as <code>(255*255)/255</code>. But for real-time use the shifts
    * are preferrable, and the difference is insignificant for applications
    * built with Processing.</P>
    *
@@ -3130,9 +3130,9 @@ int testFunction(int dst, int src) {
    * </p>
    * Starting with revision 0092, the format setting is taken into account:
    * <UL>
-   * <LI><TT>ALPHA</TT> images written as 8bit grayscale (uses lowest byte)
-   * <LI><TT>RGB</TT> &rarr; 24 bits
-   * <LI><TT>ARGB</TT> &rarr; 32 bits
+   * <LI><code>ALPHA</code> images written as 8bit grayscale (uses lowest byte)
+   * <LI><code>RGB</code> &rarr; 24 bits
+   * <LI><code>ARGB</code> &rarr; 32 bits
    * </UL>
    * All versions are RLE compressed.
    * 
@@ -3307,7 +3307,7 @@ int testFunction(int dst, int src) {
    * and the extension used is supported (usually png, jpg, jpeg, bmp,
    * and tiff), then those methods will be used to write the image.
    * To get a list of the supported formats for writing, use: <BR>
-   * <TT>println(javax.imageio.ImageIO.getReaderFormatNames())</TT>
+   * <code>println(javax.imageio.ImageIO.getReaderFormatNames())</code>
    * <p>
    * To use the original built-in image writers, use .tga or .tif as the
    * extension, or don't include an extension. When no extension is used,

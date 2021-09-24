@@ -7135,7 +7135,7 @@ public class PApplet implements PConstants {
      * from a server, or marked in-use if running from a local file system. With
      * this in mind, saving to the data path doesn't make sense anyway. If you
      * know you're running locally, and want to save to the data folder, use
-     * <TT>saveXxxx("data/blah.dat")</TT>.
+     * <code>saveXxxx("data/blah.dat")</code>.
      */
     public String savePath(String where) {
         if (where == null) {

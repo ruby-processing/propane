@@ -2,7 +2,7 @@
 
 project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane:3.10.0'
+  id 'propane:propane:3.11.0'
   packaging 'jar'
 
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
@@ -48,7 +48,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'itextpdf.version' => '5.5.13.2',
       'jruby.api' => 'http://jruby.org/apidocs/')
 
-      pom 'org.jruby:jruby:9.2.17.0'
+      pom 'org.jruby:jruby:9.2.19.0'
       jar 'org.apache.xmlgraphics:batik-all:${batik.version}'
       jar 'com.itextpdf:itextpdf:${itextpdf.version}'
       jar 'org.processing:video:3.3.7' # only for compiling
@@ -105,5 +105,5 @@ project 'propane', 'https://github.com/monkstone/propane' do
                   end
                 end
                 reporting do
-                  plugin('org.apache.maven.plugins:maven-jxr-plugin:2.3')                  
+                  plugin('org.apache.maven.plugins:maven-jxr-plugin:2.3')
                 end

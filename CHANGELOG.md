@@ -1,3 +1,5 @@
+**v3.11.0** Suggest use of JRuby-9.3.0.0+.
+
 **v3.10.0** Default to using FastNoise module, with alternative of SmoothNoise module.
 
 **v3.8.0** Refactor noise to delegate pattern, improve default implementation and add simplex noise option
