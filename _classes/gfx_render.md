@@ -11,7 +11,7 @@ Vec2D and Vec3D classes can be efficiently rendered as both PApplet vertices, an
 attr_reader :renderer
 ...
 def setup
-  @renderer = GfxRender.new(self.g)
+  @renderer = Propane::GfxRender.new(self.g)
 end
 ...
 ```
@@ -52,7 +52,7 @@ Usage of the ShapeRender is similar, except that you need to `create_shape` firs
 attr_reader :s
 ...
 @s = create_shape
-renderer = ShapeRender.new(s)
+renderer = Propane::ShapeRender.new(s)
 s.begin_shape
 s.fill(127)
 s.stroke(0)
@@ -73,7 +73,7 @@ texture_mode(NORMAL) # set texture_mode to normalized (range 0 to 1)
 tex = load_image(data_path 'Texture01.jpg')
 
 mesh = create_shape # create the initial PShape
-renderer = ShapeRender.new(mesh) # initialize the shape renderer
+renderer = Propane::ShapeRender.new(mesh) # initialize the shape renderer
 mesh.begin_shape(QUADS) # define the PShape type: QUADS
 mesh.no_stroke
 mesh.texture(tex) # set a texture to make a textured PShape
