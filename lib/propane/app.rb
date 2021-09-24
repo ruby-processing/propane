@@ -11,10 +11,8 @@ module Propane
   Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
   SKETCH_ROOT = File.absolute_path('.')
   # import custom Vecmath renderers
-  module Render
-    java_import 'monkstone.vecmath.GfxRender'
-    java_import 'monkstone.vecmath.ShapeRender'
-  end
+  java_import 'monkstone.vecmath.GfxRender'
+  java_import 'monkstone.vecmath.ShapeRender'
 
   # module NoiseModule
   #   java_import 'monkstone.noise.NoiseMode'
@@ -58,7 +56,6 @@ module Propane
     include HelperMethods
     include Math
     include MathTool
-    include Render
     include FastNoise
     # Alias some methods for familiarity for Shoes coders.
     alias oval ellipse

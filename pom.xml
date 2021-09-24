@@ -66,6 +66,7 @@ DO NOT MODIFY - GENERATED CODE
     <itextpdf.version>5.5.13.2</itextpdf.version>
     <jogl.version>2.3.2</jogl.version>
     <jruby.api>http://jruby.org/apidocs/</jruby.api>
+    <jruby.version>9.3.0.0</jruby.version>
     <polyglot.dump.pom>pom.xml</polyglot.dump.pom>
     <processing.api>http://processing.github.io/processing-javadocs/core/</processing.api>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -75,9 +76,8 @@ DO NOT MODIFY - GENERATED CODE
   <dependencies>
     <dependency>
       <groupId>org.jruby</groupId>
-      <artifactId>jruby</artifactId>
-      <version>9.2.19.0</version>
-      <type>pom</type>
+      <artifactId>jruby-base</artifactId>
+      <version>${jruby.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.xmlgraphics</groupId>
