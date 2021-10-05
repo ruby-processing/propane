@@ -181,32 +181,32 @@ public class PGraphicsOpenGL extends PGraphics {
   // Shaders
 
   static protected URL defColorShaderVertURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/ColorVert.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/ColorVert.glsl");
   static protected URL defTextureShaderVertURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/TexVert.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/TexVert.glsl");
   static protected URL defLightShaderVertURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/LightVert.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/LightVert.glsl");
   static protected URL defTexlightShaderVertURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/TexLightVert.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/TexLightVert.glsl");
   static protected URL defColorShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/ColorFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/ColorFrag.glsl");
   static protected URL defTextureShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/TexFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/TexFrag.glsl");
   static protected URL defLightShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/LightFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/LightFrag.glsl");
   static protected URL defTexlightShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/TexLightFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/TexLightFrag.glsl");
 
   static protected URL defLineShaderVertURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/LineVert.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/LineVert.glsl");
   static protected URL defLineShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/LineFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/LineFrag.glsl");
   static protected URL defPointShaderVertURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/PointVert.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/PointVert.glsl");
   static protected URL defPointShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/PointFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/PointFrag.glsl");
   static protected URL maskShaderFragURL =
-    PGraphicsOpenGL.class.getResource("/processing/opengl/shaders/MaskFrag.glsl");
+    PGraphicsOpenGL.class.getResource("/shaders/MaskFrag.glsl");
 
   protected PShader defColorShader;
   protected PShader defTextureShader;

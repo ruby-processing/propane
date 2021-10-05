@@ -184,10 +184,10 @@ public class PSurfaceJOGL implements PSurface {
       boolean hide = (sketch != null) &&
         (PApplet.platform == PConstants.WINDOWS);
       if (hide) setVisible(false);
-      
+
       ShimAWT.selectFolderImpl(prompt, callbackMethod, file,
         callbackObject, null);
-      
+
       if (hide) setVisible(true);
     });
   }
@@ -273,7 +273,7 @@ public class PSurfaceJOGL implements PSurface {
         case 2:
           try {
             profile = GLProfile.getGL2ES2();
-            
+
             // workaround for https://jogamp.org/bugzilla/show_bug.cgi?id=1347
             if (!profile.isHardwareRasterizer()) {
               GLProfile hardware = GLProfile.getMaxProgrammable(true);
@@ -281,7 +281,7 @@ public class PSurfaceJOGL implements PSurface {
                 profile = hardware;
               }
             }
-            
+
           } catch (GLException ex) {
             profile = GLProfile.getMaxProgrammable(true);
           } break;
@@ -657,7 +657,7 @@ public class PSurfaceJOGL implements PSurface {
           stream = new FileInputStream(filename);
           stream.close();
           return filename;
-        
+
         } catch (IOException e1) { }
 
       } catch (SecurityException se) { }  // online, whups
@@ -1309,7 +1309,7 @@ public class PSurfaceJOGL implements PSurface {
       String name = cursorNames.get(kind);
       if (name != null) {
         ImageIcon icon =
-          new ImageIcon(getClass().getResource("cursors/" + name + ".png"));
+          new ImageIcon(getClass().getResource("/cursors/" + name + ".png"));
         PImage img = new PImageAWT(icon.getImage());
         // Most cursors just use the center as the hotspot...
         int x = img.width / 2;

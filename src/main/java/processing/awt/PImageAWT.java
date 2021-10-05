@@ -118,6 +118,7 @@ public class PImageAWT extends PImage {
 
   /**
    * Returns a native BufferedImage from this PImage.
+   * @return 
    */
   @Override
   public Object getNative() {  // ignore
@@ -259,11 +260,12 @@ public class PImageAWT extends PImage {
 
 
   /**
-   * Use ImageIO functions from Java 1.4 and later to handle image save.
-   * Various formats are supported, typically jpeg, png, bmp, and wbmp.
-   * To get a list of the supported formats for writing, use: <BR>
-   * <code>println(javax.imageio.ImageIO.getReaderFormatNames())</code>
+   * Use ImageIO functions from Java 1.4 and later to handle image save.Various formats are supported, typically jpeg, png, bmp, and wbmp.To get a list of the supported formats for writing, use: <BR>
+    <code>println(javax.imageio.ImageIO.getReaderFormatNames())</code>
    *
+   * @param path
+   * @return 
+   * @throws java.io.IOException
    * @path The path to which the file should be written.
    */
   protected boolean saveImageIO(String path) throws IOException {

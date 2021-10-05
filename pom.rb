@@ -95,13 +95,12 @@ project 'propane', 'https://github.com/monkstone/propane' do
                   build do
                     resource do
                       directory '${source.directory}/main/java'
-                      includes '**/**/*.glsl', '**/*.jnilib'
+                      includes '**/*.jnilib'
                       excludes '**/**/*.java'
                     end
                     resource do
                       directory '${source.directory}/main/resources'
-                      includes '**/*.png', '*.txt'
-                      excludes
+                      includes '**/*.png', '**/*.txt'
                     end
                   end
                 end
