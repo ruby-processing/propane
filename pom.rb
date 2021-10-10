@@ -100,7 +100,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                     end
                     resource do
                       directory '${source.directory}/main/resources'
-                      includes '**/*.png', '**/*.txt'
+                      includes '**/*.png', '**/*.glsl', '**/*.txt'
                     end
                   end
                 end

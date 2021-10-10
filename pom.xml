@@ -110,7 +110,6 @@ DO NOT MODIFY - GENERATED CODE
       <resource>
         <directory>${source.directory}/main/java</directory>
         <includes>
-          <include>**/**/*.glsl</include>
           <include>**/*.jnilib</include>
         </includes>
         <excludes>
@@ -121,7 +120,8 @@ DO NOT MODIFY - GENERATED CODE
         <directory>${source.directory}/main/resources</directory>
         <includes>
           <include>**/*.png</include>
-          <include>*.txt</include>
+          <include>**/*.glsl</include>
+          <include>**/*.txt</include>
         </includes>
       </resource>
     </resources>
