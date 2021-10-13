@@ -10,7 +10,7 @@ adjust above for your OS/distro setup.
 
 Previously there has been linker issue with P2D or P3D sketches with stock openjdk with some linux distros, but that seems to have gone away. [Adopt open jdk binaries][adopt] have always worked.
 
-- `jdk-11.0.11+`
+- `jdk-17+`
 - `jruby-9.3.0.0`
 
 ## Building and testing
@@ -88,7 +88,7 @@ See [gh-pages][gh-pages] for more detailed instructions and much more.
 
 ## Examples
 
-[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.5
+[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.6
 + syntax now we can. To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
 ```bash
 propane --install samples
