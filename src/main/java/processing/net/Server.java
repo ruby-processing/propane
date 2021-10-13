@@ -101,7 +101,7 @@ public class Server implements Runnable {
       try {
         serverEventMethod =
           parent.getClass().getMethod("serverEvent", Server.class, Client.class);
-      } catch (Exception e) {
+      } catch (NoSuchMethodException | SecurityException e) {
         // no such method, or an error.. which is fine, just ignore
       }
 
@@ -192,6 +192,7 @@ public class Server implements Runnable {
    * into any trouble.
    * 
    * 
+   * @return 
    * @webref server:server
    * @brief Return true if this server is still active.
    */
@@ -221,6 +222,7 @@ public class Server implements Runnable {
    * Returns the next client in line with a new message.
    * 
    * 
+   * @return 
    * @brief Returns the next client in line with a new message.
    * @webref server
    * @usage application
@@ -306,14 +308,13 @@ public class Server implements Runnable {
           if (serverEventMethod != null) {
             try {
               serverEventMethod.invoke(parent, this, client);
-            } catch (Exception e) {
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
               System.err.println("Disabling serverEvent() for port " + port);
               Throwable cause = e;
               // unwrap the exception if it came from the user code
               if (e instanceof InvocationTargetException && e.getCause() != null) {
                 cause = e.getCause();
               }
-              cause.printStackTrace();
               serverEventMethod = null;
             }
           }

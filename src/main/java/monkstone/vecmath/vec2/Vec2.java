@@ -183,8 +183,8 @@ public final class Vec2 extends RubyObject {
     @JRubyMethod(name = "x=")
 
     public IRubyObject setX(ThreadContext context, IRubyObject other) {
-        if (other instanceof RubyFloat) {
-            jx = ((RubyFloat) other).getValue();
+        if (other instanceof RubyFloat rubyFloat) {
+            jx = rubyFloat.getValue();
         } else {
             jx = ((RubyFixnum) other).getDoubleValue();
         }
@@ -740,8 +740,8 @@ public final class Vec2 extends RubyObject {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Vec2) {
-            final Vec2 other = (Vec2) obj;
+        if (obj instanceof Vec2 vec2) {
+            final Vec2 other = vec2;
             return Double.compare(jx, (Double) other.jx) == 0
                     && Double.compare(jy, (Double) other.jy) == 0;
         }

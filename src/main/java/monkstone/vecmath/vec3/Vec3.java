@@ -646,8 +646,8 @@ public final class Vec3 extends RubyObject {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Vec3) {
-            final Vec3 other = (Vec3) obj;
+        if (obj instanceof Vec3 vec3) {
+            final Vec3 other = vec3;
             if (Double.compare(jx, (Double) other.jx) == 0
                     && Double.compare(jy, (Double) other.jy) == 0
                     && Double.compare(jz, (Double) other.jz) == 0) {

@@ -59,15 +59,15 @@ public class DoubleDict {
     keys = new String[lines.length];
     values = new double[lines.length];
 
-    for (int i = 0; i < lines.length; i++) {
-      String[] pieces = PApplet.split(lines[i], '\t');
-      if (pieces.length == 2) {
-        keys[count] = pieces[0];
-        values[count] = PApplet.parseFloat(pieces[1]);
-        indices.put(pieces[0], count);
-        count++;
+      for (String line : lines) {
+          String[] pieces = PApplet.split(line, '\t');
+          if (pieces.length == 2) {
+              keys[count] = pieces[0];
+              values[count] = PApplet.parseFloat(pieces[1]);
+              indices.put(pieces[0], count);
+              count++;
+          }
       }
-    }
   }
 
 
@@ -191,12 +191,7 @@ public class DoubleDict {
 
 
   public Iterable<Entry> entries() {
-    return new Iterable<Entry>() {
-
-      public Iterator<Entry> iterator() {
-        return entryIterator();
-      }
-    };
+    return () -> entryIterator();
   }
 
 
@@ -204,17 +199,20 @@ public class DoubleDict {
     return new Iterator<Entry>() {
       int index = -1;
 
+      @Override
       public void remove() {
         removeIndex(index);
         index--;
       }
 
+      @Override
       public Entry next() {
         ++index;
         Entry e = new Entry(keys[index], values[index]);
         return e;
       }
 
+      @Override
       public boolean hasNext() {
         return index+1 < size();
       }
@@ -239,13 +237,7 @@ public class DoubleDict {
 
 
   public Iterable<String> keys() {
-    return new Iterable<String>() {
-
-      @Override
-      public Iterator<String> iterator() {
-        return keyIterator();
-      }
-    };
+    return () -> keyIterator();
   }
 
 
@@ -254,15 +246,18 @@ public class DoubleDict {
     return new Iterator<String>() {
       int index = -1;
 
+      @Override
       public void remove() {
         removeIndex(index);
         index--;
       }
 
+      @Override
       public String next() {
         return key(++index);
       }
 
+      @Override
       public boolean hasNext() {
         return index+1 < size();
       }
@@ -271,8 +266,9 @@ public class DoubleDict {
 
 
   /**
-   * Return a copy of the internal keys array. This array can be modified.
+   * Return a copy of the internal keys array.This array can be modified.
    *
+   * @return 
    * @webref doubledict:method
    * @brief Return a copy of the internal keys array
    */
@@ -811,11 +807,12 @@ public class DoubleDict {
 
   /**
    * Save tab-delimited entries to a file (TSV format, UTF-8 encoding)
+   * @param file
    */
   public void save(File file) {
-    PrintWriter writer = PApplet.createWriter(file);
-    write(writer);
-    writer.close();
+      try (PrintWriter writer = PApplet.createWriter(file)) {
+          write(writer);
+      }
   }
 
 

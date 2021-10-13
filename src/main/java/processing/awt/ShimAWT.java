@@ -54,7 +54,7 @@ public class ShimAWT implements PConstants {
   */
   static private ShimAWT instance;
 
-  private GraphicsDevice[] displayDevices;
+  private final GraphicsDevice[] displayDevices;
 
   private final int displayWidth;
   private final int displayHeight;
@@ -208,8 +208,7 @@ public class ShimAWT implements PConstants {
           //Image awtImage = Toolkit.getDefaultToolkit().createImage(bytes);
           Image awtImage = new ImageIcon(bytes).getImage();
 
-          if (awtImage instanceof BufferedImage) {
-            BufferedImage buffImage = (BufferedImage) awtImage;
+          if (awtImage instanceof BufferedImage buffImage) {
             int space = buffImage.getColorModel().getColorSpace().getType();
             if (space == ColorSpace.TYPE_CMYK) {
               System.err.println(filename + " is a CMYK image, " +
@@ -272,6 +271,9 @@ public class ShimAWT implements PConstants {
 
   /**
    * Use Java 1.4 ImageIO methods to load an image.
+     * @param sketch
+     * @param filename
+     * @return 
    */
   static protected PImage loadImageIO(PApplet sketch, String filename) {
     InputStream stream = sketch.createInput(filename);
@@ -326,42 +328,6 @@ public class ShimAWT implements PConstants {
       System.exit(1);
     }
   }
-
-
-  /*
-  public int displayDensity() {
-    if (sketch.display != PConstants.SPAN && (sketch.fullScreen || sketch.present)) {
-      return displayDensity(sketch.display);
-    }
-    // walk through all displays, use 2 if any display is 2
-    for (int i = 0; i < displayDevices.length; i++) {
-      if (displayDensity(i+1) == 2) {
-        return 2;
-      }
-    }
-    // If nobody's density is 2 then everyone is 1
-    return 1;
-  }
-  */
-
-
- /**
-  * @param display the display number to check
-  * (1-indexed to match the Preferences dialog box)
-  */
-  /*
-  public int displayDensity(int display) {
-    if (display > 0 && display <= displayDevices.length) {
-      GraphicsConfiguration graphicsConfig =
-        displayDevices[display - 1].getDefaultConfiguration();
-      AffineTransform tx = graphicsConfig.getDefaultTransform();
-      return (int) Math.round(tx.getScaleX());
-    }
-
-    System.err.println("Display " + display + " does not exist, returning ");
-    return 1;  // not the end of the world, so don't throw a RuntimeException
-  }
-  */
 
 
   static public void selectInput(String prompt, String callbackMethod,
