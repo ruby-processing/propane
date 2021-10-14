@@ -1337,17 +1337,19 @@ public class PApplet implements PConstants {
      * @param target the target object that should receive the event
      */
     public void registerMethod(String methodName, Object target) {
-        if (methodName.equals("mouseEvent")) {
-            registerWithArgs("mouseEvent", target, new Class[]{processing.event.MouseEvent.class});
-
-        } else if (methodName.equals("keyEvent")) {
-            registerWithArgs("keyEvent", target, new Class[]{processing.event.KeyEvent.class});
-
-        } else if (methodName.equals("touchEvent")) {
-            registerWithArgs("touchEvent", target, new Class[]{processing.event.TouchEvent.class});
-
-        } else {
-            registerNoArgs(methodName, target);
+        switch (methodName) {
+            case "mouseEvent":
+                registerWithArgs("mouseEvent", target, new Class[]{processing.event.MouseEvent.class});
+                break;
+            case "keyEvent":
+                registerWithArgs("keyEvent", target, new Class[]{processing.event.KeyEvent.class});
+                break;
+            case "touchEvent":
+                registerWithArgs("touchEvent", target, new Class[]{processing.event.TouchEvent.class});
+                break;
+            default:
+                registerNoArgs(methodName, target);
+                break;
         }
     }
 
@@ -2086,7 +2088,7 @@ public class PApplet implements PConstants {
                         + " renderer is not in the class path.");
             }
 
-        } catch (Exception e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException e) {
             if ((e instanceof IllegalArgumentException)
                     || (e instanceof NoSuchMethodException)
                     || (e instanceof IllegalAccessException)) {
@@ -2116,6 +2118,7 @@ public class PApplet implements PConstants {
     /**
      * Create default renderer, likely to be resized, but needed for surface
      * init.
+     * @return 
      */
     protected PGraphics createPrimaryGraphics() {
         return makeGraphics(sketchWidth(), sketchHeight(),
@@ -2125,9 +2128,9 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from createImage.xml )
      *
-     * Creates a new PImage (the datatype for storing images). This provides a
-     * fresh buffer of pixels to play with. Set the size of the buffer with the
-     * <b>width</b> and <b>height</b> parameters. The <b>format</b> parameter
+     * Creates a new PImage (the datatype for storing images).This provides a
+ fresh buffer of pixels to play with. Set the size of the buffer with the
+ <b>width</b> and <b>height</b> parameters. The <b>format</b> parameter
      * defines how the pixels are stored. See the PImage reference for more
      * information.
      *
@@ -2143,6 +2146,7 @@ public class PApplet implements PConstants {
      * to the parent PApplet is included, which makes save() work without
      * needing an absolute path.
      *
+     * @return 
      * @webref image
      * @param w width in pixels
      * @param h height in pixels
@@ -2401,6 +2405,7 @@ public class PApplet implements PConstants {
     /**
      * Add an event to the internal event queue, or process it immediately if
      * the sketch is not currently looping.
+     * @param pe
      */
     public void postEvent(processing.event.Event pe) {
         eventQueue.add(pe);
@@ -3187,14 +3192,14 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from launch.xml )
      *
-     * Attempts to open an application or file using your platform's launcher.
-     * The <b>file</b> parameter is a String specifying the file name and
-     * location. The location parameter must be a full path name, or the name of
-     * an executable in the system's PATH. In most cases, using a full path is
-     * the best option, rather than relying on the system PATH. Be sure to make
-     * the file executable before attempting to open it (chmod +x).
-     *
-     * The <b>args</b> parameter is a String or String array which is passed to
+     * Attempts to open an application or file using your platform's launcher.The <b>file</b> parameter is a String specifying the file name and
+ location.
+     * The location parameter must be a full path name, or the name of
+ an executable in the system's PATH. In most cases, using a full path is
+ the best option, rather than relying on the system PATH. Be sure to make
+ the file executable before attempting to open it (chmod +x).
+
+ The <b>args</b> parameter is a String or String array which is passed to
      * the command line. If you have multiple parameters, e.g. an application
      * and a document, or a command with multiple switches, use the version that
      * takes a String array, and place each individual item in a separate
@@ -3219,6 +3224,7 @@ public class PApplet implements PConstants {
      *
      * ( end auto-generated )
      *
+     * @return 
      * @webref input:files
      * @param args arguments to the launcher, eg. a filename.
      * @usage Application
@@ -3226,42 +3232,44 @@ public class PApplet implements PConstants {
     static public Process launch(String... args) {
         String[] params = null;
 
-        if (platform == WINDOWS) {
-            // just launching the .html file via the shell works
-            // but make sure to chmod +x the .html files first
-            // also place quotes around it in case there's a space
-            // in the user.dir part of the url
-            params = new String[]{"cmd", "/c"};
-
-        } else if (platform == MACOS) {
-            params = new String[]{"open"};
-
-        } else if (platform == LINUX) {
-            // xdg-open is in the Free Desktop Specification and really should just
-            // work on desktop Linux. Not risking it though.
-            final String[] launchers = {"xdg-open", "gnome-open", "kde-open"};
-            for (String launcher : launchers) {
-                if (openLauncher != null) {
-                    break;
+        switch (platform) {
+            case WINDOWS:
+                // just launching the .html file via the shell works
+                // but make sure to chmod +x the .html files first
+                // also place quotes around it in case there's a space
+                // in the user.dir part of the url
+                params = new String[]{"cmd", "/c"};
+                break;
+            case MACOS:
+                params = new String[]{"open"};
+                break;
+            case LINUX:
+                // xdg-open is in the Free Desktop Specification and really should just
+                // work on desktop Linux. Not risking it though.
+                final String[] launchers = {"xdg-open", "gnome-open", "kde-open"};
+                for (String launcher : launchers) {
+                    if (openLauncher != null) {
+                        break;
+                    }
+                    try {
+                        Process p = Runtime.getRuntime().exec(new String[]{launcher});
+                        /*int result =*/ p.waitFor();
+                        // Not installed will throw an IOException (JDK 1.4.2, Ubuntu 7.04)
+                        openLauncher = launcher;
+                    } catch (Exception e) {
+                    }
+                }   if (openLauncher == null) {
+                    System.err.println("Could not find xdg-open, gnome-open, or kde-open: "
+                            + "the open() command may not work.");
+                }   if (openLauncher != null) {
+                    params = new String[]{openLauncher};
                 }
-                try {
-                    Process p = Runtime.getRuntime().exec(new String[]{launcher});
-                    /*int result =*/ p.waitFor();
-                    // Not installed will throw an IOException (JDK 1.4.2, Ubuntu 7.04)
-                    openLauncher = launcher;
-                } catch (Exception e) {
-                }
-            }
-            if (openLauncher == null) {
-                System.err.println("Could not find xdg-open, gnome-open, or kde-open: "
-                        + "the open() command may not work.");
-            }
-            if (openLauncher != null) {
-                params = new String[]{openLauncher};
-            }
-            //} else {  // give up and just pass it to Runtime.exec()
-            //open(new String[] { filename });
-            //params = new String[] { filename };
+                //} else {  // give up and just pass it to Runtime.exec()
+                //open(new String[] { filename });
+                //params = new String[] { filename };
+                break;
+            default:
+                break;
         }
         if (params != null) {
             // If the 'open', 'gnome-open' or 'cmd' are already included
@@ -7527,6 +7535,7 @@ public class PApplet implements PConstants {
     }
 
     /**
+     * @param array
      * @nowebref
      */
     static public Object expand(Object array) {
@@ -9649,6 +9658,7 @@ public class PApplet implements PConstants {
      * All parameters *after* the sketch class name are passed to the sketch
      * itself and available from its 'args' array while the sketch is running.
      *
+     * @param args
      * @see PApplet#args
      * </PRE>
      */
@@ -9659,6 +9669,8 @@ public class PApplet implements PConstants {
     /**
      * Convenience method so that PApplet.main(YourSketch.class) launches a
      * sketch, rather than having to call getName() on it.
+     * @param mainClass
+     * @param args
      */
     static public void main(final Class<?> mainClass, String... args) {
         main(mainClass.getName(), args);

@@ -116,7 +116,7 @@ module Propane
     # some methods. Add to this list as needed.
     def proxy_java_fields
       fields = %w[key frameRate mousePressed keyPressed]
-      methods = fields.map { |field| java_class.declared_field(field) }
+      methods = fields.map { |field| java_class.field(field) }
       @declared_fields = Hash[fields.zip(methods)]
     end
 
