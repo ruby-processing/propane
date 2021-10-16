@@ -10,7 +10,7 @@ Build Requirements:-
 
 1. LatestJOGL jars 2.4.0-rc. The default `Rakefile` assumes jogl jars are in a local folder
 
-2. jdk-12+ (minitest and rake gems to test)
+2. jdk-11+ (minitest and rake gems to test)
 
 Simply clone this distribution, then rake to build and test gem
 ```bash
@@ -23,7 +23,7 @@ You should not even to install maven since we provide a maven wrapper.
 
 Runtime Requirements:-
 
-You may well find that stock jdk version do not play too well with jogl (binder issues), and we recommend you install [[Eclipse Temurin][adopt].  To suppress reflective access warnings you will need to define `JAVA_HOME`.
+At least jruby-9.3.0.0 and jdk11, rake. Nice to have rubocop.
 
 [adopt]:http://ruby-processing.github.io/java/JRubyArt_propane/
 [launcher]:http://ruby-processing.github.io/jruby/propane/

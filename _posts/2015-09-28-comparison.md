@@ -20,9 +20,9 @@ th{
 |feature       |  ruby-processing  |  propane        |
 |----------    |---------------    |-----------      |
 |binary        |rp5                |jruby            |
-|java          |jdk-7              |jdk-11            |
-|version       |processing-2.2.1   |processing-3.5 |
-|ruby          |1.9.3              |2.3+             |
+|java          |jdk-7              |jdk-11           |
+|version       |processing-2.2.1   |processing-4.0   |
+|ruby          |1.9.3              |2.6+             |
 |ArcBall       |library            |gem              |
 |Vec2D         |library            |built-in         |
 |Vec3D         |library            |built-in         |

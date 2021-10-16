@@ -23,7 +23,7 @@ Setting propane is dead easy. The propane gem relies on jruby and arc_ball.gem, 
 
 ### Java
 
-Install [wget][wget] which is also available as [cygwin][cygwin] package, openjdk (11.0.3+), and some version of ruby-2.4+ preferably jruby-9.3.0.0+. If you encounter linkage problems it might be worth looking the [AdoptOpenJDK][adopt] distribution.
+Install [wget][wget] which is also available as [cygwin][cygwin] package, openjdk (11.0.3+), and some version of ruby-2.4+ preferably jruby-9.3.1.0+. If you encounter linkage problems it might be worth looking the [AdoptOpenJDK][adopt] distribution.
 
 ### JRuby
 

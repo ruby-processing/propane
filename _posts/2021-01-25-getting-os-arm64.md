@@ -14,6 +14,8 @@ permalink: /mac_arm64/
 
 ****
 
+__Current best advice is to use Rosetta 2, even JRuby is not quite M1 ready at present__
+
 If you love to code because it is a creative process, then you should give Propane a try because it can be used to create music, art, animations, videos and much more. Also since it is based on the latest [Processing][processing] you can access a vast range of libraries to make the difficult things easier.
 
 ### Why Propane? ###
