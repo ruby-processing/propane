@@ -62,8 +62,7 @@ public class PImageAWT extends PImage {
    */
   public PImageAWT(Image img) {
     format = RGB;
-    if (img instanceof BufferedImage) {
-      BufferedImage bi = (BufferedImage) img;
+    if (img instanceof BufferedImage bi) {      
       width = bi.getWidth();
       height = bi.getHeight();
       int type = bi.getType();
@@ -78,8 +77,8 @@ public class PImageAWT extends PImage {
         }
       } else {
         DataBuffer db = bi.getRaster().getDataBuffer();
-        if (db instanceof DataBufferInt) {
-          pixels = ((DataBufferInt) db).getData();
+        if (db instanceof DataBufferInt dataBufferInt) {
+          pixels = dataBufferInt.getData();
           if (type == BufferedImage.TYPE_INT_ARGB) {
             format = ARGB;
           } else if (type == BufferedImage.TYPE_INT_RGB) {

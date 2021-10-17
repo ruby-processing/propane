@@ -65,8 +65,8 @@ public class IntList implements Iterable<Integer> {
     for (Object o : iter) {
       if (o == null) {
         append(0);  // missing value default
-      } else if (o instanceof Number) {
-        append(((Number) o).intValue());
+      } else if (o instanceof Number number) {
+        append(number.intValue());
       } else {
         append(PApplet.parseInt(o.toString().trim()));
       }
@@ -88,8 +88,8 @@ public class IntList implements Iterable<Integer> {
     for (Object o : items) {
       int value = missingValue;
       if (o != null) {
-        if (o instanceof Number) {
-          value = ((Number) o).intValue();
+        if (o instanceof Number number) {
+          value = number.intValue();
         } else {
           value = PApplet.parseInt(o.toString().trim(), missingValue);
         }

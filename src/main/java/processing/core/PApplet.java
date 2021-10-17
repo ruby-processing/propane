@@ -1236,16 +1236,15 @@ public class PApplet implements PConstants {
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                     // check for wrapped exception, get root exception
                     Throwable t;
-                    if (e instanceof InvocationTargetException) {
-                        InvocationTargetException ite = (InvocationTargetException) e;
+                    if (e instanceof InvocationTargetException ite) {                        
                         t = ite.getCause();
                     } else {
                         t = e;
                     }
                     // check for RuntimeException, and allow to bubble up
-                    if (t instanceof RuntimeException) {
+                    if (t instanceof RuntimeException runtimeException) {
                         // re-throw exception
-                        throw (RuntimeException) t;
+                        throw runtimeException;
                     } else {
                         // trap and print as usual
                         printStackTrace(t);
@@ -2086,7 +2085,7 @@ public class PApplet implements PConstants {
                         + " renderer is not in the class path.");
             }
 
-        } catch (Exception e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException e) {
             if ((e instanceof IllegalArgumentException)
                     || (e instanceof NoSuchMethodException)
                     || (e instanceof IllegalAccessException)) {
@@ -4038,75 +4037,79 @@ public class PApplet implements PConstants {
             String name = what.getClass().getName();
             if (name.charAt(0) == '[') {
                 switch (name.charAt(1)) {
-                    case '[':
-                        // don't even mess with multi-dimensional arrays (case '[')
+                    case '[' -> // don't even mess with multi-dimensional arrays (case '[')
                         // or anything else that's not int, float, boolean, char
                         System.out.println(what);
-                        break;
 
-                    case 'L':
+                    case 'L' -> {
                         // print a 1D array of objects as individual elements
                         Object poo[] = (Object[]) what;
                         for (int i = 0; i < poo.length; i++) {
-                            if (poo[i] instanceof String) {
-                                System.out.println("[" + i + "] \"" + poo[i] + "\"");
+                            if (poo[i] instanceof String poos) {
+                                System.out.println("[" + i + "] \"" + poos + "\"");
                             } else {
                                 System.out.println("[" + i + "] " + poo[i]);
                             }
                         }
-                        break;
+                    }
 
-                    case 'Z':  // boolean
+                    case 'Z' -> {
+                        // boolean
                         boolean zz[] = (boolean[]) what;
                         for (int i = 0; i < zz.length; i++) {
                             System.out.println("[" + i + "] " + zz[i]);
                         }
-                        break;
+                    }
 
-                    case 'B':  // byte
+                    case 'B' -> {
+                        // byte
                         byte bb[] = (byte[]) what;
                         for (int i = 0; i < bb.length; i++) {
                             System.out.println("[" + i + "] " + bb[i]);
                         }
-                        break;
+                    }
 
-                    case 'C':  // char
+                    case 'C' -> {
+                        // char
                         char cc[] = (char[]) what;
                         for (int i = 0; i < cc.length; i++) {
                             System.out.println("[" + i + "] '" + cc[i] + "'");
                         }
-                        break;
+                    }
 
-                    case 'I':  // int
+                    case 'I' -> {
+                        // int
                         int ii[] = (int[]) what;
                         for (int i = 0; i < ii.length; i++) {
                             System.out.println("[" + i + "] " + ii[i]);
                         }
-                        break;
+                    }
 
-                    case 'J':  // int
+                    case 'J' -> {
+                        // int
                         long jj[] = (long[]) what;
                         for (int i = 0; i < jj.length; i++) {
                             System.out.println("[" + i + "] " + jj[i]);
                         }
-                        break;
+                    }
 
-                    case 'F':  // float
+                    case 'F' -> {
+                        // float
                         float ff[] = (float[]) what;
                         for (int i = 0; i < ff.length; i++) {
                             System.out.println("[" + i + "] " + ff[i]);
                         }
-                        break;
+                    }
 
-                    case 'D':  // double
+                    case 'D' -> {
+                        // double
                         double dd[] = (double[]) what;
                         for (int i = 0; i < dd.length; i++) {
                             System.out.println("[" + i + "] " + dd[i]);
                         }
-                        break;
+                    }
 
-                    default:
-                        System.out.println(what);
+                    default -> System.out.println(what);
                 }
             } else {  // not an array
                 System.out.println(what);
@@ -4142,11 +4145,10 @@ public class PApplet implements PConstants {
     /**
      * ( begin auto-generated from abs.xml )
      *
-     * Calculates the absolute value (magnitude) of a number. The absolute value
-     * of a number is always positive.
+     * Calculates the absolute value (magnitude) of a number.The absolute value
+ of a number is always positive. ( end auto-generated )
      *
-     * ( end auto-generated )
-     *
+     * @return
      * @webref math:calculation
      * @param n number to compute
      */
@@ -6265,8 +6267,7 @@ public class PApplet implements PConstants {
                 URL url = new URL(filename);
                 URLConnection conn = url.openConnection();
 
-                if (conn instanceof HttpURLConnection) {
-                    HttpURLConnection httpConn = (HttpURLConnection) conn;
+                if (conn instanceof HttpURLConnection httpConn) {                    
                     // Will not handle a protocol change (see below)
                     httpConn.setInstanceFollowRedirects(true);
                     int response = httpConn.getResponseCode();
@@ -6280,14 +6281,13 @@ public class PApplet implements PConstants {
                 } else if (conn instanceof JarURLConnection) {
                     return url.openStream();
                 }
-            } catch (MalformedURLException mfue) {
+            } catch (MalformedURLException | FileNotFoundException mfue) {
                 // not a url, that's fine
 
-            } catch (FileNotFoundException fnfe) {
-                // Added in 0119 b/c Java 1.5 throws FNFE when URL not available.
-                // http://dev.processing.org/bugs/show_bug.cgi?id=403
-
-            } catch (IOException e) {
+            }
+            // Added in 0119 b/c Java 1.5 throws FNFE when URL not available.
+            // http://dev.processing.org/bugs/show_bug.cgi?id=403
+             catch (IOException e) {
                 // changed for 0117, shouldn't be throwing exception
                 printStackTrace(e);
                 //System.err.println("Error downloading from URL " + filename);
@@ -6465,8 +6465,7 @@ public class PApplet implements PConstants {
                     URLConnection conn = url.openConnection();
                     int length = -1;
 
-                    if (conn instanceof HttpURLConnection) {
-                        HttpURLConnection httpConn = (HttpURLConnection) conn;
+                    if (conn instanceof HttpURLConnection httpConn) {                        
                         // Will not handle a protocol change (see below)
                         httpConn.setInstanceFollowRedirects(true);
                         int response = httpConn.getResponseCode();
@@ -6478,8 +6477,8 @@ public class PApplet implements PConstants {
                         }
                         length = conn.getContentLength();
                         input = conn.getInputStream();
-                    } else if (conn instanceof JarURLConnection) {
-                        length = conn.getContentLength();
+                    } else if (conn instanceof JarURLConnection jarURLConnection) {
+                        length = jarURLConnection.getContentLength();
                         input = url.openStream();
                     }
 

@@ -5652,12 +5652,13 @@ public class PGraphics extends PImage implements PConstants {
    * ( begin auto-generated from applyMatrix.xml )
    *
    * Multiplies the current matrix by the one specified through the
-   * parameters. This is very slow because it will try to calculate the
-   * inverse of the transform, so avoid it whenever possible. The equivalent
-   * function in OpenGL is glMultMatrix().
+   * parameters.This is very slow because it will try to calculate the
+ inverse of the transform, so avoid it whenever possible. The equivalent
+ function in OpenGL is glMultMatrix().
+
+ ( end auto-generated )
    *
-   * ( end auto-generated )
-   *
+   * @param source
    * @webref transform
    * @source
    * @see PGraphics#pushMatrix()
@@ -5666,10 +5667,10 @@ public class PGraphics extends PImage implements PConstants {
    * @see PGraphics#printMatrix()
    */
   public void applyMatrix(PMatrix source) {
-    if (source instanceof PMatrix2D) {
-      applyMatrix((PMatrix2D) source);
-    } else if (source instanceof PMatrix3D) {
-      applyMatrix((PMatrix3D) source);
+    if (source instanceof PMatrix2D matrix) {
+      applyMatrix(matrix);
+    } else if (source instanceof PMatrix3D matrix) {
+      applyMatrix(matrix);
     }
   }
 
@@ -5744,8 +5745,9 @@ public class PGraphics extends PImage implements PConstants {
 
 
   /**
-   * Copy the current transformation matrix into the specified target.
-   * Pass in null to create a new matrix.
+   * Copy the current transformation matrix into the specified target.Pass in null to create a new matrix.
+   * @param target
+   * @return
    */
   public PMatrix3D getMatrix(PMatrix3D target) {
     showMissingWarning("getMatrix");
@@ -5755,18 +5757,20 @@ public class PGraphics extends PImage implements PConstants {
 
   /**
    * Set the current transformation matrix to the contents of another.
+   * @param source
    */
   public void setMatrix(PMatrix source) {
-    if (source instanceof PMatrix2D) {
-      setMatrix((PMatrix2D) source);
-    } else if (source instanceof PMatrix3D) {
-      setMatrix((PMatrix3D) source);
+    if (source instanceof PMatrix2D matrix) {
+      setMatrix(matrix);
+    } else if (source instanceof PMatrix3D matrix) {
+      setMatrix(matrix);
     }
   }
 
 
   /**
    * Set the current transformation to the contents of the specified source.
+   * @param source
    */
   public void setMatrix(PMatrix2D source) {
     showMissingWarning("setMatrix");
@@ -5775,6 +5779,7 @@ public class PGraphics extends PImage implements PConstants {
 
   /**
    * Set the current transformation to the contents of the specified source.
+   * @param source
    */
   public void setMatrix(PMatrix3D source) {
     showMissingWarning("setMatrix");
