@@ -1,8 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Copyright (c) 2020-21 Martin Prout
+*/
 package monkstone;
 
 import monkstone.noise.OpenSimplex2F;
@@ -68,8 +66,8 @@ public class FastNoiseModuleJava {
             default -> { yield 2; } // yield an invalid value for noise
         };
         if (result != 2) {
-            return RubyFloat.newFloat(context.runtime, result);            
-        } else { 
+            return RubyFloat.newFloat(context.runtime, result);
+        } else {
             throw new RuntimeException("Min 2D Max 4D Noise");
         }
     }
