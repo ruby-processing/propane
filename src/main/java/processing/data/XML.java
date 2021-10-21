@@ -279,10 +279,11 @@ public class XML implements Serializable {
 
 
   public boolean save(File file, String options) {
-    PrintWriter writer = PApplet.createWriter(file);
-    boolean result = write(writer);
-    writer.flush();
-    writer.close();
+      boolean result;
+      try (PrintWriter writer = PApplet.createWriter(file)) {
+          result = write(writer);
+          writer.flush();
+      }
     return result;
   }
 

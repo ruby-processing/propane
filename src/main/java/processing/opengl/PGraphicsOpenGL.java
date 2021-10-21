@@ -3851,12 +3851,10 @@ public class PGraphicsOpenGL extends PGraphics {
     float factor = 1;
 
     if (matrix != null) {
-      if (matrix instanceof PMatrix2D) {
-        PMatrix2D tr = (PMatrix2D)matrix;
+      if (matrix instanceof PMatrix2D tr) {
         float areaScaleFactor = Math.abs(tr.m00 * tr.m11 - tr.m01 * tr.m10);
         factor = (float) Math.sqrt(areaScaleFactor);
-      } else if (matrix instanceof PMatrix3D) {
-        PMatrix3D tr = (PMatrix3D)matrix;
+      } else if (matrix instanceof PMatrix3D tr) {
         float volumeScaleFactor =
           Math.abs(tr.m00 * (tr.m11 * tr.m22 - tr.m12 * tr.m21) +
                    tr.m01 * (tr.m12 * tr.m20 - tr.m10 * tr.m22) +
@@ -10774,26 +10772,26 @@ public class PGraphicsOpenGL extends PGraphics {
     // Matrix transformations
 
     void applyMatrixOnPolyGeometry(PMatrix tr, int first, int last) {
-      if (tr instanceof PMatrix2D) {
-        applyMatrixOnPolyGeometry((PMatrix2D) tr, first, last);
-      } else if (tr instanceof PMatrix3D) {
-        applyMatrixOnPolyGeometry((PMatrix3D) tr, first, last);
+      if (tr instanceof PMatrix2D matrix) {
+        applyMatrixOnPolyGeometry(matrix, first, last);
+      } else if (tr instanceof PMatrix3D matrix) {
+        applyMatrixOnPolyGeometry(matrix, first, last);
       }
     }
 
     void applyMatrixOnLineGeometry(PMatrix tr, int first, int last) {
-      if (tr instanceof PMatrix2D) {
-        applyMatrixOnLineGeometry((PMatrix2D) tr, first, last);
-      } else if (tr instanceof PMatrix3D) {
-        applyMatrixOnLineGeometry((PMatrix3D) tr, first, last);
+      if (tr instanceof PMatrix2D matrix) {
+        applyMatrixOnLineGeometry(matrix, first, last);
+      } else if (tr instanceof PMatrix3D matrix) {
+        applyMatrixOnLineGeometry(matrix, first, last);
       }
     }
 
     void applyMatrixOnPointGeometry(PMatrix tr, int first, int last) {
-      if (tr instanceof PMatrix2D) {
-        applyMatrixOnPointGeometry((PMatrix2D) tr, first, last);
-      } else if (tr instanceof PMatrix3D) {
-        applyMatrixOnPointGeometry((PMatrix3D) tr, first, last);
+      if (tr instanceof PMatrix2D matrix) {
+        applyMatrixOnPointGeometry(matrix, first, last);
+      } else if (tr instanceof PMatrix3D matrix) {
+        applyMatrixOnPointGeometry(matrix, first, last);
       }
     }
 
@@ -13275,8 +13273,7 @@ public class PGraphicsOpenGL extends PGraphics {
 
       @Override
       public void vertex(Object data) {
-        if (data instanceof double[]) {
-          double[] d = (double[]) data;
+        if (data instanceof double[] d) {
           int l = d.length;
           if (l < 25) {
             throw new RuntimeException("TessCallback vertex() data is " +
