@@ -50,9 +50,9 @@ public class DoubleList implements Iterable<Double> {
 
 
   /**
-   * Construct an FloatList from an iterable pile of objects.
-   * For instance, a double array, an array of strings, who knows).
+   * Construct an FloatList from an iterable pile of objects.For instance, a double array, an array of strings, who knows).
    * Un-parseable or null values will be set to NaN.
+   * @param iter
    * @nowebref
    */
   public DoubleList(Iterable<Object> iter) {
@@ -60,8 +60,8 @@ public class DoubleList implements Iterable<Double> {
     for (Object o : iter) {
       if (o == null) {
         append(Double.NaN);
-      } else if (o instanceof Number) {
-        append(((Number) o).doubleValue());
+      } else if (o instanceof Number number) {
+        append(number.doubleValue());
       } else {
         append(PApplet.parseFloat(o.toString().trim()));
       }
@@ -84,8 +84,8 @@ public class DoubleList implements Iterable<Double> {
     for (Object o : items) {
       double value = missingValue;
       if (o != null) {
-        if (o instanceof Number) {
-          value = ((Number) o).doubleValue();
+        if (o instanceof Number number) {
+          value = number.doubleValue();
         } else {
           try {
             value = Double.parseDouble(o.toString().trim());

@@ -60,8 +60,8 @@ public class FloatList implements Iterable<Float> {
     for (Object o : iter) {
       if (o == null) {
         append(Float.NaN);
-      } else if (o instanceof Number) {
-        append(((Number) o).floatValue());
+      } else if (o instanceof Number number) {
+        append(number.floatValue());
       } else {
         append(PApplet.parseFloat(o.toString().trim()));
       }
@@ -84,8 +84,8 @@ public class FloatList implements Iterable<Float> {
     for (Object o : items) {
       float value = missingValue;
       if (o != null) {
-        if (o instanceof Number) {
-          value = ((Number) o).floatValue();
+        if (o instanceof Number number) {
+          value = number.floatValue();
         } else {
           value = PApplet.parseFloat(o.toString().trim(), missingValue);
         }

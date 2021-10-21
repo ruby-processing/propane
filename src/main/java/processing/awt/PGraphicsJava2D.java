@@ -796,95 +796,84 @@ public class PGraphicsJava2D extends PGraphics {
 
     switch (shape) {
 
-    case POINTS:
-      point(x, y);
-      break;
+    case POINTS -> point(x, y);
 
-    case LINES:
-      if ((vertexCount % 2) == 0) {
-        line(vertices[vertexCount-2][X],
-             vertices[vertexCount-2][Y], x, y);
-      }
-      break;
+    case LINES -> {
+        if ((vertexCount % 2) == 0) {
+            line(vertices[vertexCount-2][X],
+                    vertices[vertexCount-2][Y], x, y);
+        }   }
 
-    case TRIANGLES:
-      if ((vertexCount % 3) == 0) {
-        triangle(vertices[vertexCount - 3][X],
-                 vertices[vertexCount - 3][Y],
-                 vertices[vertexCount - 2][X],
-                 vertices[vertexCount - 2][Y],
-                 x, y);
-      }
-      break;
+    case TRIANGLES -> {
+        if ((vertexCount % 3) == 0) {
+            triangle(vertices[vertexCount - 3][X],
+                    vertices[vertexCount - 3][Y],
+                    vertices[vertexCount - 2][X],
+                    vertices[vertexCount - 2][Y],
+                    x, y);
+        }   }
 
-    case TRIANGLE_STRIP:
-      if (vertexCount >= 3) {
-        triangle(vertices[vertexCount - 2][X],
-                 vertices[vertexCount - 2][Y],
-                 vertices[vertexCount - 1][X],
-                 vertices[vertexCount - 1][Y],
-                 vertices[vertexCount - 3][X],
-                 vertices[vertexCount - 3][Y]);
-      }
-      break;
+    case TRIANGLE_STRIP -> {
+        if (vertexCount >= 3) {
+            triangle(vertices[vertexCount - 2][X],
+                    vertices[vertexCount - 2][Y],
+                    vertices[vertexCount - 1][X],
+                    vertices[vertexCount - 1][Y],
+                    vertices[vertexCount - 3][X],
+                    vertices[vertexCount - 3][Y]);
+        }   }
 
-    case TRIANGLE_FAN:
-      if (vertexCount >= 3) {
-        // This is an unfortunate implementation because the stroke for an
-        // adjacent triangle will be repeated. However, if the stroke is not
-        // redrawn, it will replace the adjacent line (when it lines up
-        // perfectly) or show a faint line (when off by a small amount).
-        // The alternative would be to wait, then draw the shape as a
-        // polygon fill, followed by a series of vertices. But that's a
-        // poor method when used with PDF, DXF, or other recording objects,
-        // since discrete triangles would likely be preferred.
-        triangle(vertices[0][X],
-                 vertices[0][Y],
-                 vertices[vertexCount - 2][X],
-                 vertices[vertexCount - 2][Y],
-                 x, y);
-      }
-      break;
+    case TRIANGLE_FAN -> {
+        if (vertexCount >= 3) {
+            // This is an unfortunate implementation because the stroke for an
+            // adjacent triangle will be repeated. However, if the stroke is not
+            // redrawn, it will replace the adjacent line (when it lines up
+            // perfectly) or show a faint line (when off by a small amount).
+            // The alternative would be to wait, then draw the shape as a
+            // polygon fill, followed by a series of vertices. But that's a
+            // poor method when used with PDF, DXF, or other recording objects,
+            // since discrete triangles would likely be preferred.
+            triangle(vertices[0][X],
+                    vertices[0][Y],
+                    vertices[vertexCount - 2][X],
+                    vertices[vertexCount - 2][Y],
+                    x, y);
+        }   }
 
-    case QUAD:
-    case QUADS:
-      if ((vertexCount % 4) == 0) {
-        quad(vertices[vertexCount - 4][X],
-             vertices[vertexCount - 4][Y],
-             vertices[vertexCount - 3][X],
-             vertices[vertexCount - 3][Y],
-             vertices[vertexCount - 2][X],
-             vertices[vertexCount - 2][Y],
-             x, y);
-      }
-      break;
+    case QUAD, QUADS -> {
+        if ((vertexCount % 4) == 0) {
+            quad(vertices[vertexCount - 4][X],
+                    vertices[vertexCount - 4][Y],
+                    vertices[vertexCount - 3][X],
+                    vertices[vertexCount - 3][Y],
+                    vertices[vertexCount - 2][X],
+                    vertices[vertexCount - 2][Y],
+                    x, y);
+        }   }
+    case QUAD_STRIP -> {
+        // 0---2---4
+        // |   |   |
+        // 1---3---5
+        if ((vertexCount >= 4) && ((vertexCount % 2) == 0)) {
+            quad(vertices[vertexCount - 4][X],
+                    vertices[vertexCount - 4][Y],
+                    vertices[vertexCount - 2][X],
+                    vertices[vertexCount - 2][Y],
+                    x, y,
+                    vertices[vertexCount - 3][X],
+                    vertices[vertexCount - 3][Y]);
+        }   }
 
-    case QUAD_STRIP:
-      // 0---2---4
-      // |   |   |
-      // 1---3---5
-      if ((vertexCount >= 4) && ((vertexCount % 2) == 0)) {
-        quad(vertices[vertexCount - 4][X],
-             vertices[vertexCount - 4][Y],
-             vertices[vertexCount - 2][X],
-             vertices[vertexCount - 2][Y],
-             x, y,
-             vertices[vertexCount - 3][X],
-             vertices[vertexCount - 3][Y]);
-      }
-      break;
-
-    case POLYGON:
-      if (gpath == null) {
-        gpath = new GeneralPath();
-        gpath.moveTo(x, y);
-      } else if (breakShape) {
-        gpath.moveTo(x, y);
-        breakShape = false;
-      } else {
-        gpath.lineTo(x, y);
-      }
-      break;
+    case POLYGON -> {
+        if (gpath == null) {
+            gpath = new GeneralPath();
+            gpath.moveTo(x, y);
+        } else if (breakShape) {
+            gpath.moveTo(x, y);
+            breakShape = false;
+        } else {
+            gpath.lineTo(x, y);
+        }   }
     }
   }
 
@@ -1294,20 +1283,16 @@ public class PGraphicsJava2D extends PGraphics {
     int strokeMode = Arc2D.OPEN;
 
     switch (mode) {
-      case OPEN:
-        fillMode = Arc2D.OPEN;
-        //strokeMode = Arc2D.OPEN;
-        break;
-      case PIE:
-        //fillMode = Arc2D.PIE;
+      case OPEN -> fillMode = Arc2D.OPEN;
+          //strokeMode = Arc2D.OPEN;
+      case PIE -> //fillMode = Arc2D.PIE;
         strokeMode = Arc2D.PIE;
-        break;
-      case CHORD:
-        fillMode = Arc2D.CHORD;
-        strokeMode = Arc2D.CHORD;
-        break;
-      default:
-        break;
+      case CHORD -> {
+          fillMode = Arc2D.CHORD;
+          strokeMode = Arc2D.CHORD;
+          }
+      default -> {
+          }
     }
 
     if (fill) {
@@ -1750,42 +1735,42 @@ public class PGraphicsJava2D extends PGraphics {
           } else {
             int index = 0;
             for (int y = 0; y < source.pixelHeight; y++) {
-              switch (source.format) {
-                case RGB:
-                  int alpha = tintColor & 0xFF000000;
-                  for (int x = 0; x < source.pixelWidth; x++) {
-                    int argb1 = source.pixels[index++];
-                    int r1 = (argb1 >> 16) & 0xff;
-                    int g1 = (argb1 >> 8) & 0xff;
-                    int b1 = (argb1) & 0xff;
-                    tintedTemp[x] = alpha |
-                      (((r2 * r1) & 0xff00) << 8) |
-                      ((g2 * g1) & 0xff00) |
-                      (((b2 * b1) & 0xff00) >> 8);
-                  } break;
-                case ARGB:
-                  for (int x = 0; x < source.pixelWidth; x++) {
-                    int argb1 = source.pixels[index++];
-                    int a1 = (argb1 >> 24) & 0xff;
-                    int r1 = (argb1 >> 16) & 0xff;
-                    int g1 = (argb1 >> 8) & 0xff;
-                    int b1 = (argb1) & 0xff;
-                    tintedTemp[x] =
-                      (((a2 * a1) & 0xff00) << 16) |
-                      (((r2 * r1) & 0xff00) << 8) |
-                      ((g2 * g1) & 0xff00) |
-                      (((b2 * b1) & 0xff00) >> 8);
-                  } break;
-                case ALPHA:
-                  int lower = tintColor & 0xFFFFFF;
-                  for (int x = 0; x < source.pixelWidth; x++) {
-                    int a1 = source.pixels[index++];
-                    tintedTemp[x] =
-                      (((a2 * a1) & 0xff00) << 16) | lower;
-                  } break;
-                default:
-                  break;
-              }
+              tintedTemp = switch (source.format) {
+                case RGB -> {
+                    int alpha = tintColor & 0xFF000000;
+                    for (int x = 0; x < source.pixelWidth; x++) {
+                        int argb1 = source.pixels[index++];
+                        int r1 = (argb1 >> 16) & 0xff;
+                        int g1 = (argb1 >> 8) & 0xff;
+                        int b1 = (argb1) & 0xff;
+                        tintedTemp[x] = alpha |
+                                (((r2 * r1) & 0xff00) << 8) |
+                                ((g2 * g1) & 0xff00) |
+                                (((b2 * b1) & 0xff00) >> 8);
+                    } yield tintedTemp;}
+                case ARGB -> {
+                    for (int x = 0; x < source.pixelWidth; x++) {
+                        int argb1 = source.pixels[index++];
+                        int a1 = (argb1 >> 24) & 0xff;
+                        int r1 = (argb1 >> 16) & 0xff;
+                        int g1 = (argb1 >> 8) & 0xff;
+                        int b1 = (argb1) & 0xff;
+                        tintedTemp[x] =
+                                (((a2 * a1) & 0xff00) << 16) |
+                                (((r2 * r1) & 0xff00) << 8) |
+                                ((g2 * g1) & 0xff00) |
+                                (((b2 * b1) & 0xff00) >> 8);
+                    } yield tintedTemp;}
+                case ALPHA -> {
+                    int lower = tintColor & 0xFFFFFF;
+                    for (int x = 0; x < source.pixelWidth; x++) {
+                        int a1 = source.pixels[index++];
+                        tintedTemp[x] =
+                                (((a2 * a1) & 0xff00) << 16) | lower;
+                    } yield tintedTemp;}
+                default -> {yield tintedTemp;
+                    }
+              };
               wr.setDataElements(0, y, source.pixelWidth, 1, tintedTemp);
             }
           }
@@ -2734,9 +2719,9 @@ public class PGraphicsJava2D extends PGraphics {
       // 'offscreen' will probably be removed in the next release
       if (useOffscreen) {
         raster = offscreen.getRaster();
-      } else*/ if (image instanceof VolatileImage) {
+      } else*/ if (image instanceof VolatileImage volatileImage) {
         // when possible, we'll try VolatileImage
-        raster = ((VolatileImage) image).getSnapshot().getRaster();
+        raster = volatileImage.getSnapshot().getRaster();
       }
     }
     if (raster == null) {

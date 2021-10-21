@@ -31,7 +31,7 @@ public class Event {
 
   // These correspond to the java.awt.Event modifiers (not to be confused with
   // the newer getModifiersEx), though they're not guaranteed to in the future.
-  static public final int SHIFT = 1 << 0;
+  static public final int SHIFT = 1;
   static public final int CTRL  = 1 << 1;
   static public final int META  = 1 << 2;
   static public final int ALT   = 1 << 3;
@@ -58,11 +58,12 @@ public class Event {
 
 
   /**
-   * Get the platform-native event object. This might be the java.awt event
+   * Get the platform-native event object.This might be the java.awt event
    * on the desktop, though if you're using OpenGL on the desktop it'll be a
    * NEWT event that JOGL uses. Android events are something else altogether.
    * Bottom line, use this only if you know what you're doing, and don't make
    * assumptions about the class type.
+   * @return 
    */
   public Object getNative() {
     return nativeObject;
