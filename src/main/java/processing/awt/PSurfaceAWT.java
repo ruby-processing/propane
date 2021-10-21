@@ -505,8 +505,8 @@ public class PSurfaceAWT extends PSurfaceNone {
 //      backgroundColor = WINDOW_BGCOLOR;
 //    }
     final Color windowColor = new Color(sketch.sketchWindowColor(), false);
-    if (frame instanceof JFrame jframe) {
-      jframe.getContentPane().setBackground(windowColor);
+    if (frame instanceof JFrame) {
+      ((JFrame) frame).getContentPane().setBackground(windowColor);
     } else {
       frame.setBackground(windowColor);
     }

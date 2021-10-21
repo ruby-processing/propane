@@ -1,8 +1,9 @@
 package monkstone.vecmath;
 
-/*
-* Copyright (c) 2020-21 Martin Prout
-*/
+/**
+ *
+ * @author Martin Prout
+ */
 public interface JRender {
 
     /**

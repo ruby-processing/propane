@@ -1047,10 +1047,10 @@ public class PVector implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof PVector vector)) {
+    if (!(obj instanceof PVector)) {
       return false;
     }
-    final PVector p = vector;
+    final PVector p = (PVector) obj;
     return x == p.x && y == p.y && z == p.z;
   }
 

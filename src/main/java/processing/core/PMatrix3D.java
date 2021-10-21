@@ -133,7 +133,8 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
 
 
   public void set(PMatrix matrix) {
-    if (matrix instanceof PMatrix3D src) {
+    if (matrix instanceof PMatrix3D) {
+      PMatrix3D src = (PMatrix3D) matrix;
       set(src.m00, src.m01, src.m02, src.m03,
           src.m10, src.m11, src.m12, src.m13,
           src.m20, src.m21, src.m22, src.m23,
@@ -316,10 +317,10 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
 
 
   public void apply(PMatrix source) {
-    if (source instanceof PMatrix2D matrix) {
-      apply(matrix);
-    } else if (source instanceof PMatrix3D matrix) {
-      apply(matrix);
+    if (source instanceof PMatrix2D) {
+      apply((PMatrix2D) source);
+    } else if (source instanceof PMatrix3D) {
+      apply((PMatrix3D) source);
     }
   }
 
@@ -396,10 +397,10 @@ public final class PMatrix3D implements PMatrix /*, PConstants*/ {
    * Apply another matrix to the left of this one.
    */
   public void preApply(PMatrix source) {
-    if (source instanceof PMatrix2D matrix) {
-      preApply(matrix);
-    } else if (source instanceof PMatrix3D matrix) {
-      preApply(matrix);
+    if (source instanceof PMatrix2D) {
+      preApply((PMatrix2D) source);
+    } else if (source instanceof PMatrix3D) {
+      preApply((PMatrix3D) source);
     }
   }
 

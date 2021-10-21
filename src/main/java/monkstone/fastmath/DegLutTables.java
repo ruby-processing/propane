@@ -24,7 +24,7 @@ public final class DegLutTables {
     /**
      *
      */
-   static public final float  PI = 3.1415927f;
+   static public float PI = 3.1415927f;
 
     /**
      *

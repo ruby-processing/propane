@@ -1,7 +1,3 @@
-/*
-* Copyright (c) 2020-21 Martin Prout
-*/
-
 package monkstone.vecmath;
 
 import processing.core.PShape;

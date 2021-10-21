@@ -104,12 +104,11 @@ public class PMatrix2D implements PMatrix {
 
   /**
    * If matrix is a PMatrix2D, sets this matrix to be a copy of it.
-   * @param matrix
-   * @throws IllegalArgumentException If <code>matrix</code> is not 2D.
+   * @throws IllegalArgumentException If <tt>matrix</tt> is not 2D.
    */
-  @Override
   public void set(PMatrix matrix) {
-    if (matrix instanceof PMatrix2D src) {
+    if (matrix instanceof PMatrix2D) {
+      PMatrix2D src = (PMatrix2D) matrix;
       set(src.m00, src.m01, src.m02,
           src.m10, src.m11, src.m12);
     } else {
@@ -119,8 +118,7 @@ public class PMatrix2D implements PMatrix {
 
 
   /**
-   * Unavailable in 2D.Does nothing.
-   * @param src
+   * Unavailable in 2D. Does nothing.
    */
   public void set(PMatrix3D src) {
   }
@@ -267,10 +265,10 @@ public class PMatrix2D implements PMatrix {
 
   @Override
   public void apply(PMatrix source) {
-    if (source instanceof PMatrix2D matrix) {
-      apply(matrix);
-    } else if (source instanceof PMatrix3D matrix) {
-      apply(matrix);
+    if (source instanceof PMatrix2D) {
+      apply((PMatrix2D) source);
+    } else if (source instanceof PMatrix3D) {
+      apply((PMatrix3D) source);
     }
   }
 
@@ -323,14 +321,13 @@ public class PMatrix2D implements PMatrix {
 
   /**
    * Apply another matrix to the left of this one.
-   * @param source
    */
   @Override
   public void preApply(PMatrix source) {
-    if (source instanceof PMatrix2D matrix) {
-      preApply(matrix);
-    } else if (source instanceof PMatrix3D matrix) {
-      preApply(matrix);
+    if (source instanceof PMatrix2D) {
+      preApply((PMatrix2D) source);
+    } else if (source instanceof PMatrix3D) {
+      preApply((PMatrix3D) source);
     }
   }
 
@@ -344,7 +341,6 @@ public class PMatrix2D implements PMatrix {
 
   /**
    * Unavailable in 2D.
-   * @param left
    * @throws IllegalArgumentException
    */
   @Override
@@ -395,7 +391,6 @@ public class PMatrix2D implements PMatrix {
    * {@inheritDoc}
    * Ignores any z component.
    */
-  @Override
   public PVector mult(PVector source, PVector target) {
     if (target == null) {
       target = new PVector();
@@ -411,7 +406,6 @@ public class PMatrix2D implements PMatrix {
    * If out is null or not length four, a new float array will be returned.
    * The values for vec and out can be the same (though that's less efficient).
    */
-  @Override
   public float[] mult(float[] vec, float[] out) {
     if (out == null || out.length != 2) {
       out = new float[2];

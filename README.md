@@ -10,7 +10,7 @@ adjust above for your OS/distro setup.
 
 Tested with OpenJDK11 and OpenJDK17.
 
-- `jdk-17+`
+- `jdk-11.0.11+`
 - `jruby-9.3.1.0`
 
 ## Building and testing
@@ -88,7 +88,7 @@ See [gh-pages][gh-pages] for more detailed instructions and much more.
 
 ## Examples
 
-[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.6
+[Worked Examples](https://github.com/ruby-processing/propane-examples) more to follow, feel free to add your own, especially ruby-2.5
 + syntax now we can. To install the samples.  The samples get copied to `~/propane_samples`. Depends on wget.
 ```bash
 propane --install samples
