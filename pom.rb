@@ -61,7 +61,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
         plugin('org.codehaus.mojo:versions-maven-plugin:2.7',
           'generateBackupPoms' => 'false')
           plugin(:compiler, '3.8.1',
-            'release' => '17')
+            'release' => '11')
             plugin :dependency, '3.1.2' do
               execute_goals( id: 'default-cli',
                 artifactItems:[

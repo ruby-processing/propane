@@ -1940,7 +1940,8 @@ public class PShape implements PConstants {
 
     Image awtImage = new ImageIcon(decodedBytes).getImage();
 
-    if (awtImage instanceof BufferedImage buffImage) {      
+    if (awtImage instanceof BufferedImage) {
+      BufferedImage buffImage = (BufferedImage) awtImage;
       int space = buffImage.getColorModel().getColorSpace().getType();
       if (space == ColorSpace.TYPE_CMYK) {
         System.err.println("Could not load CMYK color space on image: " + imagePath.substring(0, 20));
@@ -3295,10 +3296,10 @@ public class PShape implements PConstants {
 
 
   public void applyMatrix(PMatrix source) {
-    if (source instanceof PMatrix2D matrix) {
-      applyMatrix(matrix);
-    } else if (source instanceof PMatrix3D matrix) {
-      applyMatrix(matrix);
+    if (source instanceof PMatrix2D) {
+      applyMatrix((PMatrix2D) source);
+    } else if (source instanceof PMatrix3D) {
+      applyMatrix((PMatrix3D) source);
     }
   }
 
@@ -3353,9 +3354,9 @@ public class PShape implements PConstants {
       } else {
         matrix = new PMatrix3D();
       }
-    } else if (dimensions == 3 && (matrix instanceof PMatrix2D matrix2d)) {
+    } else if (dimensions == 3 && (matrix instanceof PMatrix2D)) {
       // time for an upgrayedd for a double dose of my pimpin'
-      matrix = new PMatrix3D(matrix2d);
+      matrix = new PMatrix3D(matrix);
     }
   }
 

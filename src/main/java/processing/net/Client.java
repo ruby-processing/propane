@@ -96,14 +96,14 @@ public class Client implements Runnable {
       try {
         clientEventMethod =
           parent.getClass().getMethod("clientEvent", Client.class);
-      } catch (NoSuchMethodException | SecurityException e) {
+      } catch (Exception e) {
         // no such method, or an error.. which is fine, just ignore
       }
       // do the same for disconnectEvent(Client c);
       try {
         disconnectEventMethod =
           parent.getClass().getMethod("disconnectEvent", Client.class);
-      } catch (NoSuchMethodException | SecurityException e) {
+      } catch (Exception e) {
         // no such method, or an error.. which is fine, just ignore
       }
 
@@ -134,14 +134,14 @@ public class Client implements Runnable {
     try {
       clientEventMethod =
           parent.getClass().getMethod("clientEvent", Client.class);
-    } catch (NoSuchMethodException | SecurityException e) {
+    } catch (Exception e) {
       // no such method, or an error.. which is fine, just ignore
     }
     // do the same for disconnectEvent(Client c);
     try {
       disconnectEventMethod =
         parent.getClass().getMethod("disconnectEvent", Client.class);
-    } catch (NoSuchMethodException | SecurityException e) {
+    } catch (Exception e) {
       // no such method, or an error.. which is fine, just ignore
     }
   }
@@ -162,12 +162,13 @@ public class Client implements Runnable {
     if (disconnectEventMethod != null && thread != null){
       try {
         disconnectEventMethod.invoke(parent, this);
-      } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+      } catch (Exception e) {
         Throwable cause = e;
         // unwrap the exception if it came from the user code
         if (e instanceof InvocationTargetException && e.getCause() != null) {
           cause = e.getCause();
         }
+        cause.printStackTrace();
         disconnectEventMethod = null;
       }
     }
@@ -192,7 +193,7 @@ public class Client implements Runnable {
         input.close();
         input = null;
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
 
     }
 
@@ -201,7 +202,7 @@ public class Client implements Runnable {
         output.close();
         output = null;
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
 
     }
     
@@ -210,7 +211,7 @@ public class Client implements Runnable {
         socket.close();
         socket = null;
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
 
     }
   }
@@ -284,13 +285,14 @@ public class Client implements Runnable {
           if (clientEventMethod != null) {
             try {
               clientEventMethod.invoke(parent, this);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            } catch (Exception e) {
               System.err.println("error, disabling clientEvent() for " + host);
               Throwable cause = e;
               // unwrap the exception if it came from the user code
               if (e instanceof InvocationTargetException && e.getCause() != null) {
                 cause = e.getCause();
               }
+              cause.printStackTrace();
               clientEventMethod = null;
             }
           }
@@ -310,7 +312,6 @@ public class Client implements Runnable {
    * into any trouble.
    * 
    * 
-   * @return 
    * @webref client:client
    * @brief Returns true if this client is still active
    * @usage application
@@ -326,7 +327,6 @@ public class Client implements Runnable {
    * Returns the IP address of the computer to which the Client is attached.
    * 
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Returns the IP address of the machine as a String
@@ -342,11 +342,10 @@ public class Client implements Runnable {
   /**
    * ( begin auto-generated from Client_available.xml )
    * 
-   * Returns the number of bytes available.When any client has bytes 
- available from the server, it returns the number of bytes.
+   * Returns the number of bytes available. When any client has bytes 
+   * available from the server, it returns the number of bytes.
    * 
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Returns the number of bytes in the buffer waiting to be read
@@ -380,11 +379,10 @@ public class Client implements Runnable {
    * ( begin auto-generated from Client_read.xml )
    * 
    * Returns a number between 0 and 255 for the next byte that's waiting in 
-   * the buffer.Returns -1 if there is no byte, although this should be 
- avoided by first cheacking <b>available()</b> to see if any data is available.
+   * the buffer. Returns -1 if there is no byte, although this should be 
+   * avoided by first cheacking <b>available()</b> to see if any data is available.
    * 
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Returns a value from the buffer
@@ -406,11 +404,10 @@ public class Client implements Runnable {
   /**
    * ( begin auto-generated from Client_readChar.xml )
    * 
-   * Returns the next byte in the buffer as a char.Returns -1 or 0xffff if 
- nothing is there.
+   * Returns the next byte in the buffer as a char. Returns -1 or 0xffff if 
+   * nothing is there.
    * 
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Returns the next byte in the buffer as a char
@@ -426,9 +423,9 @@ public class Client implements Runnable {
   /**
    * ( begin auto-generated from Client_readBytes.xml )
    * 
-   * Reads a group of bytes from the buffer.The version with no parameters 
- returns a byte array of all data in the buffer. This is not efficient, 
- but is easy to use. The version with the <b>byteBuffer</b> parameter is 
+   * Reads a group of bytes from the buffer. The version with no parameters 
+   * returns a byte array of all data in the buffer. This is not efficient, 
+   * but is easy to use. The version with the <b>byteBuffer</b> parameter is 
    * more memory and time efficient. It grabs the data in the buffer and puts 
    * it into the byte array passed in and returns an int value for the number 
    * of bytes read. If more bytes are available than can fit into the 
@@ -441,7 +438,6 @@ public class Client implements Runnable {
    * a byte array on each read, but it's easier to use than
    * readBytes(byte b[]) (see below).
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Reads everything in the buffer
@@ -470,7 +466,6 @@ public class Client implements Runnable {
    * readBytes(byte b[]) (see below).
    *
    * @param max the maximum number of bytes to read
-   * @return 
    */
   public byte[] readBytes(int max) {
     synchronized (bufferLock) {
@@ -503,7 +498,6 @@ public class Client implements Runnable {
    * that will fit are read.
    * 
    * @param bytebuffer passed in byte array to be altered
-   * @return 
    */
   public int readBytes(byte bytebuffer[]) {
     synchronized (bufferLock) {
@@ -527,8 +521,8 @@ public class Client implements Runnable {
    * ( begin auto-generated from Client_readBytesUntil.xml )
    * 
    * Reads from the port into a buffer of bytes up to and including a 
-   * particular character.If the character isn't in the buffer, 'null' is 
- returned. The version with no <b>byteBuffer</b> parameter returns a byte 
+   * particular character. If the character isn't in the buffer, 'null' is 
+   * returned. The version with no <b>byteBuffer</b> parameter returns a byte 
    * array of all data up to and including the <b>interesting</b> byte. This 
    * is not efficient, but is easy to use. The version with the 
    * <b>byteBuffer</b> parameter is more memory and time efficient. It grabs 
@@ -538,7 +532,6 @@ public class Client implements Runnable {
    * area. If nothing is in the buffer, 0 is returned.
    * 
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Reads from the buffer of bytes up to and including a particular character
@@ -584,9 +577,7 @@ public class Client implements Runnable {
    * If nothing is in the buffer, zero is returned.
    * If 'interesting' byte is not in the buffer, then 0 is returned.
    * 
-   * @param interesting
    * @param byteBuffer passed in byte array to be altered
-   * @return 
    */
   public int readBytesUntil(int interesting, byte byteBuffer[]) {
     byte what = (byte)interesting;
@@ -626,14 +617,13 @@ public class Client implements Runnable {
   /**
    * ( begin auto-generated from Client_readString.xml )
    * 
-   * Returns the all the data from the buffer as a String.This method 
- assumes the incoming characters are ASCII. If you want to transfer 
- Unicode data, first convert the String to a byte stream in the 
- representation of your choice (i.e. UTF8 or two-byte Unicode data), and 
- send it as a byte array.
+   * Returns the all the data from the buffer as a String. This method 
+   * assumes the incoming characters are ASCII. If you want to transfer 
+   * Unicode data, first convert the String to a byte stream in the 
+   * representation of your choice (i.e. UTF8 or two-byte Unicode data), and 
+   * send it as a byte array.
    * 
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Returns the buffer as a String
@@ -648,14 +638,16 @@ public class Client implements Runnable {
   /**
    * ( begin auto-generated from Client_readStringUntil.xml )
    * 
-   * Combination of <b>readBytesUntil()</b> and <b>readString()</b>.Returns 
-    <b>null</b> if it doesn't find what you're looking for.<h3>Advanced</h3>
-   * <p>
+   * Combination of <b>readBytesUntil()</b> and <b>readString()</b>. Returns 
+   * <b>null</b> if it doesn't find what you're looking for.
+   * 
+   * 
+   * <h3>Advanced</h3>
+   * <p/>
    * If you want to move Unicode data, you can first convert the
    * String to a byte stream in the representation of your choice
    * (i.e. UTF8 or two-byte Unicode data), and send it as a byte array.
    * 
-   * @return 
    * @webref client:client
    * @usage application
    * @brief Returns the buffer as a String up to and including a particular character
@@ -684,7 +676,7 @@ public class Client implements Runnable {
       output.write(data & 0xff);  // for good measure do the &
       output.flush();   // hmm, not sure if a good idea
 
-    } catch (IOException e) { // null pointer or serial port dead
+    } catch (Exception e) { // null pointer or serial port dead
       //errorMessage("write", e);
       //e.printStackTrace();
       //dispose();
@@ -700,7 +692,7 @@ public class Client implements Runnable {
       output.write(data);
       output.flush();   // hmm, not sure if a good idea
 
-    } catch (IOException e) { // null pointer or serial port dead
+    } catch (Exception e) { // null pointer or serial port dead
       //errorMessage("write", e);
       //e.printStackTrace();
       //disconnect(e);
@@ -722,7 +714,6 @@ public class Client implements Runnable {
    * If you want to move Unicode data, you can first convert the
    * String to a byte stream in the representation of your choice
    * (i.e. UTF8 or two-byte Unicode data), and send it as a byte array.
-   * @param data
    */
   public void write(String data) {
     write(data.getBytes());

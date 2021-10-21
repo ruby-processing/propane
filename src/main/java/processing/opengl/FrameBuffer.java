@@ -439,11 +439,17 @@ public class FrameBuffer implements PConstants {
 
     int glConst = PGL.DEPTH_COMPONENT16;
     switch (depthBits) {
-      case 16 -> glConst = PGL.DEPTH_COMPONENT16;
-      case 24 -> glConst = PGL.DEPTH_COMPONENT24;
-      case 32 -> glConst = PGL.DEPTH_COMPONENT32;
-      default -> {
-          }
+      case 16:
+        glConst = PGL.DEPTH_COMPONENT16;
+        break;
+      case 24:
+        glConst = PGL.DEPTH_COMPONENT24;
+        break;
+      case 32:
+        glConst = PGL.DEPTH_COMPONENT32;
+        break;
+      default:
+        break;
     }
 
     if (multisample) {
@@ -474,11 +480,17 @@ public class FrameBuffer implements PConstants {
 
     int glConst = PGL.STENCIL_INDEX1;
     switch (stencilBits) {
-      case 1 -> glConst = PGL.STENCIL_INDEX1;
-      case 4 -> glConst = PGL.STENCIL_INDEX4;
-      case 8 -> glConst = PGL.STENCIL_INDEX8;
-      default -> {
-          }
+      case 1:
+        glConst = PGL.STENCIL_INDEX1;
+        break;
+      case 4:
+        glConst = PGL.STENCIL_INDEX4;
+        break;
+      case 8:
+        glConst = PGL.STENCIL_INDEX8;
+        break;
+      default:
+        break;
     }
     if (multisample) {
       pgl.renderbufferStorageMultisample(PGL.RENDERBUFFER, nsamples, glConst,
