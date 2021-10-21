@@ -2,16 +2,16 @@
 
 This version is intended to work with openjdk11+.
 
-A slim layer to communicate with Processing from JRuby, features maven build. We have created a configuration free version of ruby processing, for processing-4.0+, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby. Currently JavaFX is unsupported. It would be nice make use of java modules, but I think we should let jruby project do that first (unless processing.org beat them to it). It would be a good idea to update examples with this release.
+A slim layer to communicate with Processing from JRuby, features maven build. We have created a configuration free version of ruby processing, for processing-4.0+, where we include a modified processing core (`public runPropane()` to replace `protected runSketch()`. These jars are small enough to include in a gem distribution, and hence we do not require configuration. This has created a scriptable version, ie files get run direct from jruby. Currently JavaFX is unsupported. Using maven to create an automatic module, to be refined.
 
 adjust above for your OS/distro setup.
 
 ## Requirements
 
-Previously there has been linker issue with P2D or P3D sketches with stock openjdk with some linux distros, but that seems to have gone away. [Adopt open jdk binaries][adopt] have always worked.
+Tested with OpenJDK11 and OpenJDK17.
 
 - `jdk-17+`
-- `jruby-9.3.0.0`
+- `jruby-9.3.1.0`
 
 ## Building and testing
 
