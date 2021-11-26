@@ -35,7 +35,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
-
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageTypeSpecifier;
@@ -44,7 +43,6 @@ import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOInvalidTreeException;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
-
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -107,8 +105,8 @@ public class PImageAWT extends PImage {
 
   /**
    * Use the getNative() method instead, which allows library interfaces to be
-   * written in a cross-platform fashion for desktop, Android, and others.
-   * This is still included for PGraphics objects, which may need the image.
+   * written in a cross-platform fashion for desktop, Android, and others.This is still included for PGraphics objects, which may need the image.
+   * @return
    */
   public Image getImage() {  // ignore
     return (Image) getNative();

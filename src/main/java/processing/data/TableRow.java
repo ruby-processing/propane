@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 public interface TableRow {
 
   /**
+   * @return 
    * @webref tablerow:method
    * @brief Get an String value from the specified column
    * @param column ID number of the column to reference
@@ -24,10 +25,12 @@ public interface TableRow {
 
   /**
    * @param columnName title of the column to reference
+   * @return 
    */
   public String getString(String columnName);
 
   /**
+   * @return 
    * @webref tablerow:method
    * @brief Get an integer value from the specified column
    * @param column ID number of the column to reference
@@ -38,10 +41,12 @@ public interface TableRow {
 
   /**
    * @param columnName title of the column to reference
+   * @return 
    */
   public int getInt(String columnName);
 
   /**
+     * @return 
    * @brief Get a long value from the specified column
    * @param column ID number of the column to reference
    * @see TableRow#getFloat(int)
@@ -52,10 +57,12 @@ public interface TableRow {
 
   /**
    * @param columnName title of the column to reference
+     * @return 
    */
   public long getLong(String columnName);
 
   /**
+   * @return 
    * @webref tablerow:method
    * @brief Get a float value from the specified column
    * @param column ID number of the column to reference
@@ -66,10 +73,12 @@ public interface TableRow {
 
   /**
    * @param columnName title of the column to reference
+   * @return 
    */
   public float getFloat(String columnName);
   
   /**
+   * @return 
    * @brief Get a double value from the specified column
    * @param column ID number of the column to reference
    * @see TableRow#getInt(int)
@@ -79,6 +88,7 @@ public interface TableRow {
   
   /**
    * @param columnName title of the column to reference
+   * @return 
    */
   public double getDouble(String columnName);
 
@@ -93,6 +103,7 @@ public interface TableRow {
   public void setString(int column, String value);
   /**
    * @param columnName title of the target column
+   * @param value
    */
   public void setString(String columnName, String value);
 
@@ -108,6 +119,7 @@ public interface TableRow {
 
   /**
    * @param columnName title of the target column
+     * @param value
    */
   public void setInt(String columnName, int value);
   
@@ -122,6 +134,7 @@ public interface TableRow {
   
   /**
    * @param columnName title of the target column
+   * @param value
    */
   public void setLong(String columnName, long value);
 
@@ -137,6 +150,7 @@ public interface TableRow {
   
   /**
    * @param columnName title of the target column
+   * @param value
    */
   public void setFloat(String columnName, float value);
 
@@ -151,6 +165,7 @@ public interface TableRow {
   
   /**
    * @param columnName title of the target column
+     * @param value
    */
   public void setDouble(String columnName, double value);
 
@@ -170,6 +185,7 @@ public interface TableRow {
   
   /**
    * @param column ID number of the target column
+   * @return 
    */
   public int getColumnType(int column);
   

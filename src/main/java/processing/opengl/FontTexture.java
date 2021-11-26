@@ -359,7 +359,7 @@ class FontTexture implements PConstants {
     }
 
 
-    void updateUV() {
+    final void updateUV() {
       width = textures[texIndex].glWidth;
       height = textures[texIndex].glHeight;
 
@@ -370,7 +370,7 @@ class FontTexture implements PConstants {
     }
 
 
-    void updateTex() {
+    final void updateTex() {
       textures[texIndex].setNative(pixels, crop[0] - 1, crop[1] + crop[3] - 1,
                                            crop[2] + 2, -crop[3] + 2);
     }
