@@ -20,7 +20,7 @@ th{
 |feature       |  ruby-processing  |  propane        |
 |----------    |---------------    |-----------      |
 |binary        |rp5                |jruby            |
-|java          |jdk-7              |jdk-11           |
+|java          |jdk-7              |jdk-17           |
 |version       |processing-2.2.1   |processing-4.0   |
 |ruby          |1.9.3              |2.6+             |
 |ArcBall       |library            |gem              |

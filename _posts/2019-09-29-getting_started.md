@@ -19,7 +19,7 @@ Since the project began in 2001, it's been helping teach people to program in a 
 
 In 2009, Jeremy Ashkenas (aka jashkenas, creator of Backbone.JS, Underscore.JS, and Coffeescript), published the original [ruby-processing gem][gem]. It wraps Processing in a shim that makes it even easier to get started if you know Ruby. It has been since updated to use processing-2.2.1 by Martin Prout (final version using jruby-1.7.27 corresponding to ruby-1.9.3 syntax), NB: no more releases are expected, and ruby-processing is not compatible with processing-3.0+.
 
-In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], a stand alone version of ruby-processing, since using the core.jar from processing (recently using the processing-3.5 version see changelog) and jruby-9.3.1.0+ (ruby-2.5 syntax)
+In 2016, Martin Prout (aka monkstone) published the [propane gem][propane], a stand alone version of ruby-processing, since using the core.jar from processing (recently using the processing-4.0 version see changelog) and jruby-9.3.2.0+ (ruby-2.5 syntax)
 
 ### Why propane? ###
 
@@ -29,11 +29,11 @@ Additionally, you don't have to declare types, voids, or understand the differen
 
 Although there are some drawbacks to using the Ruby version Processing (slower start up time, and sometimes performance), having Ruby's API available to translate your ideas into sketches more than makes up for them.
 
-Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane is designed to use jruby-9.1.0.0+ from the outset, it can make use of the more literate ruby-2.6 syntax.
+Why was ruby-processing not updated to use processing3.0+? The [major changes][changes] between processing-2.2.1 and processing-3.0 are not backward compatible. Furthermore since propane is designed to use jruby-9.3.2.0+ from the outset, it can make use of the more literate ruby-2.6 syntax.
 
 ### Java
 
-Use OpenJDK jdk11+ (Oracle jdk will probably work _untested_ as will ibm j9 and graal vm).
+Use OpenJDK jdk17+ (Oracle jdk will probably work _untested_ as will ibm j9 and graal vm).
 
 ### JRuby
 
@@ -44,9 +44,9 @@ Unlike `JRubyArt` and `ruby-processing` it is not practical to run `propane` ske
 Install Software as required:-
 
 ```bash
-sudo pacman -S jdk-openjdkk # installs openjdk17
+sudo pacman -S jdk-openjdk # installs openjdk17
 sudo pacman -S java-openjfx # installs openjfx
-sudo pacman -S jruby # installs jruby-9.3.0.0+
+sudo pacman -S jruby # installs jruby-9.3.2.0+
 ```
 
 Install propane
