@@ -279,8 +279,11 @@ class VecmathTest < Minitest::Test
   def test_cross_area # NB: the sign might be negative
     a = Vec2D.new(200, 0)
     b = Vec2D.new(0, 200)
-    # Expected result is an area, twice that of the triangle created by the vectors
-    assert_equal(a.cross(b), 40_000.0, 'Failed area test using 2D vector cross product')
+    out, err = capture_subprocess_io do
+      # Expected result is an area, twice that of the triangle created by the vectors
+      a.cross(b)
+    end
+    assert_match %r%WARNING%, err
   end
 
   def test_wedge_area # NB: the sign might be negative
