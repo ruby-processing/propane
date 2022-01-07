@@ -8,10 +8,10 @@ adjust above for your OS/distro setup.
 
 ## Requirements
 
-Tested with OpenJDK11 and OpenJDK17.
+Tested with OpenJDK17.
 
-- `jdk-11.0.11+`
-- `jruby-9.3.1.0`
+- `jdk-17.01+`
+- `jruby-9.3.2.0`
 
 ## Building and testing
 

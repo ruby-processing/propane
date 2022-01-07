@@ -1,18 +1,18 @@
-/* 
- * Copyright (c) 2021 Martin Prout
- * 
+/*
+ * Copyright (c) 2021-22 Martin Prout
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * http://creativecommons.org/licenses/LGPL/2.1/
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -75,7 +75,7 @@ public final class DegLutTables {
     /**
      * Returns the sine in radians from a lookup table.
      * @param radians
-     * @return 
+     * @return
      */
    static public float sin(float radians) {
         return Sin.table[(int) (radians * RAD_TO_INDEX) & SIN_MASK];
@@ -84,7 +84,7 @@ public final class DegLutTables {
     /**
      * Returns the cosine in radians from a lookup table.
      * @param radians
-     * @return 
+     * @return
      */
    static public float cos(float radians) {
         return Sin.table[(int) ((radians + PI / 2) * RAD_TO_INDEX) & SIN_MASK];
@@ -93,7 +93,7 @@ public final class DegLutTables {
     /**
      * Returns the sine in radians from a lookup table.
      * @param degrees
-     * @return 
+     * @return
      */
    static public float sinDeg(float degrees) {
         return Sin.table[(int) (degrees * DEG_TO_INDEX) & SIN_MASK];
@@ -102,10 +102,9 @@ public final class DegLutTables {
     /**
      * Returns the cosine in radians from a lookup table.
      * @param degrees
-     * @return 
+     * @return
      */
    static public float cosDeg(float degrees) {
         return Sin.table[(int) ((degrees + 90) * DEG_TO_INDEX) & SIN_MASK];
     }
 }
-

@@ -42,7 +42,7 @@ longpress
 
 W3C touch events
 http://www.w3.org/TR/touch-events/
-http://www.w3.org/TR/2011/WD-touch-events-20110913/
+http://www.w3.org/TR/2011/WD-touch-events-22110913/
 
 Pointer and gesture events (Windows)
 http://msdn.microsoft.com/en-US/library/ie/hh673557.aspx

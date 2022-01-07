@@ -58,11 +58,11 @@ project 'propane', 'https://github.com/monkstone/propane' do
 
       overrides do
 
-        plugin('org.codehaus.mojo:versions-maven-plugin:2.7',
+        plugin('org.codehaus.mojo:versions-maven-plugin:2.8.1',
           'generateBackupPoms' => 'false')
           plugin(:compiler, '3.8.1',
-            'release' => '11')
-            plugin :dependency, '3.1.2' do
+            'release' => '17')
+            plugin :dependency, '3.2.0' do
               execute_goals( id: 'default-cli',
                 artifactItems:[
                   { groupId: 'com.itextpdf',
@@ -80,7 +80,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                 ]
               )
             end
-            plugin(:javadoc, '3.2.0',
+            plugin(:javadoc, '3.3.1',
               'detectOfflineLinks' => 'false',
               'links' => ['${jruby.api}',
                 '${processing.api}'])
@@ -90,7 +90,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
                       'Automatic-Module-Name' => 'processing.core'
                     }
                     })
-                    plugin('org.apache.maven.plugins:maven-pmd-plugin:3.14.0')
+                    plugin('org.apache.maven.plugins:maven-pmd-plugin:3.15.0')
                   end
                   build do
                     resource do
@@ -105,5 +105,5 @@ project 'propane', 'https://github.com/monkstone/propane' do
                   end
                 end
                 reporting do
-                  plugin('org.apache.maven.plugins:maven-jxr-plugin:2.3')
+                  plugin('org.apache.maven.plugins:maven-jxr-plugin:3.1.1')
                 end

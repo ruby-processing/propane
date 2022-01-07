@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Here's a little library for quickly hooking up in sketch sliders.
-# Copyright (c) 2015-20 Martin Prout.
+# Copyright (c) 2015-22 Martin Prout.
 
 java_import 'monkstone.slider.CustomHorizontalSlider'
 java_import 'monkstone.slider.CustomVerticalSlider'

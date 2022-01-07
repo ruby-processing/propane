@@ -1,7 +1,7 @@
 package monkstone.vecmath.vec2;
 
 /*
-* Copyright (c) 2015-20 Martin Prout
+* Copyright (c) 2015-22 Martin Prout
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -45,7 +45,6 @@ public final class Vec2 extends RubyObject {
 
     static final double EPSILON = 9.999999747378752e-05; // matches processing.org EPSILON
     private static final long serialVersionUID = -2950154560223211646L;
-
     private double jx = 0;
     private double jy = 0;
 
@@ -92,17 +91,15 @@ public final class Vec2 extends RubyObject {
     void init(ThreadContext context, IRubyObject... args) {
         int count = args.length;
         if (count == 2) {
-            jx = args[0] instanceof RubyFloat ? ((RubyFloat) args[0]).getValue() : ((RubyFixnum) args[0]).getDoubleValue();
-            jy = args[1] instanceof RubyFloat ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+            jx = jvalue(args[0]);
+            jy = jvalue(args[1]);
         }   // allow ruby ducktyping in constructor
         if (count == 1) {
             if (!(args[0].respondsTo("x"))) {
                 throw context.runtime.newTypeError(args[0].getType() + " doesn't respond_to :x & :y");
             }
-            jx = args[0].callMethod(context, "x") instanceof RubyFloat
-                    ? ((RubyFloat) args[0].callMethod(context, "x")).getValue() : ((RubyFixnum) args[0].callMethod(context, "x")).getDoubleValue();
-            jy = args[0].callMethod(context, "y") instanceof RubyFloat
-                    ? ((RubyFloat) args[0].callMethod(context, "y")).getValue() : ((RubyFixnum) args[0].callMethod(context, "y")).getDoubleValue();
+            jx = jvalue(args[0].callMethod(context, "x"));
+            jy = jvalue(args[0].callMethod(context, "y"));
         }
     }
 
@@ -138,13 +135,14 @@ public final class Vec2 extends RubyObject {
 
     public IRubyObject aref(ThreadContext context, IRubyObject key) {
         Ruby runtime = context.runtime;
-        if (key instanceof RubySymbol) {
-            if (key == RubySymbol.newSymbol(runtime, "x")) {
+        if (key instanceof RubySymbol rubySymbol) {
+            if (rubySymbol.equals(RubySymbol.newSymbol(runtime, "x"))) {
                 return runtime.newFloat(jx);
-            } else if (key == RubySymbol.newSymbol(runtime, "y")) {
+            }
+            if (rubySymbol.equals(RubySymbol.newSymbol(runtime, "y"))) {
                 return runtime.newFloat(jy);
             } else {
-                throw runtime.newIndexError("invalid key");
+                throw runtime.newIndexError("unknown key");
             }
         } else {
             throw runtime.newIndexError("invalid key");
@@ -161,13 +159,13 @@ public final class Vec2 extends RubyObject {
 
     public IRubyObject aset(ThreadContext context, IRubyObject key, IRubyObject value) {
         Ruby runtime = context.runtime;
-        if (key instanceof RubySymbol) {
-            if (key == RubySymbol.newSymbol(runtime, "x")) {
-                jx = value instanceof RubyFloat
-                        ? ((RubyFloat) value).getValue() : ((RubyFixnum) value).getDoubleValue();
-            } else if (key == RubySymbol.newSymbol(runtime, "y")) {
-                jy = value instanceof RubyFloat
-                        ? ((RubyFloat) value).getValue() : ((RubyFixnum) value).getDoubleValue();
+        if (key instanceof RubySymbol rubySymbol) {
+            if (rubySymbol.equals(RubySymbol.newSymbol(runtime, "x"))) {
+                jx = jvalue(value);
+            } else if (rubySymbol.equals(RubySymbol.newSymbol(runtime, "y"))) {
+                jy = jvalue(value);
+            } else {
+                throw runtime.newIndexError("unknown key");
             }
         } else {
             throw runtime.newIndexError("invalid key");
@@ -184,11 +182,7 @@ public final class Vec2 extends RubyObject {
     @JRubyMethod(name = "x=")
 
     public IRubyObject setX(ThreadContext context, IRubyObject other) {
-        if (other instanceof RubyFloat) {
-            jx = ((RubyFloat) other).getValue();
-        } else {
-            jx = ((RubyFixnum) other).getDoubleValue();
-        }
+        jx = jvalue(other);
         return other;
     }
 
@@ -201,11 +195,7 @@ public final class Vec2 extends RubyObject {
     @JRubyMethod(name = "y=")
 
     public IRubyObject setY(ThreadContext context, IRubyObject other) {
-        if (other instanceof RubyFloat) {
-            jy = ((RubyFloat) other).getValue();
-        } else {
-            jy = ((RubyFixnum) other).getDoubleValue();
-        }
+        jy = jvalue(other);
         return other;
     }
 
@@ -220,8 +210,8 @@ public final class Vec2 extends RubyObject {
     public IRubyObject dist(ThreadContext context, IRubyObject other) {
         Vec2 b = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            b = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vec) {
+            b = vec.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
@@ -248,8 +238,8 @@ public final class Vec2 extends RubyObject {
     public IRubyObject op_wedge(ThreadContext context, IRubyObject other) {
         Vec2 b = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            b = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vec) {
+            b = vec.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
@@ -267,8 +257,8 @@ public final class Vec2 extends RubyObject {
     public IRubyObject dot(ThreadContext context, IRubyObject other) {
         Vec2 b = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            b = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vec) {
+            b = vec.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
@@ -286,8 +276,8 @@ public final class Vec2 extends RubyObject {
     public IRubyObject op_plus(ThreadContext context, IRubyObject other) {
         Vec2 b = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            b = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vec) {
+            b = vec.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
@@ -307,14 +297,46 @@ public final class Vec2 extends RubyObject {
     public IRubyObject op_minus(ThreadContext context, IRubyObject other) {
         Vec2 b = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            b = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vec) {
+            b = vec.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
         return Vec2.rbNew(context, other.getMetaClass(), new IRubyObject[]{
             runtime.newFloat(jx - b.jx),
             runtime.newFloat(jy - b.jy)});
+    }
+
+    /**
+     * Utility method
+     *
+     * @param obj
+     * @return scalar value of object or unity (preempts poss division by zero)
+     */
+    private static double jscalar(IRubyObject obj) {
+        if (obj instanceof RubyFloat rubyFloat) {
+            return rubyFloat.getValue();
+        }
+        if (obj instanceof RubyFixnum rubyFixnum) {
+            return rubyFixnum.getDoubleValue();
+        }
+        return 1.0;
+    }
+
+    /**
+     * Utility method
+     *
+     * @param obj
+     * @return parse float value of object or zero
+     */
+    private static double jvalue(IRubyObject obj) {
+        if (obj instanceof RubyFloat rubyFloat) {
+            return rubyFloat.getValue();
+        }
+        if (obj instanceof RubyFixnum rubyFixnum) {
+            return rubyFixnum.getDoubleValue();
+        }
+        return 0;
     }
 
     /**
@@ -327,8 +349,7 @@ public final class Vec2 extends RubyObject {
 
     public IRubyObject op_mul(ThreadContext context, IRubyObject other) {
         Ruby runtime = context.runtime;
-        double scalar = other instanceof RubyFloat
-                ? ((RubyFloat) other).getValue() : ((RubyFixnum) other).getDoubleValue();
+        double scalar = jscalar(other);
         return Vec2.rbNew(context, this.getMetaClass(),
                 new IRubyObject[]{runtime.newFloat(jx * scalar),
                     runtime.newFloat(jy * scalar)});
@@ -344,8 +365,7 @@ public final class Vec2 extends RubyObject {
 
     public IRubyObject op_div(ThreadContext context, IRubyObject other) {
         Ruby runtime = context.runtime;
-        double scalar = other instanceof RubyFloat
-                ? ((RubyFloat) other).getValue() : ((RubyFixnum) other).getDoubleValue();
+        double scalar = jscalar(other);
         if (Math.abs(scalar) < Vec2.EPSILON) {
             return this;
         }
@@ -410,7 +430,7 @@ public final class Vec2 extends RubyObject {
     public IRubyObject set_mag(ThreadContext context, IRubyObject scalar, Block block) {
         double new_mag = scalar.toJava(Double.class);
         if (block.isGiven() && !block.yield(context, scalar).toJava(Boolean.class)) {
-            return this;        
+            return this;
         }
         double current = 0;
         if (Math.abs(jx) > EPSILON && Math.abs(jy) > EPSILON) {
@@ -496,8 +516,7 @@ public final class Vec2 extends RubyObject {
     @JRubyMethod(name = "from_angle", meta = true)
     public static IRubyObject from_angle(ThreadContext context, IRubyObject klazz, IRubyObject scalar) {
         Ruby runtime = context.runtime;
-        double angle = scalar instanceof RubyFloat
-                ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
+        double angle = jvalue(scalar);
         return Vec2.rbNew(context, klazz, new IRubyObject[]{
             runtime.newFloat(Math.cos(angle)),
             runtime.newFloat(Math.sin(angle))});
@@ -527,8 +546,7 @@ public final class Vec2 extends RubyObject {
      */
     @JRubyMethod(name = "rotate!")
     public IRubyObject rotate_bang(ThreadContext context, IRubyObject scalar) {
-        double theta = scalar instanceof RubyFloat
-                ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
+        double theta = jvalue(scalar);
         double x = jx * Math.cos(theta) - jy * Math.sin(theta);
         double y = jx * Math.sin(theta) + jy * Math.cos(theta);
         jx = x;
@@ -545,8 +563,7 @@ public final class Vec2 extends RubyObject {
     @JRubyMethod(name = "rotate")
     public IRubyObject rotate(ThreadContext context, IRubyObject scalar) {
         Ruby runtime = context.runtime;
-        double theta = scalar instanceof RubyFloat
-                ? ((RubyFloat) scalar).getValue() : ((RubyFixnum) scalar).getDoubleValue();
+        double theta = jvalue(scalar);
         IRubyObject[] ary = new IRubyObject[]{
             runtime.newFloat(jx * Math.cos(theta) - jy * Math.sin(theta)),
             runtime.newFloat(jx * Math.sin(theta) + jy * Math.cos(theta))};
@@ -566,8 +583,7 @@ public final class Vec2 extends RubyObject {
             throw runtime.newSyntaxError("Check syntax");
         }
         Vec2 vec = (Vec2) args[0].toJava(Vec2.class);
-        double scalar = args[1] instanceof RubyFloat
-                ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+        double scalar = jvalue(args[1]);
         assert scalar >= 0 && scalar < 1.0 :
                 "Lerp value " + scalar + " out of range 0..1.0";
         return Vec2.rbNew(context, this.getMetaClass(), new IRubyObject[]{
@@ -588,8 +604,7 @@ public final class Vec2 extends RubyObject {
             throw runtime.newSyntaxError("Check syntax");
         }
         Vec2 vec = (Vec2) args[0].toJava(Vec2.class);
-        double scalar = args[1] instanceof RubyFloat
-                ? ((RubyFloat) args[1]).getValue() : ((RubyFixnum) args[1]).getDoubleValue();
+        double scalar = jvalue(args[1]);
         assert scalar >= 0 && scalar < 1.0 :
                 "Lerp value " + scalar + " out of range 0..1.0";
         jx += (vec.jx - jx) * scalar;
@@ -608,8 +623,8 @@ public final class Vec2 extends RubyObject {
     public IRubyObject angleBetween(ThreadContext context, IRubyObject other) {
         Vec2 vec = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            vec = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vector) {
+            vec = vector.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
@@ -627,8 +642,8 @@ public final class Vec2 extends RubyObject {
     public IRubyObject fastAngleBetween(ThreadContext context, IRubyObject other) {
         Vec2 vec = null;
         Ruby runtime = context.runtime;
-        if (other instanceof Vec2) {
-            vec = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vector) {
+            vec = vector.toJava(Vec2.class);
         } else {
             throw runtime.newTypeError("argument should be Vec2D");
         }
@@ -749,8 +764,8 @@ public final class Vec2 extends RubyObject {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Vec2) {
-            final Vec2 other = (Vec2) obj;
+        if (obj instanceof Vec2 vec2) {
+            final Vec2 other = vec2;
             return Double.compare(jx, (Double) other.jx) == 0
                     && Double.compare(jy, (Double) other.jy) == 0;
         }
@@ -769,8 +784,8 @@ public final class Vec2 extends RubyObject {
         if (other == this) {
             return runtime.newBoolean(true);
         }
-        if (other instanceof Vec2) {
-            Vec2 v = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vector) {
+            Vec2 v = vector.toJava(Vec2.class);
             if (Double.compare(jx, (Double) v.jx) == 0
                     && Double.compare(jy, (Double) v.jy) == 0) {
                 return runtime.newBoolean(true);
@@ -793,12 +808,12 @@ public final class Vec2 extends RubyObject {
         if (other == this) {
             return runtime.newBoolean(true);
         }
-        if (other instanceof Vec2) {
-            Vec2 v = (Vec2) other.toJava(Vec2.class);
+        if (other instanceof Vec2 vector) {
+            Vec2 v = vector.toJava(Vec2.class);
             double diff = jx - v.jx;
             if ((diff < 0 ? -diff : diff) > Vec2.EPSILON) {
                 return runtime.newBoolean(false);
-            } 
+            }
             diff = jy - v.jy;
             return runtime.newBoolean((diff < 0 ? -diff : diff) < Vec2.EPSILON);
         }
