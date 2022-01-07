@@ -35,9 +35,11 @@ public class IntDict {
 
 
   /**
-   * Create a new lookup with a specific size. This is more efficient than not
-   * specifying a size. Use it when you know the rough size of the thing you're creating.
+   * Create a new lookup with a specific size.This is more efficient than not
+   * specifying a size. Use it when you know the rough size of the thing you're
+   * creating.
    *
+     * @param length
    * @nowebref
    */
   public IntDict(int length) {
@@ -51,6 +53,7 @@ public class IntDict {
    * Read a set of entries from a Reader that has each key/value pair on
    * a single line, separated by a tab.
    *
+   * @param reader
    * @nowebref
    */
   public IntDict(BufferedReader reader) {
@@ -58,18 +61,20 @@ public class IntDict {
     keys = new String[lines.length];
     values = new int[lines.length];
 
-    for (int i = 0; i < lines.length; i++) {
-      String[] pieces = PApplet.split(lines[i], '\t');
-      if (pieces.length == 2) {
-        keys[count] = pieces[0];
-        values[count] = PApplet.parseInt(pieces[1]);
-        indices.put(pieces[0], count);
-        count++;
+      for (String line : lines) {
+          String[] pieces = PApplet.split(line, '\t');
+          if (pieces.length == 2) {
+              keys[count] = pieces[0];
+              values[count] = PApplet.parseInt(pieces[1]);
+              indices.put(pieces[0], count);
+              count++;
+          }
       }
-    }
   }
 
   /**
+   * @param keys
+   * @param values
    * @nowebref
    */
   public IntDict(String[] keys, int[] values) {
@@ -93,6 +98,7 @@ public class IntDict {
    *   { "key2", 2 }
    * });
    * </pre>
+   * @param pairs
    */
   public IntDict(Object[][] pairs) {
     count = pairs.length;
@@ -109,6 +115,7 @@ public class IntDict {
   /**
    * Returns the number of key/value pairs
    *
+     * @return 
    * @webref intdict:method
    * @brief Returns the number of key/value pairs
    */
@@ -118,8 +125,8 @@ public class IntDict {
 
 
   /**
-   * Resize the internal data, this can only be used to shrink the list.
-   * Helpful for situations like sorting and then grabbing the top 50 entries.
+   * Resize the internal data, this can only be used to shrink the list.Helpful for situations like sorting and then grabbing the top 50 entries.
+   * @param length
    */
   public void resize(int length) {
     if (length > count) {
@@ -175,12 +182,7 @@ public class IntDict {
 
 
   public Iterable<Entry> entries() {
-    return new Iterable<Entry>() {
-
-      public Iterator<Entry> iterator() {
-        return entryIterator();
-      }
-    };
+    return () -> entryIterator();
   }
 
 
@@ -188,17 +190,20 @@ public class IntDict {
     return new Iterator<Entry>() {
       int index = -1;
 
+      @Override
       public void remove() {
         removeIndex(index);
         index--;
       }
 
+      @Override
       public Entry next() {
         ++index;
         Entry e = new Entry(keys[index], values[index]);
         return e;
       }
 
+      @Override
       public boolean hasNext() {
         return index+1 < size();
       }
@@ -223,13 +228,7 @@ public class IntDict {
 
 
   public Iterable<String> keys() {
-    return new Iterable<String>() {
-
-      @Override
-      public Iterator<String> iterator() {
-        return keyIterator();
-      }
-    };
+    return () -> keyIterator();
   }
 
 
@@ -238,15 +237,18 @@ public class IntDict {
     return new Iterator<String>() {
       int index = -1;
 
+      @Override
       public void remove() {
         removeIndex(index);
         index--;
       }
 
+      @Override
       public String next() {
         return key(++index);
       }
 
+      @Override
       public boolean hasNext() {
         return index+1 < size();
       }
@@ -255,8 +257,9 @@ public class IntDict {
 
 
   /**
-   * Return a copy of the internal keys array. This array can be modified.
+   * Return a copy of the internal keys array.This array can be modified.
    *
+   * @return 
    * @webref intdict:method
    * @brief Return a copy of the internal keys array
    */
@@ -281,17 +284,12 @@ public class IntDict {
 
 
   /**
+     * @return 
    * @webref intdict:method
    * @brief Return the internal array being used to store the values
    */
   public Iterable<Integer> values() {
-    return new Iterable<Integer>() {
-
-      @Override
-      public Iterator<Integer> iterator() {
-        return valueIterator();
-      }
-    };
+    return () -> valueIterator();
   }
 
 
@@ -299,15 +297,18 @@ public class IntDict {
     return new Iterator<Integer>() {
       int index = -1;
 
+      @Override
       public void remove() {
         removeIndex(index);
         index--;
       }
 
+      @Override
       public Integer next() {
         return value(++index);
       }
 
+      @Override
       public boolean hasNext() {
         return index+1 < size();
       }
@@ -318,6 +319,7 @@ public class IntDict {
   /**
    * Create a new array and copy each of the values into it.
    *
+   * @return 
    * @webref intdict:method
    * @brief Create a new array and copy each of the values into it
    */
@@ -329,10 +331,12 @@ public class IntDict {
 
   /**
    * Fill an already-allocated array with the values (more efficient than
-   * creating a new array each time). If 'array' is null, or not the same
-   * size as the number of values, a new array will be allocated and returned.
+   * creating a new array each time).If 'array' is null, or not the same
+ size as the number of values, a new array will be allocated and returned.
    *
    * @param array values to copy into the array
+   
+   * @return 
    */
   public int[] valueArray(int[] array) {
     if (array == null || array.length != size()) {
@@ -346,6 +350,8 @@ public class IntDict {
   /**
    * Return a value for the specified key.
    *
+   * @param key
+   * @return 
    * @webref intdict:method
    * @brief Return a value for the specified key
    */
@@ -368,6 +374,8 @@ public class IntDict {
   /**
    * Create a new key/value pair or change the value of one.
    *
+   * @param key
+   * @param amount
    * @webref intdict:method
    * @brief Create a new key/value pair or change the value of one
    */
@@ -391,6 +399,8 @@ public class IntDict {
 
 
   /**
+   * @param key
+   * @return 
    * @webref intdict:method
    * @brief Check if a key is a part of the data structure
    */
@@ -402,6 +412,7 @@ public class IntDict {
   /**
    * Increase the value associated with a specific key by 1.
    *
+     * @param key
    * @webref intdict:method
    * @brief Increase the value of a specific key value by 1
    */
@@ -411,9 +422,10 @@ public class IntDict {
 
 
   /**
-   * Merge another dictionary into this one. Calling this increment()
-   * since it doesn't make sense in practice for the other dictionary types,
-   * even though it's technically an add().
+   * Merge another dictionary into this one.Calling this increment()
+ since it doesn't make sense in practice for the other dictionary types,
+ even though it's technically an add().
+     * @param dict
    */
   public void increment(IntDict dict) {
     for (int i = 0; i < dict.count; i++) {
@@ -423,6 +435,8 @@ public class IntDict {
 
 
   /**
+   * @param key
+   * @param amount
    * @webref intdict:method
    * @brief Add to a value
    */
@@ -437,6 +451,8 @@ public class IntDict {
 
 
   /**
+   * @param key
+   * @param amount
    * @webref intdict:method
    * @brief Subtract from a value
    */
@@ -446,6 +462,8 @@ public class IntDict {
 
 
   /**
+   * @param key
+   * @param amount
    * @webref intdict:method
    * @brief Multiply a value
    */
@@ -458,6 +476,8 @@ public class IntDict {
 
 
   /**
+   * @param key
+   * @param amount
    * @webref intdict:method
    * @brief Divide a value
    */
@@ -532,7 +552,8 @@ public class IntDict {
   }
 
 
-  /** return the key corresponding to the maximum value or null if no entries */
+  /** return the key corresponding to the maximum value or null if no entries
+   * @return  */
   public String maxKey() {
     //checkMinMax("maxKey");
     int index = maxIndex();
@@ -573,7 +594,7 @@ public class IntDict {
 
   public int index(String what) {
     Integer found = indices.get(what);
-    return (found == null) ? -1 : found.intValue();
+    return (found == null) ? -1 : found;
   }
 
 
@@ -582,13 +603,15 @@ public class IntDict {
       keys = PApplet.expand(keys);
       values = PApplet.expand(values);
     }
-    indices.put(what, Integer.valueOf(count));
+    indices.put(what, count);
     keys[count] = what;
     values[count] = much;
     count++;
   }
 
   /**
+   * @param key
+   * @return 
    * @webref intdict:method
    * @brief Remove a key/value pair
    */
@@ -747,7 +770,8 @@ public class IntDict {
   }
 
 
-  /** Returns a duplicate copy of this object. */
+  /** Returns a duplicate copy of this object.
+   * @return  */
   public IntDict copy() {
     IntDict outgoing = new IntDict(count);
     System.arraycopy(keys, 0, outgoing.keys, 0, count);
@@ -769,16 +793,18 @@ public class IntDict {
 
   /**
    * Save tab-delimited entries to a file (TSV format, UTF-8 encoding)
+   * @param file
    */
   public void save(File file) {
-    PrintWriter writer = PApplet.createWriter(file);
-    write(writer);
-    writer.close();
+      try (PrintWriter writer = PApplet.createWriter(file)) {
+          write(writer);
+      }
   }
 
 
   /**
    * Write tab-delimited entries to a PrintWriter
+     * @param writer
    */
   public void write(PrintWriter writer) {
     for (int i = 0; i < count; i++) {
@@ -790,6 +816,7 @@ public class IntDict {
 
   /**
    * Return this dictionary as a String in JSON format.
+   * @return 
    */
   public String toJSON() {
     StringList items = new StringList();

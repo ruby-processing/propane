@@ -37,6 +37,7 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
+   * @param length
    * @nowebref
    */
   public IntList(int length) {
@@ -45,6 +46,7 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
+   * @param source
    * @nowebref
    */
   public IntList(int[] source) {
@@ -55,9 +57,9 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
-   * Construct an IntList from an iterable pile of objects.
-   * For instance, a float array, an array of strings, who knows).
+   * Construct an IntList from an iterable pile of objects.For instance, a float array, an array of strings, who knows).
    * Un-parseable or null values will be set to 0.
+     * @param iter
    * @nowebref
    */
   public IntList(Iterable<Object> iter) {
@@ -65,8 +67,8 @@ public class IntList implements Iterable<Integer> {
     for (Object o : iter) {
       if (o == null) {
         append(0);  // missing value default
-      } else if (o instanceof Number) {
-        append(((Number) o).intValue());
+      } else if (o instanceof Number number) {
+        append(number.intValue());
       } else {
         append(PApplet.parseInt(o.toString().trim()));
       }
@@ -76,8 +78,8 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
-   * Construct an IntList from a random pile of objects.
-   * Un-parseable or null values will be set to zero.
+   * Construct an IntList from a random pile of objects.Un-parseable or null values will be set to zero.
+   * @param items
    */
   public IntList(Object... items) {
     final int missingValue = 0;  // nuts, can't be last/final/second arg
@@ -88,8 +90,8 @@ public class IntList implements Iterable<Integer> {
     for (Object o : items) {
       int value = missingValue;
       if (o != null) {
-        if (o instanceof Number) {
-          value = ((Number) o).intValue();
+        if (o instanceof Number number) {
+          value = number.intValue();
         } else {
           value = PApplet.parseInt(o.toString().trim(), missingValue);
         }
@@ -130,6 +132,7 @@ public class IntList implements Iterable<Integer> {
   /**
    * Get the length of the list.
    *
+   * @return 
    * @webref intlist:method
    * @brief Get the length of the list
    */
@@ -165,6 +168,8 @@ public class IntList implements Iterable<Integer> {
   /**
    * Get an entry at a particular index.
    *
+     * @param index
+     * @return 
    * @webref intlist:method
    * @brief Get an entry at a particular index
    */
@@ -177,10 +182,12 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
-   * Set the entry at a particular index. If the index is past the length of
-   * the list, it'll expand the list to accommodate, and fill the intermediate
-   * entries with 0s.
+   * Set the entry at a particular index.If the index is past the length of
+ the list, it'll expand the list to accommodate, and fill the intermediate
+ entries with 0s.
    *
+   * @param index
+   * @param what
    * @webref intlist:method
    * @brief Set the entry at a particular index
    */
@@ -196,7 +203,8 @@ public class IntList implements Iterable<Integer> {
   }
 
 
-  /** Just an alias for append(), but matches pop() */
+  /** Just an alias for append(), but matches pop()
+   * @param value */
   public void push(int value) {
     append(value);
   }
@@ -215,6 +223,8 @@ public class IntList implements Iterable<Integer> {
   /**
    * Remove an element from the specified index
    *
+   * @param index
+   * @return 
    * @webref intlist:method
    * @brief Remove an element from the specified index
    */
@@ -268,6 +278,7 @@ public class IntList implements Iterable<Integer> {
   /**
    * Add a new entry to the list.
    *
+     * @param value
    * @webref intlist:method
    * @brief Add a new entry to the list
    */
@@ -293,7 +304,8 @@ public class IntList implements Iterable<Integer> {
   }
 
 
-  /** Add this value, but only if it's not already in the list. */
+  /** Add this value, but only if it's not already in the list.
+   * @param value */
   public void appendUnique(int value) {
     if (!hasValue(value)) {
       append(value);
@@ -413,7 +425,9 @@ public class IntList implements Iterable<Integer> {
 //    }
 
 
-  /** Return the first index of a particular value. */
+  /** Return the first index of a particular value.
+   * @param what
+   * @return  */
   public int index(int what) {
     /*
     if (indexCache != null) {
@@ -443,6 +457,8 @@ public class IntList implements Iterable<Integer> {
 //  }
 
   /**
+   * @param value
+   * @return 
    * @webref intlist:method
    * @brief Check if a number is a part of the list
    */
@@ -460,6 +476,7 @@ public class IntList implements Iterable<Integer> {
   }
 
   /**
+   * @param index
    * @webref intlist:method
    * @brief Add one to a value
    */
@@ -479,6 +496,8 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
+   * @param index
+   * @param amount
    * @webref intlist:method
    * @brief Add to a value
    */
@@ -491,6 +510,8 @@ public class IntList implements Iterable<Integer> {
   }
 
   /**
+   * @param index
+   * @param amount
    * @webref intlist:method
    * @brief Subtract from a value
    */
@@ -503,6 +524,8 @@ public class IntList implements Iterable<Integer> {
   }
 
   /**
+   * @param index
+   * @param amount
    * @webref intlist:method
    * @brief Multiply a value
    */
@@ -515,6 +538,8 @@ public class IntList implements Iterable<Integer> {
   }
 
   /**
+   * @param index
+   * @param amount
    * @webref intlist:method
    * @brief Divide a value
    */
@@ -538,6 +563,7 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
+   * @return 
    * @webref intlist:method
    * @brief Return the smallest value
    */
@@ -568,6 +594,7 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
+   * @return 
    * @webref intlist:method
    * @brief Return the largest value
    */
@@ -712,6 +739,7 @@ public class IntList implements Iterable<Integer> {
   /**
    * Randomize the list order using the random() function from the specified
    * sketch, allowing shuffle() to use its current randomSeed() setting.
+   * @param sketch
    */
   public void shuffle(PApplet sketch) {
     int num = count;
@@ -733,9 +761,10 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
-   * Returns the actual array being used to store the data. For advanced users,
-   * this is the fastest way to access a large list. Suitable for iterating
-   * with a for() loop, but modifying the list will have terrible consequences.
+   * Returns the actual array being used to store the data.For advanced users,
+ this is the fastest way to access a large list. Suitable for iterating
+ with a for() loop, but modifying the list will have terrible consequences.
+     * @return 
    */
   public int[] values() {
     crop();
@@ -749,15 +778,18 @@ public class IntList implements Iterable<Integer> {
     return new Iterator<Integer>() {
       int index = -1;
 
+      @Override
       public void remove() {
         IntList.this.remove(index);
         index--;
       }
 
+      @Override
       public Integer next() {
         return data[++index];
       }
 
+      @Override
       public boolean hasNext() {
         return index+1 < count;
       }
@@ -778,9 +810,10 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
-   * Copy values into the specified array. If the specified array is null or
-   * not the same size, a new array will be allocated.
+   * Copy values into the specified array.If the specified array is null or
+ not the same size, a new array will be allocated.
    * @param array
+   * @return 
    */
   public int[] array(int[] array) {
     if (array == null || array.length != count) {
@@ -835,10 +868,11 @@ public class IntList implements Iterable<Integer> {
 
 
   /**
-   * Returns a normalized version of this array. Called getPercent() for
-   * consistency with the Dict classes. It's a getter method because it needs
-   * to returns a new list (because IntList/Dict can't do percentages or
-   * normalization in place on int values).
+   * Returns a normalized version of this array.Called getPercent() for
+ consistency with the Dict classes. It's a getter method because it needs
+ to returns a new list (because IntList/Dict can't do percentages or
+ normalization in place on int values).
+   * @return 
    */
   public FloatList getPercent() {
     double sum = 0;
@@ -902,16 +936,18 @@ public class IntList implements Iterable<Integer> {
 
   /**
    * Save tab-delimited entries to a file (TSV format, UTF-8 encoding)
+   * @param file
    */
   public void save(File file) {
-    PrintWriter writer = PApplet.createWriter(file);
-    write(writer);
-    writer.close();
+      try (PrintWriter writer = PApplet.createWriter(file)) {
+          write(writer);
+      }
   }
 
 
   /**
    * Write entries to a PrintWriter, one per line
+   * @param writer
    */
   public void write(PrintWriter writer) {
     for (int i = 0; i < count; i++) {
@@ -923,6 +959,7 @@ public class IntList implements Iterable<Integer> {
 
   /**
    * Return this dictionary as a String in JSON format.
+   * @return 
    */
   public String toJSON() {
     return "[ " + join(", ") + " ]";

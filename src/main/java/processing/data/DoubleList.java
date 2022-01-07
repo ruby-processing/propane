@@ -32,6 +32,7 @@ public class DoubleList implements Iterable<Double> {
 
 
   /**
+   * @param length
    * @nowebref
    */
   public DoubleList(int length) {
@@ -40,6 +41,7 @@ public class DoubleList implements Iterable<Double> {
 
 
   /**
+   * @param list
    * @nowebref
    */
   public DoubleList(double[] list) {
@@ -50,9 +52,9 @@ public class DoubleList implements Iterable<Double> {
 
 
   /**
-   * Construct an FloatList from an iterable pile of objects.
-   * For instance, a double array, an array of strings, who knows).
+   * Construct an FloatList from an iterable pile of objects.For instance, a double array, an array of strings, who knows).
    * Un-parseable or null values will be set to NaN.
+     * @param iter
    * @nowebref
    */
   public DoubleList(Iterable<Object> iter) {
@@ -904,6 +906,7 @@ public class DoubleList implements Iterable<Double> {
 
   /**
    * Write entries to a PrintWriter, one per line
+     * @param writer
    */
   public void write(PrintWriter writer) {
     for (int i = 0; i < count; i++) {
@@ -915,6 +918,7 @@ public class DoubleList implements Iterable<Double> {
 
   /**
    * Return this dictionary as a String in JSON format.
+   * @return 
    */
   public String toJSON() {
     return "[ " + join(", ") + " ]";
