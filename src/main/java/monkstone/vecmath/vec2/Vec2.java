@@ -21,6 +21,7 @@ package monkstone.vecmath.vec2;
 *
 * fastAtan2 algorithm from https://github.com/libgdx/libgdx (Apache 2.0 license)
  */
+import java.util.logging.Logger;
 import org.jruby.Ruby;
 import org.jruby.RubyArray;
 import org.jruby.RubyClass;
@@ -227,16 +228,24 @@ public final class Vec2 extends RubyObject {
         double result = Math.hypot(jx - b.jx, jy - b.jy);
         return runtime.newFloat(result);
     }
+    
+    @Deprecated
+    @JRubyMethod(name = "cross", required = 1)
+    public IRubyObject cross(ThreadContext context, IRubyObject other) {
+        Logger log = Logger.getGlobal();
+        log.warning("prefer ^ operator");
+        return op_wedge(context, other);
+    }
 
     /**
      *
      * @param context ThreadContext
      * @param other IRubyObject
-     * @return cross product IRubyObject
+     * @return wedge product IRubyObject
      */
-    @JRubyMethod(name = "cross", required = 1)
+    @JRubyMethod(name = "^", required = 1)
 
-    public IRubyObject cross(ThreadContext context, IRubyObject other) {
+    public IRubyObject op_wedge(ThreadContext context, IRubyObject other) {
         Vec2 b = null;
         Ruby runtime = context.runtime;
         if (other instanceof Vec2) {

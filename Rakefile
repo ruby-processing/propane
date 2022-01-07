@@ -17,7 +17,7 @@ end
 
 desc 'Install'
 task :install do
-  sh 'mvn dependency:copy'
+  sh './mvnw dependency:copy'
   FileUtils.mv("target/propane-#{Propane::VERSION}.jar", 'lib')
 end
 

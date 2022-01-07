@@ -413,9 +413,9 @@ public class PShapeOpenGL extends PShape {
 
   @Override
   public void addChild(PShape who) {
-    if (who instanceof PShapeOpenGL) {
+    if (who instanceof PShapeOpenGL psogl) {
       if (family == GROUP) {
-        PShapeOpenGL c3d = (PShapeOpenGL)who;
+        PShapeOpenGL c3d = psogl;
 
         super.addChild(c3d);
         c3d.updateRoot(root);
@@ -423,9 +423,9 @@ public class PShapeOpenGL extends PShape {
 
         if (c3d.family == GROUP) {
           if (c3d.textures != null) {
-            for (PImage tex: c3d.textures) {
-              addTexture(tex);
-            }
+              c3d.textures.forEach(tex -> {
+                  addTexture(tex);
+              });
           } else {
             untexChild(true);
           }
@@ -454,9 +454,9 @@ public class PShapeOpenGL extends PShape {
 
   @Override
   public void addChild(PShape who, int idx) {
-    if (who instanceof PShapeOpenGL) {
+    if (who instanceof PShapeOpenGL psogl) {
       if (family == GROUP) {
-        PShapeOpenGL c3d = (PShapeOpenGL)who;
+        PShapeOpenGL c3d = psogl;
 
         super.addChild(c3d, idx);
         c3d.updateRoot(root);
@@ -4636,36 +4636,36 @@ public class PShapeOpenGL extends PShape {
 
   @Override
   protected void styles(PGraphics g) {
-    if (g instanceof PGraphicsOpenGL) {
-      if (g.stroke) {
+    if (g instanceof PGraphicsOpenGL pgl) {
+      if (pgl.stroke) {
         setStroke(true);
-        setStroke(g.strokeColor);
-        setStrokeWeight(g.strokeWeight);
-        setStrokeCap(g.strokeCap);
-        setStrokeJoin(g.strokeJoin);
+        setStroke(pgl.strokeColor);
+        setStrokeWeight(pgl.strokeWeight);
+        setStrokeCap(pgl.strokeCap);
+        setStrokeJoin(pgl.strokeJoin);
       } else {
         setStroke(false);
       }
 
-      if (g.fill) {
+      if (pgl.fill) {
         setFill(true);
-        setFill(g.fillColor);
+        setFill(pgl.fillColor);
       } else {
         setFill(false);
       }
 
-      if (g.tint) {
+      if (pgl.tint) {
         setTint(true);
-        setTint(g.tintColor);
+        setTint(pgl.tintColor);
       }
 
-      setAmbient(g.ambientColor);
-      setSpecular(g.specularColor);
-      setEmissive(g.emissiveColor);
-      setShininess(g.shininess);
+      setAmbient(pgl.ambientColor);
+      setSpecular(pgl.specularColor);
+      setEmissive(pgl.emissiveColor);
+      setShininess(pgl.shininess);
 
       if (image != null) {
-        setTextureMode(g.textureMode);
+        setTextureMode(pgl.textureMode);
       }
     } else {
       super.styles(g);
@@ -4689,8 +4689,7 @@ public class PShapeOpenGL extends PShape {
 
   @Override
   public void draw(PGraphics g) {
-    if (g instanceof PGraphicsOpenGL) {
-      PGraphicsOpenGL gl = (PGraphicsOpenGL)g;
+    if (g instanceof PGraphicsOpenGL gl) {
       if (visible) {
         pre(gl);
 

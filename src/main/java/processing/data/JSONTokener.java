@@ -253,46 +253,25 @@ class JSONTokener {
     for (;;) {
       c = this.next();
       switch (c) {
-      case 0:
-      case '\n':
-      case '\r':
-        throw new RuntimeException("Unterminated string");
-      case '\\':
-        c = this.next();
-        switch (c) {
-        case 'b':
-          sb.append('\b');
-          break;
-        case 't':
-          sb.append('\t');
-          break;
-        case 'n':
-          sb.append('\n');
-          break;
-        case 'f':
-          sb.append('\f');
-          break;
-        case 'r':
-          sb.append('\r');
-          break;
-        case 'u':
-          sb.append((char)Integer.parseInt(this.next(4), 16));
-          break;
-        case '"':
-        case '\'':
-        case '\\':
-        case '/':
-          sb.append(c);
-          break;
-        default:
-          throw new RuntimeException("Illegal escape.");
-        }
-        break;
-      default:
-        if (c == quote) {
-          return sb.toString();
-        }
-        sb.append(c);
+      case 0, '\n', '\r' -> throw new RuntimeException("Unterminated string");
+      case '\\' -> {
+          c = this.next();
+          switch (c) {
+              case 'b' -> sb.append('\b');
+              case 't' -> sb.append('\t');
+              case 'n' -> sb.append('\n');
+              case 'f' -> sb.append('\f');
+              case 'r' -> sb.append('\r');
+              case 'u' -> sb.append((char)Integer.parseInt(this.next(4), 16));
+              case '"', '\'', '\\', '/' -> sb.append(c);
+              default -> throw new RuntimeException("Illegal escape.");
+          }   }
+      default -> {
+              if (c == quote) {
+                      return sb.toString();
+                      }
+              sb.append(c);
+            }
       }
     }
   }
@@ -354,15 +333,17 @@ class JSONTokener {
     String string;
 
     switch (c) {
-    case '"':
-    case '\'':
-      return this.nextString(c);
-    case '{':
-      this.back();
-      return new JSONObject(this);
-    case '[':
-      this.back();
-      return new JSONArray(this);
+    case '"', '\'' -> {
+        return this.nextString(c);
+          }
+    case '{' -> {
+        this.back();
+        return new JSONObject(this);
+          }
+    case '[' -> {
+        this.back();
+        return new JSONArray(this);
+          }
     }
 
     /*

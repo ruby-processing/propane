@@ -241,8 +241,8 @@ public class PJOGL extends PGL {
     PSurface surf = sketch.getSurface();
     if (surf == null) {
       return graphics.pixelDensity;
-    } else if (surf instanceof PSurfaceJOGL) {
-      return ((PSurfaceJOGL)surf).getPixelScale();
+    } else if (surf instanceof PSurfaceJOGL jogl) {
+      return jogl.getPixelScale();
     } else {
       throw new RuntimeException("Renderer cannot find a JOGL surface");
     }

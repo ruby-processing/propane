@@ -32,7 +32,7 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.add_development_dependency 'jruby-openssl', '~> 0.10', '>=0.10.7'
-  gem.add_development_dependency 'minitest', '~> 5.14'
+  gem.add_development_dependency 'minitest', '~> 5.15'
   gem.add_runtime_dependency 'rake', '~> 13.0'
   gem.add_runtime_dependency 'arcball', '~> 1.2'
   gem.require_paths = ['lib']

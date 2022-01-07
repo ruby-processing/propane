@@ -43,18 +43,21 @@ public interface PMatrix {
   
   /**
    * Returns a copy of this PMatrix.
+     * @return 
    */
   public PMatrix get();  
 
   /**
-   * Copies the matrix contents into a float array.
-   * If target is null (or not the correct size), a new array will be created.
+   * Copies the matrix contents into a float array.If target is null (or not the correct size), a new array will be created.
+     * @param target
+     * @return 
    */
   public float[] get(float[] target);
   
   
   /**
    * Make this matrix become a copy of src.
+     * @param src
    */
   public void set(PMatrix src);
 
