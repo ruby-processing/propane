@@ -3,7 +3,7 @@
  /*
   Part of the Processing project - http://processing.org
 
-  Copyright (c) 2012-20 The Processing Foundation
+  Copyright (c) 2012-22 The Processing Foundation
   Copyright (c) 2004-12 Ben Fry and Casey Reas
   Copyright (c) 2001-04 Massachusetts Institute of Technology
 
@@ -2118,7 +2118,7 @@ public class PApplet implements PConstants {
     /**
      * Create default renderer, likely to be resized, but needed for surface
      * init.
-     * @return 
+     * @return
      */
     protected PGraphics createPrimaryGraphics() {
         return makeGraphics(sketchWidth(), sketchHeight(),
@@ -2146,7 +2146,7 @@ public class PApplet implements PConstants {
      * to the parent PApplet is included, which makes save() work without
      * needing an absolute path.
      *
-     * @return 
+     * @return
      * @webref image
      * @param w width in pixels
      * @param h height in pixels
@@ -3224,7 +3224,7 @@ public class PApplet implements PConstants {
      *
      * ( end auto-generated )
      *
-     * @return 
+     * @return
      * @webref input:files
      * @param args arguments to the launcher, eg. a filename.
      * @usage Application

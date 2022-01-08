@@ -11,8 +11,8 @@ module Propane
   Java::Monkstone::PropaneLibrary.load(JRuby.runtime)
   SKETCH_ROOT = File.absolute_path('.')
   # import custom Vecmath renderers
-  java_import 'monkstone.vecmath.GfxRender'
-  java_import 'monkstone.vecmath.ShapeRender'
+  import 'monkstone.vecmath.GfxRender'
+  import 'monkstone.vecmath.ShapeRender'
 
   # module NoiseModule
   #   java_import 'monkstone.noise.NoiseMode'

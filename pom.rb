@@ -2,7 +2,7 @@
 
 project 'propane', 'https://github.com/monkstone/propane' do
   model_version '4.0.0'
-  id 'propane:propane:3.11.0'
+  id 'propane:propane:4.0.0'
   packaging 'jar'
 
   description 'An integrated processing-core (somewhat hacked), with additional java code for a jruby version of processing.'
@@ -44,7 +44,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'polyglot.dump.pom' => 'pom.xml',
       'project.build.sourceEncoding' => 'utf-8',
       'jogl.version' => '2.3.2', # for compiling actual included 2.4.0-rc
-      'jruby.version' => '9.3.1.0',
+      'jruby.version' => '9.3.2.0',
       'batik.version' => '1.14',
       'itextpdf.version' => '5.5.13.2',
       'jruby.api' => 'http://jruby.org/apidocs/')
