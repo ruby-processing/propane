@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.description  = <<-EOS
   A batteries included version of processing in ruby targetting jdk11+.
   EOS
-  gem.summary       = 'ruby implementation of processing-4.0 on MacOS, linux and windows (64bit only)'
+  gem.summary       = 'ruby implementation of processing-4.0 on linux and windows (64bit only), might work MacOS, needs testing'
   gem.homepage      = 'https://ruby-processing.github.io/propane/'
   gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   gem.files << "lib/propane-#{Propane::VERSION}.jar"
