@@ -13,9 +13,9 @@ a + b # where both a and b are both instances of Vec2D
 a - b # where both a and b are both instances of Vec2D
 a / b # where a is instance of Vec2D and b is a scalar
 a == b # where both a and b are both instances of Vec2D
+a ^ b # formerly cross product where both a and b are both instances of Vec2D
 a.angle_between(b) # where both a and b are both instances of Vec2D
 a.copy # where a is instance of Vec2D returns a deep copy
-a.cross(b) # where both a and b are both instances of Vec2D
 a.dist(b) # where both a and b are both instances of Vec2D
 a.dot(b) # where both a and b are both instances of Vec2D
 a.heading # where a is instance of Vec2D
