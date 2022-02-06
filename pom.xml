@@ -66,7 +66,7 @@ DO NOT MODIFY - GENERATED CODE
     <itextpdf.version>5.5.13.2</itextpdf.version>
     <jogl.version>2.3.2</jogl.version>
     <jruby.api>http://jruby.org/apidocs/</jruby.api>
-    <jruby.version>9.3.2.0</jruby.version>
+    <jruby.version>9.3.3.0</jruby.version>
     <polyglot.dump.pom>pom.xml</polyglot.dump.pom>
     <processing.api>http://processing.github.io/processing-javadocs/core/</processing.api>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -137,7 +137,7 @@ DO NOT MODIFY - GENERATED CODE
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
+          <version>3.9.0</version>
           <configuration>
             <release>17</release>
           </configuration>
@@ -182,7 +182,7 @@ DO NOT MODIFY - GENERATED CODE
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
+          <version>3.2.2</version>
           <configuration>
             <archive>
               <manifestEntries>

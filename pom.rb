@@ -44,7 +44,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
       'polyglot.dump.pom' => 'pom.xml',
       'project.build.sourceEncoding' => 'utf-8',
       'jogl.version' => '2.3.2', # for compiling actual included 2.4.0-rc
-      'jruby.version' => '9.3.2.0',
+      'jruby.version' => '9.3.3.0',
       'batik.version' => '1.14',
       'itextpdf.version' => '5.5.13.2',
       'jruby.api' => 'http://jruby.org/apidocs/')
@@ -60,7 +60,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
 
         plugin('org.codehaus.mojo:versions-maven-plugin:2.8.1',
           'generateBackupPoms' => 'false')
-          plugin(:compiler, '3.8.1',
+          plugin(:compiler, '3.9.0',
             'release' => '17')
             plugin :dependency, '3.2.0' do
               execute_goals( id: 'default-cli',
@@ -84,7 +84,7 @@ project 'propane', 'https://github.com/monkstone/propane' do
               'detectOfflineLinks' => 'false',
               'links' => ['${jruby.api}',
                 '${processing.api}'])
-                plugin(:jar, '3.2.0',
+                plugin(:jar, '3.2.2',
                   'archive' => {
                     'manifestEntries' => {
                       'Automatic-Module-Name' => 'processing.core'
